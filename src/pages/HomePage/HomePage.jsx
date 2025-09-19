@@ -1,9 +1,10 @@
 import React from "react";
+import Header from "../../components/Header/Header";
 
 export default function HomePage() {
   return (
     <div>
-      <p>Это главная страница, тут пока пусто!</p>
+      <Header/>
     </div>
   );
 }
