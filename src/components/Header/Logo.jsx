@@ -1,15 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import { ReactComponent as LogoImage} from "../../assets/logo.svg";
 
 export default function Logo() {
   return (
     <Link to="/" className={styles.logoWrapper} aria-label="На главную">
-      <img
-        src="/images/svg/logo.svg"
-        alt="Логотип"
-        className={styles.logoImage}
-      />
+       <LogoImage className={styles.logoImage}/>
     </Link>
   );
 }

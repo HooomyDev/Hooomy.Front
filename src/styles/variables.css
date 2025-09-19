@@ -20,3 +20,10 @@
   --spacing-xl: 24px;
   --spacing-xxl: 32px;
 }
+
+[data-theme="dark"] {
+  --main-color: #122435;
+  --font-color: #F4F7F9;      
+  --element-color: #6BCFA8;    
+  --gray-color: #1E2E45;       
+}
