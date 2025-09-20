@@ -13,7 +13,7 @@ export const footerColumns = [
       title: 'Контакты',
       items: [
         { type: 'text', label: '+375 (44) 569-10-58' },
-        { type: 'text', label: 'hooomy.support@gmail.com' },
+        { type: 'text', label: 'hooomy.help.by@gmail.com' },
         { type: 'text', label: 'г. Минск, ул. Пономаренко, 35А, оф. 208, БЦ «Инфо»' },
         { type: 'text', label: 'Пн–Пт: 9:00–18:00' },
       ],
@@ -30,7 +30,7 @@ export const footerColumns = [
     {
       title: 'Соцсети',
       items: [
-        { type: 'external', label: 'Telegram', href: 'https://t.me/hooomy' },
+        { type: 'external', label: 'Telegram', href: 'https://t.me/hooomy_by' },
         { type: 'external', label: 'VK', href: 'https://vk.com/hooomy' },
         { type: 'external', label: 'Instagram', href: 'https://instagram.com/hooomy' },
       ],

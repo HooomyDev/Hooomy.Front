@@ -1,6 +1,7 @@
 {
   "name": "hooomy",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
