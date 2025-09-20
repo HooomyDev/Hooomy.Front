@@ -1,17 +1,20 @@
 import React from 'react';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
+import RegisterPage from './pages/auth/RegisterPage';
 import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
+import LoginPage from './pages/auth/LoginPage';
 import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout/Layout';
 import './styles/variables.css';
 import './styles/global.css';
 
 export default function App() {
     return (
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/login" element={<LoginPage />} />
-        </Routes>
+      <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+      </Route>
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+    </Routes>
       );
 }

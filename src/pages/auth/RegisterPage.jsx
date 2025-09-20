@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputField from "../../components/InputField/InputField";
-import styles from "./RegisterPage.module.css";
+import styles from "./AuthPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 
 const schema = z.object({
