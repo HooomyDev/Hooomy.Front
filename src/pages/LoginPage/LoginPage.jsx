@@ -21,23 +21,25 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Вход</h2>
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
+        <h2 className={styles.title}>Вход</h2>
 
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputField label="Почта" name="email" register={register} error={errors.email?.message} />
-        <InputField label="Пароль" name="password" type="password" register={register} error={errors.password?.message} />
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <InputField label="Почта" name="email" register={register} error={errors.email?.message} />
+          <InputField label="Пароль" name="password" type="password" register={register} error={errors.password?.message} />
 
-        <button type="submit" className={styles.submit}>Войти</button>
+          <button type="submit" className={styles.submit}>Войти</button>
 
-        <p className={styles.authLink}>
-          Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
-        </p>
+          <p className={styles.authLink}>
+            Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+          </p>
 
-        <div className={styles.formFooter}>
-          © Hooomy | Все права защищены
-        </div>
-      </form>
+          <div className={styles.formFooter}>
+            © Hooomy | Все права защищены
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

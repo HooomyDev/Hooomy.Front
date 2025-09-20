@@ -27,25 +27,27 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>Регистрация</h2>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputField label="Почта" name="email" register={register} error={errors.email?.message} />
-        <InputField label="Номер телефона" name="phoneNumber" register={register} error={errors.phoneNumber?.message} />
-        <InputField label="Номер паспорта" name="passportNumber" register={register} error={errors.passportNumber?.message} />
-        <InputField label="Пароль" name="password" type="password" register={register} error={errors.password?.message} />
-        <InputField label="Подтвердите пароль" name="confirmPassword" type="password" register={register} error={errors.confirmPassword?.message} />
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
+        <h2 className={styles.title}>Регистрация</h2>
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+          <InputField label="Почта" name="email" register={register} error={errors.email?.message} />
+          <InputField label="Номер телефона" name="phoneNumber" register={register} error={errors.phoneNumber?.message} />
+          <InputField label="Номер паспорта" name="passportNumber" register={register} error={errors.passportNumber?.message} />
+          <InputField label="Пароль" name="password" type="password" register={register} error={errors.password?.message} />
+          <InputField label="Подтвердите пароль" name="confirmPassword" type="password" register={register} error={errors.confirmPassword?.message} />
 
-        <button type="submit" className={styles.submit}>Зарегистрироваться</button>
+          <button type="submit" className={styles.submit}>Зарегистрироваться</button>
 
-        <p className={styles.authLink}>
-          Уже есть аккаунт? <Link to="/login">Войти</Link>
-        </p>
+          <p className={styles.authLink}>
+            Уже есть аккаунт? <Link to="/login">Войти</Link>
+          </p>
 
-        <div className={styles.formFooter}>
-          © Hooomy | Все права защищены
-        </div>
-      </form>
+          <div className={styles.formFooter}>
+            © Hooomy | Все права защищены
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

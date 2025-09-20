@@ -18,7 +18,7 @@
   --spacing-md: 16px;
   --spacing-lg: 20px;
   --spacing-xl: 24px;
-  --spacing-xxl: 32px;
+  --spacing-xxl: 40px;
 }
 
 [data-theme="dark"] {
