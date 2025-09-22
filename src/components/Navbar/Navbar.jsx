@@ -46,7 +46,7 @@ export default function Navbar() {
       {filteredLinks.map((link) => {
         if (link.type === "route") {
           return (
-            <Link key={link.to} to={link.to} className={styles.navLink}>
+            <Link key={link.to} to={link.to} className={`${styles.navLink} ${activeId === link.to ? styles.activeLink : ""}`}>
               {link.label}
             </Link>
           );
