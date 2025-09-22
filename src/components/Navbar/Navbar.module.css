@@ -138,6 +138,28 @@
     opacity: 0.5;
   }
 
+  .navbarLanding {
+    justify-content: center; 
+    background-color: transparent; 
+    box-shadow: none;
+    border-top: none;
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+  
+  .navbarLanding .navLink {
+    color: var(--font-color)
+  }
+  
+  .navbarLanding .navLink:hover {
+    background-color: transparent;
+    color: var(--element-color);
+  }
+
+  .navbarLanding .activeLink{
+    background-color: transparent;
+    color: var(--element-color);
+  }
+
   @keyframes fadeIn {
     from {
       opacity: 0;

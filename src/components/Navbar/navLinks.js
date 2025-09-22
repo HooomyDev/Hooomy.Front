@@ -9,5 +9,5 @@ export const navLinks = [
     { to: "#flow", label: "Как это работает", type: "anchor" },
     { to: "#residents", label: "Жильцам", type: "anchor" },
     { to: "#orgs", label: "Организациям", type: "anchor" },
-    { to: "#orgs", label: "Контакты", type: "anchor" },
+    { to: "#contacts", label: "Контакты", type: "anchor" },
   ];

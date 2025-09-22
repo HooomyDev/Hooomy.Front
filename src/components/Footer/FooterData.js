@@ -2,7 +2,7 @@ export const footerColumns = [
     {
       title: 'Навигация',
       items: [
-        { type: 'link', label: 'Главная', href: '/' },
+        { type: 'link', label: 'Главная', href: '/home' },
         { type: 'link', label: 'Заявки', href: '/requests' },
         { type: 'link', label: 'Объявления', href: '/news' },
         { type: 'link', label: 'Счета', href: '/bills' },
