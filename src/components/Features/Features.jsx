@@ -1,19 +1,21 @@
 import React from "react";
 import styles from "./Features.module.css";
+import FeatureCard from "../FeatureCard/FeatureCard";
+import FeaturesGrid from "../FeaturesGrid/FeaturesGrid";
 
 export default function Features({ items }) {
   return (
     <div className={styles.wrapper} id="features">
-      <h2 className={styles.heading}>Преимущества</h2>
-      <div className={styles.grid}>
+      <FeaturesGrid>
         {items.map((item, index) => (
-          <div key={index} className={styles.card}>
-            <img src={item.icon} alt={item.title} className={styles.icon} />
-            <h3 className={styles.title}>{item.title}</h3> {/* ✅ исправлено */}
-            <p className={styles.description}>{item.description}</p>
-          </div>
+          <FeatureCard
+            key={index}
+            icon={item.icon}
+            title={item.title}
+            description={item.description}
+          />
         ))}
-      </div>
+      </FeaturesGrid>
     </div>
   );
 }

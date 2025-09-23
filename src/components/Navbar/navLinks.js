@@ -6,8 +6,8 @@ export const navLinks = [
     { to: "/feedback", label: "Обратная связь", type: "route" },
     
     { to: "#all", label: "Доступно всем", type: "anchor" },
-    { to: "#advantages", label: "Возможности", type: "anchor" },
     { to: "#features", label: "Преимущества", type: "anchor" },
+    { to: "#advantages", label: "Возможности", type: "anchor" },
     { to: "#orgs", label: "Организациям", type: "anchor" },
     { to: "#contacts", label: "Контакты", type: "anchor" },
   ];
