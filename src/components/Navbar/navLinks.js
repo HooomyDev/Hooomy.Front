@@ -5,9 +5,9 @@ export const navLinks = [
     { to: "/bills", label: "Счета", type: "route" },
     { to: "/feedback", label: "Обратная связь", type: "route" },
     
-    { to: "#roles", label: "Роли", type: "anchor" },
-    { to: "#work", label: "Возможности", type: "anchor" },
-    { to: "#residents", label: "Жильцам", type: "anchor" },
+    { to: "#all", label: "Доступно всем", type: "anchor" },
+    { to: "#advantages", label: "Возможности", type: "anchor" },
+    { to: "#features", label: "Преимущества", type: "anchor" },
     { to: "#orgs", label: "Организациям", type: "anchor" },
     { to: "#contacts", label: "Контакты", type: "anchor" },
   ];

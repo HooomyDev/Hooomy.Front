@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 500px; /* фиксированная высота */
+  height: 500px;
   overflow: hidden;
 }
 
@@ -13,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  max-width: 1000px;
   width: 100%;
   height: 100%;
   padding: var(--spacing-lg);
@@ -65,21 +64,21 @@
   width: 100%;
   height: 300px;
   object-fit: cover;
-  border-radius: var(--border-radius) var(--border-radius) 0  0;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
   margin-bottom: var(--spacing-md);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease;
 }
 
 .slide h2 {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-xxl);
   font-weight: 700;
   color: var(--font-color);
   margin-bottom: var(--spacing-sm);
 }
 
 .slide p {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-xl);
   color: var(--font-color);
   opacity: 0.85;
   line-height: 1.5;
@@ -88,15 +87,15 @@
 
 .controls {
   position: absolute;
-  top: 50%; /* центр по вертикали */
+  top: 50%;
   left: 0;
   right: 0;
   display: flex;
-  justify-content: space-between; /* кнопки по краям */
+  justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-md);
   transform: translateY(-50%);
-  pointer-events: none; /* чтобы клики проходили только по кнопкам */
+  pointer-events: none;
 }
 
 .controls button {
@@ -132,7 +131,6 @@
   height: 20px;
   object-fit: contain;
 }
-
 
 @media (max-width: 768px) {
   .slider {
