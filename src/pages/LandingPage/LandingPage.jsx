@@ -5,6 +5,7 @@ import styles from "./LandingPage.module.css";
 import Hero from "../../components/Hero/Hero";
 import Features from "../../components/Features/Features";
 import Mission from "../../components/Mission/Mission";
+import ForOrganizations from "../../components/ForOrganizations/ForOrganizations";
 import { items } from "../../components/Features/items";
 
 export default function LandingPage() {
@@ -15,6 +16,7 @@ export default function LandingPage() {
         <Hero />
         <Features items={items} />
         <Mission />
+        <ForOrganizations />
       </div>
       <Footer />
     </div>

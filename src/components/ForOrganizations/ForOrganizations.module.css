@@ -1,0 +1,114 @@
+.wrapper {
+  padding: 0 0 50px 0;
+  background-color: var(--main-color);
+  text-align: center;
+  width: 100%;
+}
+
+.heading {
+  font-size: var(--font-size-title);
+  font-weight: 700;
+  margin-bottom: var(--spacing-md);
+  color: var(--font-color);
+}
+
+.subheading {
+  font-size: var(--font-size-xxl);
+  color: var(--font-color);
+  max-width: 720px;
+  margin: 0 auto var(--spacing-xl);
+  opacity: 0.85;
+}
+
+.tabList {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.tabButton {
+  background: transparent;
+  font-size: var(--font-size-lg);
+  border: 1px solid var(--gray-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--font-color);
+}
+
+.tabButton:hover {
+  background: var(--element-color);
+  transform: scale(1.05);
+}
+
+.active {
+  background: var(--element-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-color);
+  padding: var(--spacing-xxl);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 1000px;
+  min-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.01);
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+  color: var(--accent-color);
+  margin-right: var(--spacing-lg);
+}
+
+.title {
+  font-size: var(--font-size-xxl);
+  color: var(--error-color);
+  width: 25%;
+  font-weight: 600;
+}
+
+.description {
+  font-size: var(--font-size-xl);
+  opacity: 0.85;
+}
+
+.slideEnter {
+  opacity: 0;
+  transform: translateX(40px);
+}
+.slideEnterActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.slideExit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slideExitActive {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
