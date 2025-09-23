@@ -13,4 +13,5 @@
   font-weight: 700;
   margin-bottom: var(--spacing-xxl);
   color: var(--font-color);
+  padding-bottom: var(--spacing-xxl);
 }

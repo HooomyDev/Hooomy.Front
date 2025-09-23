@@ -6,6 +6,7 @@ import FeaturesGrid from "../FeaturesGrid/FeaturesGrid";
 export default function Features({ items }) {
   return (
     <div className={styles.wrapper} id="features">
+      <h2 className={styles.heading}>Преимущества</h2>
       <FeaturesGrid>
         {items.map((item, index) => (
           <FeatureCard

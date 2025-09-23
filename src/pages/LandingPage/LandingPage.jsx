@@ -4,6 +4,7 @@ import Footer from "../../components/Footer/Footer";
 import styles from "./LandingPage.module.css";
 import Hero from "../../components/Hero/Hero";
 import Features from "../../components/Features/Features";
+import Mission from "../../components/Mission/Mission";
 import { items } from "../../components/Features/items";
 
 export default function LandingPage() {
@@ -13,6 +14,7 @@ export default function LandingPage() {
       <div className={styles.pageContent}>
         <Hero />
         <Features items={items} />
+        <Mission />
       </div>
       <Footer />
     </div>
