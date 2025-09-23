@@ -1,0 +1,43 @@
+.themeToggle {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--main-color);
+    border: 1px solid var(--font-color);
+    border-radius: var(--border-radius);
+    font-size: var(--font-size-lg);
+    color: var(--font-color);
+    cursor: pointer;
+    transition: 
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  }
+
+.themeToggle:hover {
+    background-color: var(--element-color);
+    color: var(--main-color);
+    border-color: var(--element-color);
+    transition:
+    background-color 0.1s ease,
+    transform 0.2s ease;
+    transform: scale(1.05); 
+}
+
+.themeToggle:active {
+  transform: scale(0.97); 
+}
+
+.sunIcon {
+    width: 24px;
+    height: 24px;
+    fill: var(--font-color);
+    transition: fill 0.2s ease;
+}
+  
+.themeToggle:hover .sunIcon {
+    fill: var(--element-color);
+}

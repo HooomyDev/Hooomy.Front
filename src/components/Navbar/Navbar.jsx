@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { navLinks } from "./navLinks";
-import DropdownNavItem from "./DropdownNavItem";
+import DropdownNavItem from "../DropdownNavItem/DropdownNavItem";
+import NavItem from "../NavItem/NavItem";
 
 export default function Navbar() {
   const location = useLocation();
@@ -11,7 +12,7 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!isLanding) return;
-  
+
     const sections = document.querySelectorAll("section[id]");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -23,47 +24,41 @@ export default function Navbar() {
       },
       { threshold: 0.3 }
     );
-  
+
     sections.forEach((section) => observer.observe(section));
-  
+
     const handleHashChange = () => {
       setActiveId(window.location.hash);
     };
     window.addEventListener("hashchange", handleHashChange);
-  
+
     return () => {
       observer.disconnect();
       window.removeEventListener("hashchange", handleHashChange);
     };
   }, [isLanding]);
 
-  const filteredLinks = navLinks.filter(link =>
+  const filteredLinks = navLinks.filter((link) =>
     isLanding ? link.type === "anchor" : link.type === "route"
   );
 
   return (
-    <div className={`${styles.navbar} ${isLanding ? styles.navbarLanding : ""}`}>
-      {filteredLinks.map((link) => {
-        if (link.type === "route") {
-          return (
-            <Link key={link.to} to={link.to} className={`${styles.navLink} ${activeId === link.to ? styles.activeLink : ""}`}>
-              {link.label}
-            </Link>
-          );
-        }
-        if (link.type === "anchor") {
-          return (
-            <a
-              key={link.to}
-              href={link.to}
-              className={`${styles.navLink} ${activeId === link.to ? styles.activeLink : ""}`}
-            >
-              {link.label}
-            </a>
-          );
-        }
-        return null;
-      })}
+    <div
+      className={`${styles.navbar} ${isLanding ? styles.navbarLanding : ""}`}
+    >
+      {filteredLinks.map((link) => (
+        <NavItem
+          key={link.to}
+          to={link.to}
+          label={link.label}
+          isActive={
+            isLanding
+              ? activeId === link.to || activeId === `#${link.to}`
+              : location.pathname === link.to
+          }
+          type={link.type}
+        />
+      ))}
       {!isLanding && <DropdownNavItem />}
     </div>
   );

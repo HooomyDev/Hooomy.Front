@@ -1,0 +1,59 @@
+.userLogo{
+    margin: 0;
+    padding: 0;
+    width: 25px;
+    fill: var(--font-color);
+}
+
+.authWrapper {
+    width: 125px;
+    height: 50px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+  
+.authButton {
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    background-color: var(--main-color);
+    color: var(--font-color);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    border: 1px solid var(--font-color);
+    border-radius: var(--border-radius);
+    transition: background-color 0.1s ease;
+    padding: 0;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+}
+  
+.authButton:hover{
+    background-color: var(--element-color);
+    border-color: var(--element-color);
+    color: var(--main-color);
+    fill: var(--main-color);
+    transition:
+     background-color 0.1s ease,
+     transform 0.2s ease;
+    transform: scale(1.05); 
+}
+
+.authButton:hover .userLogo{
+    background-color: transparent;
+    color: var(--main-color);
+    fill: var(--main-color);
+    transform: scale(1.03);
+}
+
+.authButton:active {
+  transform: scale(0.97); 
+}
+
+.authText {
+    transition: opacity 0.2s ease;
+}

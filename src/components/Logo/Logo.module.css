@@ -1,0 +1,23 @@
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 0;
+}
+  
+.logoImage {
+    width: 200px;
+    height: auto;
+    display: block;
+    transition: 
+      filter 0.2s ease,
+      transform 0.3s ease;
+    filter: brightness(1);
+    color: var(--font-color);
+}
+
+.logoWrapper:hover .logoImage {
+    filter: brightness(1.5);
+    transform: scale(1.03); 
+}

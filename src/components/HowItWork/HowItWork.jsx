@@ -1,5 +1,5 @@
 import React from "react";
-import Slider from "../../../Slider/Slider";
+import Slider from "../../Slider/Slider";
 import styles from "./HowItWork.module.css"
 import { slides } from "./slides";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./Header.module.css";
+import styles from "./AuthButton.module.css";
 import { ReactComponent as UserLogo } from "../../assets/user.svg";
 
 export default function AuthButton() {

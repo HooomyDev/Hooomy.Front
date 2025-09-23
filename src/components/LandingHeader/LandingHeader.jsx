@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "../../Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import styles from "./LandingHeader.module.css";
-import logo from "../../../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 import { Link } from "react-router-dom";
 
 export default function LandingHeader() {

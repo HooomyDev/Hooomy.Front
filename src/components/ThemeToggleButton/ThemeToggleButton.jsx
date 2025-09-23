@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./Header.module.css";
+import styles from "./ThemToggleButton.module.css";
 import {ReactComponent as SunLogo} from '../../assets/sun.svg';
 import {ReactComponent as MoonLogo} from '../../assets/moon.svg';
 

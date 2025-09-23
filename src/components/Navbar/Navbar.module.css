@@ -1,219 +1,78 @@
 .navbar {
-    width: 100%;
-    min-height: 65px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: var(--spacing-lg);
-    padding: var(--spacing-sm) var(--spacing-xxl);
-    background-color: var(--main-color);
-    border-top: 1px solid var(--gray-color);
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  min-height: 65px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-xxl);
+  background-color: var(--main-color);
+  border-top: 1px solid var(--gray-color);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbarLanding {
+  justify-content: center;
+  background-color: transparent;
+  box-shadow: none;
+  border-top: none;
+  padding: var(--spacing-md) var(--spacing-lg);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
   }
-  
-  .navItem {
-    display: flex;
-    align-items: center;
-    transition: background-color 0.1s ease, transform 0.2s ease;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .navItem:hover {
-    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--spacing-sm) var(--spacing-md);
+    gap: var(--spacing-sm);
   }
-  
-  .navItem:active,
-  .dropdownMenu .navItem:active {
-    transform: scale(0.95);
-  }
-  
-  .navLink {
-    text-decoration: none;
-    font-size: var(--font-size-lg);
-    font-weight: 500;
-    color: var(--font-color);
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: var(--border-radius);
-    transition: background-color 0.2s ease, color 0.2s ease;
-  }
-  
-  .navLink:hover {
-    background-color: var(--element-color);
-    color: var(--main-color);
-  }
-  
-  .activeLink {
-    font-weight: 600;
-    background-color: var(--element-color);
-    color: var(--main-color);
-  }
-  
-  .dropdown {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
+
+  .navLink,
   .dropdownToggle {
-    height: 35px;
-    background: none;
-    border: none;
-    font-size: var(--font-size-lg);
-    font-weight: 500;
-    color: var(--font-color);
-    padding: var(--spacing-xs) var(--spacing-md);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-  }
-  
-  .dropdownToggle:hover {
-    background-color: var(--element-color);
-    color: var(--main-color);
-    transform: scale(1.05);
-  }
-  
-  .dropdownToggle:active {
-    transform: scale(0.95);
+    height: 36px;
   }
 
   .dropdownMenu {
-    position: absolute;
-    top: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: max-content;
-    background-color: var(--main-color);
-    border: 1px solid var(--gray-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 10;
-    animation: fadeIn 0.2s ease;
-    padding: var(--spacing-md) var(--spacing-sm);
-  }
-
-  .triangle {
-    transition: transform 0.2s ease;
-  }
-  
-  .open .triangle {
-    transform: rotate(180deg);
-  }
-  
-  .dropdownMenu .navLink {
-    text-align: center;
-    width: 200px;
-    font-size: var(--font-size-lg);
-    font-weight: 500;
-    color: var(--font-color);
-    text-decoration: none;
-    border-radius: var(--border-radius);
-    transition: background-color 0.2s ease, color 0.2s ease;
-    margin-top: var(--spacing-xs);
-    margin-bottom: var(--spacing-xs);
-  }
-  
-  .dropdownMenu .navLink:hover {
-    background-color: var(--element-color);
-    color: var(--main-color); 
-    transform: scale(1.05);
-  }
-  
-  .dropdownMenu .activeLink {
-    font-weight: 600;
-    background-color: var(--element-color);
-    color: var(--main-color);
-  }
-  
-  .separator {
+    position: static;
     width: 100%;
-    height: 1px;
-    background-color: var(--gray-color);
-    margin: var(--spacing-xs) 0;
-    opacity: 0.5;
-  }
-
-  .navbarLanding {
-    justify-content: center; 
-    background-color: transparent; 
+    border: none;
     box-shadow: none;
-    border-top: none;
-    padding: var(--spacing-md) var(--spacing-lg);
-  }
-  
-  .navbarLanding .navLink {
-    color: var(--font-color)
-  }
-  
-  .navbarLanding .navLink:hover {
-    background-color: transparent;
-    color: var(--element-color);
+    animation: none;
   }
 
-  .navbarLanding .activeLink{
-    background-color: transparent;
-    color: var(--element-color);
+  .dropdownMenu .navLink {
+    width: 100%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    gap: var(--spacing-xs);
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-4px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .navLink,
+  .dropdownToggle {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xxs) var(--spacing-xs);
+    height: 32px;
   }
-  
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: var(--spacing-sm) var(--spacing-md);
-      gap: var(--spacing-sm);
-    }
-  
-    .navLink,
-    .dropdownToggle {
-        height: 36px;
-    }
-  
-    .dropdownMenu {
-      position: static; 
-      width: 100%;
-      border: none;
-      box-shadow: none;
-      animation: none;
-    }
-  
-    .dropdownMenu .navLink {
-      width: 100%;
-      padding: var(--spacing-xs) var(--spacing-sm);
-      font-size: var(--font-size-sm);
-    }
+
+  .dropdownMenu .navLink {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xxs) var(--spacing-xs);
   }
-  
-  @media (max-width: 480px) {
-    .navbar {
-      gap: var(--spacing-xs);
-    }
-  
-    .navLink,
-    .dropdownToggle {
-      font-size: var(--font-size-xs);
-      padding: var(--spacing-xxs) var(--spacing-xs);
-      height: 32px;
-    }
-  
-    .dropdownMenu .navLink {
-      font-size: var(--font-size-xs);
-      padding: var(--spacing-xxs) var(--spacing-xs);
-    }
-  }
-  
+}

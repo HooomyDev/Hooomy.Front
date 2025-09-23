@@ -1,8 +1,8 @@
 import React from "react";
 import styles from "./Header.module.css";
-import Logo from "./Logo";
-import ThemeToggleButton from "./ThemeToggleButton";
-import AuthButton from "./AuthButton";
+import Logo from "../Logo/Logo";
+import ThemeToggleButton from "../ThemeToggleButton/ThemeToggleButton";
+import AuthButton from "../AuthButton/AuthButton";
 
 export default function Header() {
   return (
