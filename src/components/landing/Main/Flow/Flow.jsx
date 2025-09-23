@@ -4,7 +4,7 @@ import Card from "./Card";
 
 export default function Flow(){
     return (
-        <div className={styles.container}>
+        <div id="roles" className={styles.container}>
             <div className={styles.textContainer}>
                 <p className={styles.name}>
                     ЕДИНАЯ ПЛАТФОРМА ЖКХ

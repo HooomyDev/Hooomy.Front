@@ -1,0 +1,153 @@
+.slider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 500px; /* фиксированная высота */
+  overflow: hidden;
+}
+
+.slideWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1000px;
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing-lg);
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-color);
+  transition: box-shadow 0.3s ease;
+}
+
+.slideWrapper:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.scaleEnterActive {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.scaleExitActive {
+  transform: scale(0.95) translateY(-20px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.diagonalEnterActive {
+  transform: translate(0, 0);
+  opacity: 1;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.diagonalExitActive {
+  transform: translate(-50px, -50px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--border-radius) var(--border-radius) 0  0;
+  margin-bottom: var(--spacing-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.slide h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--font-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.slide p {
+  font-size: var(--font-size-md);
+  color: var(--font-color);
+  opacity: 0.85;
+  line-height: 1.5;
+  padding: 0 var(--spacing-md);
+}
+
+.controls {
+  position: absolute;
+  top: 50%; /* центр по вертикали */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between; /* кнопки по краям */
+  align-items: center;
+  padding: 0 var(--spacing-md);
+  transform: translateY(-50%);
+  pointer-events: none; /* чтобы клики проходили только по кнопкам */
+}
+
+.controls button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background-color: var(--element-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  pointer-events: auto;
+  opacity: 0.5;
+}
+
+.controls button:hover {
+  background-color: var(--main-color);
+  transform: scale(1.08);
+}
+
+.arrowLeft {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transform: rotate(180deg);
+}
+
+.arrowRight {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+
+@media (max-width: 768px) {
+  .slider {
+    height: 400px;
+  }
+
+  .image {
+    height: 200px;
+  }
+
+  .slide h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .slide p {
+    font-size: var(--font-size-sm);
+  }
+}

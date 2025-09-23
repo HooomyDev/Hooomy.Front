@@ -6,7 +6,7 @@ export const navLinks = [
     { to: "/feedback", label: "Обратная связь", type: "route" },
     
     { to: "#roles", label: "Роли", type: "anchor" },
-    { to: "#flow", label: "Как это работает", type: "anchor" },
+    { to: "#work", label: "Возможности", type: "anchor" },
     { to: "#residents", label: "Жильцам", type: "anchor" },
     { to: "#orgs", label: "Организациям", type: "anchor" },
     { to: "#contacts", label: "Контакты", type: "anchor" },

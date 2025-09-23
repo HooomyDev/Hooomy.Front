@@ -7,17 +7,17 @@
     width: 100%;
     margin: 0 auto;
     padding: 50px 0;
-    border-bottom: 1px solid var(--font-color);
+    height: 75vh;
   }
   
 .textContainer{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: stretch;
+    justify-content: center;
     min-height: 100%;
     width: 40%;
-    padding: var(--spacing-xxl);
+    padding: var(--spacing-xxl) 0;
     hyphens: auto;       
     word-break: break-word;
 }
