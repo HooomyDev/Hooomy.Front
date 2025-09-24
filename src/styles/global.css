@@ -1,11 +1,12 @@
-@import './variables.css';
+@import "./variables.css";
 
 * {
   transition: background-color 0.3s ease, color 0.3s ease;
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -15,7 +16,7 @@ html, body {
 body {
   background-color: var(--gray-color);
   user-select: none;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.5;
 }
 
@@ -24,4 +25,8 @@ body {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
+}
+
+section {
+  scroll-margin-top: 100px;
 }

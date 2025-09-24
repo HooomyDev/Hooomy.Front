@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./Mission.module.css";
 
-export default function Mission() {
+export default function Mission({ id }) {
   return (
-    <section className={styles.wrapper} id="mission">
+    <section id={id} className={styles.wrapper}>
       <h2 className={styles.heading}>Наша миссия</h2>
 
       <div className={styles.textContainer}>

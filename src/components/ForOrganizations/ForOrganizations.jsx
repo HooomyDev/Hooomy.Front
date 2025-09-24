@@ -1,47 +1,16 @@
 import React, { useRef, useState } from "react";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import styles from "./ForOrganizations.module.css";
-import {
-  BuildingOfficeIcon,
-  WrenchScrewdriverIcon,
-  BuildingLibraryIcon,
-} from "@heroicons/react/24/outline";
+import { tabs } from "./tabs";
 
-const tabs = [
-  {
-    id: "uk",
-    title: "УК и ТСЖ",
-    icon: BuildingOfficeIcon,
-    description:
-      "Приём заявок, контроль исполнения, аналитика по домам и подъездам. Всё в одном интерфейсе.",
-    action: "Запросить демо",
-  },
-  {
-    id: "zhkh",
-    title: "Службы ЖКХ",
-    icon: WrenchScrewdriverIcon,
-    description:
-      "Автоматический сбор показаний, планирование ремонтов, контроль подрядчиков и ресурсов.",
-    action: "Связаться",
-  },
-  {
-    id: "gov",
-    title: "Мингорисполком",
-    icon: BuildingLibraryIcon,
-    description:
-      "Мониторинг активности, отчётность по районам, цифровая обратная связь от граждан.",
-    action: "Получить доступ",
-  },
-];
-
-export default function ForOrganizations() {
+export default function ForOrganizations({ id }) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const current = tabs.find((t) => t.id === activeTab);
   const Icon = current.icon;
   const nodeRef = useRef(null);
 
   return (
-    <section className={styles.wrapper} id="orgs">
+    <section id={id} className={styles.wrapper}>
       <h2 className={styles.heading}>Для организаций</h2>
       <p className={styles.subheading}>
         Платформа помогает автоматизировать процессы, повысить прозрачность и

@@ -18,7 +18,7 @@ export default function NavItem({ to, label, isActive, type }) {
   if (type === "anchor") {
     return (
       <div className={styles.navItem}>
-        <a href={to} className={className} aria-label={label}>
+        <a href={`#${to}`} className={className} aria-label={label}>
           {label}
         </a>
       </div>

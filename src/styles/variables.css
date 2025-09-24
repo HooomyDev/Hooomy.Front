@@ -2,15 +2,16 @@
   --main-color: #fff;
   --error-color: #f00;
   --border-radius: 10px;
-  --gray-color: #DDE3EA;
+  --gray-color: #dde3ea;
   --font-color: #122435;
-  --element-color: #3DBFA3;
+  --element-color: #3dbfa3;
 
   --font-size-sm: 14px;
   --font-size-base: 16px;
   --font-size-lg: 18px;
   --font-size-xl: 20px;
   --font-size-xxl: 24px;
+  --font-size-subtitle: 35px;
   --font-size-title: 40px;
   --font-size-title-lg: 50px;
 
@@ -24,7 +25,7 @@
 
 [data-theme="dark"] {
   --main-color: #122435;
-  --font-color: #F4F7F9;      
-  --element-color: #6BCFA8;    
-  --gray-color: #1E2E45;       
+  --font-color: #f4f7f9;
+  --element-color: #6bcfa8;
+  --gray-color: #1e2e45;
 }

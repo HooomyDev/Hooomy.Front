@@ -22,21 +22,18 @@ export default function Navbar() {
           }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.1 } // чувствительность выше
     );
 
     sections.forEach((section) => observer.observe(section));
 
-    const handleHashChange = () => {
-      setActiveId(window.location.hash);
-    };
-    window.addEventListener("hashchange", handleHashChange);
-
     return () => {
       observer.disconnect();
-      window.removeEventListener("hashchange", handleHashChange);
     };
   }, [isLanding]);
+
+  // нормализатор якорей и маршрутов
+  const normalize = (str) => str.replace(/^\/?#/, "");
 
   const filteredLinks = navLinks.filter((link) =>
     isLanding ? link.type === "anchor" : link.type === "route"
@@ -46,19 +43,21 @@ export default function Navbar() {
     <div
       className={`${styles.navbar} ${isLanding ? styles.navbarLanding : ""}`}
     >
-      {filteredLinks.map((link) => (
-        <NavItem
-          key={link.to}
-          to={link.to}
-          label={link.label}
-          isActive={
-            isLanding
-              ? activeId === link.to || activeId === `#${link.to}`
-              : location.pathname === link.to
-          }
-          type={link.type}
-        />
-      ))}
+      {filteredLinks.map((link) => {
+        const isActive = isLanding
+          ? normalize(activeId) === normalize(link.to)
+          : location.pathname === link.to;
+
+        return (
+          <NavItem
+            key={link.to}
+            to={link.to}
+            label={link.label}
+            isActive={isActive}
+            type={link.type}
+          />
+        );
+      })}
       {!isLanding && <DropdownNavItem />}
     </div>
   );
