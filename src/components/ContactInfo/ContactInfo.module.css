@@ -24,7 +24,7 @@
 .container strong {
   display: inline-block;
   min-width: 90px;
-  color: var(--error-color);
+  color: var(--font-color);
   user-select: none;
 }
 

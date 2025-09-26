@@ -85,9 +85,9 @@
 
 .title {
   font-size: var(--font-size-xxl);
-  color: var(--error-color);
+  color: var(--font-color);
   width: 25%;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .description {

@@ -1,4 +1,5 @@
 .container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
@@ -13,7 +14,7 @@
 
 .required {
   color: var(--error-color);
-  margin-left: 4px;
+  margin: 4px;
 }
 
 .input {
@@ -40,7 +41,47 @@
   outline: none;
 }
 
+.inputError {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(248, 113, 113, 0.2);
+}
+
 textarea {
   min-height: 160px;
   resize: none;
+}
+
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--error-color);
+  padding: 6px 10px;
+  font-size: var(--font-size-sm);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+  z-index: 10;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.errorIcon {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

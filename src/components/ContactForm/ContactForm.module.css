@@ -30,6 +30,7 @@ button {
   cursor: pointer;
   transition: background-color 0.2s ease;
   margin-bottom: var(--spacing-sm);
+  margin-top: var(--spacing-sm);
 }
 
 button:hover {
