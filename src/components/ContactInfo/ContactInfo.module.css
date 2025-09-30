@@ -11,6 +11,7 @@
   transition: transform 0.5s ease;
   user-select: text;
   font-size: var(--font-size-lg);
+  background-color: var(--main-color);
 }
 
 .container:hover {

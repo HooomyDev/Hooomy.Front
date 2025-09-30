@@ -1,6 +1,5 @@
 .wrapper {
   padding: 0 0 50px 0;
-  background-color: var(--main-color);
   text-align: center;
   width: 100%;
 }
@@ -48,8 +47,8 @@
 
 .active {
   background: var(--element-color);
-  color: white;
-  border-color: var(--accent-color);
+  color: var(--font-color);
+  border-color: transparent;
 }
 
 .card {
@@ -79,7 +78,7 @@
 .icon {
   width: 100px;
   height: 100px;
-  color: var(--accent-color);
+  color: var(--element-color);
   margin-right: var(--spacing-lg);
 }
 
@@ -92,6 +91,7 @@
 
 .description {
   font-size: var(--font-size-xl);
+  color: var(--font-color);
   opacity: 0.85;
 }
 
@@ -99,6 +99,7 @@
   opacity: 0;
   transform: translateX(40px);
 }
+
 .slideEnterActive {
   opacity: 1;
   transform: translateX(0);
@@ -109,6 +110,7 @@
   opacity: 1;
   transform: translateX(0);
 }
+
 .slideExitActive {
   opacity: 0;
   transform: translateX(-40px);

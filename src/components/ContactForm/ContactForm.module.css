@@ -11,6 +11,7 @@
   font-size: var(--font-size-xl);
   margin-top: var(--spacing-md);
   margin-bottom: var(--spacing-xxl);
+  background-color: var(--main-color);
 }
 
 .title {

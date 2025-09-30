@@ -7,7 +7,7 @@ import { items } from "./items";
 export default function Features({ id }) {
   return (
     <section id={id} className={styles.wrapper}>
-      <h2 className={styles.heading}>Преимущества</h2>
+      <h2 className={styles.heading}>Для жильцов</h2>
       <FeaturesGrid>
         {items.map((item, index) => (
           <FeatureCard
