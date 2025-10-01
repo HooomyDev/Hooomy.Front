@@ -7,11 +7,13 @@ import Mission from "../../components/Mission/Mission";
 import ForOrganizations from "../../components/ForOrganizations/ForOrganizations";
 import Contacts from "../../components/Contacts/Contacts";
 import Header from "../../components/Header/Header";
+import LandingNavbar from "../../components/LandingNavbar/LandingNavbar";
 
 export default function LandingPage() {
   return (
     <div className={styles.pageWrapper}>
       <Header />
+      <LandingNavbar />
       <div className={styles.pageContent}>
         <Hero id="hero" />
         <Features id="features" />

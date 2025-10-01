@@ -95,24 +95,24 @@
   opacity: 0.85;
 }
 
-.slideEnter {
+.fade-entering {
   opacity: 0;
-  transform: translateX(40px);
+  transform: translateY(10px) scale(0.98);
 }
 
-.slideEnterActive {
+.fade-entered {
   opacity: 1;
-  transform: translateX(0);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(0) scale(1);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
 }
 
-.slideExit {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-.slideExitActive {
+.fade-exiting {
   opacity: 0;
-  transform: translateX(-40px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(-10px) scale(0.98);
+  transition: opacity 200ms ease-in, transform 200ms ease-in;
+}
+
+.fade-exited {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
 }

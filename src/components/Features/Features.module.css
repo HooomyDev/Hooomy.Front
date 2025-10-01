@@ -1,9 +1,9 @@
 .wrapper {
-  padding: var(--spacing-xl) var(--spacing-lg);
   background: transparent;
   text-align: center;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   width: 100%;
   background-color: var(--main-color);
@@ -12,7 +12,6 @@
 .heading {
   font-size: var(--font-size-title);
   font-weight: 700;
-  margin-bottom: var(--spacing-xxl);
   color: var(--font-color);
   padding-bottom: var(--spacing-xxl);
 }

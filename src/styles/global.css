@@ -28,5 +28,6 @@ body {
 }
 
 section {
+  min-height: 80vh;
   scroll-margin-top: 100px;
 }

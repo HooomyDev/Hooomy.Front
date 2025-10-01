@@ -1,0 +1,43 @@
+.navDot {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--font-color);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.navDot:hover {
+  background: var(--element-color);
+  transform: scale(1.2);
+}
+
+.tooltip {
+  position: absolute;
+  right: 150%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--font-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.active {
+  background: var(--element-color);
+}
+
+.active .tooltip {
+  color: var(--element-color);
+}
+
+.navDot:hover,
+.tooltip {
+  opacity: 1;
+}

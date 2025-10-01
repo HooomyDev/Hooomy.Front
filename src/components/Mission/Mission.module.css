@@ -1,5 +1,4 @@
 .wrapper {
-  padding: var(--spacing-xl) var(--spacing-lg);
   background-color: var(--main-color);
   border-top: 1px solid var(--gray-color);
   text-align: center;

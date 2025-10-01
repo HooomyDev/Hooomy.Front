@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+import React, { useState, useRef } from "react";
+import { Transition, SwitchTransition } from "react-transition-group";
 import styles from "./ForOrganizations.module.css";
 import { tabs } from "./tabs";
+
+const duration = 400;
 
 export default function ForOrganizations({ id }) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
@@ -31,27 +33,30 @@ export default function ForOrganizations({ id }) {
         ))}
       </div>
 
-      <SwitchTransition>
-        <CSSTransition
+      <SwitchTransition mode="out-in">
+        <Transition
           key={activeTab}
-          timeout={400}
           nodeRef={nodeRef}
-          classNames={{
-            enter: styles.slideEnter,
-            enterActive: styles.slideEnterActive,
-            exit: styles.slideExit,
-            exitActive: styles.slideExitActive,
+          timeout={duration}
+          addEndListener={(done) => {
+            nodeRef.current?.addEventListener("transitionend", done, {
+              once: true,
+            });
           }}
-          unmountOnExit
         >
-          <div ref={nodeRef} className={styles.card}>
-            <Icon className={styles.icon} />
-            <div>
-              <h3 className={styles.title}>{current.title}</h3>
-              <p className={styles.description}>{current.description}</p>
+          {(state) => (
+            <div
+              ref={nodeRef}
+              className={`${styles.card} ${styles[`fade-${state}`]}`}
+            >
+              <Icon className={styles.icon} />
+              <div>
+                <h3 className={styles.title}>{current.title}</h3>
+                <p className={styles.description}>{current.description}</p>
+              </div>
             </div>
-          </div>
-        </CSSTransition>
+          )}
+        </Transition>
       </SwitchTransition>
     </section>
   );
