@@ -7,6 +7,7 @@ export default function FeatureCard({ icon, title, description }) {
       <div className={styles.icon}>{icon}</div>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description}</p>
+      <button className={styles.tryButton}>Попробовать</button>
     </div>
   );
 }

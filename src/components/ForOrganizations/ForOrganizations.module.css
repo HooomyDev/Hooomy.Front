@@ -1,7 +1,12 @@
 .wrapper {
-  padding: 0 0 50px 0;
+  padding: 0 0 0 0;
   text-align: center;
   width: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .heading {
@@ -63,10 +68,11 @@
   padding: var(--spacing-xxl);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 1000px;
-  min-width: 1000px;
+  max-width: 900px;
+  min-width: 900px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 0;
   text-align: left;
   transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
 }

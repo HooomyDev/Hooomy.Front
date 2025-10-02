@@ -5,13 +5,12 @@ import { ReactComponent as UserLogo } from "../../assets/user.svg";
 
 export default function AuthButton() {
   const navigate = useNavigate();
+  const onClick = () => navigate("/login");
 
   return (
-    <button className={styles.authWrapper} onClick={() => navigate("/login")}>
-      <div className={styles.authButton}>
-        <UserLogo className={styles.userLogo} />
-        <span className={styles.authText}>Войти</span>
-      </div>
+    <button className={styles.authWrapper} onClick={onClick}>
+      <UserLogo className={styles.userLogo} />
+      <span className={styles.authText}>Войти</span>
     </button>
   );
 }

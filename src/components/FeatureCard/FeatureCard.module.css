@@ -39,3 +39,26 @@
   opacity: 0.85;
   line-height: 1.6;
 }
+
+.tryButton {
+  position: absolute;
+  bottom: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(5px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  background-color: var(--element-color);
+  color: var(--main-color);
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover .tryButton {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
