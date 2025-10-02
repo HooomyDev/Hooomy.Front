@@ -17,5 +17,10 @@
   align-items: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .pageContent {
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+  }
 }

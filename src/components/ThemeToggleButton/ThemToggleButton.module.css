@@ -38,3 +38,10 @@
   transform: scale(1.1);
   color: var(--main-color);
 }
+
+@media (max-width: 480px) {
+  .themeToggle {
+    width: 45px;
+    height: 45px;
+  }
+}

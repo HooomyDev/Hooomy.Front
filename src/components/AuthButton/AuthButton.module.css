@@ -1,4 +1,4 @@
-.authWrapper {
+.authButton {
   width: 125px;
   height: 50px;
   display: flex;
@@ -19,14 +19,14 @@
     transform 0.2s ease, color 0.2s ease;
 }
 
-.authWrapper:hover {
+.authButton:hover {
   background-color: var(--element-color);
   color: var(--main-color);
   border-color: var(--element-color);
   transform: scale(1.05);
 }
 
-.authWrapper:active {
+.authButton:active {
   transform: scale(0.97);
 }
 
@@ -36,11 +36,21 @@
   transition: transform 0.2s ease, fill 0.2s ease;
 }
 
-.authWrapper:hover .userLogo {
+.authButton:hover .userLogo {
   fill: var(--main-color);
   transform: scale(1.1);
 }
 
 .authText {
   transition: opacity 0.2s ease;
+}
+
+@media (max-width: 480px) {
+  .authButton {
+    width: 45px;
+    height: 45px;
+  }
+  .authText {
+    display: none;
+  }
 }

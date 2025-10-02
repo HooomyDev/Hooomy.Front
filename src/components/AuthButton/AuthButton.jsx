@@ -8,7 +8,7 @@ export default function AuthButton() {
   const onClick = () => navigate("/login");
 
   return (
-    <button className={styles.authWrapper} onClick={onClick}>
+    <button className={styles.authButton} onClick={onClick}>
       <UserLogo className={styles.userLogo} />
       <span className={styles.authText}>Войти</span>
     </button>

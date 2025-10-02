@@ -4,16 +4,13 @@
   justify-content: center;
   text-decoration: none;
   padding: 0;
-  max-width: 100%;
+  margin: 0;
 }
 
 .logoImage {
-  max-width: 200px;
   width: 100%;
   height: auto;
-  display: block;
   transition: filter 0.2s ease, transform 0.3s ease;
-  filter: brightness(1);
   color: var(--font-color);
 }
 
@@ -23,13 +20,7 @@
 }
 
 @media (max-width: 768px) {
-  .logoImage {
-    max-width: 160px;
-  }
-}
-
-@media (max-width: 480px) {
-  .logoImage {
-    max-width: 140px;
+  .logoWrapper {
+    max-width: 40%;
   }
 }
