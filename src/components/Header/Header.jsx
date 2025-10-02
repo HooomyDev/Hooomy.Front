@@ -7,12 +7,12 @@ import AuthButton from "../AuthButton/AuthButton";
 export default function Header() {
   return (
     <header className={styles.header}>
-        <Logo className={styles.logo}/>
+      <Logo className={styles.logo} />
 
-        <div className={styles.actions}>
-            <ThemeToggleButton className={styles.themeToggle}/>
-            <AuthButton className={styles.authButton}/>
-        </div>
+      <div className={styles.actions}>
+        <ThemeToggleButton className={styles.themeToggle} />
+        <AuthButton className={styles.authButton} />
+      </div>
     </header>
   );
 }

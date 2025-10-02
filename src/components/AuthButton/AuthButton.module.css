@@ -15,7 +15,8 @@
   padding: 0;
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.1s ease, border 0.1s ease, transform 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease, color 0.2s ease;
 }
 
 .authWrapper:hover {
@@ -29,17 +30,15 @@
   transform: scale(0.97);
 }
 
-.authWrapper:hover .userLogo {
-  fill: var(--main-color);
-  transform: scale(1.03);
-}
-
 .userLogo {
-  margin: 0;
-  padding: 0;
   width: 25px;
   fill: var(--font-color);
   transition: transform 0.2s ease, fill 0.2s ease;
+}
+
+.authWrapper:hover .userLogo {
+  fill: var(--main-color);
+  transform: scale(1.1);
 }
 
 .authText {

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./LandingNavItem.module.css";
-import NavDot from "../../NavDot/NavDot";
+import NavDot from "../NavDot/NavDot";
 
 export default function NavItem({ item, isActive }) {
   return (

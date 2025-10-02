@@ -1,6 +1,8 @@
 .pageWrapper {
   display: flex;
   flex-direction: column;
+  align-self: center;
+  min-width: 100%;
   min-height: 100vh;
   background-color: var(--background-color);
 }
@@ -13,4 +15,7 @@
   gap: 150px;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
 }
