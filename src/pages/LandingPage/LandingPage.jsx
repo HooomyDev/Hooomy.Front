@@ -15,8 +15,8 @@ export default function LandingPage() {
       <Header />
       <LandingNavbar />
       <div className={styles.pageContent}>
-        {/*<Hero id="hero" />
-        <Features id="features" />
+        <Hero id="hero" />
+        {/*<Features id="features" />
         <ForOrganizations id="orgs" />
         <Mission id="mission" />
   <Contacts id="contacts" />*/}
