@@ -6,21 +6,21 @@
   --font-color: #122435;
   --element-color: #3dbfa3;
 
-  --font-size-sm: 14px;
-  --font-size-base: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 20px;
-  --font-size-xxl: 24px;
-  --font-size-subtitle: 35px;
-  --font-size-title: 40px;
-  --font-size-title-lg: 50px;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-xxl: 1.5rem;
+  --font-size-subtitle: 2.1875rem;
+  --font-size-title: clamp(1.8rem, 4vw, 2.5rem);
+  --font-size-title-lg: clamp(2.5rem, 6vw, 3.125rem);
 
-  --spacing-xs: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 20px;
-  --spacing-xl: 24px;
-  --spacing-xxl: 40px;
+  --spacing-xs: 0.25rem; /* 4px */
+  --spacing-sm: 0.5rem; /* 8px */
+  --spacing-md: 1rem; /* 16px */
+  --spacing-lg: 1.25rem; /* 20px */
+  --spacing-xl: 1.5rem; /* 24px */
+  --spacing-xxl: 2.5rem; /* 40px */
 }
 
 [data-theme="dark"] {

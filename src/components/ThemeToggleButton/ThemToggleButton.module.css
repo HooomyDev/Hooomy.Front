@@ -39,7 +39,14 @@
   color: var(--main-color);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) and (orientation: portrait) {
+  .themeToggle {
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
   .themeToggle {
     width: 45px;
     height: 45px;

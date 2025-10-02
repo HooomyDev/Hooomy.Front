@@ -54,3 +54,13 @@
     display: none;
   }
 }
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .authButton {
+    height: 45px;
+  }
+
+  .userLogo {
+    width: 20%;
+  }
+}

@@ -5,6 +5,7 @@
   text-decoration: none;
   padding: 0;
   margin: 0;
+  max-width: 10%;
 }
 
 .logoImage {
@@ -19,8 +20,14 @@
   transform: scale(1.03);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) and (orientation: portrait) {
   .logoWrapper {
-    max-width: 40%;
+    max-width: 15vh;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .logoWrapper {
+    max-width: 40vh;
   }
 }

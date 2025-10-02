@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 480px) and (orientation: portrait) {
   .pageContent {
     align-items: center;
     justify-content: center;
