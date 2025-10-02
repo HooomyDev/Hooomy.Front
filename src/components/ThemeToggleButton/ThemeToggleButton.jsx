@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ThemToggleButton.module.css";
-import {ReactComponent as SunLogo} from '../../assets/sun.svg';
-import {ReactComponent as MoonLogo} from '../../assets/moon.svg';
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid";
 
 export default function ThemeToggleButton() {
   const [theme, setTheme] = useState("light");
@@ -13,7 +12,7 @@ export default function ThemeToggleButton() {
   }, []);
 
   const toggleTheme = () => {
-    const newTheme = theme === "light"? "dark" : "light";
+    const newTheme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
     document.documentElement.setAttribute("data-theme", newTheme);
     localStorage.setItem("theme", newTheme);
@@ -21,11 +20,11 @@ export default function ThemeToggleButton() {
 
   return (
     <button className={styles.themeToggle} onClick={toggleTheme}>
-        {theme === "light" ? (
-          <SunLogo className={styles.sunIcon} />
-        ) : (
-          <MoonLogo className={styles.sunIcon} />
-        )}
+      {theme === "light" ? (
+        <SunIcon className={styles.icon} />
+      ) : (
+        <MoonIcon className={styles.icon} />
+      )}
     </button>
   );
 }
