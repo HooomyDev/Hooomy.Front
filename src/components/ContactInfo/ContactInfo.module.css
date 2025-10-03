@@ -6,7 +6,7 @@
   font-size: var(--font-size-md);
   line-height: 1.6;
   color: var(--font-color);
-  width: 600px;
+  width: 100%;
   margin: 0 auto;
   transition: transform 0.5s ease;
   user-select: text;
@@ -37,4 +37,35 @@
 
 .container a:hover {
   color: var(--element-color);
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .container {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    text-align: center;
+  }
+
+  .container strong {
+    display: block;
+    min-width: auto;
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .container p {
+    margin-bottom: var(--spacing-md);
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .container {
+    width: 90%;
+    padding: var(--spacing-lg);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+  }
+
+  .container strong {
+    min-width: 70px;
+  }
 }

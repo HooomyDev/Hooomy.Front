@@ -6,7 +6,7 @@
   border-radius: var(--border-radius);
   border: 1px solid var(--gray-color);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  width: 600px;
+  width: 100%;
   margin: 0 auto;
   font-size: var(--font-size-xl);
   margin-top: var(--spacing-md);
@@ -38,4 +38,41 @@ button:hover {
   background-color: var(--main-color);
   color: var(--font-color);
   border: 1px solid var(--font-color);
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .form {
+    width: 100%;
+    padding: var(--spacing-md);
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: clamp(1.25rem, 6vw, 1.5rem);
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    font-size: clamp(0.9rem, 4vw, 1rem);
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .form {
+    width: 90%;
+    padding: var(--spacing-lg);
+    font-size: clamp(1rem, 2vw, 1.125rem);
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+  }
+
+  button {
+    align-self: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+  }
 }
