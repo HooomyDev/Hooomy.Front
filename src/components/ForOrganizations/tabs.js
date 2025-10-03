@@ -4,7 +4,7 @@ import {
     BuildingLibraryIcon,
   } from "@heroicons/react/24/outline";
   
-export  const tabs = [
+export const tabs = [
     {
       id: "uk",
       title: "УК и ТСЖ",

@@ -2,7 +2,7 @@ import styles from "../Hero.module.css";
 import { HeroName } from "./HeroName";
 import { HeroTitle } from "./HeroTitle";
 import { HeroSubtext } from "./HeroSubtext";
-import { HeroFeatures } from "./HeroFeatures";
+import { NavLink } from "react-router-dom";
 
 export default function HeroText() {
   return (
@@ -10,7 +10,9 @@ export default function HeroText() {
       <HeroName />
       <HeroTitle />
       <HeroSubtext />
-      <HeroFeatures />
+      <NavLink to="/register" className={styles.tryButton}>
+        Попробовать
+      </NavLink>
     </div>
   );
 }

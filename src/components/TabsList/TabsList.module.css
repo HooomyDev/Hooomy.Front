@@ -1,0 +1,64 @@
+.tabList {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.tabButton {
+  background: var(--main-color);
+  font-size: var(--font-size-lg);
+  border: 1px solid var(--font-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--font-color);
+}
+
+.tabButton:hover {
+  background: var(--element-color);
+  border: 1px solid var(--element-color);
+  color: var(--main-color);
+  transform: scale(1.05);
+}
+
+.tabButton:active {
+  transform: scale(0.97);
+}
+
+.active {
+  background: var(--element-color);
+  color: var(--font-color);
+  border-color: transparent;
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .tabList {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tabButton {
+    width: 100%;
+    max-width: 280px;
+    font-size: clamp(0.9rem, 4vw, 1rem);
+    text-align: center;
+    margin: 0;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .tabList {
+    justify-content: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .tabButton {
+    width: 14rem;
+    height: 3rem;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+}

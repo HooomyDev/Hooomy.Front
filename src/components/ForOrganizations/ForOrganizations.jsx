@@ -1,14 +1,13 @@
-import React, { useState, useRef } from "react";
-import { Transition, SwitchTransition } from "react-transition-group";
+import React, { useRef, useState } from "react";
 import styles from "./ForOrganizations.module.css";
 import { tabs } from "./tabs";
-
-const duration = 400;
+import TabPanel from "../../TabPanel/TabPanel";
+import TabsList from "../TabsList/TabsList";
+import { SwitchTransition, Transition } from "react-transition-group";
 
 export default function ForOrganizations({ id }) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
   const current = tabs.find((t) => t.id === activeTab);
-  const Icon = current.icon;
   const nodeRef = useRef(null);
 
   return (
@@ -19,25 +18,13 @@ export default function ForOrganizations({ id }) {
         наладить эффективное взаимодействие с жителями.
       </p>
 
-      <div className={styles.tabList}>
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={`${styles.tabButton} ${
-              activeTab === tab.id ? styles.active : ""
-            }`}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.title}
-          </button>
-        ))}
-      </div>
+      <TabsList tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
       <SwitchTransition mode="out-in">
         <Transition
           key={activeTab}
           nodeRef={nodeRef}
-          timeout={duration}
+          timeout={400}
           addEndListener={(done) => {
             nodeRef.current?.addEventListener("transitionend", done, {
               once: true,
@@ -45,16 +32,13 @@ export default function ForOrganizations({ id }) {
           }}
         >
           {(state) => (
-            <div
-              ref={nodeRef}
-              className={`${styles.card} ${styles[`fade-${state}`]}`}
-            >
-              <Icon className={styles.icon} />
-              <div>
-                <h3 className={styles.title}>{current.title}</h3>
-                <p className={styles.description}>{current.description}</p>
-              </div>
-            </div>
+            <TabPanel
+              nodeRef={nodeRef}
+              state={state}
+              icon={current.icon}
+              title={current.title}
+              description={current.description}
+            />
           )}
         </Transition>
       </SwitchTransition>

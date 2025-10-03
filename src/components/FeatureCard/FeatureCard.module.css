@@ -63,6 +63,7 @@
   transform: translateY(0);
   pointer-events: auto;
 }
+
 @media (max-width: 480px) and (orientation: portrait) {
   .card {
     width: 100%;
@@ -80,7 +81,7 @@
   }
 
   .tryButton {
-    position: static; /* кнопка в потоке */
+    position: static;
     opacity: 1;
     pointer-events: auto;
     margin-top: var(--spacing-md);
@@ -88,7 +89,6 @@
   }
 }
 
-/* 📱 Мобильный landscape / планшеты */
 @media (max-width: 1080px) and (orientation: landscape) {
   .card {
     width: 220px;
