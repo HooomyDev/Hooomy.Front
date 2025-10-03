@@ -21,7 +21,7 @@ export default function LandingPage() {
         <Mission id="mission" />
         <Contacts id="contacts" />
       </div>
-      {/*<Footer />*/}
+      <Footer />
     </div>
   );
 }

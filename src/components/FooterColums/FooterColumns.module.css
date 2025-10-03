@@ -1,0 +1,21 @@
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 50px;
+  margin: 0 auto;
+  width: 90%;
+}
+@media (max-width: 480px) and (orientation: portrait) {
+  .columns {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    text-align: center;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .columns {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-lg);
+  }
+}

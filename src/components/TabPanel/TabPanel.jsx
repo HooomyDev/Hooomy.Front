@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./TabPanel.module.css";
-import { NavLink } from "react-router-dom";
 import TryButton from "../TryButton/TryButton";
 
 export default function TabPanel({

@@ -1,0 +1,21 @@
+.bottom {
+  width: 100%;
+  margin-top: var(--spacing-xl);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  border-top: 1px solid var(--gray-color);
+  padding-top: var(--spacing-md);
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .bottom {
+    font-size: clamp(0.8rem, 3.5vw, 0.9rem);
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .bottom {
+    font-size: clamp(0.9rem, 2vw, 1rem);
+  }
+}

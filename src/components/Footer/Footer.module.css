@@ -7,20 +7,3 @@
   font-size: var(--font-size-sm);
   border-top: 1px solid var(--gray-color);
 }
-
-.columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 50px;
-  margin: 0 auto;
-  width: 1200px;
-}
-
-.bottom {
-  width: 100%;
-  margin-top: var(--spacing-xl);
-  text-align: center;
-  font-size: var(--font-size-sm);
-  border-top: 1px solid var(--gray-color);
-  padding-top: var(--spacing-md);
-}
