@@ -55,10 +55,56 @@
   font-size: var(--font-size-sm);
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 
 .card:hover .tryButton {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+@media (max-width: 480px) and (orientation: portrait) {
+  .card {
+    width: 100%;
+    max-width: 100%;
+    padding: var(--spacing-lg);
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: clamp(1rem, 5vw, 1.25rem);
+  }
+
+  .description {
+    font-size: clamp(0.875rem, 4vw, 1rem);
+  }
+
+  .tryButton {
+    position: static; /* кнопка в потоке */
+    opacity: 1;
+    pointer-events: auto;
+    margin-top: var(--spacing-md);
+    transform: none;
+  }
+}
+
+/* 📱 Мобильный landscape / планшеты */
+@media (max-width: 1080px) and (orientation: landscape) {
+  .card {
+    width: 220px;
+    padding: var(--spacing-md);
+  }
+
+  .title {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+  }
+
+  .description {
+    font-size: clamp(0.8rem, 1.5vw, 0.9rem);
+  }
+
+  .tryButton {
+    font-size: 0.75rem;
+    padding: 6px 12px;
+  }
 }

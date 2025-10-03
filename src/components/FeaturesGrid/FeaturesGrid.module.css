@@ -1,10 +1,29 @@
 .grid {
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(300px, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: var(--spacing-lg);
   justify-content: center;
   padding-bottom: var(--spacing-md);
   min-height: 400px;
-  width: 60%;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    width: 100%;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    width: 90%;
+    min-height: auto;
+  }
 }

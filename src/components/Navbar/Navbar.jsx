@@ -1,64 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { navLinks } from "./navLinks";
 import DropdownNavItem from "../DropdownNavItem/DropdownNavItem";
 import NavItem from "../NavItem/NavItem";
 
 export default function Navbar() {
-  const location = useLocation();
-  const isLanding = location.pathname === "/";
-  const [activeId, setActiveId] = useState("");
-
-  useEffect(() => {
-    if (!isLanding) return;
-
-    const sections = document.querySelectorAll("section[id]");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(`#${entry.target.id}`);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    sections.forEach((section) => observer.observe(section));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [isLanding]);
-
-  // нормализатор якорей и маршрутов
-  const normalize = (str) => str.replace(/^\/?#/, "");
-
-  const filteredLinks = navLinks.filter((link) =>
-    isLanding ? link.type === "anchor" : link.type === "route"
-  );
-
   return (
-    <div
-      className={`${styles.navbar} ${isLanding ? styles.navbarLanding : ""}`}
-    >
-      {filteredLinks.map((link) => {
-        const isActive = isLanding
-          ? normalize(activeId) === normalize(link.to)
-          : location.pathname === link.to;
-
-        return (
-          <NavItem
-            key={link.to}
-            to={link.to}
-            label={link.label}
-            isActive={isActive}
-            type={link.type}
-          />
-        );
-      })}
-      {!isLanding && <DropdownNavItem />}
+    <div className={styles.navbar}>
+      <DropdownNavItem />
     </div>
   );
 }
