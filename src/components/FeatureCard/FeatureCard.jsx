@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./FeatureCard.module.css";
-import { NavLink } from "react-router-dom";
+import TryButton from "../TryButton/TryButton";
 
 export default function FeatureCard({ icon, title, description }) {
   return (
@@ -8,9 +8,7 @@ export default function FeatureCard({ icon, title, description }) {
       <div className={styles.icon}>{icon}</div>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.description}>{description}</p>
-      <NavLink to="/register" className={styles.tryButton}>
-        Попробовать
-      </NavLink>
+      <TryButton />
     </div>
   );
 }

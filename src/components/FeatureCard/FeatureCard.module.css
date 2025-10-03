@@ -40,30 +40,6 @@
   line-height: 1.6;
 }
 
-.tryButton {
-  position: absolute;
-  bottom: 10px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(5px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  background-color: var(--element-color);
-  color: var(--main-color);
-  border: none;
-  padding: 8px 16px;
-  border-radius: var(--border-radius);
-  font-size: var(--font-size-sm);
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-}
-
-.card:hover .tryButton {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
 @media (max-width: 480px) and (orientation: portrait) {
   .card {
     width: 100%;
@@ -79,14 +55,6 @@
   .description {
     font-size: clamp(0.875rem, 4vw, 1rem);
   }
-
-  .tryButton {
-    position: static;
-    opacity: 1;
-    pointer-events: auto;
-    margin-top: var(--spacing-md);
-    transform: none;
-  }
 }
 
 @media (max-width: 1080px) and (orientation: landscape) {
@@ -101,10 +69,5 @@
 
   .description {
     font-size: clamp(0.8rem, 1.5vw, 0.9rem);
-  }
-
-  .tryButton {
-    font-size: 0.75rem;
-    padding: 6px 12px;
   }
 }

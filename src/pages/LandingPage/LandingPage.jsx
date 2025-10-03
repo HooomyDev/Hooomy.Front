@@ -18,8 +18,8 @@ export default function LandingPage() {
         <Hero id="hero" />
         <Features id="features" />
         <ForOrganizations id="orgs" />
-        {/*<Mission id="mission" />
-  <Contacts id="contacts" />*/}
+        <Mission id="mission" />
+        {/*<Contacts id="contacts" />*/}
       </div>
       {/*<Footer />*/}
     </div>
