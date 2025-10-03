@@ -10,8 +10,8 @@
   padding: var(--spacing-xxl);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
+  max-width: 60%;
+  min-height: 20rem;
   text-align: left;
   transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
 }
@@ -40,11 +40,60 @@
   opacity: 0.85;
 }
 
+.tryButton {
+  margin-top: var(--spacing-lg);
+  background-color: var(--element-color);
+  color: var(--main-color);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.tryButton:hover {
+  background-color: var(--main-color);
+  border: 1px solid var(--font-color);
+  color: var(--font-color);
+  transform: scale(1.02);
+}
+
+.tryButton:active {
+  transform: scale(0.97);
+}
+
+.fade-entering {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+}
+
+.fade-entered {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 400ms ease-out, transform 400ms ease-out;
+}
+
+.fade-exiting {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+  transition: opacity 400ms ease-in, transform 400ms ease-in;
+}
+
+.fade-exited {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+}
+
 @media (max-width: 480px) and (orientation: portrait) {
   .card {
+    border: 1px solid var(--element-color);
     flex-direction: column;
     align-items: center;
-    padding: var(--spacing-lg);
+    text-align: center;
     max-width: 100%;
   }
 

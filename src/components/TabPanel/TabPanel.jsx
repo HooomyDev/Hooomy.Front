@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./TabPanel.module.css";
+import { NavLink } from "react-router-dom";
 
 export default function TabPanel({
   icon: Icon,
@@ -14,6 +15,9 @@ export default function TabPanel({
       <div>
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
+        <NavLink to="/register" className={styles.tryButton}>
+          Попробовать
+        </NavLink>
       </div>
     </div>
   );

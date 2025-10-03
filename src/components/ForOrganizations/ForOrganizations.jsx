@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import styles from "./ForOrganizations.module.css";
 import { tabs } from "./tabs";
-import TabPanel from "../../TabPanel/TabPanel";
+import TabPanel from "../TabPanel/TabPanel";
 import TabsList from "../TabsList/TabsList";
 import { SwitchTransition, Transition } from "react-transition-group";
 
