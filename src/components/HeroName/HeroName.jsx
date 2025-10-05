@@ -1,5 +1,5 @@
-import styles from "../Hero.module.css";
+import styles from "./HeroName.module.css";
 
-export function HeroName() {
+export default function HeroName() {
   return <p className={styles.name}>ЕДИНАЯ ПЛАТФОРМА ЖКХ</p>;
 }

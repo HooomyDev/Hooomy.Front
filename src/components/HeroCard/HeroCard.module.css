@@ -10,6 +10,7 @@
   margin: var(--spacing-xxl);
   max-height: fit-content;
   gap: var(--spacing-md);
+  height: 100%;
 }
 
 .title {
@@ -20,19 +21,13 @@
   margin-bottom: var(--spacing-md);
 }
 
-@media (max-width: 480px) and (orientation: portrait) {
-  .card {
-    display: none;
-  }
-}
-
 @media (max-width: 1080px) and (orientation: landscape) {
   .card {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: flex-start;
-    max-width: 100%;
+    max-width: 40%;
     padding: var(--spacing-md);
     gap: var(--spacing-md);
     margin: var(--spacing-lg) auto;

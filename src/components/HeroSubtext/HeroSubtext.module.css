@@ -1,0 +1,17 @@
+.subtext {
+  font-size: var(--font-size-xl);
+  color: var(--font-color);
+  opacity: 0.8;
+}
+
+@media (max-width: 480px) and (orientation: portrait) {
+  .subtext {
+    font-size: clamp(1rem, 4.5vw, 1.25rem);
+  }
+}
+
+@media (max-width: 1080px) and (orientation: landscape) {
+  .subtext {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+  }
+}

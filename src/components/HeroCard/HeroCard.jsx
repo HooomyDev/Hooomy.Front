@@ -1,8 +1,8 @@
 import React from "react";
 import Option from "../Options/Option";
-import styles from "./Card.module.css";
+import styles from "./HeroCard.module.css";
 
-export default function Card() {
+export default function HeroCard() {
   return (
     <div className={styles.card}>
       <h3 className={styles.title}>Доступно всем!</h3>
