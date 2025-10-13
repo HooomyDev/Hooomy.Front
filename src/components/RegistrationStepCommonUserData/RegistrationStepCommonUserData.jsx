@@ -3,7 +3,6 @@ import styles from "./RegistrationStepCommonUserData.module.css";
 import InputField from "../InputField/InputField";
 
 export default function RegistrationStepCommonUserData({
-  role,
   formData,
   setFormData,
 }) {
@@ -34,7 +33,7 @@ export default function RegistrationStepCommonUserData({
         }
       />
 
-      {role === "management" && (
+      {formData.role === "management" && (
         <InputField
           label="Инвайт-код"
           name="invite"

@@ -9,15 +9,15 @@ import RegistrationStepContactUserData from "../RegistrationStepContactUserData/
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
 import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
 
-const types = [
+const roles = [
   { value: "resident", label: "Жилец" },
   { value: "management", label: "Сотрудник" },
 ];
 
 export default function RegistrationWizard() {
   const [step, setStep] = useState(1);
-  const [selectedType, setSelectedType] = useState(null);
   const [formData, setFormData] = useState({
+    role: "",
     surname: "",
     name: "",
     patronymic: "",
@@ -33,9 +33,9 @@ export default function RegistrationWizard() {
       id: 1,
       component: (
         <RegistrationStepAccountType
-          types={types}
-          selectedType={selectedType}
-          onSelectedType={setSelectedType}
+          roles={roles}
+          formData={formData}
+          setFormData={setFormData}
         />
       ),
     },
@@ -43,7 +43,6 @@ export default function RegistrationWizard() {
       id: 2,
       component: (
         <RegistrationStepCommonUserData
-          role={selectedType}
           formData={formData}
           setFormData={setFormData}
         />
@@ -71,7 +70,7 @@ export default function RegistrationWizard() {
   };
 
   const handleNext = async () => {
-    if (step === 2 && selectedType === "management") {
+    if (step === 2 && formData.role === "management") {
       setLoading(true);
       const isValid = await fakeServerCheck(formData.invite.trim());
       setLoading(false);
@@ -91,9 +90,9 @@ export default function RegistrationWizard() {
   };
 
   const isStepValid = () => {
-    if (step === 1) return !!selectedType;
+    if (step === 1) return !!formData.role;
     if (step === 2) {
-      if (selectedType === "management") {
+      if (formData.role === "management") {
         return formData.surname && formData.name && formData.invite;
       }
       return formData.surname && formData.name;
