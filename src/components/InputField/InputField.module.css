@@ -24,12 +24,18 @@
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 .input:focus,
 .input:hover {
   border-color: var(--element-color);
+}
+
+.required {
+  color: red;
+  margin-left: 4px;
+  font-weight: bold;
 }
 
 .error {
