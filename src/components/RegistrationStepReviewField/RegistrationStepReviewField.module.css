@@ -1,0 +1,18 @@
+.field {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-sm);
+  font-size: var(--font-size-md);
+}
+
+.label {
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.value {
+  color: var(--font-color);
+  font-weight: 600;
+  word-break: break-word;
+}

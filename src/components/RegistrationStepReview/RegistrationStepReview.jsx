@@ -1,40 +1,30 @@
 import React from "react";
 import styles from "./RegistrationStepReview.module.css";
+import RegistrationStepReviewSection from "../RegistrationStepReviewSection/RegistrationStepReviewSection";
+import RegistrationStepReviewField from "../RegistrationStepReviewField/RegistrationStepReviewField";
 
 export default function RegistrationStepReview({ formData }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Проверьте введённые данные</h1>
 
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Личные данные</h2>
-        <p>
-          <strong>Фамилия:</strong> {formData.surname}
-        </p>
-        <p>
-          <strong>Имя:</strong> {formData.name}
-        </p>
-        {formData.patronymic && (
-          <p>
-            <strong>Отчество:</strong> {formData.patronymic}
-          </p>
-        )}
-        {formData.invite && (
-          <p>
-            <strong>Инвайт-код:</strong> {formData.invite}
-          </p>
-        )}
-      </div>
+      <RegistrationStepReviewSection title="Личные данные">
+        <RegistrationStepReviewField label="Фамилия" value={formData.surname} />
+        <RegistrationStepReviewField label="Имя" value={formData.name} />
+        <RegistrationStepReviewField
+          label="Отчество"
+          value={formData.patronymic}
+        />
+        <RegistrationStepReviewField
+          label="Инвайт-код"
+          value={formData.invite}
+        />
+      </RegistrationStepReviewSection>
 
-      <div className={styles.section}>
-        <h2 className={styles.sectionTitle}>Контактные данные</h2>
-        <p>
-          <strong>Email:</strong> {formData.email}
-        </p>
-        <p>
-          <strong>Пароль:</strong> {formData.password}
-        </p>
-      </div>
+      <RegistrationStepReviewSection title="Контактные данные">
+        <RegistrationStepReviewField label="Email" value={formData.email} />
+        <RegistrationStepReviewField label="Пароль" value={formData.password} />
+      </RegistrationStepReviewSection>
     </div>
   );
 }

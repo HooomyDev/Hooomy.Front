@@ -1,10 +1,12 @@
 :root {
   --main-color: #fff;
   --error-color: #f00;
-  --border-radius: 10px;
   --gray-color: #dde3ea;
   --font-color: #122435;
   --element-color: #3dbfa3;
+  --card-background: #e3f7f3;
+
+  --border-radius: 10px;
 
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
