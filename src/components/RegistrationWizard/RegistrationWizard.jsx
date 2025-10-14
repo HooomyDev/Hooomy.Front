@@ -8,6 +8,8 @@ import RegistrationStepCommonUserData from "../RegistrationStepCommonUserData/Re
 import RegistrationStepContactUserData from "../RegistrationStepContactUserData/RegistrationStepContactUserData";
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
 import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
+import RegistrationLinkToLogin from "../RegistrationLinkToLogin/RegistrationLinkToLogin";
+import { useNavigate } from "react-router-dom";
 
 const roles = [
   { value: "resident", label: "Жилец" },
@@ -15,6 +17,7 @@ const roles = [
 ];
 
 export default function RegistrationWizard() {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     role: "",
@@ -84,8 +87,10 @@ export default function RegistrationWizard() {
   };
 
   const handlePrev = () => {
-    if (step > 1) {
-      setStep(step - 1);
+    if (step === 1) {
+      navigate(-1);
+    } else {
+      setStep((prev) => prev - 1);
     }
   };
 
@@ -117,10 +122,11 @@ export default function RegistrationWizard() {
       <RegistrationWizardButtons
         onNext={handleNext}
         onPrev={handlePrev}
-        isPrevDisabled={step === 1 || loading}
+        isPrevDisabled={loading}
         isNextDisabled={!isStepValid()}
         loading={loading}
       />
+      <RegistrationLinkToLogin />
     </div>
   );
 }

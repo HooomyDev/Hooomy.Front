@@ -1,0 +1,17 @@
+.text {
+  font-size: var(--font-size-lg);
+  text-align: center;
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.link {
+  color: var(--element-color);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--font-color);
+}
