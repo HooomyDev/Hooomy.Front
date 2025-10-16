@@ -9,4 +9,12 @@
   border-radius: var(--border-radius);
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
   gap: var(--spacing-xl);
+  margin: auto 0;
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

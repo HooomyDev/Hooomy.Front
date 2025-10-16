@@ -1,11 +1,11 @@
 import React from "react";
 import RegistrationWizard from "../../components/RegistrationWizard/RegistrationWizard";
-import styles from "./AuthPage.module.css";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 export default function RegisterPage() {
   return (
-    <div className={styles.pageWrapper}>
+    <PageWrapper>
       <RegistrationWizard />
-    </div>
+    </PageWrapper>
   );
 }
