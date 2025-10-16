@@ -10,6 +10,7 @@ import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepRe
 import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
 import RegistrationLinkToLogin from "../RegistrationLinkToLogin/RegistrationLinkToLogin";
 import { useNavigate } from "react-router-dom";
+import RegistrationStepSuccess from "../RegistrationStepSuccess/RegistrationStepSuccess";
 
 const roles = [
   { value: "resident", label: "Жилец" },
@@ -61,7 +62,7 @@ export default function RegistrationWizard() {
       ),
     },
     { id: 4, component: <RegistrationStepReview formData={formData} /> },
-    { id: 5, component: null },
+    { id: 5, component: <RegistrationStepSuccess /> },
   ];
 
   //имитация проверки инвайт-кода для сотруников
@@ -86,7 +87,7 @@ export default function RegistrationWizard() {
       setStep((prev) => prev + 1);
     }
 
-    if (step === 4) {
+    if (step === 5) {
       //добавить запросы на регистрацию НЕ ЗАБУДЬ
       navigate("/home");
     }

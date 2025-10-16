@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+}
+
+.image {
+  width: 15rem;
+  height: 15rem;
+  color: var(--element-color);
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes glow {
+  from {
+    filter: drop-shadow(0 0 4px rgba(61, 191, 163, 0.4));
+  }
+  to {
+    filter: drop-shadow(0 0 12px rgba(61, 191, 163, 0.8));
+  }
+}
+
+.text {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--font-color);
+}
