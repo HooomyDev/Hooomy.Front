@@ -23,6 +23,7 @@ export default function RegistrationStepContactUserData({
         value={formData.password}
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         required
+        type="password"
       />
       <InputField
         label="Повторите пароль"
@@ -32,6 +33,7 @@ export default function RegistrationStepContactUserData({
           setFormData({ ...formData, confirmPassword: e.target.value })
         }
         required
+        type="password"
       />
     </div>
   );

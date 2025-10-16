@@ -61,6 +61,7 @@ export default function RegistrationWizard() {
       ),
     },
     { id: 4, component: <RegistrationStepReview formData={formData} /> },
+    { id: 5, component: null },
   ];
 
   //имитация проверки инвайт-кода для сотруников
@@ -83,6 +84,11 @@ export default function RegistrationWizard() {
 
     if (step < steps.length) {
       setStep((prev) => prev + 1);
+    }
+
+    if (step === 4) {
+      //добавить запросы на регистрацию НЕ ЗАБУДЬ
+      navigate("/home");
     }
   };
 
