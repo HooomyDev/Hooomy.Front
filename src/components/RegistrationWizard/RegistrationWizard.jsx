@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./RegistrationWizard.module.css";
+import { useNavigate } from "react-router-dom";
 import RegistrationWizardButtons from "../RegistrationWizardButtons/RegistrationWizardButtons";
 import RegistrationProgressBar from "../RegistrationProgressBar/RegistrationProgressBar";
 import RegistrationWizardContent from "../RegistrationWizardContent/RegistrationWizardContent";
@@ -9,8 +9,13 @@ import RegistrationStepContactUserData from "../RegistrationStepContactUserData/
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
 import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
 import RegistrationLinkToLogin from "../RegistrationLinkToLogin/RegistrationLinkToLogin";
-import { useNavigate } from "react-router-dom";
 import RegistrationStepSuccess from "../RegistrationStepSuccess/RegistrationStepSuccess";
+import styles from "./RegistrationWizard.module.css";
+import {
+  validateEmail,
+  validatePassword,
+  validateConfirmPassword,
+} from "../../utils/validation";
 
 const roles = [
   { value: "resident", label: "Жилец" },
@@ -31,6 +36,8 @@ export default function RegistrationWizard() {
     confirmPassword: "",
   });
   const [loading, setLoading] = useState(false);
+  const [wasSubmitted, setWasSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const steps = [
     {
@@ -49,6 +56,8 @@ export default function RegistrationWizard() {
         <RegistrationStepCommonUserData
           formData={formData}
           setFormData={setFormData}
+          wasSubmited={wasSubmitted}
+          error={errors}
         />
       ),
     },
@@ -58,6 +67,8 @@ export default function RegistrationWizard() {
         <RegistrationStepContactUserData
           formData={formData}
           setFormData={setFormData}
+          wasSubmited={wasSubmitted}
+          error={errors}
         />
       ),
     },
@@ -75,12 +86,48 @@ export default function RegistrationWizard() {
   };
 
   const handleNext = async () => {
+    setWasSubmitted(true);
+
+    let newErrors = {};
+
+    if (step === 2) {
+      if (!formData.surname) newErrors.surname = "Фамилия обязательна";
+      if (!formData.name) newErrors.name = "Имя обязательно";
+      if (formData.role === "management" && !formData.invite) {
+        newErrors.invite = "Инвайт-код обязателен";
+      }
+    }
+
+    if (step === 3) {
+      newErrors = {
+        email: validateEmail(formData.email),
+        password: validatePassword(formData.password),
+        confirmPassword: validateConfirmPassword(
+          formData.password,
+          formData.confirmPassword
+        ),
+      };
+    }
+
+    setErrors(newErrors);
+    console.log(newErrors);
+
+    const hasErrors = Object.values(newErrors).some((err) => err !== "");
+    console.log(hasErrors);
+    if (hasErrors) return;
+
     if (step === 2 && formData.role === "management") {
       setLoading(true);
       const isValid = await fakeServerCheck(formData.invite.trim());
       setLoading(false);
 
-      if (!isValid) return;
+      if (!isValid) {
+        setErrors((prev) => ({
+          ...prev,
+          invite: "Неверный инвайт-код",
+        }));
+        return;
+      }
     }
 
     if (step < steps.length) {
@@ -88,7 +135,7 @@ export default function RegistrationWizard() {
     }
 
     if (step === 5) {
-      //добавить запросы на регистрацию НЕ ЗАБУДЬ
+      // TODO: запросы на регистрацию
       navigate("/home");
     }
   };

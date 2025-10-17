@@ -5,6 +5,8 @@ import InputField from "../InputField/InputField";
 export default function RegistrationStepCommonUserData({
   formData,
   setFormData,
+  wasSubmited,
+  error,
 }) {
   return (
     <div className={styles.container}>
@@ -16,6 +18,7 @@ export default function RegistrationStepCommonUserData({
         value={formData.surname}
         onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
         required
+        error={wasSubmited ? error.surname : ""}
       />
       <InputField
         label="Имя"
@@ -23,6 +26,7 @@ export default function RegistrationStepCommonUserData({
         value={formData.name}
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         required
+        error={wasSubmited ? error.name : ""}
       />
       <InputField
         label="Отчество"
@@ -31,6 +35,7 @@ export default function RegistrationStepCommonUserData({
         onChange={(e) =>
           setFormData({ ...formData, patronymic: e.target.value })
         }
+        error={wasSubmited ? error.patronymic : ""}
       />
 
       {formData.role === "management" && (

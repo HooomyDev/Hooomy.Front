@@ -5,6 +5,8 @@ import InputField from "../InputField/InputField";
 export default function RegistrationStepContactUserData({
   formData,
   setFormData,
+  wasSubmited,
+  error,
 }) {
   return (
     <div className={styles.container}>
@@ -16,6 +18,7 @@ export default function RegistrationStepContactUserData({
         value={formData.email}
         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
         required
+        error={wasSubmited ? error.email : ""}
       />
       <InputField
         label="Пароль"
@@ -24,6 +27,7 @@ export default function RegistrationStepContactUserData({
         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
         required
         type="password"
+        error={wasSubmited ? error.password : ""}
       />
       <InputField
         label="Повторите пароль"
@@ -34,6 +38,7 @@ export default function RegistrationStepContactUserData({
         }
         required
         type="password"
+        error={wasSubmited ? error.confirmPassword : ""}
       />
     </div>
   );

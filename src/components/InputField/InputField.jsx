@@ -9,6 +9,7 @@ export default function InputField({
   required = false,
   value,
   onChange,
+  error,
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -23,7 +24,7 @@ export default function InputField({
       </label>
       <div className={styles.inputWrapper}>
         <input
-          className={styles.inputField}
+          className={`${styles.inputField} ${error ? styles.inputError : ""}`}
           id={name}
           name={name}
           type={inputType}
@@ -46,6 +47,7 @@ export default function InputField({
           </button>
         )}
       </div>
+      <div className={styles.error}>{error}</div>
     </div>
   );
 }
