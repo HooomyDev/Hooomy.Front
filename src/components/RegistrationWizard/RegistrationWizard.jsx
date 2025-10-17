@@ -15,6 +15,9 @@ import {
   validateEmail,
   validatePassword,
   validateConfirmPassword,
+  validateName,
+  validateSurname,
+  validatePatronymic,
 } from "../../utils/validation";
 
 const roles = [
@@ -91,11 +94,11 @@ export default function RegistrationWizard() {
     let newErrors = {};
 
     if (step === 2) {
-      if (!formData.surname) newErrors.surname = "Фамилия обязательна";
-      if (!formData.name) newErrors.name = "Имя обязательно";
-      if (formData.role === "management" && !formData.invite) {
-        newErrors.invite = "Инвайт-код обязателен";
-      }
+      newErrors = {
+        name: validateName(formData.name),
+        surname: validateSurname(formData.surname),
+        patronymic: validatePatronymic(formData.patronymic),
+      };
     }
 
     if (step === 3) {

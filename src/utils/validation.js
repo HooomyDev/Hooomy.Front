@@ -62,3 +62,44 @@ export function validateConfirmPassword(password, confirm) {
   return "";
 }
   
+export function validateName(name) {
+  if (!name || !name.trim()) {
+    return "Имя обязательно для заполнения";
+  }
+  if (name.length < 2) {
+    return "Имя должно содержать минимум 2 символа";
+  }
+  if (name.length > 50) {
+    return "Имя слишком длинное (максимум 50 символов)";
+  }
+  if (!/^[А-Яа-яЁёA-Za-z-]+$/.test(name)) {
+    return "Имя может содержать только буквы и дефис";
+  }
+  return "";
+}
+
+export function validateSurname(surname) {
+  if (!surname || !surname.trim()) {
+    return "Фамилия обязательна для заполнения";
+  }
+  if (surname.length < 2) {
+    return "Фамилия должна содержать минимум 2 символа";
+  }
+  if (surname.length > 50) {
+    return "Фамилия слишком длинная (максимум 50 символов)";
+  }
+  if (!/^[А-Яа-яЁёA-Za-z-]+$/.test(surname)) {
+    return "Фамилия может содержать только буквы и дефис";
+  }
+  return "";
+}
+
+export function validatePatronymic(patronymic) {
+  if (patronymic.length > 50) {
+    return "Отчество слишком длинное (максимум 50 символов)";
+  }
+  if (!/^[А-Яа-яЁёA-Za-z-]+$/.test(patronymic)) {
+    return "Отчество может содержать только буквы и дефис";
+  }
+  return "";
+}
