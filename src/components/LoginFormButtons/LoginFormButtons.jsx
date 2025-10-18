@@ -1,10 +1,11 @@
 import React from "react";
-import styles from "./RegistrationWizardButtons.module.css";
+import styles from "./LoginFormButtons.module.css";
 
-export default function RegistrationWizardButtons({
-  onNext,
-  onPrev,
+export default function LoginFormButtons({
   loading = false,
+  isNextDisabled = false,
+  onPrev,
+  onNext,
 }) {
   return (
     <div className={styles.buttons}>
@@ -14,6 +15,7 @@ export default function RegistrationWizardButtons({
       <button
         className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
         onClick={onNext}
+        disabled={isNextDisabled}
       >
         {loading ? <span className={styles.spinner}></span> : "Продолжить"}
       </button>

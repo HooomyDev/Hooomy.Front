@@ -1,0 +1,72 @@
+.buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.nextStepButton,
+.prevStepButton {
+  height: 3rem;
+  box-shadow: 2px 2px 6px var(--gray-color);
+  transition: transform 0.3s ease, background-color 0.3s ease, border 0.3s ease,
+    color 0.3s ease;
+}
+
+.nextStepButton {
+  width: 40%;
+}
+
+.prevStepButton {
+  width: 25%;
+  background-color: var(--main-color);
+  color: var(--font-color);
+  border: 1px solid var(--font-color);
+}
+
+.nextStepButton:hover {
+  transform: scale(1.02);
+}
+
+.prevStepButton:hover {
+  transform: scale(1.1);
+  background-color: var(--element-color);
+  border: 1px solid var(--element-color);
+  color: var(--main-color);
+}
+
+.nextStepButton:active,
+.prevStepButton:active {
+  transform: scale(0.97);
+  background-color: var(--gray-color);
+  color: var(--font-color);
+  border: 1px solid var(--font-color);
+}
+
+.nextStepButton:disabled,
+.prevStepButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--gray-color);
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  cursor: wait;
+}

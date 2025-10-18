@@ -8,7 +8,6 @@ import RegistrationStepCommonUserData from "../RegistrationStepCommonUserData/Re
 import RegistrationStepContactUserData from "../RegistrationStepContactUserData/RegistrationStepContactUserData";
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
 import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
-import RegistrationLinkToLogin from "../RegistrationLinkToLogin/RegistrationLinkToLogin";
 import RegistrationStepSuccess from "../RegistrationStepSuccess/RegistrationStepSuccess";
 import styles from "./RegistrationWizard.module.css";
 import {
@@ -20,6 +19,7 @@ import {
   validatePatronymic,
 } from "../../utils/validation";
 import FormHeader from "../FormHeader/FormHeader";
+import LinkTo from "../LinkTo/LinkTo";
 
 const roles = [
   { value: "resident", label: "Жилец" },
@@ -153,25 +153,6 @@ export default function RegistrationWizard() {
     }
   };
 
-  const isStepValid = () => {
-    if (step === 1) return !!formData.role;
-    if (step === 2) {
-      if (formData.role === "management") {
-        return formData.surname && formData.name && formData.invite;
-      }
-      return formData.surname && formData.name;
-    }
-    if (step === 3)
-      return (
-        formData.email &&
-        formData.password &&
-        formData.confirmPassword &&
-        formData.password === formData.confirmPassword
-      );
-
-    return true;
-  };
-
   return (
     <div className={styles.wrapper}>
       <FormHeader title="Регистрация" />
@@ -182,11 +163,13 @@ export default function RegistrationWizard() {
       <RegistrationWizardButtons
         onNext={handleNext}
         onPrev={handlePrev}
-        isPrevDisabled={loading}
-        isNextDisabled={!isStepValid()}
         loading={loading}
       />
-      <RegistrationLinkToLogin />
+      <LinkTo
+        link="login"
+        label="Зарегистрироваться"
+        text="Уже есть аккаунт?"
+      />
     </div>
   );
 }
