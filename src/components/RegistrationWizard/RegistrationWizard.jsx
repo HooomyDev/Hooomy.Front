@@ -19,6 +19,7 @@ import {
   validateSurname,
   validatePatronymic,
 } from "../../utils/validation";
+import FormHeader from "../FormHeader/FormHeader";
 
 const roles = [
   { value: "resident", label: "Жилец" },
@@ -79,7 +80,7 @@ export default function RegistrationWizard() {
     { id: 5, component: <RegistrationStepSuccess /> },
   ];
 
-  //имитация проверки инвайт-кода для сотруников
+  // HACK: заменить на что-то лучше
   const fakeServerCheck = (code) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -139,6 +140,7 @@ export default function RegistrationWizard() {
 
     if (step === 5) {
       // TODO: запросы на регистрацию
+      console.log(formData);
       navigate("/home");
     }
   };
@@ -172,6 +174,7 @@ export default function RegistrationWizard() {
 
   return (
     <div className={styles.wrapper}>
+      <FormHeader title="Регистрация" />
       <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
       <RegistrationWizardWrapper>
         <RegistrationWizardContent step={steps[step - 1]} />

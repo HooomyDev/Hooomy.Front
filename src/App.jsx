@@ -2,7 +2,7 @@ import React from "react";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LandingPage from "./pages/LandingPage/LandingPage";
-import LoginPage from "./pages/auth/LoginPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import "./styles/variables.css";
