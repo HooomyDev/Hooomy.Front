@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./ProfilePage.module.css";
+import PageWrapper from "../../components/PageWrapper/PageWrapper";
 
 export default function ProfilePage() {
-  return <p>Профиль</p>;
+  return <PageWrapper></PageWrapper>;
 }
