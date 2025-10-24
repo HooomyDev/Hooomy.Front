@@ -18,7 +18,8 @@
     "react-scripts": "5.0.1",
     "react-transition-group": "^4.4.5",
     "web-vitals": "^2.1.4",
-    "zod": "^4.1.8"
+    "zod": "^4.1.8",
+    "zustand": "^5.0.8"
   },
   "scripts": {
     "start": "react-scripts start",

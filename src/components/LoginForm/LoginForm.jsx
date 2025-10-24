@@ -6,6 +6,7 @@ import LoginFormButtons from "../LoginFormButtons/LoginFormButtons";
 import InputField from "../InputField/InputField";
 import { useNavigate } from "react-router-dom";
 import { validateEmail, validatePassword } from "../../utils/validation";
+import { useAuthStore } from "../../stores/authStore";
 
 export default function LoginForm() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -13,6 +14,7 @@ export default function LoginForm() {
   const [errors, setErrors] = useState({ email: "", password: "" });
   const [wasSubmitted, setWasSubmitted] = useState(false);
   const navigate = useNavigate();
+  const login = useAuthStore((store) => store.login);
 
   const handleNext = () => {
     setWasSubmitted(true);
@@ -33,6 +35,8 @@ export default function LoginForm() {
     setTimeout(() => {
       navigate("/home");
     }, 1000);
+
+    login(formData, "qwerty12345");
   };
 
   const handlePrev = () => {
