@@ -8,6 +8,7 @@ export default function DropdownItem({ label, onClick, icon: Icon }) {
       onClick={onClick}
       role="menuitem"
       tabIndex={0}
+      aria-label={label}
       onKeyDown={(e) => e.key === "Enter" && onClick?.()}
     >
       {Icon && <Icon className={styles.icon} />}

@@ -4,6 +4,9 @@ import styles from "./AuthButton.module.css";
 import { ReactComponent as UserLogo } from "../../assets/user.svg";
 import { useAuthStore } from "../../stores/authStore";
 import Dropdown from "../Dropdown/Dropdown";
+import { ReactComponent as ProfileIcon } from "../../assets/user.svg";
+import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
+import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
 
 export default function AuthButton() {
   const user = useAuthStore((store) => store.user);
@@ -13,7 +16,6 @@ export default function AuthButton() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  // Закрытие при клике вне
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -33,10 +35,19 @@ export default function AuthButton() {
   };
 
   const items = [
-    { label: "Профиль", onClick: () => navigate("/profile") },
-    { label: "Настройки", onClick: () => navigate("/settings") },
+    {
+      label: "Профиль",
+      icon: ProfileIcon,
+      onClick: () => navigate("/profile"),
+    },
+    {
+      label: "Настройки",
+      icon: SettingsIcon,
+      onClick: () => navigate("/settings"),
+    },
     {
       label: "Выйти",
+      icon: LogoutIcon,
       onClick: () => {
         logout();
         navigate("/");
@@ -51,7 +62,7 @@ export default function AuthButton() {
         {!user && <span className={styles.authText}>Войти</span>}
       </button>
 
-      {user && open && <Dropdown items={items} />}
+      {user && <Dropdown items={items} visible={open} />}
     </div>
   );
 }
