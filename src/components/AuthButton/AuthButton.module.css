@@ -12,7 +12,7 @@
   font-weight: 600;
   border: 1px solid var(--font-color);
   border-radius: var(--border-radius);
-  padding: var(--spacing-sm);
+  padding: var(--spacing-md);
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
   transition: background-color 0.2s ease, border-color 0.2s ease,
