@@ -1,0 +1,16 @@
+.title {
+  font-size: var(--font-size-title-lg);
+  font-weight: 700;
+  color: var(--font-color);
+}
+
+.red {
+  color: var(--error-color);
+}
+
+.subtitle {
+  font-size: var(--font-size-xxl);
+  font-weight: 500;
+  color: var(--gray-color);
+  letter-spacing: 0.06em;
+}

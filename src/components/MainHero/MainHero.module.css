@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxl) var(--spacing-md);
+  background: var(--main-color);
+  gap: var(--spacing-xxl);
+  width: 50%;
+  height: 100%;
+  border-radius: var(--border-radius);
+}
+
+.image {
+  max-width: 35vh;
+  height: 100%;
+  color: var(--element-color);
+}

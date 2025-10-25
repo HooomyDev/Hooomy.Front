@@ -1,0 +1,20 @@
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 5px solid var(--element-color);
+  padding-left: var(--spacing-xl);
+}
+
+.statNumber {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--element-color);
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  opacity: 0.8;
+}
