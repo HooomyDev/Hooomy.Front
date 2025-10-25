@@ -38,12 +38,18 @@ export default function AuthButton() {
     {
       label: "Профиль",
       icon: ProfileIcon,
-      onClick: () => navigate("/profile"),
+      onClick: () => {
+        setOpen(false);
+        navigate("/profile");
+      },
     },
     {
       label: "Настройки",
       icon: SettingsIcon,
-      onClick: () => navigate("/settings"),
+      onClick: () => {
+        setOpen(false);
+        navigate("/settings");
+      },
     },
     {
       label: "Выйти",
