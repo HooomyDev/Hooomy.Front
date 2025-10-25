@@ -6,7 +6,6 @@
   background: var(--main-color);
   gap: var(--spacing-xxl);
   width: 50%;
-  height: 100%;
   border-radius: var(--border-radius);
 }
 

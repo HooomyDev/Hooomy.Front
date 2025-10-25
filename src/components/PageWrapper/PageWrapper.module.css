@@ -1,6 +1,7 @@
 .wrapper {
   display: flex;
   justify-content: center;
-  height: auto;
+  align-items: start;
+  min-height: 100vh;
   width: 100%;
 }
