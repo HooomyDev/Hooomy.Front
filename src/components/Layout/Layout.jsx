@@ -3,7 +3,7 @@ import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import styles from "./Layout.module.css";
-import { links } from "../Navbar/links";
+import { links } from "../../stores/links";
 
 export default function Layout() {
   return (
