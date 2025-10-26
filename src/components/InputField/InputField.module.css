@@ -33,6 +33,20 @@
   box-shadow: 2px 2px 6px var(--gray-color);
 }
 
+textarea.inputField {
+  min-height: 100px;
+  resize: vertical;
+  font-weight: 600;
+  line-height: 1.4;
+  padding: 0.5rem 2.5rem 0 0.8rem;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .inputError {
   border-color: var(--error-color);
   box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);

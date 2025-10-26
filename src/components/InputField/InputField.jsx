@@ -10,6 +10,8 @@ export default function InputField({
   value,
   onChange,
   error,
+  multiline = false,
+  rows = 4,
 }) {
   const [visible, setVisible] = useState(false);
 
@@ -22,17 +24,31 @@ export default function InputField({
         {label}
         {required && <span className={styles.required}> *</span>}
       </label>
+
       <div className={styles.inputWrapper}>
-        <input
-          className={`${styles.inputField} ${error ? styles.inputError : ""}`}
-          id={name}
-          name={name}
-          type={inputType}
-          required={required}
-          value={value}
-          onChange={onChange}
-        />
-        {isPassword && (
+        {multiline ? (
+          <textarea
+            className={`${styles.inputField} ${error ? styles.inputError : ""}`}
+            id={name}
+            name={name}
+            required={required}
+            value={value}
+            onChange={onChange}
+            rows={rows}
+          />
+        ) : (
+          <input
+            className={`${styles.inputField} ${error ? styles.inputError : ""}`}
+            id={name}
+            name={name}
+            type={inputType}
+            required={required}
+            value={value}
+            onChange={onChange}
+          />
+        )}
+
+        {isPassword && !multiline && (
           <button
             type="button"
             className={styles.eye}
@@ -47,7 +63,8 @@ export default function InputField({
           </button>
         )}
       </div>
-      <div className={styles.error}>{error}</div>
+
+      {error && <div className={styles.error}>{error}</div>}
     </div>
   );
 }
