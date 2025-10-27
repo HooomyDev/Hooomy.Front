@@ -1,50 +1,54 @@
 import React from "react";
-import styles from "./RegistrationStepCommonUserData.module.css";
 import InputField from "../InputField/InputField";
+import { useFormContext } from "react-hook-form";
+import {
+  validateName,
+  validateSurname,
+  validatePatronymic,
+} from "../../utils/validation";
 
-export default function RegistrationStepCommonUserData({
-  formData,
-  setFormData,
-  wasSubmited,
-  error,
-}) {
+export default function RegistrationStepCommonUserData() {
+  const { watch } = useFormContext();
+  const role = watch("role");
+
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Заполните личные данные</h1>
+    <div>
+      <h1>Заполните личные данные</h1>
 
       <InputField
+        required
         label="Фамилия"
         name="surname"
-        value={formData.surname}
-        onChange={(e) => setFormData({ ...formData, surname: e.target.value })}
-        required
-        error={wasSubmited ? error.surname : ""}
+        rules={{
+          validate: (val) => validateSurname(val) || true,
+        }}
       />
+
       <InputField
+        required
         label="Имя"
         name="name"
-        value={formData.name}
-        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-        required
-        error={wasSubmited ? error.name : ""}
+        rules={{
+          validate: (val) => validateName(val) || true,
+        }}
       />
+
       <InputField
         label="Отчество"
         name="patronymic"
-        value={formData.patronymic}
-        onChange={(e) =>
-          setFormData({ ...formData, patronymic: e.target.value })
-        }
-        error={wasSubmited ? error.patronymic : ""}
+        rules={{
+          validate: (val) => validatePatronymic(val) || true,
+        }}
       />
 
-      {formData.role === "management" && (
+      {role === "management" && (
         <InputField
+          required
           label="Инвайт-код"
           name="invite"
-          value={formData.invite}
-          onChange={(e) => setFormData({ ...formData, invite: e.target.value })}
-          required
+          rules={{
+            required: "Введите инвайт-код",
+          }}
         />
       )}
     </div>

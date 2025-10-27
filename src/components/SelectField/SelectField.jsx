@@ -1,18 +1,21 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useFormContext, Controller } from "react-hook-form";
 import styles from "./SelectField.module.css";
 import Dropdown from "../Dropdown/Dropdown";
 
 export default function SelectField({
   label,
   name,
-  value,
-  onChange,
   options,
   required = false,
-  error,
+  rules = {},
 }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
+  const {
+    control,
+    formState: { errors },
+  } = useFormContext();
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -24,12 +27,6 @@ export default function SelectField({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleSelect = (opt) => {
-    onChange({ target: { name, value: opt.value } });
-    setOpen(false);
-    console.log(open);
-  };
-
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
       <label className={styles.label} htmlFor={name}>
@@ -37,28 +34,47 @@ export default function SelectField({
         {required && <span className={styles.required}> *</span>}
       </label>
 
-      <div className={styles.selectContainer}>
-        <div
-          className={`${styles.inputWrapper} ${open ? styles.open : ""}`}
-          onClick={() => setOpen((prev) => !prev)}
-        >
-          <div
-            className={`${styles.inputField} ${error ? styles.inputError : ""}`}
-          >
-            {options.find((o) => o.value === value)?.label || "Выберите..."}
-          </div>
-        </div>
+      <Controller
+        name={name}
+        control={control}
+        rules={{ required, ...rules }}
+        render={({ field: { value, onChange } }) => {
+          const handleSelect = (opt) => {
+            onChange(opt.value);
+            setOpen(false);
+          };
 
-        <Dropdown
-          items={options.map((opt) => ({
-            label: opt.label,
-            onClick: () => handleSelect(opt),
-          }))}
-          visible={open}
-        />
-      </div>
+          return (
+            <div className={styles.selectContainer}>
+              <div
+                className={`${styles.inputWrapper} ${open ? styles.open : ""}`}
+                onClick={() => setOpen((prev) => !prev)}
+              >
+                <div
+                  className={`${styles.inputField} ${
+                    errors[name] ? styles.inputError : ""
+                  }`}
+                >
+                  {options.find((o) => o.value === value)?.label ||
+                    "Выберите..."}
+                </div>
+              </div>
 
-      {error && <div className={styles.error}>{error}</div>}
+              <Dropdown
+                items={options.map((opt) => ({
+                  label: opt.label,
+                  onClick: () => handleSelect(opt),
+                }))}
+                visible={open}
+              />
+            </div>
+          );
+        }}
+      />
+
+      {errors[name] && (
+        <div className={styles.error}>{errors[name].message}</div>
+      )}
     </div>
   );
 }

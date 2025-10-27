@@ -1,7 +1,5 @@
 .menu {
   position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
   right: 0;
   border: 1px solid var(--gray-color);
   border-radius: var(--border-radius);
@@ -9,8 +7,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  max-height: 250px;
   overflow-y: auto;
+  width: 25vh;
   z-index: 100;
   opacity: 0;
   pointer-events: none;

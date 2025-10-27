@@ -11,3 +11,12 @@
   margin: auto 0;
   gap: var(--spacing-md);
 }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--spacing-lg);
+}

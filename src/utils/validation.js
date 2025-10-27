@@ -98,8 +98,5 @@ export function validatePatronymic(patronymic) {
   if (patronymic.length > 50) {
     return "Отчество слишком длинное (максимум 50 символов)";
   }
-  if (!/^[А-Яа-яЁёA-Za-z-]+$/.test(patronymic)) {
-    return "Отчество может содержать только буквы и дефис";
-  }
   return "";
 }

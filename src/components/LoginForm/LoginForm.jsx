@@ -1,42 +1,34 @@
 import React, { useState } from "react";
-import styles from "./LoginForm.module.css";
 import FormHeader from "../FormHeader/FormHeader";
 import LinkTo from "../LinkTo/LinkTo";
 import LoginFormButtons from "../LoginFormButtons/LoginFormButtons";
 import InputField from "../InputField/InputField";
 import { useNavigate } from "react-router-dom";
-import { validateEmail, validatePassword } from "../../utils/validation";
 import { useAuthStore } from "../../stores/authStore";
+import { useForm, FormProvider } from "react-hook-form";
+import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({ email: "", password: "" });
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({ email: "", password: "" });
-  const [wasSubmitted, setWasSubmitted] = useState(false);
+  const methods = useForm({
+    defaultValues: { email: "", password: "" },
+  });
+
   const navigate = useNavigate();
   const login = useAuthStore((store) => store.login);
 
-  const handleNext = () => {
-    setWasSubmitted(true);
+  const [loading, setLoading] = useState(false);
 
-    const newErrors = {
-      email: validateEmail(formData.email),
-      password: validatePassword(formData.password),
-    };
-
-    setErrors(newErrors);
-
-    const hasErrors = Object.values(newErrors).some(Boolean);
-    if (hasErrors) return;
+  const onSubmit = (data) => {
+    console.log("Form data:", data);
 
     setLoading(true);
 
-    // TODO: добавить запрос на авторизацию
+    // имитация загрузки
     setTimeout(() => {
+      login(data, "qwerty12345");
+      setLoading(false);
       navigate("/home");
-    }, 1000);
-
-    login(formData, "qwerty12345");
+    }, 1500);
   };
 
   const handlePrev = () => {
@@ -47,30 +39,46 @@ export default function LoginForm() {
     <div className={styles.wrapper}>
       <FormHeader title="Вход" />
 
-      <InputField
-        label="Email"
-        name="email"
-        value={formData.email}
-        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-        error={wasSubmitted ? errors.email : ""}
-      />
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
+          <InputField
+            label="Email"
+            name="email"
+            rules={{
+              required: "Введите email",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Некорректный email",
+              },
+            }}
+          />
 
-      <InputField
-        label="Пароль"
-        name="password"
-        type="password"
-        value={formData.password}
-        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-        error={wasSubmitted ? errors.password : ""}
-      />
+          <InputField
+            label="Пароль"
+            name="password"
+            type="password"
+            rules={{
+              required: "Введите пароль",
+              minLength: {
+                value: 6,
+                message: "Минимум 6 символов",
+              },
+            }}
+          />
 
-      <LoginFormButtons
-        onPrev={handlePrev}
-        onNext={handleNext}
-        loading={loading}
-      />
+          <LoginFormButtons
+            onPrev={handlePrev}
+            loading={loading}
+            onNext={methods.handleSubmit(onSubmit)}
+          />
 
-      <LinkTo label="Зарегистрироваться" text="Нет аккаунта?" link="register" />
+          <LinkTo
+            label="Зарегистрироваться"
+            text="Нет аккаунта?"
+            link="register"
+          />
+        </form>
+      </FormProvider>
     </div>
   );
 }

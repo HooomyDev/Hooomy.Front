@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm, FormProvider } from "react-hook-form";
 import RegistrationWizardButtons from "../RegistrationWizardButtons/RegistrationWizardButtons";
 import RegistrationProgressBar from "../RegistrationProgressBar/RegistrationProgressBar";
 import RegistrationWizardContent from "../RegistrationWizardContent/RegistrationWizardContent";
@@ -29,109 +30,82 @@ const roles = [
 export default function RegistrationWizard() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    role: "",
-    surname: "",
-    name: "",
-    patronymic: "",
-    invite: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
   const [loading, setLoading] = useState(false);
-  const [wasSubmitted, setWasSubmitted] = useState(false);
-  const [errors, setErrors] = useState({});
+
+  const methods = useForm({
+    defaultValues: {
+      role: "",
+      surname: "",
+      name: "",
+      patronymic: "",
+      invite: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onChange",
+  });
 
   const steps = [
-    {
-      id: 1,
-      component: (
-        <RegistrationStepAccountType
-          roles={roles}
-          formData={formData}
-          setFormData={setFormData}
-        />
-      ),
-    },
-    {
-      id: 2,
-      component: (
-        <RegistrationStepCommonUserData
-          formData={formData}
-          setFormData={setFormData}
-          wasSubmited={wasSubmitted}
-          error={errors}
-        />
-      ),
-    },
-    {
-      id: 3,
-      component: (
-        <RegistrationStepContactUserData
-          formData={formData}
-          setFormData={setFormData}
-          wasSubmited={wasSubmitted}
-          error={errors}
-        />
-      ),
-    },
-    { id: 4, component: <RegistrationStepReview formData={formData} /> },
+    { id: 1, component: <RegistrationStepAccountType roles={roles} /> },
+    { id: 2, component: <RegistrationStepCommonUserData /> },
+    { id: 3, component: <RegistrationStepContactUserData /> },
+    { id: 4, component: <RegistrationStepReview /> },
     { id: 5, component: <RegistrationStepSuccess /> },
   ];
 
-  // HACK: заменить на что-то лучше
-  const fakeServerCheck = (code) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(code === "ABC123");
-      }, 2000);
+  const fakeServerCheck = (code) =>
+    new Promise((resolve) => {
+      setTimeout(() => resolve(code === "ABC123"), 2000);
     });
-  };
 
   const handleNext = async () => {
-    setWasSubmitted(true);
+    const values = methods.getValues();
 
     let newErrors = {};
 
+    if (step === 1 && !values.role) {
+      newErrors.role = "Выберите роль";
+    }
+
     if (step === 2) {
       newErrors = {
-        name: validateName(formData.name),
-        surname: validateSurname(formData.surname),
-        patronymic: validatePatronymic(formData.patronymic),
+        name: validateName(values.name),
+        surname: validateSurname(values.surname),
+        patronymic: validatePatronymic(values.patronymic),
       };
     }
 
     if (step === 3) {
       newErrors = {
-        email: validateEmail(formData.email),
-        password: validatePassword(formData.password),
+        email: validateEmail(values.email),
+        password: validatePassword(values.password),
         confirmPassword: validateConfirmPassword(
-          formData.password,
-          formData.confirmPassword
+          values.password,
+          values.confirmPassword
         ),
       };
     }
 
-    setErrors(newErrors);
-    console.log(newErrors);
-
     const hasErrors = Object.values(newErrors).some((err) => err !== "");
-    console.log(hasErrors);
     if (hasErrors) return;
 
-    if (step === 2 && formData.role === "management") {
+    if (step === 2 && values.role === "management") {
       setLoading(true);
-      const isValid = await fakeServerCheck(formData.invite.trim());
+      const isValid = await fakeServerCheck(values.invite.trim());
       setLoading(false);
 
       if (!isValid) {
-        setErrors((prev) => ({
-          ...prev,
-          invite: "Неверный инвайт-код",
-        }));
         return;
       }
+    }
+
+    if (step === 4) {
+      setLoading(true);
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setLoading(false);
+      setStep((prev) => prev + 1);
+      return;
     }
 
     if (step < steps.length) {
@@ -139,37 +113,51 @@ export default function RegistrationWizard() {
     }
 
     if (step === 5) {
-      // TODO: запросы на регистрацию
-      console.log(formData);
+      console.log(values);
       navigate("/home");
     }
   };
 
   const handlePrev = () => {
-    if (step === 1) {
-      navigate(-1);
-    } else {
-      setStep((prev) => prev - 1);
-    }
+    if (step === 1) navigate(-1);
+    else setStep((prev) => prev - 1);
   };
 
+  const values = methods.watch();
+
+  const isNextDisabled =
+    loading ||
+    (step === 1 && !values.role) ||
+    (step === 2 &&
+      (validateSurname(values.surname) !== "" ||
+        validateName(values.name) !== "" ||
+        validatePatronymic(values.patronymic) !== "")) ||
+    (step === 3 &&
+      (validateEmail(values.email) !== "" ||
+        validatePassword(values.password) !== "" ||
+        validateConfirmPassword(values.password, values.confirmPassword) !==
+          ""));
+
   return (
-    <div className={styles.wrapper}>
-      <FormHeader title="Регистрация" />
-      <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
-      <RegistrationWizardWrapper>
-        <RegistrationWizardContent step={steps[step - 1]} />
-      </RegistrationWizardWrapper>
-      <RegistrationWizardButtons
-        onNext={handleNext}
-        onPrev={handlePrev}
-        loading={loading}
-      />
-      <LinkTo
-        link="login"
-        label="Зарегистрироваться"
-        text="Уже есть аккаунт?"
-      />
-    </div>
+    <FormProvider {...methods}>
+      <div className={styles.wrapper}>
+        <FormHeader title="Регистрация" />
+        <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
+        <RegistrationWizardWrapper>
+          <RegistrationWizardContent step={steps[step - 1]} />
+        </RegistrationWizardWrapper>
+        <RegistrationWizardButtons
+          onNext={handleNext}
+          onPrev={handlePrev}
+          loading={loading}
+          disabledNext={isNextDisabled}
+        />
+        <LinkTo
+          link="login"
+          label="Зарегистрироваться"
+          text="Уже есть аккаунт?"
+        />
+      </div>
+    </FormProvider>
   );
 }
