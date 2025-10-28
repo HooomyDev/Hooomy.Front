@@ -4,7 +4,8 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-lg);
-  width: 100%;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 .title {
@@ -15,48 +16,23 @@
   text-align: center;
 }
 
-.tabs {
-  display: flex;
-  justify-content: center;
-}
-
-.button {
-  flex: 1;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 0;
-  color: var(--element-color);
-  font-size: var(--font-size-base);
-  font-weight: 500;
-  cursor: pointer;
-  height: 5vh;
-  background-color: transparent;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-.button:hover {
-  background-color: var(--element-color);
-  color: var(--main-color);
-}
-
-.inputContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: var(--spacing-lg);
-  width: 80%;
-}
-
 .submitButton {
   align-self: flex-end;
+  min-width: 20vh;
+  margin-right: 10%;
   background: var(--element-color);
   color: var(--main-color);
   font-size: var(--font-size-base);
   font-weight: 600;
   padding: var(--spacing-md) var(--spacing-xl);
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.description {
+  height: 10vh;
 }
 
 .submitButton:hover {
@@ -67,8 +43,4 @@
 .submitButton:active {
   transform: scale(0.98);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-}
-
-.description {
-  height: 10vh;
 }

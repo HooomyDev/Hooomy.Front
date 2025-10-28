@@ -6,26 +6,56 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  transition: height 0.3s ease;
 }
 
 .modal {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   background: var(--main-color);
+  overflow-y: auto;
   padding: var(--spacing-xl);
+  box-sizing: border-box;
   border-radius: var(--border-radius);
   width: 60%;
   color: var(--font-color);
   position: relative;
+  max-height: 90vh;
+  transition: height 0.4s ease, transform 0.3s ease;
 }
 
 .close {
   position: absolute;
   top: var(--spacing-sm);
   right: var(--spacing-sm);
-  background: none;
-  border: none;
-  font-size: var(--font-size-xl);
+  background: transparent;
+  border: 1px solid transparent;
+  font-weight: 700;
+  line-height: 1;
   cursor: pointer;
+  color: var(--font-color);
+  padding: 0.5rem 0.75rem;
+  font-size: var(--font-size-title);
+  border-radius: var(--border-radius);
+}
+
+.close:hover {
+  border: 1px solid transparent;
+  transform: scale(1.1);
+  color: var(--element-color);
+}
+
+.close:active {
+  transform: scale(0.95);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  fill: currentColor;
+  color: var(--font-color);
+  pointer-events: none;
+  transition: color 0.2s ease;
 }

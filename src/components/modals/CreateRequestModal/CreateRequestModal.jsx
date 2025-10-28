@@ -1,9 +1,8 @@
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import InputField from "../../InputField/InputField";
-import SelectField from "../../SelectField/SelectField";
-import { districts } from "../../../stores/districts";
-import { streets } from "../../../stores/streets";
+import FileUploadField from "../../FileUploadField/FileUploadField";
+import TabPanel from "../../TabPanel/TabPanel";
+import RequestByAdress from "../../RequestByAdress/RequestByAdress";
 import styles from "./CreateRequestModal.module.css";
 
 export default function CreateRequestModal() {
@@ -29,42 +28,22 @@ export default function CreateRequestModal() {
       <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
         <div className={styles.title}>Новая заявка</div>
 
-        <div className={styles.tabs}>
-          <button type="button" className={styles.button}>
-            Заявка по адресу
-          </button>
-          <button type="button" className={styles.button}>
-            Заявка по точке на карте
-          </button>
-        </div>
-
-        <SelectField label="Район" name="district" options={districts} />
-        <SelectField
-          label="Улица"
-          name="street"
-          options={streets[methods.watch("district")] || []}
+        <TabPanel
+          tabs={[
+            {
+              id: "address",
+              title: "Заявка по адресу",
+              content: <RequestByAdress />,
+            },
+            {
+              id: "map",
+              title: "Заявка по точке на карте",
+              content: <div></div>,
+            },
+          ]}
         />
 
-        <div className={styles.inputContainer}>
-          <InputField label="Дом" name="house" />
-          <InputField label="Подъезд" name="entrance" type="number" />
-          <InputField label="Этаж" name="floor" type="number" />
-          <InputField label="Квартира" name="apartment" />
-        </div>
-
-        <InputField label="Описание проблемы" name="description" multiline />
-
-        <div className={styles.fileUpload}>
-          <label className={styles.label} htmlFor="photo">
-            Фото проблемы
-          </label>
-          <input
-            id="photo"
-            type="file"
-            accept="image/*"
-            {...methods.register("photo")}
-          />
-        </div>
+        <FileUploadField />
 
         <button type="submit" className={styles.submitButton}>
           Создать

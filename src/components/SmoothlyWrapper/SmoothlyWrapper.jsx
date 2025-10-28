@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
-import styles from "./RegistrationWizardWrapper.module.css";
+import styles from "./SmoothlyWrapper.module.css";
 
-export default function RegistrationWizardWrapper({ children }) {
+export default function SmoothlyWrapper({ children }) {
   const ref = useRef(null);
   const [height, setHeight] = useState("auto");
 

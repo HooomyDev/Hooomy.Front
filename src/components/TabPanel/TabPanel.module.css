@@ -1,28 +1,14 @@
-.card {
+.wrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-md);
-  background: var(--main-color);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--gray-color);
-  padding: var(--spacing-xxl);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 60%;
-  min-height: 20rem;
-  text-align: left;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
-}
-
-.card:hover {
-  transform: scale(1.01);
+  transition: height 0.3s ease;
 }
 
 .icon {
-  width: 100px;
-  height: 100px;
+  width: clamp(64px, 8vw, 100px);
+  height: clamp(64px, 8vw, 100px);
   color: var(--element-color);
   margin-right: var(--spacing-lg);
 }
@@ -40,26 +26,23 @@
   opacity: 0.85;
 }
 
-.fade-entering {
+.fade-enter {
   opacity: 0;
   transform: translateY(10px) scale(0.98);
 }
-
-.fade-entered {
+.fade-enter-active {
   opacity: 1;
   transform: translateY(0) scale(1);
   transition: opacity 400ms ease-out, transform 400ms ease-out;
 }
-
-.fade-exiting {
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.fade-exit-active {
   opacity: 0;
   transform: translateY(-10px) scale(0.98);
   transition: opacity 400ms ease-in, transform 400ms ease-in;
-}
-
-.fade-exited {
-  opacity: 0;
-  transform: translateY(-10px) scale(0.98);
 }
 
 @media (max-width: 480px) and (orientation: portrait) {
@@ -69,12 +52,7 @@
     align-items: center;
     text-align: center;
     max-width: 100%;
-  }
-
-  .icon {
-    width: 64px;
-    height: 64px;
-    margin: 0px;
+    gap: var(--spacing-sm);
   }
 
   .title {
@@ -95,11 +73,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     max-width: 80%;
-  }
-
-  .icon {
-    width: 80px;
-    height: 80px;
   }
 
   .title {

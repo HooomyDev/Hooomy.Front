@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
-import styles from "./SelectField.module.css";
 import Dropdown from "../Dropdown/Dropdown";
+import styles from "./SelectField.module.css";
 
 export default function SelectField({
   label,

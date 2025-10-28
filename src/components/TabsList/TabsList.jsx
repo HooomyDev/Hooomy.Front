@@ -10,6 +10,7 @@ export default function TabsList({ tabs, activeTab, onChange }) {
           className={`${styles.tabButton} ${
             activeTab === tab.id ? styles.active : ""
           }`}
+          type="button"
           onClick={() => onChange(tab.id)}
         >
           {tab.title}

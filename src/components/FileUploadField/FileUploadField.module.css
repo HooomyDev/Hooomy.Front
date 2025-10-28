@@ -1,0 +1,49 @@
+.fileUpload {
+  margin-bottom: var(--spacing-lg);
+  width: 80%;
+}
+
+.label {
+  display: block;
+  margin-bottom: var(--spacing-md);
+  font-weight: 600;
+  font-size: var(--font-size-xl);
+}
+
+.dropZone {
+  border: 2px dashed var(--font-color);
+  padding: var(--spacing-xxl);
+  text-align: center;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: transform 0.3s ease;
+}
+
+.dropZone:hover {
+  transform: scale(1.01);
+}
+
+.active {
+  background-color: var(--element-color);
+}
+
+.placeholder {
+  color: var(--font-color);
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.previewImage {
+  max-width: 100%;
+  max-height: 200px;
+  margin-bottom: 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.hiddenInput {
+  display: none;
+}

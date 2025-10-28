@@ -8,7 +8,7 @@ import RegistrationStepAccountType from "../RegistrationStepAccountType/Registra
 import RegistrationStepCommonUserData from "../RegistrationStepCommonUserData/RegistrationStepCommonUserData";
 import RegistrationStepContactUserData from "../RegistrationStepContactUserData/RegistrationStepContactUserData";
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
-import RegistrationWizardWrapper from "../RegistrationWizardWrapper/RegistrationWizardWrapper";
+import SmoothlyWrapper from "../SmoothlyWrapper/SmoothlyWrapper";
 import RegistrationStepSuccess from "../RegistrationStepSuccess/RegistrationStepSuccess";
 import styles from "./RegistrationWizard.module.css";
 import {
@@ -143,9 +143,9 @@ export default function RegistrationWizard() {
       <div className={styles.wrapper}>
         <FormHeader title="Регистрация" />
         <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
-        <RegistrationWizardWrapper>
+        <SmoothlyWrapper>
           <RegistrationWizardContent step={steps[step - 1]} />
-        </RegistrationWizardWrapper>
+        </SmoothlyWrapper>
         <RegistrationWizardButtons
           onNext={handleNext}
           onPrev={handlePrev}
