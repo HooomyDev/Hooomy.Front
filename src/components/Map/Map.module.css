@@ -1,0 +1,13 @@
+.mapContainer {
+  width: 100%;
+  height: 60vh;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 0;
+}
+
+.mapContainer:focus-within {
+  outline: 2px solid var(--accent-color);
+}

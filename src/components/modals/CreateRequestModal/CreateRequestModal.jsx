@@ -3,6 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import FileUploadField from "../../FileUploadField/FileUploadField";
 import TabPanel from "../../TabPanel/TabPanel";
 import RequestByAdress from "../../RequestByAdress/RequestByAdress";
+import RequestByMap from "../../RequestByMap/RequestByMap";
 import styles from "./CreateRequestModal.module.css";
 
 export default function CreateRequestModal() {
@@ -16,6 +17,7 @@ export default function CreateRequestModal() {
       apartment: "",
       description: "",
       photo: null,
+      location: null,
     },
   });
 
@@ -38,7 +40,7 @@ export default function CreateRequestModal() {
             {
               id: "map",
               title: "Заявка по точке на карте",
-              content: <div></div>,
+              content: <RequestByMap />,
             },
           ]}
         />
