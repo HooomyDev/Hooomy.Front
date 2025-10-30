@@ -24,7 +24,20 @@ export default function Map({ onSelect }) {
           "https://api.maptiler.com/maps/streets/style.json?key=f18LjJFT5ceYy706DQ1e",
         center: [27.5619, 53.9023],
         zoom: 12,
+        attributionControl: false,
       });
+
+      instance.addControl(new maplibregl.NavigationControl(), "top-right");
+      instance.addControl(new maplibregl.FullscreenControl(), "top-left");
+      instance.addControl(
+        new maplibregl.GeolocateControl({
+          positionOptions: {
+            enableHighAccuracy: true,
+          },
+          trackUserLocation: true,
+        }),
+        "top-left"
+      );
 
       instance.on("click", async (e) => {
         const { lng, lat } = e.lngLat;

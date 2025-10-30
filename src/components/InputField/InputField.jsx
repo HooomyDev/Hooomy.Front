@@ -8,7 +8,6 @@ export default function InputField({
   name,
   type = "text",
   required = false,
-  error,
   multiline = false,
   rows = 4,
   rules = {},
@@ -47,6 +46,21 @@ export default function InputField({
             id={name}
             type={inputType}
             {...register(name, { required, ...rules })}
+            onKeyDown={(e) => {
+              if (type === "number" && required) {
+                const allowed = [
+                  "Backspace",
+                  "Tab",
+                  "ArrowLeft",
+                  "ArrowRight",
+                  "Delete",
+                ];
+                const isDigit = /^[0-9]$/.test(e.key);
+                if (!isDigit && !allowed.includes(e.key)) {
+                  e.preventDefault();
+                }
+              }
+            }}
           />
         )}
 

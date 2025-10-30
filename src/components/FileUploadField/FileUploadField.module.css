@@ -47,3 +47,18 @@
 .hiddenInput {
   display: none;
 }
+
+.error {
+  margin-top: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--error-color);
+}
+
+.dropZoneError {
+  border-color: var(--danger-color);
+  background-color: rgba(255, 0, 0, 0.05);
+}
+
+.required {
+  color: var(--error-color);
+}

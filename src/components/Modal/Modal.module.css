@@ -43,7 +43,6 @@
 .close:hover {
   border: 1px solid transparent;
   transform: scale(1.1);
-  color: var(--element-color);
 }
 
 .close:active {
@@ -57,5 +56,9 @@
   fill: currentColor;
   color: var(--font-color);
   pointer-events: none;
-  transition: color 0.2s ease;
+  transition: color 0.7s ease;
+}
+
+.close:hover .icon {
+  color: var(--element-color);
 }

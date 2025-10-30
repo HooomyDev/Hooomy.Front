@@ -4,6 +4,7 @@ import FileUploadField from "../../FileUploadField/FileUploadField";
 import TabPanel from "../../TabPanel/TabPanel";
 import RequestByAdress from "../../RequestByAdress/RequestByAdress";
 import RequestByMap from "../../RequestByMap/RequestByMap";
+import InputField from "../../InputField/InputField";
 import styles from "./CreateRequestModal.module.css";
 
 export default function CreateRequestModal() {
@@ -45,9 +46,20 @@ export default function CreateRequestModal() {
           ]}
         />
 
-        <FileUploadField />
+        <InputField
+          label="Описание проблемы"
+          name="description"
+          multiline
+          required
+        />
 
-        <button type="submit" className={styles.submitButton}>
+        <FileUploadField required />
+
+        <button
+          type="submit"
+          className={styles.submitButton}
+          onSubmit={onSubmit}
+        >
           Создать
         </button>
       </form>
