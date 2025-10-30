@@ -1,5 +1,6 @@
 .wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-xxl) var(--spacing-md);
@@ -7,10 +8,4 @@
   gap: var(--spacing-xxl);
   width: 80%;
   border-radius: var(--border-radius);
-}
-
-.image {
-  max-width: 35vh;
-  height: 100%;
-  color: var(--element-color);
 }
