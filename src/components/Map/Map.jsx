@@ -8,7 +8,18 @@ const reverseGeocode = async ({ lng, lat }) => {
     `https://api.maptiler.com/geocoding/${lng},${lat}.json?key=f18LjJFT5ceYy706DQ1e`
   );
   const data = await response.json();
-  return data.features?.[0]?.place_name || "Адрес не найден";
+
+  if (data.features?.length) {
+    const feature = data.features[0];
+    const props = feature.properties || {};
+    const street = props.street || "";
+    const house = props.housenumber || "";
+    const result = [street, house].filter(Boolean).join(" ");
+
+    return result || feature.place_name || "Адрес не найден";
+  }
+
+  return "Адрес не найден";
 };
 
 export default function Map({ onSelect }) {
@@ -56,8 +67,15 @@ export default function Map({ onSelect }) {
 
           markerRef.current.on("dragend", async () => {
             const newPos = markerRef.current.getLngLat();
-            const newAddress = await reverseGeocode(newPos);
-            new maplibregl.Popup()
+            const newAddress = await reverseGeocode({
+              lng: newPos.lng,
+              lat: newPos.lat,
+            });
+
+            new maplibregl.Popup({
+              closeButton: false,
+              closeOnClick: true,
+            })
               .setLngLat([newPos.lng, newPos.lat])
               .setHTML(`<strong>Адрес:</strong><br>${newAddress}`)
               .addTo(instance);
@@ -70,11 +88,6 @@ export default function Map({ onSelect }) {
               });
           });
         }
-
-        new maplibregl.Popup()
-          .setLngLat([lng, lat])
-          .setHTML(`<strong>Адрес:</strong><br>${address}`)
-          .addTo(instance);
 
         if (onSelect) onSelect({ lng, lat, address });
       });

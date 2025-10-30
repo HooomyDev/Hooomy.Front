@@ -15,6 +15,10 @@ export default function MainHero() {
     setOpenModal(true);
   };
 
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
+
   return (
     <div className={styles.wrapper}>
       <MascotIcon className={styles.image} />
@@ -22,8 +26,8 @@ export default function MainHero() {
         <MainHeroTitle />
         <MainHeroStats />
         <MainHeroCTAButton onClick={handleCTAButtonClick} />
-        <Modal isOpen={openModal} onClose={() => setOpenModal(false)}>
-          <CreateRequestModal />
+        <Modal isOpen={openModal} onClose={handleCloseModal}>
+          <CreateRequestModal onSuccess={handleCloseModal} />
         </Modal>
       </MainHeroContent>
     </div>

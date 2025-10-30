@@ -17,3 +17,8 @@
   width: fit-content;
   align-self: flex-start;
 }
+
+.error {
+  font-size: var(--font-size-base);
+  color: var(--error-color);
+}

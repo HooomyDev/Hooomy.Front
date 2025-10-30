@@ -22,6 +22,7 @@ export default function RequestByAdress() {
 
       <div className={styles.inputContainer}>
         <InputField
+          required
           label="Дом"
           name="house"
           rules={{

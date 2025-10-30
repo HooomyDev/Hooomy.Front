@@ -7,7 +7,7 @@ import RequestByMap from "../../RequestByMap/RequestByMap";
 import InputField from "../../InputField/InputField";
 import styles from "./CreateRequestModal.module.css";
 
-export default function CreateRequestModal() {
+export default function CreateRequestModal({ onSuccess }) {
   const methods = useForm({
     defaultValues: {
       district: "",
@@ -24,6 +24,7 @@ export default function CreateRequestModal() {
 
   const onSubmit = (data) => {
     console.log("Form data:", data);
+    onSuccess();
   };
 
   return (
