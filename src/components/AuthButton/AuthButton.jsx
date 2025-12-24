@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "./AuthButton.module.css";
-import { ReactComponent as UserLogo } from "../../assets/user.svg";
 import { useAuthStore } from "../../stores/authStore";
-import Dropdown from "../Dropdown/Dropdown";
+import { ReactComponent as UserLogo } from "../../assets/user.svg";
 import { ReactComponent as ProfileIcon } from "../../assets/user.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
 import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
+import Dropdown from "../common/Dropdown/Dropdown";
+import styles from "./AuthButton.module.css";
 
 export default function AuthButton() {
   const user = useAuthStore((store) => store.user);

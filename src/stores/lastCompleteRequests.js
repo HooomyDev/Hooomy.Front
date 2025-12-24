@@ -20,5 +20,12 @@ export const lastCompleteRequests = [
       createdAt: "2025-10-27T18:47:00Z",
       status: "completed",
     },
+    {
+      id: 4,
+      street: "ул. Советская 3",
+      location: { lat: 53.8931, lng: 27.5472 },
+      createdAt: "2025-10-27T18:47:00Z",
+      status: "completed",
+    },
   ];
   

@@ -5,8 +5,8 @@ import MainHeroTitle from "../MainHeroTitle/MainHeroTitle";
 import MainHeroStats from "../MainHeroStats/MainHeroStats";
 import MainHeroCTAButton from "../MainHeroCTAButton/MainHeroCTAButton";
 import styles from "./MainHero.module.css";
-import CreateRequestModal from "../modals/CreateRequestModal/CreateRequestModal";
-import Modal from "../Modal/Modal";
+import CreateRequestModal from "../../modals/CreateRequestModal/CreateRequestModal";
+import Modal from "../../modals/Modal/Modal";
 
 export default function MainHero() {
   const [openModal, setOpenModal] = useState(false);

@@ -1,8 +1,0 @@
-.navItem {
-  position: relative;
-  margin-bottom: 3vh;
-}
-
-.active {
-  transform: scale(1.2);
-}

@@ -5,8 +5,8 @@ import LastCompleteRequestsItem from "../LastCompleteRequestsItem/LastCompleteRe
 export default function LastCompleteRequestsList({ items = [] }) {
   return (
     <div className={styles.grid}>
-      {items.map((item) => {
-        return <LastCompleteRequestsItem item={item} />;
+      {items.map((item, index) => {
+        return <LastCompleteRequestsItem item={item} key={index} />;
       })}
     </div>
   );
