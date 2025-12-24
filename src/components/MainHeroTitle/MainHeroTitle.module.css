@@ -11,6 +11,6 @@
 .subtitle {
   font-size: var(--font-size-xxl);
   font-weight: 500;
-  color: var(--gray-color);
+  color: var(--font-color);
   letter-spacing: 0.06em;
 }

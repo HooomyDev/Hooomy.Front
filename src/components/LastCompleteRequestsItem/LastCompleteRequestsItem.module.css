@@ -8,7 +8,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   min-height: 40vh;
-  min-width: 40vh;
+  width: 40vh;
 }
 
 .card:hover {
@@ -46,7 +46,6 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--font-color);
-  margin: 0;
 }
 
 .status {
@@ -57,5 +56,24 @@
 
 .date {
   font-size: var(--font-size-sm);
-  color: var(--gray-color);
+  color: var(--font-color);
+}
+
+.description {
+  max-height: 10vh;
+  overflow-y: auto;
+}
+
+.extra {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(10px);
+  transition: max-height 0.6s ease, opacity 0.6s ease, transform 0.6s ease;
+}
+
+.card:hover .extra {
+  max-height: 200px;
+  opacity: 1;
+  transform: translateY(0);
 }
