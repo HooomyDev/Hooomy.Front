@@ -1,4 +1,8 @@
 .navLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
   text-decoration: none;
   font-size: clamp(0.9rem, 1vw + 0.5rem, var(--font-size-lg));
   font-weight: 500;
@@ -18,4 +22,12 @@
   font-weight: 600;
   background-color: var(--gray-color);
   color: var(--font-color);
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: inherit;
+  transition: color 0.2s ease;
 }

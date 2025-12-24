@@ -6,7 +6,7 @@ export default function Navbar({ items }) {
   return (
     <div className={styles.navbar}>
       {items.map((item) => (
-        <NavItem key={item.id} to={item.to} label={item.label} />
+        <NavItem key={item.id} item={item} />
       ))}
     </div>
   );
