@@ -3,8 +3,8 @@ import { useFormContext } from "react-hook-form";
 import { districts } from "../../stores/districts";
 import { streets } from "../../stores/streets";
 import styles from "./RequestByAdress.module.css";
-import InputField from "../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
+import InputField from "../../common/InputField/InputField";
 
 export default function RequestByAdress() {
   const { watch } = useFormContext();

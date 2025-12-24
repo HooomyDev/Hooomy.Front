@@ -8,6 +8,7 @@ import Layout from "./components/Layout/Layout";
 import ProtectedRoute from "./features/route/ProtectedRouter/ProtectedRouter";
 import "./styles/variables.css";
 import "./styles/global.css";
+import NotFound from "./components/NotFound/NotFound";
 
 export default function App() {
   return (
@@ -28,6 +29,7 @@ export default function App() {
       </Route>
       <Route path="login" element={<LoginPage />} />
       <Route path="register" element={<RegisterPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
