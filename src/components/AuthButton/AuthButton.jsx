@@ -5,7 +5,7 @@ import { ReactComponent as UserLogo } from "../../assets/user.svg";
 import { ReactComponent as ProfileIcon } from "../../assets/user.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
 import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
-import Dropdown from "../common/Dropdown/Dropdown";
+import Dropdown from "../../common/Dropdown/Dropdown";
 import styles from "./AuthButton.module.css";
 
 export default function AuthButton() {
