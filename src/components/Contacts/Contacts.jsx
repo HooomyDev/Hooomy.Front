@@ -7,7 +7,7 @@ export default function Contacts() {
   return (
     <div className={styles.container}>
       <h2>
-        Остались вопросы? <br />
+        Есть вопросы? <br />
         <span className={styles.span}>Свяжитесь с нами!</span>
       </h2>
       <ContactInfo />
