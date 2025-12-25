@@ -44,6 +44,7 @@ export default function LoginForm() {
           <InputField
             label="Email"
             name="email"
+            placeholder="Введите ваш email"
             rules={{
               required: "Введите email",
               pattern: {
@@ -56,6 +57,7 @@ export default function LoginForm() {
           <InputField
             label="Пароль"
             name="password"
+            placeholder="Введите ваш пароль"
             type="password"
             rules={{
               required: "Введите пароль",

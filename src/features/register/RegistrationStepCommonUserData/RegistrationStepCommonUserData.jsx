@@ -18,6 +18,7 @@ export default function RegistrationStepCommonUserData() {
       <InputField
         required
         label="Фамилия"
+        placeholder="Введите вашу фамилию"
         name="surname"
         rules={{
           validate: (val) => validateSurname(val) || true,
@@ -27,6 +28,7 @@ export default function RegistrationStepCommonUserData() {
       <InputField
         required
         label="Имя"
+        placeholder="Введите ваше имя"
         name="name"
         rules={{
           validate: (val) => validateName(val) || true,
@@ -35,6 +37,7 @@ export default function RegistrationStepCommonUserData() {
 
       <InputField
         label="Отчество"
+        placeholder="Введите ваше отчество"
         name="patronymic"
         rules={{
           validate: (val) => validatePatronymic(val) || true,
@@ -45,6 +48,7 @@ export default function RegistrationStepCommonUserData() {
         <InputField
           required
           label="Инвайт-код"
+          placeholder="Введите ваш код"
           name="invite"
           rules={{
             required: "Введите инвайт-код",

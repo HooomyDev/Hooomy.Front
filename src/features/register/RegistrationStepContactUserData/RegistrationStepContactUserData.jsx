@@ -6,17 +6,19 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../../../utils/validation";
+import styles from "./RegistrationStepContactUserData.module.css";
 
 export default function RegistrationStepContactUserData() {
   const { watch } = useFormContext();
   const password = watch("password");
 
   return (
-    <div>
-      <h1>Укажите контактную информацию</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Укажите контактную информацию</h1>
 
       <InputField
         label="Email"
+        placeholder="Введите ваш email"
         name="email"
         type="email"
         required
@@ -27,6 +29,7 @@ export default function RegistrationStepContactUserData() {
 
       <InputField
         label="Пароль"
+        placeholder="Введите ваш пароль"
         name="password"
         type="password"
         required
@@ -38,6 +41,7 @@ export default function RegistrationStepContactUserData() {
 
       <InputField
         label="Повторите пароль"
+        placeholder="Введите ваш email ещё раз"
         name="confirmPassword"
         type="password"
         isPassword

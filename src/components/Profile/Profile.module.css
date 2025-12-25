@@ -1,0 +1,98 @@
+.wrapper {
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: 80%;
+  margin: 0 auto;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  height: auto;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  color: var(--font-color);
+  width: 100%;
+  padding: 0 0 var(--spacing-xl) 0;
+  border-bottom: 2px solid var(--gray-color);
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  color: var(--element-color);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.formRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: var(--spacing-xl);
+}
+
+.formGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.buttons {
+  display: flex;
+  align-self: flex-end;
+  gap: var(--spacing-md);
+}
+
+.button {
+  padding: var(--spacing-md) var(--spacing-xxl);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  background: var(--element-color);
+  color: var(--main-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.changePasswordButton {
+  background-color: transparent;
+  color: var(--element-color);
+}
+
+.button:hover {
+  transform: scale(1.02);
+}
+
+.changePasswordButton:hover {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--font-color);
+  transform: scale(1);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

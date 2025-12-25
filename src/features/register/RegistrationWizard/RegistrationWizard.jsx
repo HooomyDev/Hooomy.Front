@@ -152,11 +152,7 @@ export default function RegistrationWizard() {
           loading={loading}
           disabledNext={isNextDisabled}
         />
-        <LinkTo
-          link="login"
-          label="Зарегистрироваться"
-          text="Уже есть аккаунт?"
-        />
+        <LinkTo link="login" label="Войти" text="Уже есть аккаунт?" />
       </div>
     </FormProvider>
   );

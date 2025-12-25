@@ -9,8 +9,10 @@ export default function InputField({
   type = "text",
   required = false,
   multiline = false,
+  placeholder = "",
   rows = 4,
   rules = {},
+  className,
 }) {
   const [visible, setVisible] = useState(false);
   const {
@@ -40,11 +42,12 @@ export default function InputField({
           />
         ) : (
           <input
-            className={`${styles.inputField} ${
+            className={`${styles.inputField} ${className} ${
               errors[name] ? styles.inputError : ""
             }`}
             id={name}
             type={inputType}
+            placeholder={placeholder}
             {...register(name, { required, ...rules })}
             onKeyDown={(e) => {
               if (type === "number" && required) {
