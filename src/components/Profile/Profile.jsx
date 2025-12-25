@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Profile.module.css";
 import { useAuthStore } from "../../stores/authStore";
 import { IdentificationIcon } from "@heroicons/react/24/solid";
@@ -11,9 +11,12 @@ import {
   validatePatronymic,
 } from "../../utils/validation";
 import MaskedInputField from "../../common/InputField/MaskedInput";
+import Modal from "../../modals/Modal/Modal";
+import ChangePasswordModal from "../../modals/ChangePasswordModal/ChangePasswordModal";
 
 export default function Profile() {
   const user = useAuthStore((store) => store.user);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   const methods = useForm({
     defaultValues: {
@@ -27,6 +30,10 @@ export default function Profile() {
 
   const onSubmit = (data) => {
     console.log("Form data:", data);
+  };
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
   };
 
   return (
@@ -111,6 +118,7 @@ export default function Profile() {
               <button
                 type="button"
                 className={`${styles.button} ${styles.changePasswordButton}`}
+                onClick={() => setIsOpenModal(true)}
               >
                 Изменить пароль
               </button>
@@ -122,6 +130,9 @@ export default function Profile() {
           </form>
         </FormProvider>
       </div>
+      <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
+        <ChangePasswordModal onSuccess={handleCloseModal} />
+      </Modal>
     </div>
   );
 }
