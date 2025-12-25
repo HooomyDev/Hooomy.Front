@@ -25,6 +25,16 @@ export default function ProfileMyAddressesSection() {
     setEditingId(null);
   };
 
+  const handleAddNewAddress = () => {
+    const newAddress = {
+      id: favAddresses[favAddresses.length - 1].id + 1,
+      pseudonym: "new",
+      address: "Введите адрес...",
+    };
+    setFavAddresses([...favAddresses, newAddress]);
+    setEditingId(newAddress.id);
+  };
+
   return (
     <ProfileSectionWrapper title="Мои адреса" Icon={HomeIcon}>
       <div className={styles.list}>
@@ -99,7 +109,12 @@ export default function ProfileMyAddressesSection() {
         <div className={styles.item}>
           <div className={styles.itemPseudonym}>Новый адрес</div>
           <div className={styles.itemAddress}>Добавить новый адрес</div>
-          <button className={styles.addButton}>
+          <button
+            className={styles.addButton}
+            onClick={() => {
+              handleAddNewAddress();
+            }}
+          >
             <PlusCircleIcon className={styles.icon} /> Добавить адрес
           </button>
         </div>
