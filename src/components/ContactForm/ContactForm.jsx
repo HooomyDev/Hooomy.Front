@@ -2,8 +2,11 @@ import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import styles from "./ContactForm.module.css";
 import ContactFormTextField from "../ContactFormTextField/ContactFormTextField";
+import { useT } from "../../utils/useT";
 
 export default function ContactForm() {
+  const t = useT();
+
   const methods = useForm({
     mode: "onBlur",
     shouldFocusError: true,
@@ -29,8 +32,8 @@ export default function ContactForm() {
         <ContactFormTextField
           name="name"
           isRequired={true}
-          title="Имя"
-          placeholder="Введите ваше имя"
+          title={t("user.name")}
+          placeholder={t("placeholder.name")}
           validation={{
             required: "Пожалуйста, введите имя",
             minLength: {
@@ -43,8 +46,8 @@ export default function ContactForm() {
         <ContactFormTextField
           name="email"
           isRequired={true}
-          title="Email"
-          placeholder="Введите ваш email"
+          title={t("user.email")}
+          placeholder={t("placeholder.name")}
           type="email"
           validation={{
             required: "Пожалуйста, введите email",
@@ -59,8 +62,8 @@ export default function ContactForm() {
           name="message"
           className={styles.message}
           isRequired={true}
-          title="Сообщение"
-          placeholder="Напишите что-нибудь"
+          title={t("user.message")}
+          placeholder={t("placeholder.message")}
           type="textarea"
           validation={{
             required: "Пожалуйста, введите сообщение",
@@ -72,7 +75,7 @@ export default function ContactForm() {
         />
 
         <button type="submit" className={styles.submitButton}>
-          Отправить
+          {t("user.send")}
         </button>
       </form>
     </FormProvider>

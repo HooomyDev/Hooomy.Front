@@ -3,9 +3,11 @@ import Header from "../Header/Header";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import styles from "./Layout.module.css";
-import { links } from "../../stores/links";
+import { useLinks } from "../../utils/useLinks";
 
 export default function Layout() {
+  const links = useLinks();
+
   return (
     <div className={styles.layout}>
       <Header />

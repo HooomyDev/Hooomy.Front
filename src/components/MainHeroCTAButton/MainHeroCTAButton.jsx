@@ -1,14 +1,13 @@
 import React from "react";
 import styles from "./MainHeroCTAButton.module.css";
+import { useT } from "../../utils/useT";
 
 export default function MainHeroCTAButton({ onClick }) {
+  const t = useT();
+
   return (
-    <button
-      className={styles.ctaButton}
-      aria-label="Создать новую заявку"
-      onClick={onClick}
-    >
-      Создать заявку
+    <button className={styles.ctaButton} onClick={onClick}>
+      {t("main.hero.createrequest")}
     </button>
   );
 }

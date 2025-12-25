@@ -1,0 +1,67 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 80%;
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.themes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.theme {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  background-color: #fff;
+  transition: transform 0.2s;
+}
+
+.theme:hover {
+  transform: scale(1.1);
+}
+
+.light {
+  background-color: #ffffff;
+}
+.light:hover {
+  background-color: #ffffff;
+}
+
+.dark {
+  background-color: #122435;
+}
+.dark:hover {
+  background-color: #122435;
+}
+
+.blue {
+  background-color: #0000ff;
+}
+.blue:hover {
+  background-color: #0000ff;
+}
+
+.green {
+  background-color: #00ff00;
+}
+.green:hover {
+  background-color: #00ff00;
+}
+
+.red {
+  background-color: #ff0000;
+}
+.red:hover {
+  background-color: #ff0000;
+}

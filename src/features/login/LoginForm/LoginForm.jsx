@@ -7,8 +7,11 @@ import styles from "./LoginForm.module.css";
 import FormHeader from "../../../components/FormHeader/FormHeader";
 import LinkTo from "../../../common/LinkTo/LinkTo";
 import InputField from "../../../common/InputField/InputField";
+import { useT } from "../../../utils/useT";
 
 export default function LoginForm() {
+  const t = useT();
+
   const methods = useForm({
     defaultValues: { email: "", password: "" },
   });
@@ -37,14 +40,14 @@ export default function LoginForm() {
 
   return (
     <div className={styles.wrapper}>
-      <FormHeader title="Вход" />
+      <FormHeader title={t("login.title")} />
 
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
           <InputField
-            label="Email"
+            label={t("user.email")}
             name="email"
-            placeholder="Введите ваш email"
+            placeholder={t("placeholder.email")}
             rules={{
               required: "Введите email",
               pattern: {
@@ -55,9 +58,9 @@ export default function LoginForm() {
           />
 
           <InputField
-            label="Пароль"
+            label={t("user.password")}
             name="password"
-            placeholder="Введите ваш пароль"
+            placeholder={t("placeholder.password")}
             type="password"
             rules={{
               required: "Введите пароль",
@@ -75,8 +78,8 @@ export default function LoginForm() {
           />
 
           <LinkTo
-            label="Зарегистрироваться"
-            text="Нет аккаунта?"
+            label={t("login.messageLink")}
+            text={t("login.message")}
             link="register"
           />
         </form>

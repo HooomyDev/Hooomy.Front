@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   transition: height 0.3s ease;
+  width: 100%;
 }
 
 .icon {

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./RegistrationWizardButtons.module.css";
+import { useT } from "../../../utils/useT";
 
 export default function RegistrationWizardButtons({
   onNext,
@@ -7,6 +8,8 @@ export default function RegistrationWizardButtons({
   loading,
   disabledNext,
 }) {
+  const t = useT();
+
   return (
     <div className={styles.buttons}>
       <button
@@ -15,7 +18,7 @@ export default function RegistrationWizardButtons({
         className={styles.prevStepButton}
         disabled={loading}
       >
-        Назад
+        {t("auth.prev")}
       </button>
 
       <button
@@ -24,7 +27,7 @@ export default function RegistrationWizardButtons({
         disabled={loading || disabledNext}
         className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
       >
-        {loading ? <span className={styles.spinner}></span> : "Далее"}
+        {loading ? <span className={styles.spinner}></span> : t("auth.next2")}
       </button>
     </div>
   );

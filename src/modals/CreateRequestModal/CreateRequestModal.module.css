@@ -4,8 +4,9 @@
   justify-content: center;
   align-items: center;
   gap: var(--spacing-lg);
-  min-width: 100%;
   box-sizing: border-box;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .title {
@@ -19,7 +20,6 @@
 .submitButton {
   align-self: flex-end;
   min-width: 20vh;
-  margin-right: 10%;
   background: var(--element-color);
   color: var(--main-color);
   font-size: var(--font-size-base);

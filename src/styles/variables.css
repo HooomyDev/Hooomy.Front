@@ -32,3 +32,30 @@
   --element-color: #6bcfa8;
   --gray-color: #1e2e45;
 }
+
+[data-theme="blue"] {
+  --main-color: #e6f0ff;
+  --font-color: #0a1f44;
+  --element-color: #3d7bfa;
+  --gray-color: #cfd9eb;
+  --card-background: #f0f6ff;
+  --border-color: #8aaef2;
+}
+
+[data-theme="red"] {
+  --main-color: #ffe6e6;
+  --font-color: #440a0a;
+  --element-color: #fa3d3d;
+  --gray-color: #ebcfcf;
+  --card-background: #fff0f0;
+  --border-color: #f28a8a;
+}
+
+[data-theme="green"] {
+  --main-color: #e6fff0;
+  --font-color: #0a4420;
+  --element-color: #3dfa7b;
+  --gray-color: #cfe3d9;
+  --card-background: #f0fff6;
+  --border-color: #8af2aa;
+}

@@ -6,8 +6,11 @@ import RequestByMap from "../../components/RequestByMap/RequestByMap";
 import styles from "./CreateRequestModal.module.css";
 import TabPanel from "../../common/TabPanel/TabPanel";
 import InputField from "../../common/InputField/InputField";
+import { useT } from "../../utils/useT";
 
 export default function CreateRequestModal({ onSuccess }) {
+  const t = useT();
+
   const methods = useForm({
     defaultValues: {
       district: "",
@@ -30,38 +33,38 @@ export default function CreateRequestModal({ onSuccess }) {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
-        <div className={styles.title}>Новая заявка</div>
+        <div className={styles.title}>{t("modal.newRequest")}</div>
 
         <TabPanel
           tabs={[
             {
               id: "address",
-              title: "Заявка по адресу",
+              title: t("modal.requestByAddress"),
               content: <RequestByAdress />,
             },
             {
               id: "map",
-              title: "Заявка по точке на карте",
+              title: t("modal.requestByMap"),
               content: <RequestByMap />,
             },
           ]}
         />
 
         <InputField
-          label="Описание проблемы"
+          label={t("user.requestDescription")}
           name="description"
           multiline
           required
         />
 
-        <FileUploadField required />
+        <FileUploadField required label={t("user.photo")} />
 
         <button
           type="submit"
           className={styles.submitButton}
           onSubmit={onSubmit}
         >
-          Создать
+          {t("user.send")}
         </button>
       </form>
     </FormProvider>

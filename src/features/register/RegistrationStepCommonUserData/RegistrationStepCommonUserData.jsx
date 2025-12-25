@@ -6,19 +6,21 @@ import {
   validateSurname,
   validatePatronymic,
 } from "../../../utils/validation";
+import { useT } from "../../../utils/useT";
 
 export default function RegistrationStepCommonUserData() {
+  const t = useT();
   const { watch } = useFormContext();
   const role = watch("role");
 
   return (
     <div>
-      <h1>Заполните личные данные</h1>
+      <h1>{t("register.step2")}</h1>
 
       <InputField
         required
-        label="Фамилия"
-        placeholder="Введите вашу фамилию"
+        label={t("user.surname")}
+        placeholder={t("placeholder.surname")}
         name="surname"
         rules={{
           validate: (val) => validateSurname(val) || true,
@@ -27,8 +29,8 @@ export default function RegistrationStepCommonUserData() {
 
       <InputField
         required
-        label="Имя"
-        placeholder="Введите ваше имя"
+        label={t("user.name")}
+        placeholder={t("placeholder.name")}
         name="name"
         rules={{
           validate: (val) => validateName(val) || true,
@@ -36,8 +38,8 @@ export default function RegistrationStepCommonUserData() {
       />
 
       <InputField
-        label="Отчество"
-        placeholder="Введите ваше отчество"
+        label={t("user.patronymic")}
+        placeholder={t("placeholder.patronymic")}
         name="patronymic"
         rules={{
           validate: (val) => validatePatronymic(val) || true,
@@ -47,8 +49,8 @@ export default function RegistrationStepCommonUserData() {
       {role === "management" && (
         <InputField
           required
-          label="Инвайт-код"
-          placeholder="Введите ваш код"
+          label={t("user.invite")}
+          placeholder={t("placeholder.invite")}
           name="invite"
           rules={{
             required: "Введите инвайт-код",

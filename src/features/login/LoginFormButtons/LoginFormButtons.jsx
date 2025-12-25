@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./LoginFormButtons.module.css";
+import { useT } from "../../../utils/useT";
 
 export default function LoginFormButtons({
   loading = false,
@@ -7,17 +8,19 @@ export default function LoginFormButtons({
   onPrev,
   onNext,
 }) {
+  const t = useT();
+
   return (
     <div className={styles.buttons}>
-      <button className={styles.prevStepButton} onClick={onPrev}>
-        Назад
+      <button type="button" className={styles.prevStepButton} onClick={onPrev}>
+        {t("auth.prev")}
       </button>
       <button
         className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
         onClick={onNext}
         disabled={isNextDisabled}
       >
-        {loading ? <span className={styles.spinner}></span> : "Продолжить"}
+        {loading ? <span className={styles.spinner}></span> : t("auth.next1")}
       </button>
     </div>
   );

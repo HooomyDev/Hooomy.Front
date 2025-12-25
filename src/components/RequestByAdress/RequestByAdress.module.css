@@ -11,5 +11,5 @@
   flex-direction: row;
   justify-content: space-between;
   gap: var(--spacing-lg);
-  width: 80%;
+  width: 100%;
 }

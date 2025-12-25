@@ -5,17 +5,24 @@ import { streets } from "../../stores/streets";
 import styles from "./RequestByAdress.module.css";
 import SelectField from "../../common/SelectField/SelectField";
 import InputField from "../../common/InputField/InputField";
+import { useT } from "../../utils/useT";
 
 export default function RequestByAdress() {
+  const t = useT();
   const { watch } = useFormContext();
   const selectedDistrict = watch("district");
 
   return (
     <div className={styles.wrapper}>
-      <SelectField label="Район" name="district" options={districts} required />
+      <SelectField
+        label={t("user.district")}
+        name="district"
+        options={districts}
+        required
+      />
       <SelectField
         required
-        label="Улица"
+        label={t("user.street")}
         name="street"
         options={streets[selectedDistrict] || []}
       />
@@ -23,7 +30,7 @@ export default function RequestByAdress() {
       <div className={styles.inputContainer}>
         <InputField
           required
-          label="Дом"
+          label={t("user.house")}
           name="house"
           rules={{
             max: {
@@ -35,7 +42,7 @@ export default function RequestByAdress() {
           }}
         />
         <InputField
-          label="Подъезд"
+          label={t("user.entrance")}
           name="entrance"
           type="number"
           rules={{
@@ -49,7 +56,7 @@ export default function RequestByAdress() {
           }}
         />
         <InputField
-          label="Этаж"
+          label={t("user.floor")}
           name="floor"
           type="number"
           rules={{
@@ -62,7 +69,7 @@ export default function RequestByAdress() {
             validate: (v) => v === "" || /^\d+$/.test(v),
           }}
         />
-        <InputField label="Квартира" name="apartment" />
+        <InputField label={t("user.apartment")} name="apartment" />
       </div>
     </div>
   );

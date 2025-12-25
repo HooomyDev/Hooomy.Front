@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import styles from "./FileUploadField.module.css";
+import { useT } from "../../utils/useT";
 
 export default function FileUploadField({
   name = "photo",
-  label = "Фото проблемы",
+  label = "Фото",
   required = false,
 }) {
+  const t = useT();
   const {
     register,
     setValue,
@@ -96,7 +98,7 @@ export default function FileUploadField({
           </div>
         ) : (
           <span className={styles.placeholder}>
-            Перетащите изображение сюда или нажмите для выбора
+            {t("user.photoPlaceholder")}
           </span>
         )}
       </div>

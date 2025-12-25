@@ -72,7 +72,6 @@ export default function InputField({
             type="button"
             className={styles.eye}
             onClick={() => setVisible(!visible)}
-            aria-label={visible ? "Скрыть пароль" : "Показать пароль"}
           >
             {visible ? (
               <EyeSlashIcon className={styles.icon} />

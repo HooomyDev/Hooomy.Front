@@ -7,8 +7,10 @@ import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
 import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
 import Dropdown from "../../common/Dropdown/Dropdown";
 import styles from "./AuthButton.module.css";
+import { useT } from "../../utils/useT";
 
 export default function AuthButton() {
+  const t = useT();
   const user = useAuthStore((store) => store.user);
   const logout = useAuthStore((store) => store.logout);
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ export default function AuthButton() {
 
   const items = [
     {
-      label: "Профиль",
+      label: t("userdrop.profile"),
       icon: ProfileIcon,
       onClick: () => {
         setOpen(false);
@@ -44,7 +46,7 @@ export default function AuthButton() {
       },
     },
     {
-      label: "Настройки",
+      label: t("settings.title"),
       icon: SettingsIcon,
       onClick: () => {
         setOpen(false);
@@ -52,7 +54,7 @@ export default function AuthButton() {
       },
     },
     {
-      label: "Выйти",
+      label: t("userdrop.logout"),
       icon: LogoutIcon,
       onClick: () => {
         logout();
@@ -68,7 +70,7 @@ export default function AuthButton() {
         {user ? (
           user.email?.slice(0, 7) + "..."
         ) : (
-          <span className={styles.authText}>Войти</span>
+          <span className={styles.authText}>{t("userdrop.login")}</span>
         )}
       </button>
 

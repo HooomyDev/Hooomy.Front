@@ -2,8 +2,10 @@ import React from "react";
 import styles from "./RegistrationStepAccountType.module.css";
 import RadioButton from "../../../common/RadioButton/RadioButton";
 import { useFormContext } from "react-hook-form";
+import { useT } from "../../../utils/useT";
 
 export default function RegistrationStepAccountType({ roles }) {
+  const t = useT();
   const {
     register,
     watch,
@@ -13,7 +15,7 @@ export default function RegistrationStepAccountType({ roles }) {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Выберите вашу роль</h1>
+      <h1 className={styles.title}>{t("register.step1")}</h1>
 
       {roles.map((role) => (
         <RadioButton

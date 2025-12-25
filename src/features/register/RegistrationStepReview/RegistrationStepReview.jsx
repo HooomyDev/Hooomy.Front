@@ -3,33 +3,47 @@ import styles from "./RegistrationStepReview.module.css";
 import RegistrationStepReviewSection from "../RegistrationStepReviewSection/RegistrationStepReviewSection";
 import RegistrationStepReviewField from "../RegistrationStepReviewField/RegistrationStepReviewField";
 import { useFormContext } from "react-hook-form";
+import { useT } from "../../../utils/useT";
 
 export default function RegistrationStepReview() {
+  const t = useT();
   const { getValues } = useFormContext();
   const values = getValues();
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Проверьте введённые данные</h1>
+      <h1 className={styles.title}>{t("register.step4")}</h1>
 
-      <RegistrationStepReviewSection title="Личные данные">
-        <RegistrationStepReviewField label="Фамилия" value={values.surname} />
-        <RegistrationStepReviewField label="Имя" value={values.name} />
+      <RegistrationStepReviewSection title={t("register.step4About")}>
         <RegistrationStepReviewField
-          label="Отчество"
+          label={t("user.surname")}
+          value={values.surname}
+        />
+        <RegistrationStepReviewField
+          label={t("user.name")}
+          value={values.name}
+        />
+        <RegistrationStepReviewField
+          label={t("user.patronymic")}
           value={values.patronymic}
         />
         {values.role === "management" && (
           <RegistrationStepReviewField
-            label="Инвайт-код"
+            label={t("user.invite")}
             value={values.invite}
           />
         )}
       </RegistrationStepReviewSection>
 
-      <RegistrationStepReviewSection title="Контактные данные">
-        <RegistrationStepReviewField label="Email" value={values.email} />
-        <RegistrationStepReviewField label="Пароль" value={values.password} />
+      <RegistrationStepReviewSection title={t("register.step4Contact")}>
+        <RegistrationStepReviewField
+          label={t("user.email")}
+          value={values.email}
+        />
+        <RegistrationStepReviewField
+          label={t("user.password")}
+          value={values.password}
+        />
       </RegistrationStepReviewSection>
     </div>
   );

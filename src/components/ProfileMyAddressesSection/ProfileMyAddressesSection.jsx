@@ -7,9 +7,11 @@ import {
   PlusCircleIcon,
   ClipboardDocumentCheckIcon,
 } from "@heroicons/react/24/solid";
-import ProfileSectionWrapper from "../ProfileSectionWrapper/ProfileSectionWrapper";
+import Block from "../../common/Block/Block";
+import { useT } from "../../utils/useT";
 
 export default function ProfileMyAddressesSection() {
+  const t = useT();
   const [editingId, setEditingId] = useState(null);
 
   const [favAddresses, setFavAddresses] = useState([
@@ -29,14 +31,14 @@ export default function ProfileMyAddressesSection() {
     const newAddress = {
       id: favAddresses[favAddresses.length - 1].id + 1,
       pseudonym: "new",
-      address: "Введите адрес...",
+      address: t("profile.enterAddress"),
     };
     setFavAddresses([...favAddresses, newAddress]);
     setEditingId(newAddress.id);
   };
 
   return (
-    <ProfileSectionWrapper title="Мои адреса" Icon={HomeIcon}>
+    <Block title={t("profile.addresses")} Icon={HomeIcon}>
       <div className={styles.list}>
         {favAddresses.map((item) => {
           const isEditing = editingId === item.id;
@@ -80,7 +82,7 @@ export default function ProfileMyAddressesSection() {
                     <button
                       className={styles.itemButton}
                       onClick={() => handleEditClick(item.id)}
-                      title="Изменить адрес"
+                      title={t("profile.changeAddress")}
                     >
                       <PencilSquareIcon className={styles.icon} />
                     </button>
@@ -88,7 +90,7 @@ export default function ProfileMyAddressesSection() {
                     <button
                       className={styles.itemButton}
                       onClick={handleSaveClick}
-                      title="Сохранить"
+                      title={t("user.save")}
                     >
                       <ClipboardDocumentCheckIcon className={styles.icon} />
                     </button>
@@ -97,7 +99,7 @@ export default function ProfileMyAddressesSection() {
 
                 <button
                   className={styles.itemButton}
-                  title="Показать адрес на карте"
+                  title={t("profile.onMap2")}
                 >
                   <MapPinIcon className={styles.icon} /> На карте
                 </button>
@@ -107,18 +109,20 @@ export default function ProfileMyAddressesSection() {
         })}
 
         <div className={styles.item}>
-          <div className={styles.itemPseudonym}>Новый адрес</div>
-          <div className={styles.itemAddress}>Добавить новый адрес</div>
+          <div className={styles.itemPseudonym}>{t("profile.newAddress")}</div>
+          <div className={styles.itemAddress}>
+            {t("profile.newAddressMessage")}
+          </div>
           <button
             className={styles.addButton}
             onClick={() => {
               handleAddNewAddress();
             }}
           >
-            <PlusCircleIcon className={styles.icon} /> Добавить адрес
+            <PlusCircleIcon className={styles.icon} /> {t("profile.addAddress")}
           </button>
         </div>
       </div>
-    </ProfileSectionWrapper>
+    </Block>
   );
 }

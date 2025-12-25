@@ -9,6 +9,7 @@ export default function SelectField({
   options,
   required = false,
   rules = {},
+  OnChange,
 }) {
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
@@ -41,9 +42,9 @@ export default function SelectField({
         render={({ field: { value, onChange } }) => {
           const handleSelect = (opt) => {
             onChange(opt.value);
+            OnChange(opt.value);
             setOpen(false);
           };
-
           return (
             <div className={styles.selectContainer}>
               <div
@@ -59,7 +60,6 @@ export default function SelectField({
                     "Выберите..."}
                 </div>
               </div>
-
               <Dropdown
                 items={options.map((opt) => ({
                   label: opt.label,

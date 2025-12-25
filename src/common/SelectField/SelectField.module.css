@@ -7,9 +7,8 @@
 .label {
   margin-bottom: 4px;
   font-weight: 600;
-  font-size: 20px;
+  font-size: var(--font-size-xl);
   color: var(--font-color);
-  margin-left: 10%;
 }
 
 .required {
@@ -20,8 +19,9 @@
 
 .selectContainer {
   position: relative;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  color: var(--font-color);
 }
 
 .inputWrapper {
@@ -30,6 +30,7 @@
   flex-direction: row;
   width: 100%;
   cursor: pointer;
+  color: var(--font-color);
 }
 
 .inputField {
@@ -45,9 +46,9 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
   box-shadow: 2px 2px 6px var(--gray-color);
   background-color: var(--background-color, #fff);
-  color: var(--font-color);
   display: flex;
   align-items: center;
+  color: var(--font-color);
 }
 
 .inputWrapper::after {
@@ -62,6 +63,7 @@
   background-size: contain;
   transition: transform 0.2s ease;
   pointer-events: none;
+  color: var(--font-color);
 }
 
 .inputWrapper.open::after {

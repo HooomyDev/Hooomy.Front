@@ -6,8 +6,11 @@ import {
   validatePassword,
   validateConfirmPassword,
 } from "../../utils/validation";
+import { useT } from "../../utils/useT";
 
 export default function ChangePasswordModal({ onSuccess }) {
+  const t = useT();
+
   const methods = useForm({
     defaultValues: {
       oldPassword: "",
@@ -23,21 +26,21 @@ export default function ChangePasswordModal({ onSuccess }) {
 
   return (
     <FormProvider {...methods}>
-      <h3 className={styles.title}>Смена пароля</h3>
+      <h3 className={styles.title}>{t("modal.changePassword")}</h3>
       <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
         <InputField
-          label="Старый пароль"
+          label={t("user.oldPassword")}
           name="oldPassword"
-          placeholder="Введите ваш старый пароль"
+          placeholder={t("placeholder.oldPassword")}
           type="password"
           required
           rules={{ required: "Введите старый пароль" }}
         />
 
         <InputField
-          label="Новый пароль"
+          label={t("user.newPassword")}
           name="newPassword"
-          placeholder="Введите новый пароль"
+          placeholder={t("placeholder.oldPassword")}
           type="password"
           required
           rules={{
@@ -46,9 +49,9 @@ export default function ChangePasswordModal({ onSuccess }) {
         />
 
         <InputField
-          label="Подтверждение пароля"
+          label={t("user.confirmNewPassword")}
           name="confirmPassword"
-          placeholder="Повторите новый пароль"
+          placeholder={t("placeholder.confirmNewPassword")}
           type="password"
           required
           rules={{
@@ -61,7 +64,7 @@ export default function ChangePasswordModal({ onSuccess }) {
         />
 
         <button type="submit" className={styles.submitButton}>
-          Сохранить
+          {t("user.save")}
         </button>
       </form>
     </FormProvider>

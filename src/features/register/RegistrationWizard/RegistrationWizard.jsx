@@ -21,16 +21,18 @@ import {
 import FormHeader from "../../../components/FormHeader/FormHeader";
 import LinkTo from "../../../common/LinkTo/LinkTo";
 import SmoothlyWrapper from "../../../common/SmoothlyWrapper/SmoothlyWrapper";
-
-const roles = [
-  { value: "resident", label: "Жилец" },
-  { value: "management", label: "Сотрудник" },
-];
+import { useT } from "../../../utils/useT";
 
 export default function RegistrationWizard() {
+  const t = useT();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  const roles = [
+    { value: "resident", label: t("register.step1Var1") },
+    { value: "management", label: t("register.step1Var2") },
+  ];
 
   const methods = useForm({
     defaultValues: {
@@ -141,7 +143,7 @@ export default function RegistrationWizard() {
   return (
     <FormProvider {...methods}>
       <div className={styles.wrapper}>
-        <FormHeader title="Регистрация" />
+        <FormHeader title={t("register.title")} />
         <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
         <SmoothlyWrapper>
           <RegistrationWizardContent step={steps[step - 1]} />
@@ -152,7 +154,11 @@ export default function RegistrationWizard() {
           loading={loading}
           disabledNext={isNextDisabled}
         />
-        <LinkTo link="login" label="Войти" text="Уже есть аккаунт?" />
+        <LinkTo
+          link="login"
+          label={t("register.messageLink")}
+          text={t("register.message")}
+        />
       </div>
     </FormProvider>
   );
