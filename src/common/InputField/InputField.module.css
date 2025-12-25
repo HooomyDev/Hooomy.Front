@@ -92,7 +92,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .error {
   display: flex;
-  width: 80%;
+  width: 100%;
   font-size: var(--font-size-base);
   color: var(--error-color);
   margin: 4px auto 0;
