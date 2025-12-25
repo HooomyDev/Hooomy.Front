@@ -1,7 +1,14 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
 import { useAuthStore } from "../../stores/authStore";
-import { IdentificationIcon } from "@heroicons/react/24/solid";
+import {
+  IdentificationIcon,
+  HomeIcon,
+  PencilSquareIcon,
+  MapPinIcon,
+  PlusCircleIcon,
+  ClipboardDocumentCheckIcon,
+} from "@heroicons/react/24/solid";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import {
@@ -17,6 +24,20 @@ import ChangePasswordModal from "../../modals/ChangePasswordModal/ChangePassword
 export default function Profile() {
   const user = useAuthStore((store) => store.user);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [isItemChanging, setIsItemChanging] = useState(false);
+
+  const [favAddresses, setFavAddresses] = useState([
+    {
+      id: 1,
+      pseudonym: "main",
+      address: "ул. Ленина, д. 10, кв. 5",
+    },
+    {
+      id: 2,
+      pseudonym: "work",
+      address: "пр. Независимости, д. 25, офис 301",
+    },
+  ]);
 
   const methods = useForm({
     defaultValues: {
@@ -34,6 +55,10 @@ export default function Profile() {
 
   const handleCloseModal = () => {
     setIsOpenModal(false);
+  };
+
+  const handleItemChangeClick = () => {
+    setIsItemChanging(!isItemChanging);
   };
 
   return (
@@ -129,6 +154,101 @@ export default function Profile() {
             </div>
           </form>
         </FormProvider>
+      </div>
+
+      <div className={styles.section}>
+        <h3 className={styles.sectionTitle}>
+          <HomeIcon className={styles.icon} />
+          Мои адреса
+        </h3>
+
+        <div className={styles.list}>
+          <>
+            {favAddresses.map((item) => (
+              <div key={item.id} className={styles.item}>
+                <input
+                  className={`${styles.itemPseudonym} ${
+                    isItemChanging ? styles.changing : ""
+                  }`}
+                  value={item.pseudonym}
+                  disabled={!isItemChanging}
+                  onChange={(e) =>
+                    setFavAddresses(
+                      favAddresses.map((addr) =>
+                        addr.id === item.id
+                          ? { ...addr, pseudonym: e.target.value }
+                          : addr
+                      )
+                    )
+                  }
+                />
+                <input
+                  className={`${styles.itemAddress} ${
+                    isItemChanging ? styles.changing : ""
+                  }`}
+                  value={item.address}
+                  disabled={!isItemChanging}
+                  onChange={(e) =>
+                    setFavAddresses(
+                      favAddresses.map((addr) =>
+                        addr.id === item.id
+                          ? { ...addr, address: e.target.value }
+                          : addr
+                      )
+                    )
+                  }
+                />
+                <div className={styles.itemButtons}>
+                  <div className={styles.wrap}>
+                    <button
+                      className={styles.itemButton}
+                      onClick={() => handleItemChangeClick()}
+                      title="Изменить адрес"
+                    >
+                      <PencilSquareIcon className={styles.icon} />
+                    </button>
+
+                    {isItemChanging && (
+                      <button
+                        className={styles.itemButton}
+                        onClick={() => handleItemChangeClick()}
+                        title="Сохранить"
+                      >
+                        <ClipboardDocumentCheckIcon className={styles.icon} />
+                      </button>
+                    )}
+                  </div>
+
+                  <button
+                    className={styles.itemButton}
+                    title="Показать адресс на карте"
+                  >
+                    <MapPinIcon className={styles.icon} /> На карте
+                  </button>
+                </div>
+              </div>
+            ))}
+            <div className={styles.item}>
+              <input
+                className={`${styles.itemPseudonym} ${
+                  isItemChanging ? styles.changing : ""
+                }`}
+                disabled={!isItemChanging}
+                value="Новый адрес"
+              />
+              <input
+                className={`${styles.itemAddress} ${
+                  isItemChanging ? styles.changing : ""
+                }`}
+                disabled={!isItemChanging}
+                value="Добавить новый адресс"
+              />
+              <button className={styles.addButton}>
+                <PlusCircleIcon className={styles.icon} /> Добавить адрес
+              </button>
+            </div>
+          </>
+        </div>
       </div>
       <Modal isOpen={isOpenModal} onClose={handleCloseModal}>
         <ChangePasswordModal onSuccess={handleCloseModal} />

@@ -6,4 +6,5 @@
   min-height: 100vh;
   width: 100%;
   gap: var(--spacing-xxl);
+  margin: var(--spacing-xxl) 0;
 }

@@ -3,10 +3,10 @@ export const footerColumns = [
       title: 'Навигация',
       items: [
         { type: 'link', label: 'Главная', href: '/home' },
-        { type: 'link', label: 'Заявки', href: '/requests' },
-        { type: 'link', label: 'Объявления', href: '/news' },
-        { type: 'link', label: 'Счета', href: '/bills' },
-        { type: 'link', label: 'Обратная связь', href: '/feedback' },
+        { type: 'link', label: 'Мои заявки', href: '/requests' },
+        { type: 'link', label: 'Объявления и опросы', href: '/news' },
+        { type: 'link', label: 'Статистика', href: '/bills' },
+        { type: 'link', label: 'Карта', href: '/feedback' },
       ],
     },
     {

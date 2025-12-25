@@ -1,10 +1,9 @@
 .wrapper {
-  padding: var(--spacing-xl) var(--spacing-xxl);
-  background: var(--main-color);
-  border-radius: var(--border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   width: 80%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
 }
 
 .section {
@@ -12,6 +11,10 @@
   flex-direction: column;
   gap: var(--spacing-md);
   height: auto;
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: var(--spacing-xl) var(--spacing-xxl);
 }
 
 .sectionTitle {
@@ -73,7 +76,7 @@
 
 .changePasswordButton {
   background-color: transparent;
-  color: var(--element-color);
+  color: var(--font-color);
 }
 
 .button:hover {
@@ -83,16 +86,129 @@
 .changePasswordButton:hover {
   background-color: transparent;
   border-color: transparent;
-  color: var(--font-color);
+  color: var(--element-color);
   transform: scale(1);
 }
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-2px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+.list {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: var(--spacing-xxl);
+  padding: var(--spacing-md);
+  overflow-x: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  flex-direction: column;
+  min-width: 31%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease;
+}
+
+.item:hover {
+  transform: scale(1.02);
+}
+
+.itemPseudonym {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  user-select: none;
+  color: var(--font-color);
+}
+
+.itemAddress {
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  font-weight: 600;
+  border: 1px solid transparent;
+  user-select: none;
+  cursor: default;
+}
+
+.itemPseudonym,
+.itemAddress {
+  color: var(--font-color);
+  border: 1px solid transparent;
+  background: transparent;
+  outline: none;
+  user-select: none;
+  cursor: default;
+  width: 100%;
+  padding: var(--spacing-xs);
+  margin: 0;
+}
+
+.changing {
+  border: 1px solid var(--font-color);
+  background-color: var(--card-background);
+  cursor: text;
+}
+
+.itemButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: row;
+}
+
+.itemButton {
+  margin-bottom: auto;
+  background-color: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  text-align: center;
+  margin: 0;
+  padding: 2px;
+  color: var(--font-color);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.itemButton .icon {
+  color: var(--font-color);
+  transition: color 0.2s ease;
+}
+
+.itemButton:hover {
+  transform: scale(1.02);
+  color: var(--element-color);
+  border: 1px solid transparent;
+}
+
+.itemButton:hover .icon {
+  color: var(--element-color);
+}
+
+.message {
+  color: var(--font-color);
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  text-align: center;
+  color: var(--main-color);
+}
+
+.addButton .icon {
+  color: var(--main-color);
+}
+
+.addButton:hover .icon {
+  color: var(--font-color);
 }
