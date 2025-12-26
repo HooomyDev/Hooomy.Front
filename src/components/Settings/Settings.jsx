@@ -5,7 +5,10 @@ import SelectField from "../../common/SelectField/SelectField";
 import { useForm, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ThemePicker from "../ThemePicker/ThemePicker";
-import { ChartPieIcon } from "@heroicons/react/24/solid";
+import { ChartPieIcon, NewspaperIcon } from "@heroicons/react/24/solid";
+import emailLogo from "../../assets/email-logo.png";
+import tgLogo from "../../assets/telegram-icon.png";
+import viberLogo from "../../assets/viber-icon.png";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
@@ -36,16 +39,40 @@ export default function Settings() {
       <FormProvider {...methods}>
         <form className={styles.form}>
           <Block title={t("settings.interface")} Icon={ChartPieIcon}>
-            <ThemePicker />
-            <SelectField
-              label={t("settings.language")}
-              name="lang"
-              options={langOptions}
-              OnChange={changeLanguage}
-            />
+            <div className={styles.container}>
+              <ThemePicker />
+              <SelectField
+                label={t("settings.language")}
+                name="lang"
+                options={langOptions}
+                OnChange={changeLanguage}
+              />
+            </div>
           </Block>
         </form>
       </FormProvider>
+
+      <Block title="Уведомления" Icon={NewspaperIcon}>
+        <div className={styles.socials}>
+          <div className={styles.social}>
+            <img
+              className={styles.socialImg}
+              src={emailLogo}
+              alt="social-img"
+            />
+          </div>
+          <div className={styles.social}>
+            <img className={styles.socialImg} src={tgLogo} alt="social-img" />
+          </div>
+          <div className={styles.social}>
+            <img
+              className={styles.socialImg}
+              src={viberLogo}
+              alt="social-img"
+            />
+          </div>
+        </div>
+      </Block>
     </div>
   );
 }

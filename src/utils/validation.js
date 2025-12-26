@@ -27,7 +27,7 @@ export function validatePassword(password) {
   if (!/[A-Z]/.test(password)) return i18n.t("errors.password.noUpper");
   if (!/[a-z]/.test(password)) return i18n.t("errors.password.noLower");
   if (!/[0-9]/.test(password)) return i18n.t("errors.password.noDigit");
-  if (!/[!@#$%^&*(),.?\":{}|<>]/.test(password))
+  if (!/[!@#$%^&*(),.?:{}|<>]/.test(password))
     return i18n.t("errors.password.noSpecial");
 
   return true;

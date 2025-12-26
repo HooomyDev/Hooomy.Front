@@ -11,7 +11,7 @@
     "lastrequests": "Последние заявки",
     "users": "Пользователей с нами",
     "requests": "Проблем решено",
-    "heroCreateRequest": "Создать заявку",
+    "createRequest": "Создать заявку",
     "contacts": {
       "haveQuest": "Есть вопросы?",
       "contactUs": "Свяжитесь с нами",
