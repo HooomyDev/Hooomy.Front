@@ -1,104 +1,211 @@
-{ 
-    "settings.title": "Настройки", 
-    "settings.interface": "Интерфейс", 
-    "settings.theme": "Цветовая тема", 
-    "settings.language": "Язык интерфейса:",
+{
+  "settings": {
+    "title": "Настройки",
+    "interface": "Интерфейс",
+    "theme": "Цветовая тема",
+    "language": "Язык интерфейса:"
+  },
 
-    "main.hero": "Портал городского хозяйства",
-    "main.lastrequests": "Последние заявки",
-    "main.users": "Пользователей с нами",
-    "main.requests": "Проблем решено",
-    "main.hero.createrequest": "Создать заявку",
-    "main.contacts.haveQuest": "Есть вопросы?",
-    "main.contacts.contactUs": "Свяжитесь с нами",
-    "main.contacts.writeUs": "Напишите нам!",
+  "main": {
+    "hero": "Портал городского хозяйства",
+    "lastrequests": "Последние заявки",
+    "users": "Пользователей с нами",
+    "requests": "Проблем решено",
+    "heroCreateRequest": "Создать заявку",
+    "contacts": {
+      "haveQuest": "Есть вопросы?",
+      "contactUs": "Свяжитесь с нами",
+      "writeUs": "Напишите нам!"
+    }
+  },
 
-    "profile.title": "Личный кабинет",
-    "profile.about": "Личная информация",
-    "profile.addresses": "Мои адреса",
-    "profile.newAddress": "Новый адрес",
-    "profile.newAddressMessage": "Добавить новый адрес",
-    "profile.addAddress": "Добавить адрес",
-    "profile.onMap": "На карте",
-    "profile.changePassword": "Изменить пароль",
-    "profile.changeAddress": "Изменить адрес",
-    "profile.onMap2": "Показать на карте",
-    "profile.enterAddress": "Введите адрес...",
-    
-    "login.title": "Вход",
-    "login.message": "Нет аккаунта?",
-    "login.messageLink": "Зарегистрироваться",
-    
-    "register.title": "Регитрация",
-    "register.message": "Уже есть аккаунт?",
-    "register.messageLink": "Войти",
-    "register.step1": "Выберите вашу роль",
-    "register.step2": "Заполните личные данные",
-    "register.step3": "Укажите контактную информацию",
-    "register.step4": "Проверьте введённые данные",
-    "register.step5var1": "Вы успешно зарегистрировались!",
-    "register.step5var2": "Что-то пошло не так...",
-    "register.step1Var1": "Жилец",
-    "register.step1Var2": "Сотрудник",
-    "register.step4About": "Личные данные",
-    "register.step4Contact": "Контактные данные",
-    
-    "auth.next1": "Продолжить",
-    "auth.next2": "Далее",
-    "auth.prev": "Назад",
-    
-    "placeholder.name": "Введите ваше имя",
-    "placeholder.surname": "Введите вашу фамилию",
-    "placeholder.patronymic": "Введите ваше отчество",
-    "placeholder.email": "Введите ваш email",
-    "placeholder.password": "Введите ваш пароль",
-    "placeholder.confirmPassword": "Повторите пароль",
-    "placeholder.invite": "Введите ваш инвайт-код",
-    "placeholder.message": "Напишите что-нибудь...",
-    "placeholder.oldPassword": "Введите старый пароль...",
-    "placeholder.newPassword": "Введите новый пароль...",
-    "placeholder.confirmNewPassword": "Повторите новый пароль...",
-    
-    "nav.main": "Главная",
-    "nav.requests": "Мои заявки",
-    "nav.works": "Работы",
-    "nav.stat": "Статистика",
-    "nav.news": "Опросы",
-    "nav.map": "Карта",
-    
-    "userdrop.login": "Войти",
-    "userdrop.profile": "Профиль",
-    "userdrop.logout": "Выйти",
-    
-    "user.name": "Имя",
-    "user.password": "Пароль",
-    "user.confirmPassword": "Подтвердите пароль",
-    "user.surname": "Фамилия",
-    "user.patronymic": "Отчество",
-    "user.address": "Адрес",
-    "user.phone": "Телефон",
-    "user.email": "Email",
-    "user.invite": "Инвайт-код",
-    "user.save": "Сохранить",
-    "user.send": "Отправить",
-    "user.district": "Район",
-    "user.street": "Улица",
-    "user.house": "Дом",
-    "user.entrance": "Подъезд",
-    "user.floor": "Этаж",
-    "user.apartment": "Квартира",
-    "user.requestDescription": "Описание проблемы",
-    "user.photo": "Фото",    
-    "user.photoPlaceholder": "Перетащите изображение сюда или нажмите для выбора",    
-    "user.oldPassword": "Старый пароль",    
-    "user.newPassword": "Новый пароль",    
-    "user.confirmNewPassword": "Подтвердите новый пароль",    
+  "profile": {
+    "title": "Личный кабинет",
+    "about": "Личная информация",
+    "addresses": "Мои адреса",
+    "newAddress": "Новый адрес",
+    "newAddressMessage": "Добавить новый адрес",
+    "addAddress": "Добавить адрес",
+    "onMap": "На карте",
+    "changePassword": "Изменить пароль",
+    "changeAddress": "Изменить адрес",
+    "onMap2": "Показать на карте",
+    "enterAddress": "Введите адрес..."
+  },
 
-    "modal.newRequest": "Новая заявка",
-    "modal.requestByAddress": "Заявка по адресу",
-    "modal.requestByMap": "Заявка по точке на карте",
-    
-    "modal.changePassword": "Измнение пароля",
+  "login": {
+    "title": "Вход",
+    "message": "Нет аккаунта?",
+    "messageLink": "Зарегистрироваться"
+  },
 
-    "address": "г. Минск, ул. Пономаренко, 35А, оф. 208, БЦ «Инфо»" 
+  "register": {
+    "title": "Регистрация",
+    "message": "Уже есть аккаунт?",
+    "messageLink": "Войти",
+    "step1": "Выберите вашу роль",
+    "step2": "Заполните личные данные",
+    "step3": "Укажите контактную информацию",
+    "step4": "Проверьте введённые данные",
+    "step5var1": "Вы успешно зарегистрировались!",
+    "step5var2": "Что-то пошло не так...",
+    "step1Var1": "Жилец",
+    "step1Var2": "Сотрудник",
+    "step4About": "Личные данные",
+    "step4Contact": "Контактные данные"
+  },
+
+  "auth": {
+    "next1": "Продолжить",
+    "next2": "Далее",
+    "prev": "Назад"
+  },
+
+  "footer": {
+    "navigation": "Навигация",
+    "home": "Главная",
+    "requests": "Мои заявки",
+    "news": "Опросы",
+    "statistics": "Статистика",
+    "map": "Карта",
+    "contacts": "Контакты",
+    "phone": "+375 (44) 569-10-58",
+    "email": "hooomy.help.by@gmail.com",
+    "address": "г. Минск, ул. Пономаренко, 35А, оф. 208, БЦ «Инфо»",
+    "worktime": "Пн–Пт: 9:00–18:00",
+    "documents": "Документы",
+    "terms": "Пользовательское соглашение",
+    "privacy": "Политика конфиденциальности",
+    "license": "Лицензия",
+    "version": "Версия: v0.1",
+    "social": "Соцсети",
+    "telegram": "Telegram",
+    "vk": "VK",
+    "instagram": "Instagram",
+    "developers": "Для разработчиков",
+    "report": "Сообщить об ошибке",
+    "docs": "Документация",
+    "github": "GitHub",
+    "bottom": "© Hooomy | Все права защищены"
+  },
+
+  "placeholder": {
+    "name": "Введите ваше имя",
+    "surname": "Введите вашу фамилию",
+    "patronymic": "Введите ваше отчество",
+    "email": "Введите ваш email",
+    "password": "Введите ваш пароль",
+    "confirmPassword": "Повторите пароль",
+    "invite": "Введите ваш инвайт-код",
+    "message": "Напишите что-нибудь...",
+    "oldPassword": "Введите старый пароль...",
+    "newPassword": "Введите новый пароль...",
+    "confirmNewPassword": "Повторите новый пароль..."
+  },
+
+  "nav": {
+    "main": "Главная",
+    "requests": "Мои заявки",
+    "works": "Работы",
+    "stat": "Статистика",
+    "news": "Опросы",
+    "map": "Карта"
+  },
+
+  "userdrop": {
+    "login": "Войти",
+    "profile": "Профиль",
+    "logout": "Выйти"
+  },
+
+  "user": {
+    "name": "Имя",
+    "password": "Пароль",
+    "confirmPassword": "Подтвердите пароль",
+    "surname": "Фамилия",
+    "patronymic": "Отчество",
+    "address": "Адрес",
+    "phone": "Телефон",
+    "email": "Email",
+    "invite": "Инвайт-код",
+    "save": "Сохранить",
+    "send": "Отправить",
+    "district": "Район",
+    "street": "Улица",
+    "house": "Дом",
+    "entrance": "Подъезд",
+    "floor": "Этаж",
+    "apartment": "Квартира",
+    "requestDescription": "Описание проблемы",
+    "photo": "Фото",
+    "photoPlaceholder": "Перетащите изображение сюда или нажмите для выбора",
+    "oldPassword": "Старый пароль",
+    "newPassword": "Новый пароль",
+    "confirmNewPassword": "Подтвердите новый пароль"
+  },
+
+  "modal": {
+    "newRequest": "Новая заявка",
+    "requestByAddress": "Заявка по адресу",
+    "requestByMap": "Заявка по точке на карте",
+    "changePassword": "Изменение пароля"
+  },
+
+  "address": "г. Минск, ул. Пономаренко, 35А, оф. 208, БЦ «Инфо»",
+
+  "errors": {
+    "requiredEmail": "Введите email",
+    "invalidEmail": "Некорректный email",
+    "requiredPassword": "Введите пароль",
+    "shortPassword": "Минимум 6 символов",
+    "requiredRole": "Выберите роль",
+    "requiredInvite": "Введите инвайт-код",
+
+    "email": {
+      "empty": "Email не может быть пустым — введите адрес.",
+      "tooLong": "Email слишком длинный: допустимо максимум 254 символа.",
+      "noAt": "Email должен содержать символ '@' и состоять из двух частей.",
+      "localTooLong": "Часть адреса до '@' слишком длинная (максимум 64 символа).",
+      "domainInvalid": "Доменная часть некорректна.",
+      "format": "Формат email некорректен. Пример: user@example.com",
+      "forbiddenChars": "Email содержит недопустимые символы."
+    },
+    "password": {
+      "empty": "Пароль не может быть пустым — придумайте пароль.",
+      "short": "Пароль слишком короткий: минимум 6 символов.",
+      "noUpper": "Добавьте хотя бы одну заглавную букву (A–Z).",
+      "noLower": "Добавьте хотя бы одну строчную букву (a–z).",
+      "noDigit": "Добавьте хотя бы одну цифру (0–9).",
+      "noSpecial": "Добавьте хотя бы один спецсимвол."
+    },
+    "confirmPassword": {
+      "empty": "Подтвердите пароль",
+      "mismatch": "Пароли не совпадают"
+    },
+    "name": {
+      "empty": "Имя обязательно для заполнения",
+      "short": "Имя должно содержать минимум 2 символа",
+      "long": "Имя слишком длинное (максимум 50 символов)",
+      "invalid": "Имя может содержать только буквы и дефис"
+    },
+    "surname": {
+      "empty": "Фамилия обязательна для заполнения",
+      "short": "Фамилия должна содержать минимум 2 символа",
+      "long": "Фамилия слишком длинная (максимум 50 символов)",
+      "invalid": "Фамилия может содержать только буквы и дефис"
+    },
+    "patronymic": {
+      "long": "Отчество слишком длинное (максимум 50 символов)"
+    },
+    "message": {
+      "empty": "Пожалуйста, введите сообщение",
+      "short": "Сообщение должно содержать минимум 10 символов"
+    },
+    "oldPassword": { "empty": "Увядзіце стары пароль" },
+    "newPassword": { "empty": "Увядзіце новы пароль" },
+    "confirmNewPassword": {
+      "empty": "Пацвердзіце новы пароль",
+      "mismatch": "Паролі не супадаюць"
+    }
+  }
 }

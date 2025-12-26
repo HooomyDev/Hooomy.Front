@@ -34,13 +34,13 @@ export default function ChangePasswordModal({ onSuccess }) {
           placeholder={t("placeholder.oldPassword")}
           type="password"
           required
-          rules={{ required: "Введите старый пароль" }}
+          rules={{ required: t("errors.oldPassword.empty") }}
         />
 
         <InputField
           label={t("user.newPassword")}
           name="newPassword"
-          placeholder={t("placeholder.oldPassword")}
+          placeholder={t("placeholder.newPassword")}
           type="password"
           required
           rules={{

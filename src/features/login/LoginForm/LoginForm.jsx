@@ -49,10 +49,10 @@ export default function LoginForm() {
             name="email"
             placeholder={t("placeholder.email")}
             rules={{
-              required: "Введите email",
+              required: t("errors.requiredEmail"),
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "Некорректный email",
+                message: t("errors.invalidEmail"),
               },
             }}
           />
@@ -63,10 +63,10 @@ export default function LoginForm() {
             placeholder={t("placeholder.password")}
             type="password"
             rules={{
-              required: "Введите пароль",
+              required: t("errors.requiredPassword"),
               minLength: {
                 value: 6,
-                message: "Минимум 6 символов",
+                message: t("errors.shortPassword"),
               },
             }}
           />

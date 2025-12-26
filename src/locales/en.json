@@ -1,105 +1,212 @@
 {
-    "settings.title": "Settings",
-    "settings.interface": "Interface",
-    "settings.theme": "Color Theme",
-    "settings.language": "Interface Language:",
-    
-    "main.hero": "Municipal Services Portal",
-    "main.lastrequests": "Latest Requests",
-    "main.users": "Users With Us",
-    "main.requests": "Issues Resolved",
-    "main.hero.createrequest": "Create Request",
-    "main.contacts.haveQuest": "Have Questions?",
-    "main.contacts.contactUs": "Contact Us",
-    "main.contacts.writeUs": "Write to Us!",
-    
-    "profile.title": "Personal Account",
-    "profile.about": "Personal Information",
-    "profile.addresses": "My Addresses",
-    "profile.newAddress": "New Address",
-    "profile.newAddressMessage": "Add a new address",
-    "profile.addAddress": "Add Address",
-    "profile.onMap": "On Map",
-    "profile.changePassword": "Change Password",
-    "profile.changeAddress": "Change Address",
-    "profile.onMap2": "View On Map",
-    "profile.enterAddress": "Enter An Address...",
-    
-    "login.title": "Login",
-    "login.message": "Don't have an account?",
-    "login.messageLink": "Sign Up",
-    
-    "register.title": "Registration",
-    "register.message": "Already have an account?",
-    "register.messageLink": "Log In",
-    "register.step1": "Choose Your Role",
-    "register.step2": "Fill in Personal Data",
-    "register.step3": "Provide Contact Information",
-    "register.step4": "Check Entered Data",
-    "register.step5var1": "You have successfully registered!",
-    "register.step5var2": "Something went wrong...",
-    "register.step1Var1": "Resident",
-    "register.step1Var2": "Employee",
-    "register.step4About": "Personal Data",
-    "register.step4Contact": "Contact Details",
-    
-    "auth.next1": "Continue",
-    "auth.next2": "Next",
-    "auth.prev": "Back",
-    
-    "placeholder.name": "Enter your name",
-    "placeholder.surname": "Enter your surname",
-    "placeholder.patronymic": "Enter your patronymic",
-    "placeholder.email": "Enter your email",
-    "placeholder.password": "Enter your password",
-    "placeholder.confirmPassword": "Confirm password",
-    "placeholder.invite": "Enter your invite code",
-    "placeholder.message": "Write something...",
-    "placeholder.oldPassword": "Enter old password...",
-    "placeholder.newPassword": "Enter new password...",
-    "placeholder.confirmNewPassword": "Confirm new password...",
-    
-    "nav.main": "Main",
-    "nav.requests": "My Requests",
-    "nav.works": "Works",
-    "nav.stat": "Statistics",
-    "nav.news": "Surveys",
-    "nav.map": "Map",
-    
-    "userdrop.login": "Log In",
-    "userdrop.profile": "Profile",
-    "userdrop.logout": "Log Out",
-    
-    "user.name": "Name",
-    "user.password": "Password",
-    "user.confirmPassword": "Confirm Password",
-    "user.surname": "Surname",
-    "user.patronymic": "Patronymic",
-    "user.address": "Address",
-    "user.phone": "Phone",
-    "user.email": "Email",
-    "user.invite": "Invite Code",
-    "user.save": "Save",
-    "user.message": "Message",
-    "user.send": "Send",
-    "user.district": "District",
-    "user.street": "Street",
-    "user.house": "House",
-    "user.entrance": "Entrance",
-    "user.floor": "Floor",
-    "user.apartment": "Apartment",
-    "user.requestDescription": "Description",
-    "user.photo": "Photo",    
-    "user.photoPlaceholder": "Drag an image here or click to select",  
-    "user.oldPassword": "Old password",    
-    "user.newPassword": "New password",    
-    "user.confirmNewPassword": "Confirm new password",  
+  "settings": {
+    "title": "Settings",
+    "interface": "Interface",
+    "theme": "Color Theme",
+    "language": "Interface Language:"
+  },
 
-    "modal.newRequest": "New request",
-    "modal.requestByAddress": "Request by address",
-    "modal.requestByMap": "Request by map",
+  "main": {
+    "hero": "Municipal Services Portal",
+    "lastrequests": "Latest Requests",
+    "users": "Users With Us",
+    "requests": "Issues Resolved",
+    "heroCreateRequest": "Create Request",
+    "contacts": {
+      "haveQuest": "Have Questions?",
+      "contactUs": "Contact Us",
+      "writeUs": "Write to Us!"
+    }
+  },
 
-    "modal.changePassword": "Change password",
-    
-    "address": "Minsk, Ponomarenko St., 35A, office 208, Info Business Center"
+  "profile": {
+    "title": "Personal Account",
+    "about": "Personal Information",
+    "addresses": "My Addresses",
+    "newAddress": "New Address",
+    "newAddressMessage": "Add a new address",
+    "addAddress": "Add Address",
+    "onMap": "On Map",
+    "changePassword": "Change Password",
+    "changeAddress": "Change Address",
+    "onMap2": "View On Map",
+    "enterAddress": "Enter An Address..."
+  },
+
+  "login": {
+    "title": "Login",
+    "message": "Don't have an account?",
+    "messageLink": "Sign Up"
+  },
+
+  "register": {
+    "title": "Registration",
+    "message": "Already have an account?",
+    "messageLink": "Log In",
+    "step1": "Choose Your Role",
+    "step2": "Fill in Personal Data",
+    "step3": "Provide Contact Information",
+    "step4": "Check Entered Data",
+    "step5var1": "You have successfully registered!",
+    "step5var2": "Something went wrong...",
+    "step1Var1": "Resident",
+    "step1Var2": "Employee",
+    "step4About": "Personal Data",
+    "step4Contact": "Contact Details"
+  },
+
+  "auth": {
+    "next1": "Continue",
+    "next2": "Next",
+    "prev": "Back"
+  },
+
+  "footer": {
+    "navigation": "Navigation",
+    "home": "Home",
+    "requests": "My Requests",
+    "news": "Surveys",
+    "statistics": "Statistics",
+    "map": "Map",
+    "contacts": "Contacts",
+    "phone": "+375 (44) 569-10-58",
+    "email": "hooomy.help.by@gmail.com",
+    "address": "Minsk, Ponomarenko St. 35A, office 208, Info Business Center",
+    "worktime": "Mon–Fri: 9:00–18:00",
+    "documents": "Documents",
+    "terms": "User Agreement",
+    "privacy": "Privacy Policy",
+    "license": "License",
+    "version": "Version: v0.1",
+    "social": "Social Media",
+    "telegram": "Telegram",
+    "vk": "VK",
+    "instagram": "Instagram",
+    "developers": "For Developers",
+    "report": "Report an Issue",
+    "docs": "Documentation",
+    "github": "GitHub",
+    "bottom": "© Hooomy | All rights reserved"
+  },
+
+  "placeholder": {
+    "name": "Enter your name",
+    "surname": "Enter your surname",
+    "patronymic": "Enter your patronymic",
+    "email": "Enter your email",
+    "password": "Enter your password",
+    "confirmPassword": "Confirm password",
+    "invite": "Enter your invite code",
+    "message": "Write something...",
+    "oldPassword": "Enter old password...",
+    "newPassword": "Enter new password...",
+    "confirmNewPassword": "Confirm new password..."
+  },
+
+  "nav": {
+    "main": "Main",
+    "requests": "My Requests",
+    "works": "Works",
+    "stat": "Statistics",
+    "news": "Surveys",
+    "map": "Map"
+  },
+
+  "userdrop": {
+    "login": "Log In",
+    "profile": "Profile",
+    "logout": "Log Out"
+  },
+
+  "user": {
+    "name": "Name",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "surname": "Surname",
+    "patronymic": "Patronymic",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "invite": "Invite Code",
+    "save": "Save",
+    "message": "Message",
+    "send": "Send",
+    "district": "District",
+    "street": "Street",
+    "house": "House",
+    "entrance": "Entrance",
+    "floor": "Floor",
+    "apartment": "Apartment",
+    "requestDescription": "Description",
+    "photo": "Photo",
+    "photoPlaceholder": "Drag an image here or click to select",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password"
+  },
+
+  "modal": {
+    "newRequest": "New request",
+    "requestByAddress": "Request by address",
+    "requestByMap": "Request by map",
+    "changePassword": "Change password"
+  },
+
+  "address": "Minsk, Ponomarenko St., 35A, office 208, Info Business Center",
+
+  "errors": {
+    "requiredEmail": "Enter your email",
+    "invalidEmail": "Invalid email",
+    "requiredPassword": "Enter your password",
+    "shortPassword": "Minimum 6 characters",
+    "requiredInvite": "Увядзіце інвайт-код",
+    "requiredRole": "Select a role",
+
+    "email": {
+      "empty": "Email cannot be empty — please enter an address.",
+      "tooLong": "Email is too long: maximum 254 characters allowed.",
+      "noAt": "Email must contain '@' and consist of two parts.",
+      "localTooLong": "The part before '@' is too long (maximum 64 characters).",
+      "domainInvalid": "Domain part is invalid: cannot start/end with a dot or contain consecutive dots.",
+      "format": "Invalid email format. Example: user@example.com",
+      "forbiddenChars": "Email contains forbidden characters (spaces, brackets, commas, etc.)."
+    },
+    "password": {
+      "empty": "Password cannot be empty — please create one.",
+      "short": "Password is too short: minimum 6 characters.",
+      "noUpper": "Add at least one uppercase letter (A–Z).",
+      "noLower": "Add at least one lowercase letter (a–z).",
+      "noDigit": "Add at least one digit (0–9).",
+      "noSpecial": "Add at least one special character (e.g., !, @, #, $)."
+    },
+    "confirmPassword": {
+      "empty": "Please confirm your password",
+      "mismatch": "Passwords do not match"
+    },
+    "name": {
+      "empty": "Name is required",
+      "short": "Name must be at least 2 characters long",
+      "long": "Name is too long (maximum 50 characters)",
+      "invalid": "Name can only contain letters and hyphen"
+    },
+    "surname": {
+      "empty": "Surname is required",
+      "short": "Surname must be at least 2 characters long",
+      "long": "Surname is too long (maximum 50 characters)",
+      "invalid": "Surname can only contain letters and hyphen"
+    },
+    "patronymic": {
+      "long": "Patronymic is too long (maximum 50 characters)"
+    },
+    "message": {
+      "empty": "Please enter a message",
+      "short": "Message must be at least 10 characters"
+    },
+    "oldPassword": { "empty": "Enter your old password" },
+    "newPassword": { "empty": "Enter your new password" },
+    "confirmNewPassword": {
+      "empty": "Confirm your new password",
+      "mismatch": "Passwords do not match"
+    }
+  }
 }

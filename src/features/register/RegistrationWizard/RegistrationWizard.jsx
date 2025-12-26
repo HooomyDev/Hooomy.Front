@@ -67,7 +67,7 @@ export default function RegistrationWizard() {
     let newErrors = {};
 
     if (step === 1 && !values.role) {
-      newErrors.role = "Выберите роль";
+      newErrors.role = t("errors.requaredRole");
     }
 
     if (step === 2) {
@@ -89,7 +89,7 @@ export default function RegistrationWizard() {
       };
     }
 
-    const hasErrors = Object.values(newErrors).some((err) => err !== "");
+    const hasErrors = Object.values(newErrors).some((err) => err !== true);
     if (hasErrors) return;
 
     if (step === 2 && values.role === "management") {
@@ -131,14 +131,14 @@ export default function RegistrationWizard() {
     loading ||
     (step === 1 && !values.role) ||
     (step === 2 &&
-      (validateSurname(values.surname) !== "" ||
-        validateName(values.name) !== "" ||
-        validatePatronymic(values.patronymic) !== "")) ||
+      (validateSurname(values.surname) !== true ||
+        validateName(values.name) !== true ||
+        validatePatronymic(values.patronymic) !== true)) ||
     (step === 3 &&
-      (validateEmail(values.email) !== "" ||
-        validatePassword(values.password) !== "" ||
+      (validateEmail(values.email) !== true ||
+        validatePassword(values.password) !== true ||
         validateConfirmPassword(values.password, values.confirmPassword) !==
-          ""));
+          true));
 
   return (
     <FormProvider {...methods}>

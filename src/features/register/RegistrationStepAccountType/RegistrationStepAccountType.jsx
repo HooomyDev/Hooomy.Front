@@ -22,7 +22,7 @@ export default function RegistrationStepAccountType({ roles }) {
           key={role.value}
           value={role.value}
           label={role.label}
-          {...register("role", { required: "Выберите роль" })}
+          {...register("role", { required: t("errors.requiredRole") })}
           checked={selectedRole === role.value}
         />
       ))}

@@ -35,10 +35,10 @@ export default function ContactForm() {
           title={t("user.name")}
           placeholder={t("placeholder.name")}
           validation={{
-            required: "Пожалуйста, введите имя",
+            required: t("errors.name.empty"),
             minLength: {
               value: 2,
-              message: "Имя должно содержать минимум 2 символа",
+              message: t("errors.name.short"),
             },
           }}
         />
@@ -50,10 +50,10 @@ export default function ContactForm() {
           placeholder={t("placeholder.name")}
           type="email"
           validation={{
-            required: "Пожалуйста, введите email",
+            required: t("errors.email.empty"),
             pattern: {
               value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Введите корректный email",
+              message: t("errors.email.format"),
             },
           }}
         />
@@ -66,10 +66,10 @@ export default function ContactForm() {
           placeholder={t("placeholder.message")}
           type="textarea"
           validation={{
-            required: "Пожалуйста, введите сообщение",
+            required: t("errors.message.empty"),
             minLength: {
               value: 10,
-              message: "Сообщение должно содержать минимум 10 символов",
+              message: t("errors.message.short"),
             },
           }}
         />

@@ -7,7 +7,7 @@ export default function MainHeroCTAButton({ onClick }) {
 
   return (
     <button className={styles.ctaButton} onClick={onClick}>
-      {t("main.hero.createrequest")}
+      {t("main.createRequest")}
     </button>
   );
 }
