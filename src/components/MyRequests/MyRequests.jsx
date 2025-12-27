@@ -6,6 +6,8 @@ import MyRequestsHeader from "../MyRequestsHeader/MyRequestsHeader";
 import MyRequestsList from "../MyRequestsList/MyRequestsList";
 import MyRequestsNewRequest from "../MyRequestsNewRequest/MyRequestsNewRequest";
 import MyRequestsFilters from "../MyRequestsFilters/MyRequestsFilters";
+import Modal from "../../modals/Modal/Modal";
+import CreateRequestModal from "../../modals/CreateRequestModal/CreateRequestModal";
 
 export default function MyRequests() {
   const t = useT();
@@ -13,6 +15,16 @@ export default function MyRequests() {
   const [requests, setRequests] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCreateRequest = () => {
+    // TODO: реализовать создание новой заявки
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     async function fetchRequests() {
@@ -80,7 +92,7 @@ export default function MyRequests() {
         </div>
 
         <div className={styles.sectionItem2}>
-          <MyRequestsNewRequest />
+          <MyRequestsNewRequest handleCreateRequest={handleCreateRequest} />
 
           <MyRequestsFilters
             allRequests={allRequests}
@@ -91,6 +103,9 @@ export default function MyRequests() {
           />
         </div>
       </div>
+      <Modal onClose={handleCloseModal} isOpen={isModalOpen}>
+        <CreateRequestModal onSuccess={handleCloseModal} />
+      </Modal>
     </div>
   );
 }
