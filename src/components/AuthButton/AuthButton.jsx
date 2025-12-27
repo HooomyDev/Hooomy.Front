@@ -8,16 +8,15 @@ import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
 import Dropdown from "../../common/Dropdown/Dropdown";
 import styles from "./AuthButton.module.css";
 import { useT } from "../../utils/useT";
+import routes from "../../stores/routes.json";
 
 export default function AuthButton() {
   const t = useT();
   const user = useAuthStore((store) => store.user);
   const logout = useAuthStore((store) => store.logout);
   const navigate = useNavigate();
-
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (ref.current && !ref.current.contains(e.target)) {
@@ -27,22 +26,20 @@ export default function AuthButton() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
-
   const handleClick = () => {
     if (!user) {
-      navigate("/login");
+      navigate(routes.login);
     } else {
       setOpen((prev) => !prev);
     }
   };
-
   const items = [
     {
       label: t("userdrop.profile"),
       icon: ProfileIcon,
       onClick: () => {
         setOpen(false);
-        navigate("/profile");
+        navigate(routes.profile);
       },
     },
     {
@@ -50,7 +47,7 @@ export default function AuthButton() {
       icon: SettingsIcon,
       onClick: () => {
         setOpen(false);
-        navigate("/settings");
+        navigate(routes.settings);
       },
     },
     {
@@ -58,23 +55,23 @@ export default function AuthButton() {
       icon: LogoutIcon,
       onClick: () => {
         logout();
-        navigate("/");
+        navigate(routes.home);
       },
     },
   ];
-
   return (
     <div className={styles.wrapper} ref={ref}>
+      {" "}
       <button className={styles.authButton} onClick={handleClick}>
-        <UserLogo className={styles.userLogo} />
+        {" "}
+        <UserLogo className={styles.userLogo} />{" "}
         {user ? (
           user.email?.slice(0, 7) + "..."
         ) : (
           <span className={styles.authText}>{t("userdrop.login")}</span>
-        )}
-      </button>
-
-      {user && <Dropdown items={items} visible={open} />}
+        )}{" "}
+      </button>{" "}
+      {user && <Dropdown items={items} visible={open} />}{" "}
     </div>
   );
 }

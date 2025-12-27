@@ -6,7 +6,7 @@ export default function LinkTo({ link, text, label }) {
   return (
     <p className={styles.text}>
       {text}{" "}
-      <Link to={`/${link}`} className={styles.link}>
+      <Link to={link} className={styles.link}>
         {label}
       </Link>
     </p>

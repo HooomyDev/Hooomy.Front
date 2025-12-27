@@ -1,5 +1,5 @@
 import React from "react";
-import PageWrapper from "../../components/PageWrapper/PageWrapper";
+import PageWrapper from "../../common/PageWrapper/PageWrapper";
 import RegistrationWizard from "../../features/register/RegistrationWizard/RegistrationWizard";
 
 export default function RegisterPage() {

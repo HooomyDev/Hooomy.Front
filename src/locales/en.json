@@ -3,7 +3,26 @@
     "title": "Settings",
     "interface": "Interface",
     "theme": "Color Theme",
-    "language": "Interface Language:"
+    "language": "Interface Language:",
+    "notifications": "Notifications:"
+  },
+
+  "requests": {
+    "title": "My Requests",
+    "list": "Requests",
+    "newRequest": "New Request",
+    "createNewRequest": "Create New Request",
+    "filters": "Filters",
+    "status": "Status",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "all": "All",
+    "pending": "Pending",
+    "done": "Done",
+    "rejected": "Rejected",
+    "applyFilters": "Apply Filters",
+    "clearFilters": "Clear filters",
+    "empty": "No requests"
   },
 
   "main": {
@@ -100,7 +119,8 @@
     "message": "Write something...",
     "oldPassword": "Enter old password...",
     "newPassword": "Enter new password...",
-    "confirmNewPassword": "Confirm new password..."
+    "confirmNewPassword": "Confirm new password...",
+    "selectField": "Select"
   },
 
   "nav": {

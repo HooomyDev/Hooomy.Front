@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import styles from "./SelectField.module.css";
 import Dropdown from "../Dropdown/Dropdown";
+import { useT } from "../../utils/useT";
 
 export default function SelectField({
   label,
@@ -9,8 +10,9 @@ export default function SelectField({
   options,
   required = false,
   rules = {},
-  OnChange,
+  onValueChange,
 }) {
+  const t = useT();
   const [open, setOpen] = useState(false);
   const wrapperRef = useRef(null);
   const {
@@ -42,7 +44,7 @@ export default function SelectField({
         render={({ field: { value, onChange } }) => {
           const handleSelect = (opt) => {
             onChange(opt.value);
-            OnChange(opt.value);
+            onValueChange(opt.value);
             setOpen(false);
           };
           return (
@@ -57,7 +59,7 @@ export default function SelectField({
                   }`}
                 >
                   {options.find((o) => o.value === value)?.label ||
-                    "Выберите..."}
+                    t("placeholder.selectField")}
                 </div>
               </div>
               <Dropdown

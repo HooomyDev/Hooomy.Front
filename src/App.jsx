@@ -11,6 +11,8 @@ import "./styles/variables.css";
 import "./styles/global.css";
 import NotFound from "./components/NotFound/NotFound";
 import { useEffect } from "react";
+import MyRequestsPage from "./pages/MyRequestsPage/MyRequestsPage";
+import routes from "./stores/routes.json";
 
 export default function App() {
   useEffect(() => {
@@ -20,11 +22,10 @@ export default function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path={routes.home} element={<Layout />}>
         <Route index element={<HomePage />} />
       </Route>
-
-      <Route path="/profile" element={<Layout />}>
+      <Route path={routes.profile} element={<Layout />}>
         <Route
           index
           element={
@@ -34,7 +35,7 @@ export default function App() {
           }
         />
       </Route>
-      <Route path="/settings" element={<Layout />}>
+      <Route path={routes.settings} element={<Layout />}>
         <Route
           index
           element={
@@ -44,9 +45,19 @@ export default function App() {
           }
         />
       </Route>
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-      <Route path="*" element={<NotFound />} />
+      <Route path={routes.myRequests} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <MyRequestsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.login} element={<LoginPage />} />
+      <Route path={routes.register} element={<RegisterPage />} />
+      <Route path={routes.notFound} element={<NotFound />} />
     </Routes>
   );
 }

@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Logo.module.css";
 import { ReactComponent as LogoImage } from "../../assets/logo.svg";
+import routes from "../../stores/routes.json";
 
 export default function Logo() {
   return (
-    <Link to="/" className={styles.logoWrapper} aria-label="На главную">
+    <Link
+      to={routes.main}
+      className={styles.logoWrapper}
+      aria-label="На главную"
+    >
       <LogoImage className={styles.logoImage} />
     </Link>
   );

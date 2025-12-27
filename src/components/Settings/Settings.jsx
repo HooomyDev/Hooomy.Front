@@ -9,6 +9,7 @@ import { ChartPieIcon, NewspaperIcon } from "@heroicons/react/24/solid";
 import emailLogo from "../../assets/email-logo.png";
 import tgLogo from "../../assets/telegram-icon.png";
 import viberLogo from "../../assets/viber-icon.png";
+import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
@@ -34,18 +35,22 @@ export default function Settings() {
   return (
     <div className={styles.wrapper}>
       <Block>
-        <div className={styles.title}>{t("settings.title")}</div>
+        <div className={styles.container}>
+          <Cog6ToothIcon className={styles.icon} />
+          <div className={styles.title}>{t("settings.title")}</div>
+        </div>
       </Block>
+
       <FormProvider {...methods}>
         <form className={styles.form}>
           <Block title={t("settings.interface")} Icon={ChartPieIcon}>
-            <div className={styles.container}>
+            <div className={styles.container2}>
               <ThemePicker />
               <SelectField
                 label={t("settings.language")}
                 name="lang"
                 options={langOptions}
-                OnChange={changeLanguage}
+                onValueChange={changeLanguage}
               />
             </div>
           </Block>

@@ -22,6 +22,7 @@ import FormHeader from "../../../components/FormHeader/FormHeader";
 import LinkTo from "../../../common/LinkTo/LinkTo";
 import SmoothlyWrapper from "../../../common/SmoothlyWrapper/SmoothlyWrapper";
 import { useT } from "../../../utils/useT";
+import routes from "../../../stores/routes.json";
 
 export default function RegistrationWizard() {
   const t = useT();
@@ -155,7 +156,7 @@ export default function RegistrationWizard() {
           disabledNext={isNextDisabled}
         />
         <LinkTo
-          link="login"
+          link={routes.login}
           label={t("register.messageLink")}
           text={t("register.message")}
         />

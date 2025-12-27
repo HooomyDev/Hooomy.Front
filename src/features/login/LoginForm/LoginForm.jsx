@@ -8,12 +8,13 @@ import FormHeader from "../../../components/FormHeader/FormHeader";
 import LinkTo from "../../../common/LinkTo/LinkTo";
 import InputField from "../../../common/InputField/InputField";
 import { useT } from "../../../utils/useT";
+import routes from "../../../stores/routes.json";
 
 export default function LoginForm() {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: "", password: "", role: "user" },
   });
 
   const navigate = useNavigate();
@@ -40,10 +41,9 @@ export default function LoginForm() {
 
   return (
     <div className={styles.wrapper}>
-      <FormHeader title={t("login.title")} />
-
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
+          <FormHeader title={t("login.title")} />
           <InputField
             label={t("user.email")}
             name="email"
@@ -80,7 +80,7 @@ export default function LoginForm() {
           <LinkTo
             label={t("login.messageLink")}
             text={t("login.message")}
-            link="register"
+            link={routes.register}
           />
         </form>
       </FormProvider>

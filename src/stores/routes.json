@@ -1,0 +1,18 @@
+{
+    "home": "/",
+    "profile": "/profile",
+    "settings": "/settings",
+    "myRequests": "/my-requests",
+    "works": "/works",
+    "news": "/news",
+    "statistic": "/statistic",
+    "map": "/map",
+    "login": "/login",
+    "register": "/register",
+    "notFound": "*",
+    "terms": "/terms",
+    "privacy": "/privacy",
+    "license": "/license",
+    "report": "/report",
+    "docs": "/docs"
+}

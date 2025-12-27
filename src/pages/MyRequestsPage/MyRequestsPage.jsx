@@ -1,11 +1,11 @@
 import React from "react";
 import PageWrapper from "../../common/PageWrapper/PageWrapper";
-import LoginForm from "../../features/login/LoginForm/LoginForm";
+import MyRequests from "../../components/MyRequests/MyRequests";
 
-export default function LoginPage() {
+export default function MyRequestsPage() {
   return (
     <PageWrapper>
-      <LoginForm />
+      <MyRequests />
     </PageWrapper>
   );
 }

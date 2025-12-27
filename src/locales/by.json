@@ -3,8 +3,28 @@
     "title": "Налады",
     "interface": "Інтэрфейс",
     "theme": "Каляровая тэма",
-    "language": "Мова інтэрфейсу:"
+    "language": "Мова інтэрфейсу:",
+    "notifications": "Паведамленнi:"
   },
+
+  "requests": {
+    "title": "Мае заяўкі",
+    "list": "Заяўкі",
+    "newRequest": "Новая заяўка",
+    "createNewRequest": "Стварыць заяўку",
+    "filters": "Фiльтры",
+    "status": "Статус",
+    "startDate": "Пачатковая дата",
+    "endDate": "Канечная дата",
+    "all": "Усе",
+    "pending": "У апрацоўцы",
+    "done": "Выконана",
+    "rejected": "Адхілена",
+    "applyFilters": "Прымяніць фільтры",
+    "clearFilters": "Ачысціць  фільтры",
+    "empty": "Няма заяў"
+  },
+
   "main": {
     "hero": "Партал гарадской гаспадаркі",
     "lastrequests": "Апошнія заяўкі",
@@ -17,6 +37,7 @@
       "writeUs": "Напішыце нам!"
     }
   },
+
   "profile": {
     "title": "Асабісты кабінет",
     "about": "Асабістая інфармацыя",
@@ -30,11 +51,13 @@
     "onMap2": "Паказаць на карце",
     "enterAddress": "Увядзіце адрас..."
   },
+
   "login": {
     "title": "Уваход",
     "message": "Няма акаўнта?",
     "messageLink": "Зарэгістравацца"
   },
+
   "register": {
     "title": "Рэгістрацыя",
     "message": "Ужо ёсць акаўнт?",
@@ -50,7 +73,9 @@
     "step4About": "Асабістыя дадзеныя",
     "step4Contact": "Кантактныя дадзеныя"
   },
+
   "auth": { "next1": "Далей", "next2": "Далей", "prev": "Назад" },
+
   "placeholder": {
     "name": "Увядзіце ваша імя",
     "surname": "Увядзіце вашу фамілію",
@@ -62,8 +87,10 @@
     "message": "Напішыце што-небудзь...",
     "oldPassword": "Увядзіце стары пароль...",
     "newPassword": "Увядзіце новы пароль...",
-    "confirmNewPassword": "Паўтарыце новы пароль..."
+    "confirmNewPassword": "Паўтарыце новы пароль...",
+    "selectField": "Абярыце"
   },
+
   "footer": {
     "navigation": "Навігацыя",
     "home": "Галоўная",
@@ -91,6 +118,7 @@
     "github": "GitHub",
     "bottom": "© Hooomy | Усе правы абаронены"
   },
+
   "nav": {
     "main": "Галоўная",
     "requests": "Мае заяўкі",
@@ -99,7 +127,9 @@
     "news": "Апытанні",
     "map": "Карта"
   },
+
   "userdrop": { "login": "Увайсці", "profile": "Профіль", "logout": "Выйсці" },
+
   "user": {
     "name": "Імя",
     "password": "Пароль",
@@ -126,13 +156,16 @@
     "newPassword": "Новы пароль",
     "confirmNewPassword": "Пацвердзіце новы пароль"
   },
+
   "modal": {
     "newRequest": "Новая заяўка",
     "requestByAddress": "Заяўка па адрасу",
     "requestByMap": "Заяўка па точцы на карце",
     "changePassword": "Змяненне пароля"
   },
+
   "address": "г. Мінск, вул. Панамарэнкі, 35А, оф. 208, БЦ «Інфа»",
+
   "errors": {
     "requiredEmail": "Увядзіце email",
     "invalidEmail": "Некарэктны email",
