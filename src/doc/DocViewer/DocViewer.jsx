@@ -1,29 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import DocHeader from "../../doc/DocHeader/DocHeader";
 import DocTableOfContents from "../../doc/DocTableOfContents/DocTableOfContents";
 import DocChapter from "../../doc/DocChapter/DocChapter";
 import DocScrollButton from "../../doc/DocScrollButton/DocScrollButton";
 import DocWrapper from "../../doc/DocWrapper/DocWrapper";
-import { contents } from "./contents";
-import { chapters } from "./chapters";
-import { useT } from "../../utils/useT";
 
-export default function UserTerms() {
-  const t = useT();
-
-  const [isAtTop, setIsAtTop] = useState(true);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
+export default function DocViewer({
+  title,
+  file,
+  contents = [],
+  chapters = [],
+}) {
   return (
     <DocWrapper>
-      <DocHeader title={t("userTerms.title")} />
+      <DocHeader title={title} file={file} />
       <DocTableOfContents contents={contents} />
 
       {chapters.map((chapter) => (
@@ -35,7 +25,7 @@ export default function UserTerms() {
         />
       ))}
 
-      <DocScrollButton isAtTop={isAtTop} />
+      <DocScrollButton />
     </DocWrapper>
   );
 }

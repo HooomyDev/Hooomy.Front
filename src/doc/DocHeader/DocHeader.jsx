@@ -6,11 +6,13 @@ import {
 } from "@heroicons/react/24/solid";
 import styles from "./DocHeader.module.css";
 
-export default function DocHeader({ title }) {
+export default function DocHeader({ title, file }) {
+  const lang = localStorage.getItem("lang") || "en";
+
   const handleDownload = () => {
     const link = document.createElement("a");
-    link.href = "/files/privacy-policy.pdf";
-    link.download = "privacy-policy.pdf";
+    link.href = "/files/" + file + "-" + lang + ".pdf";
+    link.download = file;
     link.click();
   };
 

@@ -309,5 +309,97 @@
         "10_3": "10.3. Communication with the Administration is carried out via email: artem.artusevskij01@gmail.com or through the feedback form on the Website."
       }
     }
+  },
+
+  "privacy": {
+    "title": "Privacy and Personal Data Protection Policy",
+    "contents": {
+      "general": "1. General Provisions",
+      "dataComposition": "2. Composition of Processed Personal Data",
+      "processingPurposes": "3. Purposes of Personal Data Processing",
+      "legalBasis": "4. Legal Basis for Processing",
+      "processingProcedure": "5. Processing Procedure and Terms. Data Storage.",
+      "userRights": "6. Rights of the Personal Data Subject (User)",
+      "dataProtection": "7. Personal Data Protection",
+      "finalProvisions": "8. Final Provisions"
+    },
+    "chapters": {
+      "general": {
+        "title": "General Provisions",
+        "1_1": "1.1. This Privacy Policy (hereinafter - \"Policy\") defines the procedure for collection, storage, use, transfer and protection of personal data of users (hereinafter - \"Users\") on the website/in the application/in the company \"Hooome;)\" (hereinafter - \"Operator\").",
+        "1_2": "1.2. The Policy is developed in accordance with the Constitution of the Republic of Belarus, the Law of the Republic of Belarus dated May 7, 2021 No. 99-Z \"On Personal Data Protection\" (hereinafter - the Law), and other legislative acts of the Republic of Belarus.",
+        "1_3": "1.3. By using the Operator's website/services, the User expresses their full and unconditional consent to the terms of this Policy. If the User does not agree with the terms of the Policy, they must stop using the resource.",
+        "1_4": "1.4. Key terms:",
+        "li1": "Personal data - any information relating to an identified or identifiable natural person.",
+        "li2": "Processing of personal data - any action or set of actions performed with personal data, including collection, systematization, storage, modification, use, anonymization, blocking, distribution, provision, deletion.",
+        "li3": "Personal data subject - a natural person to whom personal data relates (User).",
+        "li4": "Operator - a legal or natural person who independently or jointly with other persons organizes and (or) carries out the processing of personal data."
+      },
+      "dataComposition": {
+        "title": "Composition of Processed Personal Data",
+        "2_1": "2.1. The Operator may process the following User data provided voluntarily:",
+        "li1": "Last name, first name, patronymic;",
+        "li2": "Email address (e-mail);",
+        "li3": "Phone number;",
+        "li4": "Data automatically transmitted during website use: IP address, cookie data, browser information, device type, operating system, date and time of access, geolocation (if allowed).",
+        "2_2": "2.2. The Operator does not process special categories of personal data (regarding racial, national origin, health, etc.), as well as data related to criminal records, without the explicit consent of the User, unless provided by law."
+      },
+      "processingPurposes": {
+        "title": "Purposes of Personal Data Processing",
+        "3_1": "3.1. The Operator processes personal data for the following purposes:",
+        "li1": "User identification during registration and use of services;",
+        "li2": "Processing User's applications, requests, inquiries;",
+        "li3": "Providing customer support;",
+        "li4": "Informing the User about new products, services, promotions (only with their consent);",
+        "li5": "Conducting marketing and statistical research;",
+        "li6": "Improving the quality of the website and services;",
+        "li7": "Fulfilling the requirements of the legislation of the Republic of Belarus."
+      },
+      "legalBasis": {
+        "title": "Legal Basis for Processing",
+        "4_1": "4.1. Processing of personal data is carried out on the following legal grounds:",
+        "li1": "Consent of the personal data subject (provided by performing conclusive actions or checking the appropriate box);",
+        "li2": "Conclusion and execution of a contract where the personal data subject is a party;",
+        "li3": "Fulfillment of obligations imposed on the Operator by legislation (e.g., accounting, taxation)."
+      },
+      "processingProcedure": {
+        "title": "Processing Procedure and Terms. Data Storage.",
+        "5_1": "5.1. Processing of personal data is carried out using automation tools and without such tools.",
+        "5_2": "5.2. The Operator guarantees the confidentiality of personal data and takes all measures to protect them from unauthorized access, disclosure, modification, or destruction.",
+        "5_3": "5.3. The Operator has the right to transfer personal data to third parties only in the following cases:",
+        "li1": "The User has expressed consent to this;",
+        "li2": "Transfer is necessary for service provision (e.g., to a courier service for delivery);",
+        "li3": "Transfer is provided for by the legislation of the Republic of Belarus (e.g., at the request of authorized state bodies);",
+        "li4": "To involve payment systems and banks for payment processing.",
+        "5_4": "5.4. Personal data is stored on the territory of the Republic of Belarus. Transfer of data abroad is carried out only to countries that provide an adequate level of protection, or with the consent of the subject.",
+        "5_5": "5.5. The storage period of personal data is determined by the purposes of their processing. After achieving the purposes or withdrawal of consent, the data is subject to destruction or anonymization, unless otherwise provided by law (e.g., the storage period for accounting documents)."
+      },
+      "userRights": {
+        "title": "Rights of the Personal Data Subject (User)",
+        "6_1": "The User, as a personal data subject, in accordance with the Law of the Republic of Belarus, has the right to:",
+        "li1": "Receive information about the processing of their personal data;",
+        "li2": "Access their personal data;",
+        "li3": "Clarify (modify) their personal data in case of incompleteness or inaccuracy;",
+        "li4": "Withdraw consent to the processing of personal data;",
+        "li5": "Request termination of processing and deletion of their personal data, except when processing is required by law;",
+        "li6": "Appeal against the actions (inaction) of the Operator to the authorized body - the Operational and Analytical Center under the President of the Republic of Belarus, which is the body exercising state regulation in the field of personal data protection."
+      },
+      "dataProtection": {
+        "title": "Personal Data Protection",
+        "7_1": "7.1. The Operator takes necessary and sufficient organizational and technical measures to protect personal data from unlawful or accidental access, destruction, modification, blocking, copying, distribution, as well as from other unlawful actions.",
+        "7_2": "7.2. Such measures include, in particular:",
+        "li1": "use of SSL encryption,",
+        "li2": "access control system,",
+        "li3": "antivirus protection,",
+        "li4": "regular data backup,",
+        "li5": "staff training."
+      },
+      "finalProvisions": {
+        "title": "Final Provisions",
+        "8_1": "8.1. This Policy is a public document and is posted on the Operator's website at: https://hooome.com/privacy",
+        "8_2": "8.2. The Operator reserves the right to make changes to the Policy. The new version of the Policy comes into force from the moment of its posting on the website, unless otherwise provided by the new version.",
+        "8_3": "8.3. All suggestions or questions regarding this Privacy Policy should be sent to the Operator's contact details."
+      }
+    }
   }
 }

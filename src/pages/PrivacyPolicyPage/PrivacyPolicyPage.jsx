@@ -1,20 +1,19 @@
 import React from "react";
 import PageWrapper from "../../common/PageWrapper/PageWrapper";
-import DocViewer from "../../doc/DocViewer/DocViewer";
 import { chapters } from "./src/chapters";
 import { contents } from "./src/contents";
+import DocViewer from "../../doc/DocViewer/DocViewer";
 import { useT } from "../../utils/useT";
 
-export default function UserTermsPage() {
+export default function PrivacyPolicyPage() {
   const t = useT();
-
   return (
     <PageWrapper>
       <DocViewer
-        chapters={chapters}
+        file="privacy"
         contents={contents}
-        file="terms"
-        title={t("userTerms.title")}
+        chapters={chapters}
+        title={t("privacy.title")}
       />
     </PageWrapper>
   );
