@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { ReactComponent as CrossIcon } from "../../assets/cross.svg";
 import styles from "./Modal.module.css";
-import SmoothlyWrapper from "../../common/SmoothlyWrapper/SmoothlyWrapper";
 
 export default function Modal({ isOpen, onClose, children }) {
   useEffect(() => {
@@ -27,7 +26,7 @@ export default function Modal({ isOpen, onClose, children }) {
         <button className={styles.close} onClick={onClose}>
           <CrossIcon className={styles.icon} />
         </button>
-        <SmoothlyWrapper>{children}</SmoothlyWrapper>
+        {children}
       </div>
     </div>,
     document.body

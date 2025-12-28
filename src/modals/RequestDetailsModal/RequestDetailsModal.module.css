@@ -1,0 +1,127 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--spacing-xl);
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  font-size: var(--font-size-title);
+  font-weight: 700;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+}
+
+.photoWrapper {
+  width: 500px;
+}
+
+.photo {
+  width: 450px;
+  height: auto;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+}
+
+.infoWrapper {
+  width: 100%;
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+}
+
+.reqTitle {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--font-color);
+  margin-bottom: var(--spacing-md);
+  line-height: 1.3;
+}
+
+.reqStatus {
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--element-color);
+}
+
+.reqDate {
+  font-size: var(--font-size-sm);
+  color: var(--font-color);
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.8;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-color);
+}
+
+.reqStatus:has(span) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  background-color: transparent;
+  border-left: none;
+  padding: 0;
+  margin-bottom: var(--spacing-lg);
+}
+
+.reqStatus:has(span)::before {
+  content: "Адрес";
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--font-color);
+  margin-bottom: var(--spacing-sm);
+}
+
+.reqStatus span {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  padding-left: var(--spacing-md);
+  position: relative;
+  margin-bottom: var(--spacing-xs);
+}
+
+.reqStatus span::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--element-color);
+  font-weight: bold;
+}
+
+.reqStatus span:last-child {
+  margin-bottom: 0;
+}
+
+.reqDescription {
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  line-height: 1.6;
+  background-color: var(--card-background);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius);
+  border-left: 3px solid var(--element-color);
+  margin-top: var(--spacing-lg);
+}
+
+.reqDescription::before {
+  content: "Описание";
+  display: block;
+  font-weight: 600;
+  margin-bottom: var(--spacing-sm);
+  color: var(--font-color);
+}
