@@ -8,7 +8,7 @@ export default function NotFound() {
   const navigate = useNavigate();
 
   return (
-    <PageWrapper>
+    <div className={styles.wrapper}>
       <Snowfall color="#FFF" />
       <div className={styles.container}>
         <div className={styles.code}>404</div>
@@ -23,6 +23,6 @@ export default function NotFound() {
           На главную
         </button>
       </div>
-    </PageWrapper>
+    </div>
   );
 }
