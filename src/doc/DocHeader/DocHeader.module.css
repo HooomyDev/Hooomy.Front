@@ -1,0 +1,43 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+}
+
+.icon {
+  width: 3rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: var(--font-size-subtitle);
+  font-weight: 600;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.download {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-color);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  transition: all 0.1s ease;
+  width: 7rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.download:hover {
+  transform: scale(1.05);
+  border-color: var(--element-color);
+  color: var(--element-color);
+}
+
+.download:active {
+  transform: scale(1.02);
+  border-color: var(--element-color);
+}

@@ -228,5 +228,86 @@
       "empty": "Confirm your new password",
       "mismatch": "Passwords do not match"
     }
+  },
+
+  "userTerms": {
+    "title": "Terms of Service",
+    "contents": {
+      "general": "1. General Provisions",
+      "account": "2. Registration and Account",
+      "usage": "3. Terms of Service",
+      "intellectualProperty": "4. Intellectual Property Rights",
+      "privacy": "5. Personal Data and Privacy",
+      "liability": "6. Limitation of Liability",
+      "payments": "7. Payments and Fees",
+      "termination": "8. Termination of Service",
+      "disputes": "9. Dispute Resolution",
+      "final": "10. Final Provisions"
+    },
+    "chapters": {
+      "general": {
+        "title": "General Provisions",
+        "1_1": "1.1. This User Agreement (hereinafter — the “Agreement”) governs the relationship between the owner of “Hooome;)” (hereinafter — the “Service” or “Administration”) and the user (hereinafter — the “User”) when using the Service.",
+        "1_2": "1.2. By using the Service, the User fully and unconditionally agrees to the terms of this Agreement.",
+        "1_3": "1.3. The Administration reserves the right to amend this Agreement. Continued use of the Service after changes means the User agrees to the new version."
+      },
+      "account": {
+        "title": "Registration and Account",
+        "2_1": "2.1. To access certain features of the Service, the User may need to create an account.",
+        "2_2": "2.2. The User undertakes to:",
+        "li1": "Provide accurate and up-to-date information during registration",
+        "li2": "Maintain confidentiality of login credentials",
+        "li3": "Immediately notify the Administration of any unauthorized access to the account",
+        "2_3": "2.3. The Administration reserves the right to suspend or delete the User’s account in case of violation of the Agreement."
+      },
+      "usage": {
+        "title": "Terms of Service",
+        "3_1": "3.1. The User agrees to use the Service only for lawful purposes and in a way that does not infringe the rights of third parties.",
+        "3_2": "3.2. Prohibited actions:",
+        "li1": "Posting illegal, harmful, threatening, or offensive content",
+        "li2": "Violating intellectual property rights",
+        "li3": "Distributing viruses or malicious code",
+        "li4": "Collecting or storing personal data of other users without their consent",
+        "li5": "Taking actions that may disrupt the Service"
+      },
+      "intellectualProperty": {
+        "title": "Intellectual Property",
+        "4_1": "4.1. All materials posted on the Service (texts, images, etc.) are intellectual property of the Administration or rights holders.",
+        "4_2": "4.2. The User is granted a limited, non-exclusive, non-transferable license to use the Service in accordance with this Agreement."
+      },
+      "privacy": {
+        "title": "Privacy and Data Protection",
+        "5_1": "5.1. Processing of the User’s personal data is governed by the Privacy Policy, which is an integral part of this Agreement.",
+        "5_2": "5.2. By using the Service, the User consents to the processing of their personal data in accordance with the laws of the Republic of Belarus."
+      },
+      "liability": {
+        "title": "Limitation of Liability",
+        "6_1": "6.1. The Service is provided “as is”. The Administration does not guarantee uninterrupted operation or compliance with the User’s expectations.",
+        "6_2": "6.2. The Administration is not liable for:",
+        "li1": "Direct or indirect damages resulting from the use of the Service",
+        "li2": "Actions of Users that violate the terms of the Agreement",
+        "li3": "Operation of third-party resources, links to which may be posted on the Service"
+      },
+      "payments": {
+        "title": "Payments and Fees",
+        "7_1": "7.1. Some features of the Service may be provided on a paid basis. Payment terms are described in the relevant sections of the Service.",
+        "7_2": "7.2. All prices include VAT, if applicable. The Administration reserves the right to change fees by notifying Users."
+      },
+      "termination": {
+        "title": "Termination",
+        "8_1": "8.1. The User may stop using the Service at any time.",
+        "8_2": "8.2. The Administration has the right to suspend or terminate the User’s access to the Service in case of violation of this Agreement."
+      },
+      "disputes": {
+        "title": "Dispute Resolution",
+        "9_1": "9.1. All disputes are resolved through negotiations. If no agreement is reached, the dispute shall be considered in accordance with the laws of the Republic of Belarus."
+      },
+      "final": {
+        "title": "Final Provisions",
+        "10_1": "10.1. This Agreement enters into force from the moment the User starts using the Service.",
+        "10_2": "10.2. If any provision of the Agreement is found invalid, the remaining provisions shall remain in force.",
+        "10_3": "10.3. Communication with the Administration is carried out via email: artem.artusevskij01@gmail.com or through the feedback form on the Website."
+      }
+    }
   }
 }

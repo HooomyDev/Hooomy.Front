@@ -1,0 +1,39 @@
+.toTopButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  position: fixed;
+  bottom: var(--spacing-lg);
+  right: var(--spacing-lg);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: var(--element-color);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
+  width: auto;
+  height: 3rem;
+}
+
+.toTopButton:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  width: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.icon.down {
+  transform: rotate(0deg);
+}
+
+.icon.up {
+  transform: rotate(180deg);
+}

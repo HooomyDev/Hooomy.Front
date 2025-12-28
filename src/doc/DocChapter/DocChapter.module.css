@@ -1,0 +1,31 @@
+.chapter {
+  padding: 0 var(--spacing-xxl);
+  user-select: text;
+  width: 100%;
+}
+
+.chapter p {
+  font-size: var(--font-size-xl);
+}
+
+.chapter li {
+  list-style: none;
+  position: relative;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--font-color);
+  line-height: 1.4;
+  margin-left: var(--spacing-xl);
+  padding-left: var(--spacing-xl);
+  font-size: var(--font-size-xl);
+}
+
+.chapter li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -0.2;
+  color: var(--element-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}

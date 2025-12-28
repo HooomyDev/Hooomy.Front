@@ -1,0 +1,43 @@
+.chapter {
+  padding: 0 var(--spacing-xxl);
+  user-select: text;
+  width: 100%;
+}
+
+.chapter ul {
+  list-style: none;
+  padding-left: var(--spacing-xl);
+}
+
+.chapter li {
+  position: relative;
+  margin-bottom: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--font-color);
+  line-height: 1.4;
+  padding-left: var(--spacing-xl);
+  font-size: var(--font-size-xl);
+}
+
+.chapter li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -0.2;
+  color: var(--element-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.chapter a {
+  color: var(--font-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.chapter a:hover {
+  text-decoration: underline;
+  color: var(--element-color);
+  text-decoration: none;
+}
