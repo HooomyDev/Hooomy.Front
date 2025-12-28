@@ -1,17 +1,17 @@
 import React from "react";
-import PageWrapper from "../../common/PageWrapper/PageWrapper";
-import { chapters } from "./src/chapters";
-import { contents } from "./src/contents";
 import DocViewer from "../../doc/DocViewer/DocViewer";
+import PageWrapper from "../../common/PageWrapper/PageWrapper";
+import { contents } from "./src/contents";
+import { chapters } from "./src/chapters";
 
-export default function PrivacyPolicyPage() {
+export default function CookiesPolicyPage() {
   return (
     <PageWrapper>
       <DocViewer
-        file="privacy"
+        titleKey="cookie.title"
         contents={contents}
         chapters={chapters}
-        titleKey="privacy.title"
+        file="cookie"
       />
     </PageWrapper>
   );

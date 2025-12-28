@@ -3,18 +3,15 @@ import PageWrapper from "../../common/PageWrapper/PageWrapper";
 import DocViewer from "../../doc/DocViewer/DocViewer";
 import { chapters } from "./src/chapters";
 import { contents } from "./src/contents";
-import { useT } from "../../utils/useT";
 
 export default function UserTermsPage() {
-  const t = useT();
-
   return (
     <PageWrapper>
       <DocViewer
         chapters={chapters}
         contents={contents}
         file="terms"
-        title={t("userTerms.title")}
+        titleKey="userTerms.title"
       />
     </PageWrapper>
   );

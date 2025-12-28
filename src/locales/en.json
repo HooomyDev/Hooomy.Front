@@ -401,5 +401,71 @@
         "8_3": "8.3. All suggestions or questions regarding this Privacy Policy should be sent to the Operator's contact details."
       }
     }
+  },
+
+  "cookie": {
+    "title": "Cookie Usage Policy",
+    "contents": {
+      "whatIsCookie": "1. What are cookies?",
+      "cookiePurposes": "2. Why do we use cookies?",
+      "cookieManagement": "3. Managing cookies and your consent",
+      "thirdPartyCookie": "4. Third-party cookies and services",
+      "cookieStorage": "5. Cookie storage period",
+      "userRights": "6. Your rights",
+      "policyChanges": "7. Changes to the Cookie Usage Policy",
+      "contactInfo": "8. Contact information"
+    },
+    "chapters": {
+      "whatIsCookie": {
+        "title": "What are cookies?",
+        "1_1": "1.1. Cookies are small text files that are stored on your device (computer, smartphone, tablet) when you visit websites. They are widely used to ensure the correct and efficient operation of the site, remembering your actions and preferences (such as login, language, font size and other display settings) over a certain period of time.",
+        "1_2": "1.2. In addition to cookies, similar technologies for collecting and storing information may be used on this site, such as web beacons (pixel tags), browser local storage (Local Storage), etc. Within this Policy, all such technologies are combined under the term 'cookie'."
+      },
+      "cookiePurposes": {
+        "title": "Why do we use cookies?",
+        "2_1": "We use cookies for the following purposes:",
+        "essential": "Strictly necessary (Essential): These files are technically necessary for the basic operation of the site and ensuring its security. Without them, the site cannot function properly. They do not collect information that can be used for marketing or remember your actions on the internet.",
+        "functional": "Functional (Preferences): Allow the site to remember choices and settings you have made to provide enhanced and personalized functionality.",
+        "analytics": "Analytical/Performance (Analytics): Allow us to understand how visitors interact with the site (e.g., which pages they visit most often), collect anonymous statistics. This information helps us improve the site's operation, its structure and content.",
+        "marketing": "Marketing/Targeting (Targeting): Used to track visitors across different sites. The goal is to show relevant and personalized advertising to a specific user, as well as measure the effectiveness of advertising campaigns. Such cookies may share information with other advertising partners."
+      },
+      "cookieManagement": {
+        "title": "Managing cookies and your consent",
+        "3_1": "3.1. Strictly necessary (essential) cookies are placed on your device automatically based on our legitimate interest in ensuring the technical functionality of the site. Your consent for their use is not required.",
+        "3_2": "3.2. For placing all other categories of cookies (functional, analytical, marketing), we need your voluntary, informed and unambiguous consent.",
+        "3_3": "3.3. How to give or withdraw consent:",
+        "li1": "On your first visit to the site, you will see a pop-up window (banner) requesting consent to use cookies. You can accept all cookies, reject all except necessary ones, or manually configure preferences by selecting categories.",
+        "li2": "You can change cookie settings or completely withdraw your consent at any time using the special cookie management panel available via the link at the bottom of the site or through your browser settings (see item 3.4).",
+        "li3": "Withdrawal of consent will not affect the legality of processing carried out prior to withdrawal.",
+        "3_4": "3.4. How to manage cookies through browser settings:",
+        "browsers": "You can configure or disable the use of cookies directly in your web browser. Please note that disabling all cookies, including strictly necessary ones, may lead to incorrect operation of the site (e.g., inability to log into your personal account or place an order).",
+        "browserList": "Instructions for popular browsers: Google Chrome, Mozilla Firefox, Safari, Microsoft Edge"
+      },
+      "thirdPartyCookie": {
+        "title": "Third-party cookies and services",
+        "4_1": "4.1. Third-party services may be used on our site (e.g., YouTube videos, Google Maps, social media buttons, analytics systems). These third-party providers may place their own cookies on your device. We do not control and are not responsible for the use of cookies by these third-party sites and services. Their use is governed by the privacy policies of the respective companies.",
+        "4_2": "4.2. We make reasonable efforts to indicate the third-party services used and provide links to their policies. However, their list may change. We recommend that you review the privacy policies of these companies."
+      },
+      "cookieStorage": {
+        "title": "Cookie storage period",
+        "5_1": "5.1. Different cookies are stored on your device for different periods:",
+        "session": "Session cookies – automatically deleted after closing the browser.",
+        "persistent": "Persistent cookies – remain on the device for a specified period (from several days to several years), unless you delete them manually."
+      },
+      "userRights": {
+        "title": "Your rights",
+        "6_1": "As a personal data subject, in accordance with the Law of the Republic of Belarus 'On Personal Data Protection', you have the right to access, clarify, withdraw consent and delete your data. For more information about your rights and the procedure for exercising them, please refer to our Privacy Policy."
+      },
+      "policyChanges": {
+        "title": "Changes to the Cookie Usage Policy",
+        "7_1": "7.1. We may update this Policy from time to time to reflect changes in the technologies we use or legal requirements. The current version of the Policy will always be available on this page with the date of the last update."
+      },
+      "contactInfo": {
+        "title": "Contact information",
+        "8_1": "8.1. If you have any questions regarding our Cookie Usage Policy, please contact us:",
+        "responsible": "Responsible person: Artsyushouski Artsiom Aliaksandravich",
+        "email": "Email: artem.artusevskij01@gmail.com"
+      }
+    }
   }
 }
