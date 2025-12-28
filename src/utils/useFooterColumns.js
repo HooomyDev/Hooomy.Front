@@ -29,7 +29,7 @@ export function useFooterColumns() {
       items: [
         { type: "link", label: t("footer.terms"), href: routes.terms },
         { type: "link", label: t("footer.privacy"), href: routes.privacy },
-        { type: "link", label: t("footer.license"), href: routes.license },
+        { type: "link", label: t("footer.cookies"), href: routes.cookies },
         { type: "text", label: t("footer.version") },
       ],
     },

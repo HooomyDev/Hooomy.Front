@@ -13,6 +13,7 @@ import NotFound from "./components/NotFound/NotFound";
 import { useEffect } from "react";
 import MyRequestsPage from "./pages/MyRequestsPage/MyRequestsPage";
 import routes from "./stores/routes.json";
+import UserTermsPage from "./pages/UserTermsPage/UserTermsPage";
 
 export default function App() {
   useEffect(() => {
@@ -54,6 +55,9 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+      </Route>
+      <Route path={routes.terms} element={<Layout />}>
+        <Route index element={<UserTermsPage />} />
       </Route>
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.register} element={<RegisterPage />} />

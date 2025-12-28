@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./NotFound.module.css";
-import PageWrapper from "../../common/PageWrapper/PageWrapper";
 import { Snowfall } from "react-snowfall";
 
 export default function NotFound() {
