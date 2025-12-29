@@ -467,5 +467,22 @@
         "email": "Email: artem.artusevskij01@gmail.com"
       }
     }
+  },
+
+  "works": {
+    "title": "Works",
+    "byAddress": "Works at your addresses",
+    "plannedPeriod": "Planned period",
+    "actualPeriod": "Actual period",
+    "description": "Description",
+    "address": "Address",
+    "emergencyServices": "Emergency services",
+    "phones": {
+      "112": "Unified Duty Dispatch Service",
+      "101": "Rescue Service",
+      "102": "Police",
+      "103": "Ambulance",
+      "104": "Emergency Gas Service"
+    }
   }
 }

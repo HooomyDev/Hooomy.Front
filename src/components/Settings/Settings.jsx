@@ -57,7 +57,7 @@ export default function Settings() {
         </form>
       </FormProvider>
 
-      <Block title="Уведомления" Icon={NewspaperIcon}>
+      <Block title={t("settings.notifications")} Icon={NewspaperIcon}>
         <div className={styles.socials}>
           <div className={styles.social}>
             <img

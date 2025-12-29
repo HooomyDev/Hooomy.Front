@@ -16,6 +16,7 @@ import routes from "./stores/routes.json";
 import UserTermsPage from "./pages/UserTermsPage/UserTermsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CookiesPolicyPage from "./pages/CookiesPolicyPage/CookiesPolicyPage";
+import WorksPage from "./pages/WorksPage/WorksPage";
 
 export default function App() {
   useEffect(() => {
@@ -54,6 +55,16 @@ export default function App() {
           element={
             <ProtectedRoute>
               <MyRequestsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.works} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <WorksPage />
             </ProtectedRoute>
           }
         />

@@ -1,0 +1,138 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.title {
+  font-size: var(--font-size-title);
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+}
+
+.icon {
+  width: 3rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+}
+
+.phones {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  width: 40%;
+}
+
+.phoneList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.phoneBlock {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  line-height: 1.2;
+  gap: var(--spacing-sm);
+
+  .name,
+  .phone {
+    font-size: var(--font-size-lg);
+    color: var(--font-color);
+    font-weight: 600;
+    user-select: text;
+  }
+
+  .phoneIcon {
+    width: 1rem;
+    margin-right: var(--spacing-xl);
+  }
+
+  .phone:hover {
+    color: var(--element-color);
+  }
+}
+
+.worksList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.workWrapper {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  gap: var(--spacing-xl);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 2px 2px var(--gray-color);
+  padding: var(--spacing-xl);
+  transition: all 0.3s ease;
+}
+
+.workWrapper:hover {
+  transform: scale(1.02);
+}
+
+.workIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.work {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  line-height: 1.2;
+  gap: var(--spacing-sm);
+  color: var(--font-color);
+
+  .title {
+    font-size: var(--font-size-xl);
+  }
+
+  .address {
+    color: var(--element-color);
+  }
+}
+
+.workIcon {
+  width: 4rem;
+}
+
+.info {
+  background-color: #e6f7ff;
+}
+
+.warn {
+  background-color: #fffbe6;
+}
+
+.infoIcon {
+  color: #1890ff;
+}
+
+.warnIcon {
+  color: #faad14;
+}
