@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0px 2px 6px var(--gray-color);
+  min-width: 400px;
+  max-height: 700px;
+  height: fit-content;
+  padding: var(--spacing-xl);
+  gap: var(--spacing-lg);
+  margin-bottom: var(--font-size-xl);
+}
+
+.surveyIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--element-color);
+}
+
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: var(--font-color);
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--gray-color);
+}
+
+.description {
+  color: var(--font-color);
+  font-size: var(--font-size-lg);
+  font-weight: 500;
+}
+
+.answers {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.voiteButton {
+  margin-top: auto;
+}

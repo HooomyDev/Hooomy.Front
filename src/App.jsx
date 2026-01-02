@@ -18,6 +18,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage/PrivacyPolicyPage";
 import CookiesPolicyPage from "./pages/CookiesPolicyPage/CookiesPolicyPage";
 import WorksPage from "./pages/WorksPage/WorksPage";
 import FAQPage from "./pages/FAQPage/FAQPage";
+import SurvaysPage from "./pages/SurveysPage/SurveysPage";
 
 export default function App() {
   useEffect(() => {
@@ -66,6 +67,16 @@ export default function App() {
           element={
             <ProtectedRoute>
               <WorksPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.news} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <SurvaysPage />
             </ProtectedRoute>
           }
         />

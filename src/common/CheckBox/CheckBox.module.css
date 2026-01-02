@@ -1,4 +1,4 @@
-.radioLabel {
+.checkBoxLabel {
   display: flex;
   align-items: center;
   gap: var(--spacing-lg);
@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-.radioLabel:hover {
+.checkBoxLabel:hover {
   border-color: var(--element-color);
 }
 
@@ -20,15 +20,14 @@
   background-color: #f9f9f9;
 }
 
-.radioInput {
+.checkBoxInput {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-
   width: 22px;
   height: 22px;
   border: 2px solid var(--gray-color);
-  border-radius: 50%;
+  border-radius: 4px;
   background-color: #fff;
   cursor: pointer;
   position: relative;
@@ -36,33 +35,36 @@
     box-shadow 0.25s ease;
 }
 
-.radioInput:hover {
+.checkBoxInput:hover {
+  border-color: var(--element-color);
+  color: var(--element-color);
+}
+
+.checkBoxLabel:hover .checkBoxText {
+  color: var(--element-color);
+}
+
+.checkBoxInput:checked {
+  background-color: var(--element-color);
   border-color: var(--element-color);
 }
 
-.radioInput:checked::before {
-  content: "";
+.checkBoxInput:checked::before {
+  content: "■";
   position: absolute;
-  top: 4px;
-  left: 4px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: var(--element-color);
-  transform: scale(1);
-  transition: transform 0.2s ease;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-size: 18px;
+  color: #fff;
 }
 
-.radioInput:not(:checked)::before {
-  transform: scale(0);
-}
-
-.radioText {
+.checkBoxText {
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--font-color);
 }
 
-.radioInput:checked + .radioText {
+.checkBoxInput:checked + .checkBoxText {
   color: var(--element-color);
 }
