@@ -61,17 +61,15 @@ export default function AuthButton() {
   ];
   return (
     <div className={styles.wrapper} ref={ref}>
-      {" "}
       <button className={styles.authButton} onClick={handleClick}>
-        {" "}
-        <UserLogo className={styles.userLogo} />{" "}
+        <UserLogo className={styles.userLogo} />
         {user ? (
           user.email?.slice(0, 7) + "..."
         ) : (
           <span className={styles.authText}>{t("userdrop.login")}</span>
-        )}{" "}
-      </button>{" "}
-      {user && <Dropdown items={items} visible={open} />}{" "}
+        )}
+      </button>
+      {user && <Dropdown items={items} visible={open} />}
     </div>
   );
 }

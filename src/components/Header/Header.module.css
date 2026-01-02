@@ -24,6 +24,38 @@
   gap: var(--spacing-md);
 }
 
+.settingButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  color: var(--font-color);
+  border: 1px solid var(--font-color);
+  border-radius: var(--border-radius);
+  background-color: var(--main-color);
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    transform 0.2s ease, color 0.2s ease;
+}
+
+.settingButton:hover {
+  background-color: var(--element-color);
+  color: var(--main-color);
+  border-color: var(--element-color);
+  transform: scale(1.05);
+}
+
+.settingButton:active {
+  transform: scale(1.02);
+}
+
+.icon {
+  width: 2.2em;
+  height: 2.2rem;
+}
+
 @media (max-width: 480px) {
   .header {
     flex-direction: row;
