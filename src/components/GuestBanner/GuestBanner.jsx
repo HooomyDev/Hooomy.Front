@@ -3,6 +3,7 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import routes from "../../stores/routes.json";
 import styles from "./GuestBanner.module.css";
+import Button from "../../common/Button/Button";
 
 export default function GuestBanner({ user }) {
   const navigate = useNavigate();
@@ -27,19 +28,16 @@ export default function GuestBanner({ user }) {
             </div>
 
             <div className={styles.guestBannerActions}>
-              <button
-                className={styles.guestBannerAccentButton}
-                onClick={() => navigate(routes.register)}
-              >
+              <Button onClick={() => navigate(routes.register)}>
                 Зарегистрироваться
-              </button>
+              </Button>
 
-              <button
-                className={styles.guestBannerButton}
+              <Button
+                variant="secondary"
                 onClick={() => navigate(routes.login)}
               >
                 Войти
-              </button>
+              </Button>
             </div>
           </div>
         </div>

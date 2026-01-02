@@ -9,6 +9,7 @@ import {
   AdjustmentsHorizontalIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
+import Button from "../../common/Button/Button";
 
 export default function MyRequestsFilters({
   allRequests,
@@ -98,16 +99,16 @@ export default function MyRequestsFilters({
           />
 
           <div className={styles.buttons}>
-            <button type="submit" className={styles.submitBtn}>
+            <Button type="submit" className={styles.submitBtn}>
               {t("requests.applyFilters")}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
-              className={styles.clearFiltersButton}
+              variant="secondary"
               onClick={handleClearFilters}
             >
               {t("requests.clearFilters")}
-            </button>
+            </Button>
           </div>
         </form>
       </FormProvider>

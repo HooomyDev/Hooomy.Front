@@ -8,10 +8,11 @@ import {
   StarIcon,
 } from "@heroicons/react/24/solid";
 import styles from "./Survey.module.css";
-import ScaleInput from "../ScaleInput/ScaleInput";
-import RadioButton from "../RadioButton/RadioButton";
-import CheckBox from "../CheckBox/CheckBox";
-import InputField from "../InputField/InputField";
+import ScaleInput from "../../common/ScaleInput/ScaleInput";
+import RadioButton from "../../common/RadioButton/RadioButton";
+import CheckBox from "../../common/CheckBox/CheckBox";
+import InputField from "../../common/InputField/InputField";
+import Button from "../../common/Button/Button";
 
 export default function Survey({
   title = "Survey Title",
@@ -99,9 +100,9 @@ export default function Survey({
 
         <div className={styles.answers}>{renderAnswers()}</div>
 
-        <button type="submit" className={styles.voiteButton}>
+        <Button type="submit" variant="primary">
           Проголосовать
-        </button>
+        </Button>
       </form>
     </FormProvider>
   );

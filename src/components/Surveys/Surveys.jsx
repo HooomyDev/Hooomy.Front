@@ -2,7 +2,7 @@ import React from "react";
 import { MegaphoneIcon, BoltIcon } from "@heroicons/react/24/solid";
 import styles from "./Surveys.module.css";
 import Block from "../../common/Block/Block";
-import Survey from "../../common/Surveys/Survey";
+import Survey from "../../features/Surveys/Survey";
 
 export default function Survays() {
   const surveys = [

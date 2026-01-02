@@ -3,6 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import styles from "./ContactForm.module.css";
 import ContactFormTextField from "../ContactFormTextField/ContactFormTextField";
 import { useT } from "../../utils/useT";
+import Button from "../../common/Button/Button";
 
 export default function ContactForm() {
   const t = useT();
@@ -74,9 +75,7 @@ export default function ContactForm() {
           }}
         />
 
-        <button type="submit" className={styles.submitButton}>
-          {t("user.send")}
-        </button>
+        <Button type="submit">{t("user.send")}</Button>
       </form>
     </FormProvider>
   );

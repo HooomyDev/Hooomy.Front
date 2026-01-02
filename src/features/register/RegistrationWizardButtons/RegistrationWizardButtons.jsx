@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./RegistrationWizardButtons.module.css";
 import { useT } from "../../../utils/useT";
+import Button from "../../../common/Button/Button";
 
 export default function RegistrationWizardButtons({
   onNext,
@@ -12,23 +13,23 @@ export default function RegistrationWizardButtons({
 
   return (
     <div className={styles.buttons}>
-      <button
+      <Button
         type="button"
         onClick={onPrev}
-        className={styles.prevStepButton}
+        variant="secondary"
         disabled={loading}
       >
         {t("auth.prev")}
-      </button>
+      </Button>
 
-      <button
+      <Button
         type="button"
         onClick={onNext}
         disabled={loading || disabledNext}
         className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
       >
         {loading ? <span className={styles.spinner}></span> : t("auth.next2")}
-      </button>
+      </Button>
     </div>
   );
 }

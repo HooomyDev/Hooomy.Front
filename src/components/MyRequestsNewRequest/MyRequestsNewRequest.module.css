@@ -1,14 +1,6 @@
-.createRequestButton {
+.container {
   display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
   width: 80%;
-  font-size: var(--font-size-xl);
-  margin: 0;
-  transition: all 0.3s ease;
 }
 
 .createRequestButton:hover {

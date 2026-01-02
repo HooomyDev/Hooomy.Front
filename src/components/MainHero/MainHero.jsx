@@ -3,12 +3,14 @@ import { ReactComponent as MascotIcon } from "../../assets/mascot.svg";
 import MainHeroContent from "../MainHeroContent/MainHeroContent";
 import MainHeroTitle from "../MainHeroTitle/MainHeroTitle";
 import MainHeroStats from "../MainHeroStats/MainHeroStats";
-import MainHeroCTAButton from "../MainHeroCTAButton/MainHeroCTAButton";
 import styles from "./MainHero.module.css";
 import CreateRequestModal from "../../modals/CreateRequestModal/CreateRequestModal";
 import Modal from "../../modals/Modal/Modal";
+import Button from "../../common/Button/Button";
+import { useT } from "../../utils/useT";
 
 export default function MainHero() {
+  const t = useT();
   const [openModal, setOpenModal] = useState(false);
 
   const handleCTAButtonClick = () => {
@@ -25,7 +27,9 @@ export default function MainHero() {
       <MainHeroContent>
         <MainHeroTitle />
         <MainHeroStats />
-        <MainHeroCTAButton onClick={handleCTAButtonClick} />
+        <Button onClick={handleCTAButtonClick}>
+          {t("main.createRequest")}
+        </Button>
         <Modal isOpen={openModal} onClose={handleCloseModal}>
           <CreateRequestModal onSuccess={handleCloseModal} />
         </Modal>
