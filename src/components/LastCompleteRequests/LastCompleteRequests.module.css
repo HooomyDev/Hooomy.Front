@@ -6,6 +6,6 @@
   padding: var(--spacing-xxl) var(--spacing-md);
   background: var(--main-color);
   gap: var(--spacing-xxl);
-  width: 80%;
+  width: 100%;
   border-radius: var(--border-radius);
 }

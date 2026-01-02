@@ -7,6 +7,7 @@
   "news": "/news",
   "statistic": "/statistic",
   "map": "/map",
+  "faq": "/faq",
   "login": "/login",
   "register": "/register",
   "notFound": "*",

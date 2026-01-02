@@ -1,11 +1,11 @@
 import React from "react";
 import PageWrapper from "../../common/PageWrapper/PageWrapper";
-import Home from "../../components/Home/Home";
+import FAQ from "../../components/FAQ/FAQ";
 
-export default function HomePage() {
+export default function FAQPage() {
   return (
     <PageWrapper>
-      <Home />
+      <FAQ />
     </PageWrapper>
   );
 }
