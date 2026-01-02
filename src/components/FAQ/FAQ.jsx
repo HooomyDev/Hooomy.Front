@@ -13,19 +13,32 @@ import Accordion from "../../common/Accordion/Accordion";
 import AccordionItemsRegister from "../AccordionItems/AccordionItemsRegister";
 import AccordionItemsHelp from "../AccordionItems/AccordionItemsHelp";
 import AccordionItemsCommon from "../AccordionItems/AccordionItemsCommon";
+import { useT } from "../../utils/useT";
 
 export default function FAQ() {
+  const t = useT();
+
   const user = useAuthStore((state) => state.user);
 
   const categories = [
-    { id: 1, title: "Регистрация и вход", to: "register", icon: UserGroupIcon },
+    {
+      id: 1,
+      title: t("faq.categories.register"),
+      to: "register",
+      icon: UserGroupIcon,
+    },
     {
       id: 2,
-      title: "Поддержка и контакты",
+      title: t("faq.categories.help"),
       to: "help",
       icon: ChatBubbleBottomCenterTextIcon,
     },
-    { id: 3, title: "Частые ситуации", to: "common", icon: ArrowPathIcon },
+    {
+      id: 3,
+      title: t("faq.categories.common"),
+      to: "common",
+      icon: ArrowPathIcon,
+    },
   ];
 
   return (
@@ -43,7 +56,11 @@ export default function FAQ() {
           {categories.map((category) => {
             const Icon = category.icon;
             return (
-              <a href={`#${category.to}`} className={styles.category}>
+              <a
+                key={category.id}
+                href={`#${category.to}`}
+                className={styles.category}
+              >
                 <Icon className={styles.categoryIcon} /> {category.title}
               </a>
             );
@@ -51,7 +68,11 @@ export default function FAQ() {
         </div>
       </div>
 
-      <Block title="Регистрация и вход" Icon={UserGroupIcon} id="register">
+      <Block
+        title={t("faq.categories.register")}
+        Icon={UserGroupIcon}
+        id="register"
+      >
         <div className={styles.accordionWrapper}>
           <Accordion>
             <AccordionItemsRegister />
@@ -60,7 +81,7 @@ export default function FAQ() {
       </Block>
 
       <Block
-        title="Поддержка и контакты"
+        title={t("faq.categories.help")}
         Icon={ChatBubbleBottomCenterTextIcon}
         id="help"
       >
@@ -71,7 +92,11 @@ export default function FAQ() {
         </div>
       </Block>
 
-      <Block title="Частые ситуации" Icon={ArrowPathIcon} id="common">
+      <Block
+        title={t("faq.categories.common")}
+        Icon={ArrowPathIcon}
+        id="common"
+      >
         <div className={styles.accordionWrapper}>
           <Accordion>
             <AccordionItemsCommon />

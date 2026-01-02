@@ -10,10 +10,10 @@ export default function GuestBanner({ user }) {
   return (
     <>
       {!user && (
-        <div class={styles.guestBanner}>
+        <div className={styles.guestBanner}>
           <QuestionMarkCircleIcon className={styles.guestBannerIcon} />
 
-          <div class={styles.guestBannerContent}>
+          <div className={styles.guestBannerContent}>
             <div className={styles.guestBannerTitle}>Есть вопросы?</div>
 
             <div className={styles.guestBannerText}>
@@ -28,14 +28,14 @@ export default function GuestBanner({ user }) {
 
             <div className={styles.guestBannerActions}>
               <button
-                class={styles.guestBannerAccentButton}
+                className={styles.guestBannerAccentButton}
                 onClick={() => navigate(routes.register)}
               >
                 Зарегистрироваться
               </button>
 
               <button
-                class={styles.guestBannerButton}
+                className={styles.guestBannerButton}
                 onClick={() => navigate(routes.login)}
               >
                 Войти

@@ -1,247 +1,189 @@
 import React from "react";
 import styles from "./AccordionItems.module.css";
 import AccordionItem from "../../common/Accordion/AccordionItem";
+import { useT } from "../../utils/useT";
 
 export default function AccordionItemsHelp() {
+  const t = useT();
+
+  const list = (key) => t(key, { returnObjects: true }) || [];
+
   return (
     <>
-      <AccordionItem
-        index={0}
-        title="Как связаться с технической поддержкой портала?"
-      >
+      <AccordionItem index={0} title={t("faq.items.help.0.title")}>
         <div className={styles.faqAnswerContent}>
           <p className={styles.faqParagraph}>
-            Обратиться в техническую поддержку портала ЖКХ Сервис можно
-            несколькими способами:
+            {t("faq.items.help.0.paragraph")}
           </p>
 
-          <h4 className={styles.faqHeading}>Основные каналы связи:</h4>
+          <h4 className={styles.faqHeading}>
+            {t("faq.items.help.0.channels")}
+          </h4>
           <ul className={styles.faqList}>
             <li>
-              <strong>Электронная почта:</strong> hooomy.help.by@gmail.com
+              <strong>{t("faq.items.help.0.email")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Отвечаем в течение 1 рабочего дня</li>
-                <li>В теме письма укажите суть проблемы</li>
-                <li>Приложите скриншоты при необходимости</li>
+                {list("faq.items.help.0.emailDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
             <li>
-              <strong>Онлайн-чат на сайте:</strong> Иконка в правом нижнем углу
+              <strong>{t("faq.items.help.0.chat")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Живые операторы: Пн-Пт 9:00-21:00, Сб 10:00-18:00</li>
+                {list("faq.items.help.0.chatDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
           </ul>
 
-          <h4 className={styles.faqHeading}>Что указать при обращении:</h4>
+          <h4 className={styles.faqHeading}>
+            {t("faq.items.help.0.whatToSpecify")}
+          </h4>
           <ul className={styles.faqList}>
-            <li>Email, к которому привязан ваш аккаунт</li>
-            <li>Описание проблемы с указанием раздела сайта</li>
-            <li>Дату и время возникновения проблемы</li>
-            <li>Номер вашего браузера и операционной системы</li>
-            <li>Скриншоты ошибок (если есть)</li>
+            {list("faq.items.help.0.specifyDetails").map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
           </ul>
 
-          <p className={styles.faqParagraph}>
-            <strong>Совет:</strong> Перед обращением проверьте, нет ли ответа на
-            ваш вопрос в этом разделе FAQ.
-          </p>
+          <p className={styles.faqParagraph}>{t("faq.items.help.0.tip")}</p>
         </div>
       </AccordionItem>
 
-      <AccordionItem
-        index={1}
-        title="Как найти контакты своего ЖЭУ/управляющей компании?"
-      >
+      <AccordionItem index={1} title={t("faq.items.help.1.title")}>
         <div className={styles.faqAnswerContent}>
           <p className={styles.faqParagraph}>
-            Найти контакты обслуживающей организации можно несколькими
-            способами:
+            {t("faq.items.help.1.paragraph")}
           </p>
 
-          <h4 className={styles.faqHeading}>Через портал:</h4>
+          <h4 className={styles.faqHeading}>{t("faq.items.help.1.portal")}</h4>
           <ol className={styles.faqList}>
-            <li>Войдите в личный кабинет</li>
-            <li>Перейдите в раздел «Мои адреса»</li>
-            <li>Выберите нужный адрес</li>
-            <li>Нажмите «Информация об обслуживающей организации»</li>
+            {list("faq.items.help.1.steps").map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
             <li>
-              Система покажет:
               <ul className={styles.faqSubList}>
-                <li>Название и реквизиты ЖЭУ</li>
-                <li>Адрес офиса</li>
-                <li>Телефоны диспетчерской, аварийной службы, бухгалтерии</li>
-                <li>График работы</li>
-                <li>ФИО руководителя подразделения</li>
+                {list("faq.items.help.1.systemShows").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
           </ol>
 
+          <p className={styles.faqParagraph}>{t("faq.items.help.1.tip")}</p>
+        </div>
+      </AccordionItem>
+
+      <AccordionItem index={2} title={t("faq.items.help.2.title")}>
+        <div className={styles.faqAnswerContent}>
           <p className={styles.faqParagraph}>
-            <strong>Если данные устарели:</strong> Сообщите об этом через форму
-            обратной связи, и мы обновим информацию в базе.
+            {t("faq.items.help.2.paragraph")}
+          </p>
+
+          <h4 className={styles.faqHeading}>{t("faq.items.help.2.ways")}</h4>
+          <ol className={styles.faqList}>
+            {list("faq.items.help.2.formSteps").map((step, i) => (
+              <li key={i}>{step}</li>
+            ))}
+          </ol>
+
+          <h4 className={styles.faqHeading}>
+            {t("faq.items.help.2.mustSpecify")}
+          </h4>
+          <ul className={styles.faqList}>
+            {list("faq.items.help.2.specifyDetails").map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+
+          <h4 className={styles.faqHeading}>{t("faq.items.help.2.terms")}</h4>
+          <ul className={styles.faqList}>
+            {list("faq.items.help.2.termsDetails").map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
+
+          <p className={styles.faqParagraph}>
+            {t("faq.items.help.2.confidentiality")}
           </p>
         </div>
       </AccordionItem>
 
-      <AccordionItem
-        index={2}
-        title="Как подать жалобу на работу портала или сотрудников?"
-      >
+      <AccordionItem index={3} title={t("faq.items.help.3.title")}>
         <div className={styles.faqAnswerContent}>
           <p className={styles.faqParagraph}>
-            Если вы столкнулись с проблемами в работе портала или некорректным
-            поведением сотрудников, вы можете подать жалобу:
-          </p>
-
-          <h4 className={styles.faqHeading}>Способы подачи жалобы:</h4>
-          <ul className={styles.faqList}>
-            <li>
-              <strong>Через форму обратной связи:</strong>
-              <ol className={styles.faqList}>
-                <li>Перейдите в раздел «Обратная связь»</li>
-                <li>Выберите тип обращения «Жалоба»</li>
-                <li>Заполните обязательные поля</li>
-                <li>Подробно опишите ситуацию</li>
-                <li>Прикрепите доказательства (скриншоты, фото, документы)</li>
-                <li>Отправьте форму</li>
-              </ol>
-            </li>
-          </ul>
-
-          <h4 className={styles.faqHeading}>
-            Что обязательно указать в жалобе:
-          </h4>
-          <ul className={styles.faqList}>
-            <li>ФИО и контактные данные заявителя</li>
-            <li>Дата и время инцидента</li>
-            <li>ФИО сотрудника (если известно)</li>
-            <li>Подробное описание ситуации</li>
-            <li>Ваши требования (что хотите получить в результате)</li>
-            <li>Доказательства (скриншоты, переписка, аудиозаписи)</li>
-          </ul>
-
-          <h4 className={styles.faqHeading}>Сроки рассмотрения:</h4>
-          <ul className={styles.faqList}>
-            <li>Предварительный ответ — в течение 3 рабочих дней</li>
-            <li>Полное расследование и ответ — до 30 календарных дней</li>
-            <li>
-              В особо сложных случаях срок может быть продлен с уведомлением
-              заявителя
-            </li>
-          </ul>
-
-          <p className={styles.faqParagraph}>
-            <strong>Конфиденциальность:</strong> Все жалобы рассматриваются
-            конфиденциально. Ваши данные не передаются третьим лицам.
-          </p>
-        </div>
-      </AccordionItem>
-
-      <AccordionItem
-        index={3}
-        title="Куда обращаться в нерабочее время или в экстренных случаях?"
-      >
-        <div className={styles.faqAnswerContent}>
-          <p className={styles.faqParagraph}>
-            В нерабочее время и при экстренных ситуациях используйте следующие
-            контакты:
+            {t("faq.items.help.3.paragraph")}
           </p>
 
           <h4 className={styles.faqHeading}>
-            Экстренные контакты (работают 24/7):
+            {t("faq.items.help.3.emergency")}
           </h4>
           <ul className={styles.faqList}>
             <li>
-              <strong>Единая диспетчерская служба города:</strong> 112 или 115
-              (с мобильного)
+              <strong>{t("faq.items.help.3.dispatcher")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Координация всех экстренных служб</li>
-                <li>Перевод на нужную службу при необходимости</li>
+                {list("faq.items.help.3.dispatcherDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
             <li>
-              <strong>Экстренные городские службы:</strong>
+              <strong>{t("faq.items.help.3.cityServices")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Пожарная охрана и МЧС: 101</li>
-                <li>Полиция: 102</li>
-                <li>Скорая помощь: 103</li>
-                <li>Газовая служба: 104</li>
+                {list("faq.items.help.3.cityServicesDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
           </ul>
 
           <h4 className={styles.faqHeading}>
-            Номер техподдержки портала в нерабочее время:
+            {t("faq.items.help.3.supportNumber")}
           </h4>
           <ul className={styles.faqList}>
             <li>
-              <strong>Автоответчик:</strong> +375(44)569-10-58
+              <strong>{t("faq.items.help.3.autoAnswer")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Принимает сообщения о проблемах</li>
-                <li>Отправляет уведомление ответственным сотрудникам</li>
-                <li>
-                  В экстренных случаях перенаправляет на мобильный
-                  ответственного
-                </li>
+                {list("faq.items.help.3.autoAnswerDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
             <li>
-              <strong>Чат-бот:</strong> Доступен круглосуточно в онлайн-чате
+              <strong>{t("faq.items.help.3.chatBot")}</strong>
               <ul className={styles.faqSubList}>
-                <li>Помогает с распространенными проблемами</li>
-                <li>Принимает заявки для обработки в рабочее время</li>
+                {list("faq.items.help.3.chatBotDetails").map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
               </ul>
             </li>
           </ul>
 
-          <p className={styles.faqParagraph}>
-            <strong>Важно:</strong> При обращении в экстренные службы четко
-            называйте адрес, этаж, характер проблемы и свои контактные данные.
-          </p>
+          <p className={styles.faqParagraph}>{t("faq.items.help.3.tip")}</p>
         </div>
       </AccordionItem>
 
-      <AccordionItem
-        index={4}
-        title="Как оставить отзыв о работе портала или предложить улучшение?"
-      >
+      <AccordionItem index={4} title={t("faq.items.help.4.title")}>
         <div className={styles.faqAnswerContent}>
           <p className={styles.faqParagraph}>
-            Ваши отзывы и предложения помогают нам улучшать сервис. Оставить их
-            можно несколькими способами:
+            {t("faq.items.help.4.paragraph")}
           </p>
 
-          <h4 className={styles.faqHeading}>Способы оставить отзыв:</h4>
+          <h4 className={styles.faqHeading}>{t("faq.items.help.4.ways")}</h4>
           <ul className={styles.faqList}>
-            <li>
-              <strong>Форма обратной связи:</strong> В разделе «Обратная связь»
-              → «Отзыв/предложение»
-            </li>
-            <li>
-              <strong>Оценка в конце диалога с поддержкой:</strong> После
-              решения вопроса вам предложат оценить работу
-            </li>
-            <li>
-              <strong>Специальная форма в личном кабинете:</strong> «Настройки»
-              → «Оставить отзыв»
-            </li>
-            <li>
-              <strong>Электронная почта:</strong> feedback@zhkh-service.ru
-            </li>
-            <li>
-              <strong>Соцсети:</strong> Группы портала в ВКонтакте, Telegram,
-              Одноклассниках
-            </li>
+            {list("faq.items.help.4.waysDetails").map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
           </ul>
 
-          <h4 className={styles.faqHeading}>Какие предложения принимаются:</h4>
+          <h4 className={styles.faqHeading}>
+            {t("faq.items.help.4.accepted")}
+          </h4>
           <ul className={styles.faqList}>
-            <li>Идеи по улучшению интерфейса</li>
-            <li>Предложения по новым функциям</li>
-            <li>Замечания по удобству использования</li>
-            <li>Предложения по интеграциям с другими сервисами</li>
-            <li>Идеи по мобильному приложению</li>
+            {list("faq.items.help.4.acceptedDetails").map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
           </ul>
         </div>
       </AccordionItem>

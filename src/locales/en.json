@@ -484,5 +484,457 @@
       "103": "Ambulance",
       "104": "Emergency Gas Service"
     }
+  },
+
+  "faq": {
+    "categories": {
+      "register": "Registration and Login",
+      "help": "Support and Contacts",
+      "common": "Common Situations"
+    },
+    "items": {
+      "register": {
+        "0": {
+          "title": "How to register on the portal?",
+          "paragraph": "To register, follow these steps:",
+          "steps": [
+            "Click the \"Sign in\" button in the top right corner of the page and go to the registration page",
+            "Fill in the required fields: Last name, First name, Patronymic; Email (will be used to sign in); Create a strong password",
+            "Confirm your email by following the link in the message that will arrive within 5 minutes"
+          ]
+        },
+        "1": {
+          "title": "What information is required for registration?",
+          "paragraph": "To successfully register you will need to provide:",
+          "requiredTitle": "Required information:",
+          "required": [
+            "Full name",
+            "Valid email (for sign-in and notifications)",
+            "Strong password (we recommend using a combination of letters, numbers and special characters)"
+          ],
+          "optionalTitle": "Additional information (can be filled in later):",
+          "optional": ["Residential address (street, building, apartment)"],
+          "securityNote": "Data security: All your personal data is protected"
+        },
+        "2": {
+          "title": "How to sign in to your account?",
+          "paragraph": "To sign in to your account you need to:",
+          "steps": [
+            "Click the \"Sign in\" button in the top right corner of the site",
+            "Enter the email you used during registration",
+            "Enter your password",
+            "Click \"Sign in\""
+          ],
+          "ifCannotTitle": "If you cannot sign in:",
+          "ifCannot": [
+            "Check that the email and password are entered correctly (case sensitive)",
+            "Make sure Caps Lock is off",
+            "If you forgot your password — use the password recovery feature",
+            "If the email is not confirmed — check the \"Spam\" folder or request a new confirmation email"
+          ]
+        },
+        "3": {
+          "title": "How to recover a forgotten password?",
+          "paragraph": "If you forgot your account password, you can recover it in a few minutes:",
+          "stepsTitle": "Step-by-step instructions:",
+          "steps": [
+            "On the sign-in page click the \"Forgot password?\" link",
+            "Enter the email you used during registration",
+            "Click \"Recover password\"",
+            "Check your email — you will receive a message with a link to reset your password",
+            "Follow the link from the email (valid for 24 hours)",
+            "Create and enter a new password",
+            "Confirm the new password by entering it again",
+            "Click \"Save new password\""
+          ],
+          "ifNoMailTitle": "If the email does not arrive:",
+          "ifNoMail": [
+            "Check the \"Spam\" or \"Promotions\" folders",
+            "Make sure you enter the email you used during registration",
+            "Wait 5–10 minutes (sometimes emails are delayed)",
+            "If the email still does not arrive, repeat the procedure or contact support"
+          ]
+        },
+        "4": {
+          "title": "How to change email or phone number in your account?",
+          "paragraph": "You can change contact details in your account yourself:",
+          "changeEmailTitle": "To change your email:",
+          "changeEmailSteps": [
+            "Sign in to your account",
+            "Go to the \"Profile\" section",
+            "Enter the new email and your current password to confirm",
+            "A confirmation email will be sent to the new address",
+            "Follow the link in the email to complete the email change"
+          ],
+          "changePhoneNote": "To change your phone number repeat the steps from the previous section",
+          "importantNote": "Important: After changing the email all notifications will be sent to the new address. The old email will no longer be active for signing in."
+        },
+        "5": {
+          "title": "What to do if I did not receive the confirmation email?",
+          "paragraph": "If the confirmation email does not arrive, perform the following actions:",
+          "searchTitle": "Search for the email:",
+          "searchSteps": [
+            "Check the \"Spam\", \"Promotions\" or \"Updates\" folders",
+            "Use mail search with queries: \"Housing Service\", \"email confirmation\", \"account activation\"",
+            "Make sure there is enough free space in your mailbox"
+          ],
+          "resendTitle": "Resend the confirmation email:",
+          "resendSteps": [
+            "Return to the sign-in page",
+            "Enter your email and password (if you have already registered)",
+            "If the email is not confirmed, the system will offer to resend the message",
+            "Click \"Resend confirmation email\"",
+            "Wait up to 15 minutes and check your mail again"
+          ],
+          "ifStillNoMailTitle": "If the email still does not arrive:",
+          "ifStillNoMail": [
+            "Check that the email entered during registration is correct",
+            "Try using a different email address",
+            "Contact support and provide the email you used during registration",
+            "Try registering on another day (temporary issues with mail services may occur)"
+          ]
+        }
+      },
+      "help": {
+        "0": {
+          "title": "How to contact the portal technical support?",
+          "paragraph": "You can contact the technical support of the Housing and Utilities Service portal in several ways:",
+          "channels": "Main communication channels:",
+          "email": "Email: hooomy.help.by@gmail.com",
+          "emailDetails": [
+            "We respond within 1 business day",
+            "Specify the issue in the subject line",
+            "Attach screenshots if necessary"
+          ],
+          "chat": "Online chat on the website: Icon in the bottom right corner",
+          "chatDetails": [
+            "Live operators: Mon-Fri 9:00-21:00, Sat 10:00-18:00"
+          ],
+          "whatToSpecify": "What to specify when contacting:",
+          "specifyDetails": [
+            "Email linked to your account",
+            "Description of the problem with the site section",
+            "Date and time of the issue",
+            "Your browser and operating system",
+            "Screenshots of errors (if any)"
+          ],
+          "tip": "Tip: Before contacting, check if your question is already answered in this FAQ section."
+        },
+        "1": {
+          "title": "How to find contacts of your housing maintenance office/management company?",
+          "paragraph": "You can find the contacts of your service organization in several ways:",
+          "portal": "Through the portal:",
+          "steps": [
+            "Log in to your personal account",
+            "Go to the 'My addresses' section",
+            "Select the required address",
+            "Click 'Information about the service organization'"
+          ],
+          "systemShows": [
+            "Name and details of the housing office",
+            "Office address",
+            "Phone numbers of dispatcher, emergency service, accounting",
+            "Working hours",
+            "Head of department name"
+          ],
+          "tip": "If the data is outdated: Report it via the feedback form, and we will update the information."
+        },
+        "2": {
+          "title": "How to file a complaint about the portal or employees?",
+          "paragraph": "If you encounter problems with the portal or inappropriate behavior of employees, you can file a complaint:",
+          "ways": "Ways to file a complaint:",
+          "formSteps": [
+            "Go to the 'Feedback' section",
+            "Select 'Complaint' as the type of request",
+            "Fill in the required fields",
+            "Describe the situation in detail",
+            "Attach evidence (screenshots, photos, documents)",
+            "Submit the form"
+          ],
+          "mustSpecify": "What must be specified in the complaint:",
+          "specifyDetails": [
+            "Full name and contact details of the applicant",
+            "Date and time of the incident",
+            "Employee’s name (if known)",
+            "Detailed description of the situation",
+            "Your demands",
+            "Evidence"
+          ],
+          "terms": "Review deadlines:",
+          "termsDetails": [
+            "Preliminary response — within 3 business days",
+            "Full investigation and response — up to 30 calendar days",
+            "In complex cases, the period may be extended"
+          ],
+          "confidentiality": "Confidentiality: All complaints are handled confidentially."
+        },
+        "3": {
+          "title": "Where to turn after hours or in emergencies?",
+          "paragraph": "In non-working hours and emergencies, use the following contacts:",
+          "emergency": "Emergency contacts (available 24/7):",
+          "dispatcher": "City unified dispatcher service: 112 or 115 (from mobile)",
+          "dispatcherDetails": [
+            "Coordination of all emergency services",
+            "Transfer to the required service if necessary"
+          ],
+          "cityServices": "City emergency services:",
+          "cityServicesDetails": [
+            "Fire department and EMERCOM: 101",
+            "Police: 102",
+            "Ambulance: 103",
+            "Gas service: 104"
+          ],
+          "supportNumber": "Portal technical support number after hours:",
+          "autoAnswer": "Answering machine: +375(44)569-10-58",
+          "autoAnswerDetails": [
+            "Accepts problem reports",
+            "Sends notification to responsible staff",
+            "In emergencies redirects to the responsible person’s mobile"
+          ],
+          "chatBot": "Chatbot: Available 24/7 in online chat",
+          "chatBotDetails": [
+            "Helps with common problems",
+            "Accepts requests for processing during working hours"
+          ],
+          "tip": "Important: When contacting emergency services, clearly state the address, floor, nature of the problem, and your contact details."
+        },
+        "4": {
+          "title": "How to leave feedback about the portal or suggest improvements?",
+          "paragraph": "Your feedback and suggestions help us improve the service. You can leave them in several ways:",
+          "ways": "Ways to leave feedback:",
+          "waysDetails": [
+            "Feedback form: In the 'Feedback' section → 'Review/Suggestion'",
+            "Evaluation at the end of a support chat",
+            "Special form in your personal account: 'Settings' → 'Leave feedback'",
+            "Email: feedback@zhkh-service.ru",
+            "Social networks: VKontakte, Telegram, Odnoklassniki"
+          ],
+          "accepted": "What suggestions are accepted:",
+          "acceptedDetails": [
+            "Ideas for interface improvement",
+            "Suggestions for new features",
+            "Comments on usability",
+            "Suggestions for integrations with other services",
+            "Ideas for the mobile app"
+          ]
+        }
+      },
+      "common": {
+        "0": {
+          "title": "What to do if a pipe bursts in the apartment?",
+          "paragraph": "If you discover a leak in the apartment water supply, act quickly and systematically:",
+          "headingImmediate": "Immediate actions:",
+          "stepsImmediate": [
+            "Shut off the water: find the nearest cold or hot water valve",
+            "If you don't know where the valve is — shut off the main riser in the stairwell",
+            "Turn off the electricity in the affected room at the panel",
+            "Warn the downstairs neighbors about possible flooding",
+            "Collect water: use rags, buckets, basins"
+          ],
+          "headingCall": "Who to call:",
+          "contacts": [
+            "Emergency housing service (ZHEU): +7 (495) 123-45-67 (24/7)",
+            "Dispatcher of the management company: number is on the bill",
+            "Insurance company: if you have apartment insurance"
+          ],
+          "headingDocs": "Documentation:",
+          "docs": [
+            "Request that a ZHEU representative draw up an incident report",
+            "Photograph all damage (pipes, furniture, finishes)",
+            "Obtain a copy of the report with signature and stamp",
+            "Clarify the deadlines for repair"
+          ],
+          "tip": "Important: Do not attempt to repair main pipes yourself — it is dangerous and may worsen the situation."
+        },
+        "1": {
+          "title": "What to do if the stairwell lights are out?",
+          "paragraph": "If the stairwell lighting goes out, follow this algorithm:",
+          "headingCheck": "Check the cause:",
+          "checks": [
+            "Only your stairwell? — problem with the stairwell power supply",
+            "Whole building without power? — outage at the building panel or district level",
+            "Only some bulbs? — burned-out bulbs need replacement"
+          ],
+          "headingActions": "Steps to take:",
+          "actions": [
+            "Submit a request through the portal in the 'Emergency situations' section",
+            "Call the management company's dispatcher",
+            "Use a flashlight on your phone when moving through the dark stairwell",
+            "Warn neighbors, especially elderly people and those with small children"
+          ],
+          "headingNorms": "Standard repair times:",
+          "norms": [
+            "Emergency outage: up to 24 hours",
+            "Replacement of burned-out bulbs: up to 7 days",
+            "Electrical panel repair: up to 3 days"
+          ],
+          "tip": "Safety: Do not attempt to repair stairwell wiring yourself — it is life‑threatening and requires special permits."
+        },
+        "2": {
+          "title": "What to do in case of a sewer blockage?",
+          "paragraph": "A blockage can occur in your apartment or in the common riser:",
+          "headingDetect": "How to determine the blockage location:",
+          "detect": [
+            "Only in your apartment: water does not drain from sinks/bath",
+            "Common riser: water rises in the toilet, noise in pipes heard by neighbors",
+            "Basement or yard: unpleasant smell, puddles in the yard"
+          ],
+          "headingFlat": "Actions for a blockage inside the apartment:",
+          "flatActions": [
+            "Stop using water",
+            "Try cleaning the traps under sinks",
+            "Use a plunger or chemical cleaners (carefully!)",
+            "If unsuccessful — call a plumber"
+          ],
+          "headingCommon": "Actions for a common riser blockage:",
+          "commonActions": [
+            "Immediately report to the emergency ZHEU service",
+            "Warn upstairs neighbors not to use water",
+            "If flooding is imminent, turn off the electricity",
+            "Prepare rags and containers for water"
+          ],
+          "headingPayment": "Who pays for repairs:",
+          "payment": [
+            "Blockage inside the apartment: paid by the apartment owner",
+            "Blockage in the common riser: paid by the management company",
+            "If tenants are at fault: costs are distributed among those responsible"
+          ],
+          "tip": "Prevention: Do not throw grease, hair, hygiene products, or food waste into the sewer."
+        },
+        "3": {
+          "title": "What to do if heating is turned off in cold weather?",
+          "paragraph": "Heating outages in winter require prompt action to prevent freezing:",
+          "headingMeasures": "Primary measures:",
+          "measures": [
+            "Check radiators in all rooms — the outage may be local",
+            "Ask neighbors — is the outage building-wide or only in your apartment",
+            "Turn on portable heaters to maintain minimum temperature",
+            "Slightly open taps so water does not freeze in pipes"
+          ],
+          "headingInform": "Notify services:",
+          "inform": [
+            "Emergency ZHEU service: +7 (495) 123-45-67 (for emergency outages)",
+            "Unified heat supply organization: number on the information board",
+            "Administration hotline: for mass outages"
+          ],
+          "headingNorms": "Regulatory requirements:",
+          "norms": [
+            "Minimum temperature in living rooms: +18°C",
+            "In corner rooms: +20°C",
+            "Allowed temperature drop: no more than 8 consecutive hours",
+            "Maximum interruption during heating season: 24 hours"
+          ],
+          "headingRights": "Residents' rights:",
+          "rights": [
+            "Request a recalculation for days without heating",
+            "Receive compensation for using alternative heating sources",
+            "File a collective complaint in case of prolonged outage"
+          ],
+          "tip": "Important: If apartment temperature falls below +12°C you may request temporary housing at the expense of the responsible organization."
+        },
+        "4": {
+          "title": "What to do if the elevator breaks down and you are stuck?",
+          "paragraph": "If you are trapped in an elevator, stay calm and follow the instructions:",
+          "headingRules": "Behavior rules in a stuck elevator:",
+          "rules": [
+            "Do not panic — the elevator is securely held",
+            "Press the 'Call' button or call the dispatcher",
+            "Provide your address, stairwell number, approximate floor and number of people",
+            "Do not try to open the doors yourself — it is dangerous",
+            "Conserve phone battery for communication with rescuers"
+          ],
+          "headingNumbers": "Emergency numbers:",
+          "numbers": [
+            "Elevator service dispatcher: +7 (495) 987-65-43",
+            "Emergency service (EMERCOM): 112 or 101",
+            "Ambulance: 103 (if someone feels unwell)"
+          ],
+          "headingResponse": "Standard response times:",
+          "response": [
+            "Dispatcher call reception: immediately",
+            "Emergency crew dispatch: within 30 minutes",
+            "Release of people: no more than 1 hour"
+          ],
+          "headingAfter": "After release:",
+          "after": [
+            "Request an incident report to be drawn up",
+            "Clarify the cause of the malfunction",
+            "File a claim for moral damages if applicable",
+            "Request an unscheduled elevator inspection"
+          ],
+          "tip": "Prevention: Do not overload the elevator, do not jump in the cabin, do not hold the doors."
+        },
+        "5": {
+          "title": "What to do if you find cracks in the building walls?",
+          "paragraph": "Cracks in building structures may indicate serious problems. Assess the situation and follow the instructions:",
+          "headingDanger": "Assessing crack severity:",
+          "danger": [
+            "Non-dangerous (hairline): less than 1 mm, not growing",
+            "Require monitoring: 1–5 mm, stable",
+            "Dangerous: more than 5 mm, increasing, through-cracks",
+            "Emergency: structural deviations or openings"
+          ],
+          "headingActions": "Steps to take:",
+          "actions": [
+            "Photograph cracks with a scale ruler",
+            "Install monitoring markers (paper strips with date)",
+            "Ask neighbors if they have similar problems",
+            "Submit a collective request via the portal or in writing",
+            "Demand an expert structural assessment"
+          ],
+          "headingWhere": "Who to contact:",
+          "where": [
+            "Management company / ZHEU — for initial inspection",
+            "State housing inspectorate — if the management company does not act",
+            "Construction expertise service — for professional assessment",
+            "Prosecutor's office — if there is a threat to life and health"
+          ],
+          "headingCauses": "Possible causes:",
+          "causes": [
+            "Foundation settlement",
+            "Vibration from nearby construction",
+            "Construction technology violations",
+            "Groundwater flooding",
+            "Seismic activity"
+          ],
+          "tip": "Warning: If cracks grow rapidly (more than 1 mm per month) immediately inform emergency services and evacuate the premises."
+        },
+        "6": {
+          "title": "What to do in case of smoke or burning smell in the stairwell?",
+          "paragraph": "Smoke or a burning smell in the stairwell are signs of a possible fire. Act quickly and safely:",
+          "headingImmediate": "Immediate actions:",
+          "stepsImmediate": [
+            "Call the fire service: 101 or 112",
+            "Inform the dispatcher of the exact address, stairwell and floor where smoke is coming from",
+            "Alert neighbors, especially on upper floors",
+            "Open windows in the stairwell for ventilation if it is safe",
+            "Turn off electricity at the stairwell panel"
+          ],
+          "headingEvacuation": "Evacuation:",
+          "evacuation": [
+            "Do not use the elevator — use the stairs only",
+            "Help elderly neighbors and children evacuate",
+            "Breathe through a damp cloth if smoke is heavy",
+            "Move while crouching — there is less smoke near the floor"
+          ],
+          "headingSources": "Possible sources:",
+          "sources": [
+            "Faulty wiring",
+            "Short circuit in the electrical panel",
+            "Combustion of trash in the garbage chute",
+            "Smoking in prohibited areas",
+            "Children playing with fire"
+          ],
+          "headingPrevention": "Preventive measures:",
+          "prevention": [
+            "Do not block evacuation routes",
+            "Do not store flammable materials in the stairwell",
+            "Monitor the condition of electrical wiring",
+            "Install fire detectors"
+          ],
+          "tip": "Important: Even if the smoke has cleared, wait for the fire service to arrive to check the source of the smoke."
+        }
+      }
+    }
   }
 }

@@ -2,5 +2,10 @@ import { useTranslation } from "react-i18next";
 
 export const useT = () => {
   const { t } = useTranslation();
-  return t;
+
+  const translate = (key, opts = {}) => {
+    return t(key, { returnObjects: true, ...opts });
+  };
+
+  return translate;
 };
