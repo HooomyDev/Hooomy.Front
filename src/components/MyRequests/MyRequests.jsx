@@ -109,7 +109,7 @@ export default function MyRequests() {
     }
 
     fetchRequests();
-  }, [t]);
+  }, []);
 
   const handleFilterSubmit = (filtered) => {
     setRequests(filtered);

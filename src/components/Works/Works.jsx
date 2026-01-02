@@ -98,7 +98,7 @@ export default function Works() {
     }
 
     fetchRequests();
-  }, [t]);
+  }, []);
 
   const phones = [
     { id: 1, name: t("works.phones.112"), phone: "112" },
