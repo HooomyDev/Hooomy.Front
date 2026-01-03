@@ -3,6 +3,7 @@ import { MegaphoneIcon, BoltIcon } from "@heroicons/react/24/solid";
 import styles from "./Surveys.module.css";
 import Block from "../../common/Block/Block";
 import Survey from "../../features/Surveys/Survey";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function Survays() {
   const surveys = [
@@ -80,12 +81,7 @@ export default function Survays() {
 
   return (
     <div className={styles.wrapper}>
-      <Block>
-        <div className={styles.container}>
-          <MegaphoneIcon className={styles.icon} />
-          <div className={styles.title}>Опросы</div>
-        </div>
-      </Block>
+      <PageHeader title="Опросы" icon={MegaphoneIcon} />
 
       <Block title="Активные опросы" Icon={BoltIcon}>
         {surveys.length === 0 ? (

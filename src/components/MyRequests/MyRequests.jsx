@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import styles from "./MyRequests.module.css";
 import { useT } from "../../utils/useT";
 import Loader from "../../common/Loader/Loader";
-import MyRequestsHeader from "../MyRequestsHeader/MyRequestsHeader";
+import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
 import MyRequestsList from "../MyRequestsList/MyRequestsList";
 import MyRequestsNewRequest from "../MyRequestsNewRequest/MyRequestsNewRequest";
 import MyRequestsFilters from "../MyRequestsFilters/MyRequestsFilters";
 import Modal from "../../modals/Modal/Modal";
 import CreateRequestModal from "../../modals/CreateRequestModal/CreateRequestModal";
 import testImage from "../../assets/test.png";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function MyRequests() {
   const t = useT();
@@ -146,7 +147,10 @@ export default function MyRequests() {
 
   return (
     <div className={styles.wrapper}>
-      <MyRequestsHeader />
+      <PageHeader
+        title={t("requests.title")}
+        icon={ClipboardDocumentListIcon}
+      />
 
       <div className={styles.section}>
         <div className={styles.sectionItem1}>

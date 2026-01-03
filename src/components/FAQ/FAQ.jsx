@@ -14,6 +14,7 @@ import AccordionItemsRegister from "../AccordionItems/AccordionItemsRegister";
 import AccordionItemsHelp from "../AccordionItems/AccordionItemsHelp";
 import AccordionItemsCommon from "../AccordionItems/AccordionItemsCommon";
 import { useT } from "../../utils/useT";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function FAQ() {
   const t = useT();
@@ -44,12 +45,8 @@ export default function FAQ() {
   return (
     <div className={styles.wrapper}>
       <GuestBanner user={user} />
-      <Block>
-        <div className={styles.container}>
-          <QuestionMarkCircleIcon className={styles.icon} />
-          <div className={styles.title}>FAQ</div>
-        </div>
-      </Block>
+
+      <PageHeader title="FAQ" icon={QuestionMarkCircleIcon} />
 
       <div className={styles.categoriesWrapper}>
         <div className={styles.categoriesList}>

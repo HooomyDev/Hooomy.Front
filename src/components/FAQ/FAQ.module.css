@@ -1,10 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: var(--spacing-xxl);
-  padding: var(--spacing-xxl);
   width: 80%;
+  gap: var(--spacing-xxl);
 }
 
 .title {

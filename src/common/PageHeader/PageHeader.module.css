@@ -1,0 +1,16 @@
+.title {
+  font-size: var(--font-size-title);
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+}
+
+.icon {
+  width: 3rem;
+  color: var(--element-color);
+}

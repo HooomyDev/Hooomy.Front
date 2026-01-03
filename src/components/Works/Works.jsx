@@ -10,6 +10,7 @@ import {
 import { useT } from "../../utils/useT";
 import styles from "./Works.module.css";
 import Loader from "../../common/Loader/Loader";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function Works() {
   const t = useT();
@@ -114,12 +115,8 @@ export default function Works() {
 
   return (
     <div className={styles.wrapper}>
-      <Block>
-        <div className={styles.container}>
-          <Cog6ToothIcon className={styles.icon} />
-          <div className={styles.title}>{t("works.title")}</div>
-        </div>
-      </Block>
+      <PageHeader title={t("works.title")} icon={Cog6ToothIcon} />
+
       <div className={styles.content}>
         <Block title={t("works.byAddress")} Icon={WrenchScrewdriverIcon}>
           <div className={styles.worksList}>
