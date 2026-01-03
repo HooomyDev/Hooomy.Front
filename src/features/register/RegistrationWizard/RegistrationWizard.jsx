@@ -142,25 +142,30 @@ export default function RegistrationWizard() {
           true));
 
   return (
-    <FormProvider {...methods}>
-      <div className={styles.wrapper}>
-        <FormHeader title={t("register.title")} />
-        <RegistrationProgressBar totalSteps={steps.length} activeStep={step} />
-        <SmoothlyWrapper>
-          <RegistrationWizardContent step={steps[step - 1]} />
-        </SmoothlyWrapper>
-        <RegistrationWizardButtons
-          onNext={handleNext}
-          onPrev={handlePrev}
-          loading={loading}
-          disabledNext={isNextDisabled}
-        />
-        <LinkTo
-          link={routes.login}
-          label={t("register.messageLink")}
-          text={t("register.message")}
-        />
-      </div>
-    </FormProvider>
+    <div className={styles.wrapper}>
+      <FormProvider {...methods}>
+        <form className={styles.form}>
+          <FormHeader title={t("register.title")} />
+          <RegistrationProgressBar
+            totalSteps={steps.length}
+            activeStep={step}
+          />
+          <SmoothlyWrapper>
+            <RegistrationWizardContent step={steps[step - 1]} />
+          </SmoothlyWrapper>
+          <RegistrationWizardButtons
+            onNext={handleNext}
+            onPrev={handlePrev}
+            loading={loading}
+            disabledNext={isNextDisabled}
+          />
+          <LinkTo
+            link={routes.login}
+            label={t("register.messageLink")}
+            text={t("register.message")}
+          />
+        </form>
+      </FormProvider>
+    </div>
   );
 }

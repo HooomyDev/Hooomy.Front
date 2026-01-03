@@ -28,13 +28,17 @@ export default function GuestBanner({ user }) {
             </div>
 
             <div className={styles.guestBannerActions}>
-              <Button onClick={() => navigate(routes.register)}>
+              <Button
+                onClick={() => navigate(routes.register)}
+                className={styles.guestBannerButton}
+              >
                 Зарегистрироваться
               </Button>
 
               <Button
                 variant="secondary"
                 onClick={() => navigate(routes.login)}
+                className={styles.guestBannerButton}
               >
                 Войти
               </Button>

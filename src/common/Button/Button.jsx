@@ -7,13 +7,19 @@ export default function Button({
   type = "button",
   variant = "primary",
   disabled = false,
+  className = "",
 }) {
+  const classes = [
+    styles.button,
+    styles[variant],
+    disabled ? styles.disabled : "",
+    className,
+  ].join(" ");
+
   return (
     <button
       type={type}
-      className={`${styles.button} ${styles[variant]} ${
-        disabled ? styles.disabled : ""
-      }`}
+      className={classes}
       onClick={onClick}
       disabled={disabled}
     >
