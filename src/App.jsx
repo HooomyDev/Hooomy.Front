@@ -19,6 +19,7 @@ import CookiesPolicyPage from "./pages/CookiesPolicyPage/CookiesPolicyPage";
 import WorksPage from "./pages/WorksPage/WorksPage";
 import FAQPage from "./pages/FAQPage/FAQPage";
 import SurvaysPage from "./pages/SurveysPage/SurveysPage";
+import StatisticPage from "./pages/StatisticPage/StatisticPage";
 
 export default function App() {
   useEffect(() => {
@@ -90,6 +91,9 @@ export default function App() {
       </Route>
       <Route path={routes.cookies} element={<Layout />}>
         <Route index element={<CookiesPolicyPage />} />
+      </Route>
+      <Route path={routes.statistic} element={<Layout />}>
+        <Route index element={<StatisticPage />} />
       </Route>
       <Route path={routes.faq} element={<Layout />}>
         <Route index element={<FAQPage />} />

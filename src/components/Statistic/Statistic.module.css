@@ -1,0 +1,78 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.filterForm {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+  margin-bottom: var(--spacing-xl);
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+  align-self: flex-end;
+  width: 48%;
+}
+
+.circles {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.circle {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.circles .circle:nth-child(1) {
+  background: #4f46e5;
+}
+
+.circles .circle:nth-child(3) {
+  background: #10b981;
+}
+
+.circles .circle:nth-child(5) {
+  background: #f59e0b;
+}
+
+.circles .circle:nth-child(7) {
+  background: #ef4444;
+}
+
+.value {
+  font-size: var(--font-size-title);
+  font-weight: bold;
+}
+
+.divider {
+  width: 2px;
+  height: inherit;
+  background: var(--gray-color);
+}
+
+.label {
+  font-size: var(--font-size-lg);
+  margin-top: 5px;
+}

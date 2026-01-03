@@ -44,9 +44,12 @@ export default function SelectField({
         render={({ field: { value, onChange } }) => {
           const handleSelect = (opt) => {
             onChange(opt.value);
-            onValueChange(opt.value);
+            if (onValueChange) {
+              onValueChange(opt.value);
+            }
             setOpen(false);
           };
+
           return (
             <div className={styles.selectContainer}>
               <div
