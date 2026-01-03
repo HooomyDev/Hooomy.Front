@@ -121,6 +121,10 @@ export default function Statistic() {
     },
   });
 
+  const onSubmit = (values) => {
+    console.log("Фильтры применены:", values);
+  };
+
   const handleClearFilters = () => {
     reset({ month: months[months.length - 1].id, district: districts[0].id });
   };
@@ -137,9 +141,13 @@ export default function Statistic() {
   return (
     <div className={styles.wrapper}>
       <PageHeader title="Статистика" icon={ChartBarIcon} />
+
       <Block title="Фильтры" Icon={AdjustmentsHorizontalIcon}>
         <FormProvider {...methods}>
-          <form className={styles.filterForm}>
+          <form
+            className={styles.filterForm}
+            onSubmit={methods.handleSubmit(onSubmit)}
+          >
             <div className={styles.filters}>
               <Controller
                 name="month"
