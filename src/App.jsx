@@ -21,6 +21,8 @@ import FAQPage from "./pages/FAQPage/FAQPage";
 import SurvaysPage from "./pages/SurveysPage/SurveysPage";
 import StatisticPage from "./pages/StatisticPage/StatisticPage";
 import MapPage from "./pages/MapPage/MapPage";
+import NoAccess from "./components/NoAccess/NoAccess";
+import RequestsPage from "./pages/RequestsPage/RequestsPage";
 
 export default function App() {
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user", "employee", "admin"]}>
               <ProfilePage />
             </ProtectedRoute>
           }
@@ -47,7 +49,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user", "employee", "admin"]}>
               <SettingsPage />
             </ProtectedRoute>
           }
@@ -57,7 +59,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user"]}>
               <MyRequestsPage />
             </ProtectedRoute>
           }
@@ -67,7 +69,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user"]}>
               <WorksPage />
             </ProtectedRoute>
           }
@@ -77,8 +79,19 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute>
+            <ProtectedRoute roles={["user"]}>
               <SurvaysPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      <Route path={routes.requests} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["employee"]}>
+              <RequestsPage />
             </ProtectedRoute>
           }
         />
@@ -103,9 +116,21 @@ export default function App() {
         <Route index element={<FAQPage />} />
       </Route>
 
+      <Route path={routes.news} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute>
+              <SurvaysPage roles={["employee"]} />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.register} element={<RegisterPage />} />
       <Route path={routes.notFound} element={<NotFound />} />
+      <Route path={routes.noAccess} element={<NoAccess />} />
     </Routes>
   );
 }

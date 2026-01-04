@@ -129,7 +129,8 @@
     "works": "Works",
     "stat": "Statistics",
     "news": "Surveys",
-    "map": "Map"
+    "map": "Map",
+    "requestsEmp": "Requests"
   },
 
   "userdrop": {

@@ -15,5 +15,12 @@
   "privacy": "/privacy",
   "cookies": "/cookies",
   "report": "/report",
-  "docs": "/docs"
+  "docs": "/docs",
+  "noAccess": "/no-access",
+
+  "panel": "/panel",
+
+  "surveys": "/surveys-panel",
+  "requests": "/requests-panel",
+  "statistics": "/statistic-panel"
 }

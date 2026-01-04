@@ -14,7 +14,7 @@ export default function LoginForm() {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { email: "", password: "", role: "user" },
+    defaultValues: { email: "", password: "", role: "employee" },
   });
 
   const navigate = useNavigate();
@@ -31,7 +31,8 @@ export default function LoginForm() {
     setTimeout(() => {
       login(data, "qwerty12345");
       setLoading(false);
-      navigate("/");
+
+      navigate(routes.home);
     }, 1500);
   };
 

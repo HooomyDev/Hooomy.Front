@@ -1,0 +1,78 @@
+import React from "react";
+import styles from "./EmployeeHome.module.css";
+import PageHeader from "../../common/PageHeader/PageHeader";
+import { WrenchScrewdriverIcon, BookOpenIcon } from "@heroicons/react/24/solid";
+import Block from "../../common/Block/Block";
+import { ReactComponent as UserIcon } from "../../assets/user.svg";
+import { useAuthStore } from "../../stores/authStore";
+import routes from "../../stores/routes.json";
+import { useNavigate } from "react-router-dom";
+import { ChevronRightIcon } from "@heroicons/react/24/solid";
+
+export default function EmployeeHome() {
+  const user = useAuthStore((store) => store.user);
+  const navigate = useNavigate();
+
+  const links = [
+    {
+      id: 1,
+      label: "Заявки",
+      description: "Приём, обработка и закрытие заявок жильцов",
+      to: routes.requests,
+    },
+    {
+      id: 2,
+      label: "Опросы",
+      description: "Создание и управление опросами и голосованиями",
+      to: routes.surveys,
+    },
+    {
+      id: 3,
+      label: "Статистика",
+      description: "Просмотр и экспорт статистики по заявкам",
+      to: routes.statistics,
+    },
+  ];
+
+  return (
+    <div className={styles.wrapper}>
+      <PageHeader title="Панель сотрудника" icon={WrenchScrewdriverIcon} />
+
+      <div className={styles.content}>
+        <div className={styles.profileWrapper}>
+          <Block title="Профиль" Icon={UserIcon}>
+            <div className={styles.profileCard}>
+              <UserIcon className={styles.icon} />
+              <div className={styles.info}>
+                <div className={styles.email}>{user?.email}</div>
+                <div className={styles.company}>
+                  {user?.company || "Компания"}
+                </div>
+              </div>
+            </div>
+          </Block>
+        </div>
+
+        <Block title="Ссылки" Icon={BookOpenIcon}>
+          <div className={styles.linksWrapper}>
+            {links.map((link) => (
+              <div
+                key={link.id}
+                className={styles.linkCard}
+                onClick={() => navigate(link.to)}
+              >
+                <div className={styles.linkInfo}>
+                  <div className={styles.linkLabel}>{link.label}</div>
+                  <div className={styles.linkDescription}>
+                    {link.description}
+                  </div>
+                </div>
+                <ChevronRightIcon className={styles.linkIcon} />
+              </div>
+            ))}
+          </div>
+        </Block>
+      </div>
+    </div>
+  );
+}

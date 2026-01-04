@@ -1,0 +1,94 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: var(--spacing-xxl);
+}
+
+.profileWrapper {
+  display: flex;
+  width: 30%;
+}
+
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  min-height: 300px;
+}
+
+.icon {
+  width: 10rem;
+  margin: 0 auto;
+  color: var(--element-color);
+}
+
+.email {
+  font-size: var(--font-size-xl);
+  color: var(--font-color);
+  font-weight: 600;
+}
+
+.company {
+  font-size: var(--font-size-base);
+  color: var(--element-color);
+  width: 100%;
+  text-align: center;
+}
+
+.linksWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: 90%;
+}
+
+.linkCard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.linkIcon {
+  width: 3rem;
+  color: var(--border-color);
+}
+
+.linkCard:hover {
+  border-color: var(--element-color);
+  transform: scale(1.01);
+
+  .linkIcon,
+  .linkDescription {
+    color: var(--element-color);
+  }
+}
+
+.linkCard:active {
+  border-color: var(--element-color);
+  transform: scale(0.98);
+}
+
+.linkLabel {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--element-color);
+}
+
+.linkDescription {
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+}
