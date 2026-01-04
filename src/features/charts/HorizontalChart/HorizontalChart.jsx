@@ -9,8 +9,11 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import styles from "./HorizontalChart.module.css";
+import { useT } from "../../../utils/useT";
 
 export default function HorizontalChart({ data }) {
+  const t = useT();
+
   return (
     <div className={styles.chartWrapper}>
       <ResponsiveContainer width="100%" height={1500}>
@@ -22,9 +25,11 @@ export default function HorizontalChart({ data }) {
           <XAxis
             type="number"
             tick={{ fill: "#374151", fontSize: 12 }}
-            tickFormatter={(v) => `${v.toFixed(1)} тыс.`}
+            tickFormatter={(v) =>
+              `${v.toFixed(1)} ${t("statistic.chart.unit")}`
+            }
             label={{
-              value: "тыс. заявок",
+              value: t("statistic.chart.xLabel"),
               position: "insideBottom",
               offset: -5,
               fill: "#6b7280",
@@ -36,13 +41,18 @@ export default function HorizontalChart({ data }) {
             width={200}
             tick={{ fill: "#374151", fontSize: 12 }}
           />
-          <Tooltip /> <Legend />
+          <Tooltip />
+          <Legend />
           <Bar
             dataKey="inProgress"
             fill="#3B82F6"
-            name="Находилось на исполнении"
+            name={t("statistic.chart.inProgress")}
           />
-          <Bar dataKey="completed" fill="#EF4444" name="Выполнено за месяц" />
+          <Bar
+            dataKey="completed"
+            fill="#EF4444"
+            name={t("statistic.chart.completed")}
+          />
         </BarChart>
       </ResponsiveContainer>
     </div>

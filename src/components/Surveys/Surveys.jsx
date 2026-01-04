@@ -4,8 +4,11 @@ import styles from "./Surveys.module.css";
 import Block from "../../common/Block/Block";
 import Survey from "../../features/Surveys/Survey";
 import PageHeader from "../../common/PageHeader/PageHeader";
+import { useT } from "../../utils/useT";
 
 export default function Survays() {
+  const t = useT();
+
   const surveys = [
     {
       id: 1,
@@ -81,11 +84,11 @@ export default function Survays() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Опросы" icon={MegaphoneIcon} />
+      <PageHeader title={t("surveys.title")} icon={MegaphoneIcon} />
 
-      <Block title="Активные опросы" Icon={BoltIcon}>
+      <Block title={t("surveys.active")} Icon={BoltIcon}>
         {surveys.length === 0 ? (
-          <div className={styles.noSurveys}>Нет активных опросов</div>
+          <div className={styles.noSurveys}>{t("surveys.noActive")}</div>
         ) : (
           <div className={styles.surveys}>
             {surveys.map((survey) => {

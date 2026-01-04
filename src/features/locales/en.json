@@ -936,5 +936,101 @@
         }
       }
     }
+  },
+
+  "surveys": {
+    "title": "Surveys",
+    "active": "Active surveys",
+    "noSurveys": "No active surveys",
+    "voite": "Vote"
+  },
+
+  "statistic": {
+    "title": "Statistics",
+    "filters": {
+      "title": "Filters",
+      "month": "Month",
+      "district": "District",
+      "apply": "Apply filters",
+      "reset": "Reset filters"
+    },
+    "summary": {
+      "title": "Work with requests",
+      "start": "Start",
+      "received": "Received",
+      "completed": "Completed",
+      "left": "Remaining"
+    },
+    "chart": {
+      "title": "Chart",
+      "unit": "thousand",
+      "xLabel": "thousand requests",
+      "inProgress": "In progress",
+      "completed": "Completed this month"
+    },
+    "districts": {
+      "all": "All",
+      "central": "Central District",
+      "soviet": "Soviet District",
+      "firstMay": "Pervomaisky District",
+      "partisan": "Partizansky District",
+      "factory": "Zavodskoy District",
+      "lenin": "Leninsky District",
+      "october": "Oktyabrsky District",
+      "moscow": "Moskovsky District",
+      "frunze": "Frunzensky District"
+    },
+    "categories": {
+      "hotWater": "Water supply. Hot water",
+      "electricity": "Electricity supply",
+      "services": "Household services",
+      "houseSanitation": "Sanitary condition of apartment building",
+      "heating": "Heating",
+      "landscaping": "Territory improvement",
+      "waterSupply": "Water supply",
+      "construction": "General construction works",
+      "territorySanitation": "Sanitary condition of territory",
+      "zpuMaintenance": "ZPU maintenance",
+      "other": "Other",
+      "elevatorMaintenance": "Elevator maintenance",
+      "wasteManagement": "MSW management",
+      "coldWater": "Water supply. Cold water",
+      "sewerage": "Sewerage",
+      "roads": "Roads and sidewalks",
+      "roofing": "Roofing works",
+      "streetLighting": "Street lighting",
+      "publicPlaces": "Public places (parks, squares)",
+      "jointRepair": "Joint repair works",
+      "buildingMaintenance": "Building and facility maintenance",
+      "ads": "Advertising and information structures and notices"
+    }
+  },
+  "mapPage": {
+    "title": "Map",
+    "filters": { "title": "Filters", "month": "Month", "apply": "Apply" },
+    "categories": {
+      "all": "All for the month",
+      "accepted": "Accepted requests",
+      "completed": "Completed requests",
+      "remaining": "Remaining requests"
+    },
+    "districts": {
+      "central": "Central District",
+      "soviet": "Soviet District",
+      "firstMay": "Pervomaisky District",
+      "partisan": "Partizansky District",
+      "factory": "Zavodskoy District",
+      "lenin": "Leninsky District",
+      "october": "Oktyabrsky District",
+      "moscow": "Moskovsky District",
+      "frunze": "Frunzensky District"
+    }
+  },
+  "guestBanner": {
+    "title": "Have questions?",
+    "text1": "Get quick answers to the most common questions or contact the service organization directly.",
+    "text2": "Register to get full access to all features of the service.",
+    "register": "Register",
+    "login": "Login"
   }
 }

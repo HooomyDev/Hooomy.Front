@@ -4,9 +4,11 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../stores/routes.json";
 import styles from "./GuestBanner.module.css";
 import Button from "../../common/Button/Button";
+import { useT } from "../../utils/useT";
 
 export default function GuestBanner({ user }) {
   const navigate = useNavigate();
+  const t = useT();
 
   return (
     <>
@@ -15,16 +17,16 @@ export default function GuestBanner({ user }) {
           <QuestionMarkCircleIcon className={styles.guestBannerIcon} />
 
           <div className={styles.guestBannerContent}>
-            <div className={styles.guestBannerTitle}>Есть вопросы?</div>
-
-            <div className={styles.guestBannerText}>
-              Получите быстрые ответы на самые частые вопросы или обратитесь
-              напрямую в обслуживающую организацию.
+            <div className={styles.guestBannerTitle}>
+              {t("guestBanner.title")}
             </div>
 
             <div className={styles.guestBannerText}>
-              Зарегистрируйтесь, чтобы получить полный доступ ко всем функциям
-              сервиса.
+              {t("guestBanner.text1")}
+            </div>
+
+            <div className={styles.guestBannerText}>
+              {t("guestBanner.text2")}
             </div>
 
             <div className={styles.guestBannerActions}>
@@ -32,7 +34,7 @@ export default function GuestBanner({ user }) {
                 onClick={() => navigate(routes.register)}
                 className={styles.guestBannerButton}
               >
-                Зарегистрироваться
+                {t("guestBanner.register")}
               </Button>
 
               <Button
@@ -40,7 +42,7 @@ export default function GuestBanner({ user }) {
                 onClick={() => navigate(routes.login)}
                 className={styles.guestBannerButton}
               >
-                Войти
+                {t("guestBanner.login")}
               </Button>
             </div>
           </div>

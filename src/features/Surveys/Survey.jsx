@@ -13,6 +13,7 @@ import RadioButton from "../../common/RadioButton/RadioButton";
 import CheckBox from "../../common/CheckBox/CheckBox";
 import InputField from "../../common/InputField/InputField";
 import Button from "../../common/Button/Button";
+import { useT } from "../../utils/useT";
 
 export default function Survey({
   title = "Survey Title",
@@ -20,6 +21,7 @@ export default function Survey({
   description = "",
   answers = [],
 }) {
+  const t = useT();
   const methods = useForm();
   const { handleSubmit } = methods;
 
@@ -101,7 +103,7 @@ export default function Survey({
         <div className={styles.answers}>{renderAnswers()}</div>
 
         <Button type="submit" variant="primary">
-          Проголосовать
+          {t("surveys.voite")}
         </Button>
       </form>
     </FormProvider>

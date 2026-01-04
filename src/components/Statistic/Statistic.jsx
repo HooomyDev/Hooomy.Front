@@ -13,8 +13,11 @@ import Button from "../../common/Button/Button";
 import CountUp from "react-countup";
 import HorizontalChart from "../../features/charts/HorizontalChart/HorizontalChart";
 import { months } from "../../stores/months";
+import { useT } from "../../utils/useT";
 
 export default function Statistic() {
+  const t = useT();
+
   const [summary] = useState({
     start: Math.floor(Math.random() * 20000) + 1000,
     receivedPerMonth: Math.floor(Math.random() * 20000) + 1000,
@@ -23,81 +26,41 @@ export default function Statistic() {
   });
 
   const districts = [
-    { id: 0, name: "Все" },
-    { id: 1, name: "Центральный р-н" },
-    { id: 2, name: "Советский р-н" },
-    { id: 3, name: "Первомайский р-н" },
-    { id: 4, name: "Партизанский р-н" },
-    { id: 5, name: "Заводской р-н" },
-    { id: 6, name: "Ленинский р-н" },
-    { id: 7, name: "Октябрьский р-н" },
-    { id: 8, name: "Московский р-н" },
-    { id: 9, name: "Фрунзенский р-н" },
+    { id: 0, name: t("statistic.districts.all") },
+    { id: 1, name: t("statistic.districts.central") },
+    { id: 2, name: t("statistic.districts.soviet") },
+    { id: 3, name: t("statistic.districts.firstMay") },
+    { id: 4, name: t("statistic.districts.partisan") },
+    { id: 5, name: t("statistic.districts.factory") },
+    { id: 6, name: t("statistic.districts.lenin") },
+    { id: 7, name: t("statistic.districts.october") },
+    { id: 8, name: t("statistic.districts.moscow") },
+    { id: 9, name: t("statistic.districts.frunze") },
   ];
 
   const data = [
-    {
-      category: "Водоснабжение. Горячая вода",
-      inProgress: 1.2,
-      completed: 0.8,
-    },
-    { category: "Электроснабжение", inProgress: 1.1, completed: 0.9 },
-    { category: "Бытовые услуги", inProgress: 0.9, completed: 0.6 },
-    {
-      category: "Санитарное состояние многоквартирного дома",
-      inProgress: 0.8,
-      completed: 0.5,
-    },
-    { category: "Отопление", inProgress: 1.3, completed: 1.0 },
-    { category: "Благоустройство территории", inProgress: 0.7, completed: 0.4 },
-    { category: "Водоснабжение", inProgress: 1.0, completed: 0.7 },
-    { category: "Общестроительные работы", inProgress: 0.6, completed: 0.3 },
-    {
-      category: "Санитарное состояние территории",
-      inProgress: 0.5,
-      completed: 0.2,
-    },
-    {
-      category: "Техническое обслуживание ЗПУ",
-      inProgress: 0.4,
-      completed: 0.2,
-    },
-    { category: "Другое", inProgress: 0.3, completed: 0.1 },
-    {
-      category: "Техническое обслуживание лифта",
-      inProgress: 0.6,
-      completed: 0.4,
-    },
-    { category: "Обращение с ТКО", inProgress: 0.9, completed: 0.6 },
-    {
-      category: "Водоснабжение. Холодная вода",
-      inProgress: 1.0,
-      completed: 0.7,
-    },
-    { category: "Канализация", inProgress: 1.1, completed: 0.8 },
-    {
-      category: "Автомобильные дороги, тротуары",
-      inProgress: 0.8,
-      completed: 0.5,
-    },
-    { category: "Кровельные работы", inProgress: 0.7, completed: 0.4 },
-    { category: "Уличное освещение", inProgress: 0.5, completed: 0.3 },
-    {
-      category: "Общественные места (Парки, скверы)",
-      inProgress: 0.4,
-      completed: 0.2,
-    },
-    { category: "Работы по ремонту стыков", inProgress: 0.3, completed: 0.1 },
-    {
-      category: "Техническое обслуживание зданий и сооружений",
-      inProgress: 0.6,
-      completed: 0.4,
-    },
-    {
-      category: "Рекламные и информационные конструкции и объявления",
-      inProgress: 0.2,
-      completed: 0.1,
-    },
+    { key: "hotWater", inProgress: 1.2, completed: 0.8 },
+    { key: "electricity", inProgress: 1.1, completed: 0.9 },
+    { key: "services", inProgress: 0.9, completed: 0.6 },
+    { key: "houseSanitation", inProgress: 0.8, completed: 0.5 },
+    { key: "heating", inProgress: 1.3, completed: 1.0 },
+    { key: "landscaping", inProgress: 0.7, completed: 0.4 },
+    { key: "waterSupply", inProgress: 1.0, completed: 0.7 },
+    { key: "construction", inProgress: 0.6, completed: 0.3 },
+    { key: "territorySanitation", inProgress: 0.5, completed: 0.2 },
+    { key: "zpuMaintenance", inProgress: 0.4, completed: 0.2 },
+    { key: "other", inProgress: 0.3, completed: 0.1 },
+    { key: "elevatorMaintenance", inProgress: 0.6, completed: 0.4 },
+    { key: "wasteManagement", inProgress: 0.9, completed: 0.6 },
+    { key: "coldWater", inProgress: 1.0, completed: 0.7 },
+    { key: "sewerage", inProgress: 1.1, completed: 0.8 },
+    { key: "roads", inProgress: 0.8, completed: 0.5 },
+    { key: "roofing", inProgress: 0.7, completed: 0.4 },
+    { key: "streetLighting", inProgress: 0.5, completed: 0.3 },
+    { key: "publicPlaces", inProgress: 0.4, completed: 0.2 },
+    { key: "jointRepair", inProgress: 0.3, completed: 0.1 },
+    { key: "buildingMaintenance", inProgress: 0.6, completed: 0.4 },
+    { key: "ads", inProgress: 0.2, completed: 0.1 },
   ];
 
   const methods = useForm({
@@ -107,28 +70,31 @@ export default function Statistic() {
     },
   });
 
+  const { watch, reset } = methods;
+  const selectedMonth = watch("month");
+  const selectedDistrict = watch("district");
+
   const onSubmit = (values) => {
-    console.log("Фильтры применены:", values);
+    console.log("Filters applied:", values);
   };
 
   const handleClearFilters = () => {
     reset({ month: months[months.length - 1].id, district: districts[0].id });
   };
 
-  const { watch, reset } = methods;
-  const selectedMonth = watch("month");
-  const selectedDistrict = watch("district");
-
   useEffect(() => {
-    console.log("Выбран месяц:", selectedMonth);
-    console.log("Выбран район:", selectedDistrict);
+    console.log("Selected month:", selectedMonth);
+    console.log("Selected district:", selectedDistrict);
   }, [selectedMonth, selectedDistrict]);
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Статистика" icon={ChartBarIcon} />
+      <PageHeader title={t("statistic.title")} icon={ChartBarIcon} />
 
-      <Block title="Фильтры" Icon={AdjustmentsHorizontalIcon}>
+      <Block
+        title={t("statistic.filters.title")}
+        Icon={AdjustmentsHorizontalIcon}
+      >
         <FormProvider {...methods}>
           <form
             className={styles.filterForm}
@@ -141,10 +107,10 @@ export default function Statistic() {
                 render={({ field }) => (
                   <SelectField
                     {...field}
-                    label="Месяц"
+                    label={t("statistic.filters.month")}
                     options={months.map((m) => ({
                       value: m.id,
-                      label: `${m.month.name}, ${m.year} г.`,
+                      label: `${m.month.name}, ${m.year}`,
                     }))}
                   />
                 )}
@@ -156,7 +122,7 @@ export default function Statistic() {
                 render={({ field }) => (
                   <SelectField
                     {...field}
-                    label="Район"
+                    label={t("statistic.filters.district")}
                     options={districts.map((d) => ({
                       value: d.id,
                       label: d.name,
@@ -172,24 +138,27 @@ export default function Statistic() {
                 variant="secondary"
                 onClick={handleClearFilters}
               >
-                Сбросить фильтры
+                {t("statistic.filters.reset")}
               </Button>
 
               <Button type="submit" className={styles.submitBtn}>
-                Применить фильтры
+                {t("statistic.filters.apply")}
               </Button>
             </div>
           </form>
         </FormProvider>
       </Block>
 
-      <Block title="Работа с заявками" Icon={PresentationChartBarIcon}>
+      <Block
+        title={t("statistic.summary.title")}
+        Icon={PresentationChartBarIcon}
+      >
         <div className={styles.circles}>
           <div className={styles.circle}>
             <span className={styles.value}>
               <CountUp end={summary.start} duration={1.5} />
             </span>
-            <span className={styles.label}>Начало</span>
+            <span className={styles.label}>{t("statistic.summary.start")}</span>
           </div>
 
           <div className={styles.divider}></div>
@@ -198,7 +167,9 @@ export default function Statistic() {
             <span className={styles.value}>
               <CountUp end={summary.receivedPerMonth} duration={1.5} />
             </span>
-            <span className={styles.label}>Получено</span>
+            <span className={styles.label}>
+              {t("statistic.summary.received")}
+            </span>
           </div>
 
           <div className={styles.divider}></div>
@@ -207,7 +178,9 @@ export default function Statistic() {
             <span className={styles.value}>
               <CountUp end={summary.completedPerMonth} duration={1.5} />
             </span>
-            <span className={styles.label}>Выполнено</span>
+            <span className={styles.label}>
+              {t("statistic.summary.completed")}
+            </span>
           </div>
 
           <div className={styles.divider}></div>
@@ -216,13 +189,18 @@ export default function Statistic() {
             <span className={styles.value}>
               <CountUp end={summary.left} duration={1.5} />
             </span>
-            <span className={styles.label}>Осталось</span>
+            <span className={styles.label}>{t("statistic.summary.left")}</span>
           </div>
         </div>
       </Block>
 
-      <Block title="График" Icon={ChartBarIcon}>
-        <HorizontalChart data={data} />
+      <Block title={t("statistic.chart.title")} Icon={ChartBarIcon}>
+        <HorizontalChart
+          data={data.map((item) => ({
+            ...item,
+            category: t(`statistic.categories.${item.key}`),
+          }))}
+        />
       </Block>
     </div>
   );
