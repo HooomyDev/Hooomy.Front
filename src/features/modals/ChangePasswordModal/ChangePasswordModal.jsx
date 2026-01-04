@@ -1,12 +1,12 @@
 import React from "react";
 import styles from "./ChangePasswordModal.module.css";
 import { useForm, FormProvider } from "react-hook-form";
-import InputField from "../../common/InputField/InputField";
+import InputField from "../../../common/InputField/InputField";
 import {
   validatePassword,
   validateConfirmPassword,
-} from "../../utils/validation";
-import { useT } from "../../utils/useT";
+} from "../../../utils/validation";
+import { useT } from "../../../utils/useT";
 
 export default function ChangePasswordModal({ onSuccess }) {
   const t = useT();

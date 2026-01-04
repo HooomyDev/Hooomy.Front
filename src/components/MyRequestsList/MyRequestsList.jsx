@@ -3,8 +3,8 @@ import styles from "./MyRequestsList.module.css";
 import { useT } from "../../utils/useT";
 import Block from "../../common/Block/Block";
 import { ListBulletIcon } from "@heroicons/react/24/solid";
-import Modal from "../../modals/Modal/Modal";
-import RequestDetailsModal from "../../modals/RequestDetailsModal/RequestDetailsModal";
+import Modal from "../../features/modals/Modal/Modal";
+import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
 
 export default function MyRequestsList({ requests }) {
   const t = useT();

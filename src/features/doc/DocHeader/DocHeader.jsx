@@ -1,5 +1,5 @@
 import React from "react";
-import Block from "../../common/Block/Block";
+import Block from "../../../common/Block/Block";
 import {
   DocumentArrowDownIcon,
   DocumentTextIcon,

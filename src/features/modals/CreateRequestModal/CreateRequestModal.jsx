@@ -1,12 +1,12 @@
 import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
-import FileUploadField from "../../common/FileUploadField/FileUploadField";
-import RequestByAdress from "../../components/RequestByAdress/RequestByAdress";
-import RequestByMap from "../../components/RequestByMap/RequestByMap";
+import FileUploadField from "../../../common/FileUploadField/FileUploadField";
+import RequestByAdress from "../../../components/RequestByAdress/RequestByAdress";
+import RequestByMap from "../../../components/RequestByMap/RequestByMap";
 import styles from "./CreateRequestModal.module.css";
-import TabPanel from "../../common/TabPanel/TabPanel";
-import InputField from "../../common/InputField/InputField";
-import { useT } from "../../utils/useT";
+import TabPanel from "../../../common/TabPanel/TabPanel";
+import InputField from "../../../common/InputField/InputField";
+import { useT } from "../../../utils/useT";
 
 export default function CreateRequestModal({ onSuccess }) {
   const t = useT();

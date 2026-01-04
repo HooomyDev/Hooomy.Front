@@ -1,4 +1,4 @@
-import i18n from "../locales/i18n";
+import i18n from "../features/locales/i18n";
 
 export function validateEmail(email) {
   email = email.trim();

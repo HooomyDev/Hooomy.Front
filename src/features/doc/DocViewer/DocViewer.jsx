@@ -4,7 +4,7 @@ import DocTableOfContents from "../../doc/DocTableOfContents/DocTableOfContents"
 import DocChapter from "../../doc/DocChapter/DocChapter";
 import DocScrollButton from "../../doc/DocScrollButton/DocScrollButton";
 import DocWrapper from "../../doc/DocWrapper/DocWrapper";
-import { useT } from "../../utils/useT";
+import { useT } from "../../../utils/useT";
 
 export default function DocViewer({
   titleKey,

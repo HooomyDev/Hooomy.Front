@@ -9,8 +9,8 @@ import {
   validatePatronymic,
 } from "../../utils/validation";
 import MaskedInputField from "../../common/InputField/MaskedInput";
-import Modal from "../../modals/Modal/Modal";
-import ChangePasswordModal from "../../modals/ChangePasswordModal/ChangePasswordModal";
+import Modal from "../../features/modals/Modal/Modal";
+import ChangePasswordModal from "../../features/modals/ChangePasswordModal/ChangePasswordModal";
 import Block from "../../common/Block/Block";
 import { IdentificationIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";

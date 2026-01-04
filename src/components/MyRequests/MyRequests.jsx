@@ -6,8 +6,8 @@ import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
 import MyRequestsList from "../MyRequestsList/MyRequestsList";
 import MyRequestsNewRequest from "../MyRequestsNewRequest/MyRequestsNewRequest";
 import MyRequestsFilters from "../MyRequestsFilters/MyRequestsFilters";
-import Modal from "../../modals/Modal/Modal";
-import CreateRequestModal from "../../modals/CreateRequestModal/CreateRequestModal";
+import Modal from "../../features/modals/Modal/Modal";
+import CreateRequestModal from "../../features/modals/CreateRequestModal/CreateRequestModal";
 import testImage from "../../assets/test.png";
 import PageHeader from "../../common/PageHeader/PageHeader";
 

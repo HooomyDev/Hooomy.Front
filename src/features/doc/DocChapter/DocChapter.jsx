@@ -1,8 +1,8 @@
 import React from "react";
-import Block from "../../common/Block/Block";
+import Block from "../../../common/Block/Block";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
 import styles from "./DocChapter.module.css";
-import { useT } from "../../utils/useT";
+import { useT } from "../../../utils/useT";
 
 export default function DocChapter({ id, titleKey, content }) {
   const t = useT();

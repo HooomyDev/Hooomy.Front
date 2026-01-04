@@ -1,8 +1,8 @@
 import React from "react";
-import Block from "../../common/Block/Block";
+import Block from "../../../common/Block/Block";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
 import styles from "./DocTableOfContents.module.css";
-import { useT } from "../../utils/useT";
+import { useT } from "../../../utils/useT";
 
 export default function DocTableOfContents({ contents }) {
   const t = useT();

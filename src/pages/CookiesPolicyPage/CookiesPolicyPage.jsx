@@ -1,5 +1,5 @@
 import React from "react";
-import DocViewer from "../../doc/DocViewer/DocViewer";
+import DocViewer from "../../features/doc/DocViewer/DocViewer";
 import PageWrapper from "../../common/PageWrapper/PageWrapper";
 import { contents } from "./src/contents";
 import { chapters } from "./src/chapters";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-import { ReactComponent as CrossIcon } from "../../assets/cross.svg";
+import { ReactComponent as CrossIcon } from "../../../assets/cross.svg";
 import styles from "./Modal.module.css";
 
 export default function Modal({ isOpen, onClose, children }) {
