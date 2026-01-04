@@ -22,7 +22,7 @@ const reverseGeocode = async ({ lng, lat }) => {
   return "Адрес не найден";
 };
 
-export default function Map({ onSelect }) {
+export default function Map({ onSelect, data = [], allowMarkers = true }) {
   const mapRef = useRef(null);
   const markerRef = useRef(null);
   const [map, setMap] = useState(null);
@@ -50,51 +50,67 @@ export default function Map({ onSelect }) {
         "top-left"
       );
 
-      instance.on("click", async (e) => {
-        const { lng, lat } = e.lngLat;
+      if (allowMarkers) {
+        instance.on("click", async (e) => {
+          const { lng, lat } = e.lngLat;
 
-        const address = await reverseGeocode({ lng, lat });
+          const address = await reverseGeocode({ lng, lat });
 
-        if (markerRef.current) {
-          markerRef.current.setLngLat([lng, lat]);
-        } else {
-          markerRef.current = new maplibregl.Marker({
-            color: "#ff6600",
-            draggable: true,
-          })
-            .setLngLat([lng, lat])
-            .addTo(instance);
-
-          markerRef.current.on("dragend", async () => {
-            const newPos = markerRef.current.getLngLat();
-            const newAddress = await reverseGeocode({
-              lng: newPos.lng,
-              lat: newPos.lat,
-            });
-
-            new maplibregl.Popup({
-              closeButton: false,
-              closeOnClick: true,
+          if (markerRef.current) {
+            markerRef.current.setLngLat([lng, lat]);
+          } else {
+            markerRef.current = new maplibregl.Marker({
+              color: "#ff6600",
+              draggable: true,
             })
-              .setLngLat([newPos.lng, newPos.lat])
-              .setHTML(`<strong>Адрес:</strong><br>${newAddress}`)
+              .setLngLat([lng, lat])
               .addTo(instance);
 
-            if (onSelect)
-              onSelect({
+            markerRef.current.on("dragend", async () => {
+              const newPos = markerRef.current.getLngLat();
+              const newAddress = await reverseGeocode({
                 lng: newPos.lng,
                 lat: newPos.lat,
-                address: newAddress,
               });
-          });
-        }
 
-        if (onSelect) onSelect({ lng, lat, address });
-      });
+              new maplibregl.Popup({
+                closeButton: false,
+                closeOnClick: true,
+              })
+                .setLngLat([newPos.lng, newPos.lat])
+                .setHTML(`<strong>Адрес:</strong><br>${newAddress}`)
+                .addTo(instance);
+
+              if (onSelect)
+                onSelect({
+                  lng: newPos.lng,
+                  lat: newPos.lat,
+                  address: newAddress,
+                });
+            });
+          }
+
+          if (onSelect) onSelect({ lng, lat, address });
+        });
+      }
 
       setMap(instance);
     }
-  }, [map, onSelect]);
+  }, [map, allowMarkers, onSelect]);
 
+  useEffect(() => {
+    if (map && data.length) {
+      data.forEach((district) => {
+        new maplibregl.Marker({ color: "#4f46e5" })
+          .setLngLat([district.lng, district.lat])
+          .setPopup(
+            new maplibregl.Popup().setHTML(
+              `<strong>${district.name}</strong><br>Заявок: ${district.requests}`
+            )
+          )
+          .addTo(map);
+      });
+    }
+  }, [map, data]);
   return <div ref={mapRef} className={styles.mapContainer} />;
 }

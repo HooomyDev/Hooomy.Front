@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import Map from "../Map/Map";
+import Map from "../../features/map/Map/Map";
 import styles from "./RequestByMap.module.css";
 
 export default function RequestByMap() {
