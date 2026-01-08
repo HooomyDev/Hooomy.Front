@@ -22,7 +22,7 @@ import SurvaysPage from "./pages/SurveysPage/SurveysPage";
 import StatisticPage from "./pages/StatisticPage/StatisticPage";
 import MapPage from "./pages/MapPage/MapPage";
 import NoAccess from "./components/NoAccess/NoAccess";
-import RequestsPage from "./pages/RequestsPage/RequestsPage";
+import EmployeeSurveysPage from "./pages/EmployeeSurveysPage/EmployeeSurveysPage";
 
 export default function App() {
   useEffect(() => {
@@ -86,12 +86,12 @@ export default function App() {
         />
       </Route>
 
-      <Route path={routes.requests} element={<Layout />}>
+      <Route path={routes.surveys} element={<Layout />}>
         <Route
           index
           element={
             <ProtectedRoute roles={["employee"]}>
-              <RequestsPage />
+              <EmployeeSurveysPage />
             </ProtectedRoute>
           }
         />

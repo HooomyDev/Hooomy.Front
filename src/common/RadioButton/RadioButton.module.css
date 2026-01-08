@@ -13,6 +13,7 @@
 
 .radioLabel:hover {
   border-color: var(--element-color);
+  color: var(--element-color);
 }
 
 .selected {
@@ -38,6 +39,7 @@
 
 .radioInput:hover {
   border-color: var(--element-color);
+  color: var(--element-color);
 }
 
 .radioInput:checked::before {
@@ -61,6 +63,10 @@
   font-size: var(--font-size-lg);
   font-weight: 600;
   color: var(--font-color);
+}
+
+.radioLabel:hover .radioText {
+  color: var(--element-color);
 }
 
 .radioInput:checked + .radioText {

@@ -20,6 +20,7 @@ export default function Survey({
   type = "one",
   description = "",
   answers = [],
+  status = "active",
 }) {
   const t = useT();
   const methods = useForm();
@@ -47,9 +48,9 @@ export default function Survey({
 
   const renderAnswers = () => {
     if (type === "one") {
-      return answers.map((answer) => (
+      return answers.map((answer, index) => (
         <RadioButton
-          key={answer.id}
+          key={answer.id || index}
           type="radio"
           {...methods.register("survey")}
           value={answer.id}
@@ -60,9 +61,9 @@ export default function Survey({
     }
 
     if (type === "more") {
-      return answers.map((answer) => (
+      return answers.map((answer, index) => (
         <CheckBox
-          key={answer.id}
+          key={answer.id || index}
           type="checkbox"
           {...methods.register(`survey.${answer.id}`)}
           value={answer.id}
@@ -100,9 +101,20 @@ export default function Survey({
 
         <div className={styles.description}>{description}</div>
 
-        <div className={styles.answers}>{renderAnswers()}</div>
+        <div
+          className={`${styles.answers} ${
+            status === "finished" ? styles.disabled : ""
+          }`}
+          disabled={status === "finished"}
+        >
+          {renderAnswers()}
+        </div>
 
-        <Button type="submit" variant="primary">
+        <Button
+          type="submit"
+          variant="primary"
+          disabled={status === "finished"}
+        >
           {t("surveys.voite")}
         </Button>
       </form>
