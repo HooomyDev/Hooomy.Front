@@ -5,6 +5,35 @@
   gap: var(--spacing-xxl);
 }
 
+.headerWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+}
+
+.exportWrapper {
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  color: var(--font-color);
+  width: 10rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.exportWrapper:hover {
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
+  transform: scale(1.05);
+}
+
+.exportWrapper:active {
+  transform: scale(1.02);
+}
+
+.export span {
+  font-weight: 600;
+}
+
 .content {
   display: flex;
   flex-direction: column;
