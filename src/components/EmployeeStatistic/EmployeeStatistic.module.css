@@ -1,0 +1,47 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .statsContainer {
+    padding: 16px;
+  }
+
+  .statCards {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .totalBadge {
+    align-self: flex-start;
+  }
+
+  .districtInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .districtCount {
+    text-align: left;
+  }
+
+  .dailyChart {
+    padding: 0 10px 40px;
+  }
+}

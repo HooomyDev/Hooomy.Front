@@ -1,0 +1,171 @@
+.dailyStats {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: var(--spacing-xl);
+}
+
+.dailyChart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 300px;
+}
+
+.dayColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 1;
+  max-width: 60px;
+  height: 100%;
+  position: relative;
+}
+
+.dayBarContainer {
+  width: 100%;
+  height: calc(100% - 30px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+}
+
+.dayBar {
+  width: 32px;
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  will-change: height, background;
+  min-height: 4px;
+  height: 0;
+}
+
+.dayBar.animated {
+  animation: barGrow 0.8s ease-out forwards;
+}
+
+.dayBar:hover {
+  background: linear-gradient(to top, #2563eb, #3b82f6);
+  transform: scaleX(1.1);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.dayBarToday {
+  background: linear-gradient(to top, #22c55e, #4ade80);
+}
+
+.dayBarToday:hover {
+  background: linear-gradient(to top, #16a34a, #22c55e);
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.dayCount {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #111827;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+}
+
+.dayColumn:hover .dayCount {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.dayLabels {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.dayLabel {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.dayDate {
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.dayColumn.today .dayLabel,
+.dayColumn.today .dayDate {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.dailySummary {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-lg);
+}
+
+.summaryItem {
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-lg);
+  box-shadow: 0 2px 6px rgba(18, 36, 53, 0.05);
+  transition: all 0.3s ease;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.summaryLabel {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.summaryValue {
+  font-size: var(--font-size-lg);
+  color: var(--element-color);
+}
+
+.dayColumn.hasData .dayBar {
+  min-height: 4px;
+}
+
+.dayColumn:not(.hasData) .dayBar {
+  background: var(--element-color) !important;
+  min-height: 1px;
+}
+
+@keyframes barGrow {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--final-height);
+  }
+}
+
+@media (max-width: 768px) {
+  .dailyChart {
+    padding: 0 10px 40px;
+  }
+}
