@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/solid";
 import styles from "./EmployeeStatisticCards.module.css";
 
-const EmployeeStatisticCards = ({ requests = [] }) => {
+export default function EmployeeStatisticCards({ requests = [] }) {
   const totalRequests = requests.length;
   const pendingRequests = requests.filter(
     (r) => r.status === "В обработке"
@@ -107,6 +107,4 @@ const EmployeeStatisticCards = ({ requests = [] }) => {
       ))}
     </div>
   );
-};
-
-export default EmployeeStatisticCards;
+}

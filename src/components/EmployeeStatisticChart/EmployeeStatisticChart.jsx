@@ -3,9 +3,9 @@ import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeeStatisticChart.module.css";
 
-const EmployeeStatisticChart = ({ requests = [] }) => {
+export default function EmployeeStatisticChart({ requests = [] }) {
   const [animated, setAnimated] = useState(false);
-  const [period, setPeriod] = useState("week"); // week, twoWeeks, month, halfYear, year
+  const [period, setPeriod] = useState("week"); // week, twoWeeks, month, currentMonth, halfYear, year
 
   const formatLocalYMD = (date) => {
     const y = date.getFullYear();
@@ -45,6 +45,16 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
         months.push(formatLocalYM(d));
       }
       return months;
+    } else if (period === "currentMonth") {
+      const days = [];
+      const start = new Date(now.getFullYear(), now.getMonth(), 1);
+      const today = now.getDate();
+      for (let i = 0; i < today; i++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        days.push(formatLocalYMD(d));
+      }
+      return days;
     } else {
       const days = [];
       for (let i = periodDaysMap[period] - 1; i >= 0; i--) {
@@ -125,21 +135,24 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
   return (
     <Block title="Динамика заявок" Icon={CalendarDaysIcon}>
       <div className={styles.periodSelector}>
-        {["week", "twoWeeks", "month", "halfYear", "year"].map((key) => (
-          <button
-            key={key}
-            className={`${styles.periodButton} ${
-              period === key ? styles.active : ""
-            }`}
-            onClick={() => setPeriod(key)}
-          >
-            {key === "week" && "Неделя"}
-            {key === "twoWeeks" && "2 недели"}
-            {key === "month" && "Месяц"}
-            {key === "halfYear" && "Полгода"}
-            {key === "year" && "Год"}
-          </button>
-        ))}
+        {["week", "twoWeeks", "month", "currentMonth", "halfYear", "year"].map(
+          (key) => (
+            <button
+              key={key}
+              className={`${styles.periodButton} ${
+                period === key ? styles.active : ""
+              }`}
+              onClick={() => setPeriod(key)}
+            >
+              {key === "week" && "Неделя"}
+              {key === "twoWeeks" && "2 недели"}
+              {key === "month" && "30 дней"}
+              {key === "currentMonth" && "Текущий месяц"}
+              {key === "halfYear" && "Полгода"}
+              {key === "year" && "Год"}
+            </button>
+          )
+        )}
       </div>
 
       <div className={styles.dailyStats}>
@@ -208,6 +221,4 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
       </div>
     </Block>
   );
-};
-
-export default EmployeeStatisticChart;
+}

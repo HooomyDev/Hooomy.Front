@@ -6,6 +6,8 @@ import styles from "./EmployeeStatistic.module.css";
 import EmployeeStatisticCards from "../EmployeeStatisticCards/EmployeeStatisticCards";
 import EmployeeStatisticDistricts from "../EmployeeStatisticDisctricts/EmployeeStatisticDistricts";
 import EmployeeStatisticChart from "../EmployeeStatisticChart/EmployeeStatisticChart";
+import EmployeeStatisticStatus from "../EmployeesStatisticStatus/EmployeesStatisticStatus";
+import EmployeeStatisticTypes from "../EmployeeStatisticTypes/EmployeeStatisticTypes";
 
 export default function EmployeeStatistic() {
   return (
@@ -14,10 +16,10 @@ export default function EmployeeStatistic() {
 
       <div className={styles.content}>
         <EmployeeStatisticCards requests={requests} />
-
         <EmployeeStatisticDistricts requests={requests} />
-
         <EmployeeStatisticChart requests={requests} />
+        <EmployeeStatisticStatus requests={requests} />
+        <EmployeeStatisticTypes requests={requests} />
       </div>
     </div>
   );

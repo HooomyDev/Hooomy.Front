@@ -3,7 +3,7 @@ import { MapPinIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeeStatisticDistricts.module.css";
 
-const EmployeeStatisticDistricts = ({ requests = [] }) => {
+export default function EmployeeStatisticDistricts({ requests = [] }) {
   const [showAllDistricts, setShowAllDistricts] = useState(false);
 
   // считаем заявки по районам
@@ -92,6 +92,4 @@ const EmployeeStatisticDistricts = ({ requests = [] }) => {
       </div>
     </Block>
   );
-};
-
-export default EmployeeStatisticDistricts;
+}

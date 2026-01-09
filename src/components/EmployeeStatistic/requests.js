@@ -1,3 +1,28 @@
+export const requestsByTypes = [
+  "Водоснабжение. Горячая вода",
+  "Электроснабжение",
+  "Бытовые услуги",
+  "Санитарное состояние многоквартирного дома",
+  "Отопление",
+  "Благоустройство территории",
+  "Водоснабжение",
+  "Общестроительные работы",
+  "Санитарное состояние территории",
+  "Техническое обслуживание ЗПУ",
+  "Другое",
+  "Техническое обслуживание лифта",
+  "Обращение с ТКО",
+  "Водоснабжение. Холодная вода",
+  "Канализация",
+  "Автомобильные дороги, тротуары",
+  "Кровельные работы",
+  "Уличное освещение",
+  "Общественные места (Парки, скверы)",
+  "Работы по ремонту стыков",
+  "Техническое обслуживание зданий и сооружений",
+  "Рекламные и информационные конструкции и объявления",
+];
+
 const requests = [
   {
     id: 1,
@@ -15,7 +40,7 @@ const requests = [
     photo: null,
     location: { lat: 53.9, lng: 27.5667 },
     priority: "Высокий",
-    type: "Сантехника",
+    type: "Водоснабжение. Холодная вода",
     comments: [
       {
         text: "Сантехник назначен на завтра, 10:00",
@@ -45,7 +70,7 @@ const requests = [
     photo: "photo_cleaning.jpg",
     location: { lat: 53.91, lng: 27.55 },
     priority: "Средний",
-    type: "Уборка",
+    type: "Бытовые услуги",
     comments: [
       {
         text: "Уборка выполнена успешно, клиент доволен",
@@ -69,7 +94,7 @@ const requests = [
     photo: null,
     location: { lat: 53.92, lng: 27.57 },
     priority: "Средний",
-    type: "Доставка",
+    type: "Бытовые услуги",
     comments: [
       {
         text: "Доставка перенесена на следующую неделю",
@@ -93,7 +118,7 @@ const requests = [
     photo: null,
     location: { lat: 53.93, lng: 27.58 },
     priority: "Высокий",
-    type: "Электрика",
+    type: "Электроснабжение",
     comments: [
       {
         text: "Электрик выедет 12 декабря",
@@ -117,7 +142,7 @@ const requests = [
     photo: "photo_clog.jpg",
     location: { lat: 53.89, lng: 27.56 },
     priority: "Критический",
-    type: "Сантехника",
+    type: "Канализация",
     comments: [
       {
         text: "Экстренный вызов. Выезд в течение часа",
@@ -141,7 +166,7 @@ const requests = [
     photo: null,
     location: { lat: 53.88, lng: 27.54 },
     priority: "Низкий",
-    type: "Ремонт",
+    type: "Бытовые услуги",
     comments: [
       {
         text: "Ожидается поставка фурнитуры",
@@ -165,7 +190,7 @@ const requests = [
     photo: "photo_painting.jpg",
     location: { lat: 53.92, lng: 27.55 },
     priority: "Средний",
-    type: "Благоустройство",
+    type: "Общестроительные работы",
     comments: [
       {
         text: "Работы начаты",
@@ -189,7 +214,7 @@ const requests = [
     photo: null,
     location: { lat: 53.94, lng: 27.59 },
     priority: "Высокий",
-    type: "Лифтовое хозяйство",
+    type: "Техническое обслуживание лифта",
     comments: [
       {
         text: "Ожидаем поставку запчастей",
@@ -213,7 +238,7 @@ const requests = [
     photo: "photo_snow.jpg",
     location: { lat: 53.85, lng: 27.53 },
     priority: "Средний",
-    type: "Благоустройство",
+    type: "Благоустройство территории",
     comments: [
       {
         text: "Работы выполнены",
@@ -261,7 +286,7 @@ const requests = [
     photo: null,
     location: { lat: 53.91, lng: 27.57 },
     priority: "Средний",
-    type: "Системы безопасности",
+    type: "Техническое обслуживание ЗПУ",
     comments: [
       {
         text: "Ожидается согласование с жильцами",
@@ -285,7 +310,7 @@ const requests = [
     photo: "photo_garbage.jpg",
     location: { lat: 53.89, lng: 27.57 },
     priority: "Низкий",
-    type: "Вывоз мусора",
+    type: "Обращение с ТКО",
     comments: [
       {
         text: "Вывезено 2 контейнера мусора",
@@ -309,7 +334,7 @@ const requests = [
     photo: null,
     location: { lat: 53.93, lng: 27.56 },
     priority: "Средний",
-    type: "Благоустройство",
+    type: "Благоустройство территории",
     comments: [
       {
         text: "Заказаны новые качели",
@@ -333,7 +358,7 @@ const requests = [
     photo: "photo_windows.jpg",
     location: { lat: 53.87, lng: 27.58 },
     priority: "Средний",
-    type: "Ремонт",
+    type: "Общестроительные работы",
     comments: [
       {
         text: "Окна установлены",
@@ -357,7 +382,7 @@ const requests = [
     photo: null,
     location: { lat: 53.86, lng: 27.55 },
     priority: "Критический",
-    type: "Сантехника",
+    type: "Отопление",
     comments: [
       {
         text: "Экстренный вызов",
@@ -381,7 +406,7 @@ const requests = [
     photo: "photo_fire.jpg",
     location: { lat: 53.95, lng: 27.56 },
     priority: "Высокий",
-    type: "Проверка",
+    type: "Техническое обслуживание зданий и сооружений",
     comments: [
       {
         text: "Проверка завершена",
@@ -405,7 +430,7 @@ const requests = [
     photo: null,
     location: { lat: 53.92, lng: 27.61 },
     priority: "Низкий",
-    type: "Монтаж",
+    type: "Бытовые услуги",
     comments: [
       {
         text: "Клиент отказался от услуги",
@@ -429,7 +454,7 @@ const requests = [
     photo: null,
     location: { lat: 53.84, lng: 27.52 },
     priority: "Средний",
-    type: "Благоустройство",
+    type: "Благоустройство территории",
     comments: [
       {
         text: "Ожидается получение разрешения",
@@ -453,7 +478,7 @@ const requests = [
     photo: "photo_lighting.jpg",
     location: { lat: 53.96, lng: 27.58 },
     priority: "Высокий",
-    type: "Электрика",
+    type: "Электроснабжение",
     comments: [
       {
         text: "Установлены энергосберегающие лампы",
@@ -477,7 +502,7 @@ const requests = [
     photo: null,
     location: { lat: 53.94, lng: 27.57 },
     priority: "Низкий",
-    type: "Монтаж",
+    type: "Общестроительные работы",
     comments: [
       {
         text: "Ящики заказаны",
@@ -501,7 +526,7 @@ const requests = [
     photo: null,
     location: { lat: 53.89, lng: 27.56 },
     priority: "Средний",
-    type: "Ремонт",
+    type: "Общестроительные работы",
     comments: [
       {
         text: "Заказаны материалы",
@@ -525,7 +550,7 @@ const requests = [
     photo: null,
     location: { lat: 53.9, lng: 27.5667 },
     priority: "Высокий",
-    type: "Сантехника",
+    type: "Отопление",
     comments: [
       {
         text: "Работы выполнены",
@@ -549,7 +574,7 @@ const requests = [
     photo: null,
     location: { lat: 53.91, lng: 27.55 },
     priority: "Высокий",
-    type: "Системы безопасности",
+    type: "Техническое обслуживание ЗПУ",
     comments: [
       {
         text: "Ожидается оборудование",
@@ -573,7 +598,7 @@ const requests = [
     photo: null,
     location: { lat: 53.92, lng: 27.57 },
     priority: "Низкий",
-    type: "Уборка",
+    type: "Благоустройство территории",
     comments: [
       {
         text: "Территория убрана",
@@ -597,7 +622,7 @@ const requests = [
     photo: null,
     location: { lat: 53.93, lng: 27.58 },
     priority: "Средний",
-    type: "Ремонт",
+    type: "Общестроительные работы",
     comments: [
       {
         text: "Закуплены доски",
@@ -621,7 +646,7 @@ const requests = [
     photo: null,
     location: { lat: 53.89, lng: 27.56 },
     priority: "Средний",
-    type: "Сантехника",
+    type: "Водоснабжение",
     comments: [
       {
         text: "Счетчики заменены",
@@ -669,7 +694,7 @@ const requests = [
     photo: null,
     location: { lat: 53.92, lng: 27.55 },
     priority: "Средний",
-    type: "Электрика",
+    type: "Электроснабжение",
     comments: [
       {
         text: "Лампы установлены",
@@ -693,7 +718,7 @@ const requests = [
     photo: null,
     location: { lat: 53.94, lng: 27.59 },
     priority: "Низкий",
-    type: "Вывоз мусора",
+    type: "Обращение с ТКО",
     comments: [
       {
         text: "Отложено до весны",
@@ -717,7 +742,7 @@ const requests = [
     photo: null,
     location: { lat: 53.85, lng: 27.53 },
     priority: "Средний",
-    type: "Благоустройство",
+    type: "Благоустройство территории",
     comments: [
       {
         text: "Заказаны запчасти",
