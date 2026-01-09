@@ -1,0 +1,32 @@
+.controls {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+}
+
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 80%;
+}
+
+.searchIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--font-color);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  width: 20%;
+  gap: 10px;
+}
+
+.filterIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--font-color);
+}

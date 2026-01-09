@@ -1,0 +1,162 @@
+.requestsTable {
+  overflow-x: auto;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-color);
+}
+
+.table {
+  border-collapse: collapse;
+  min-width: 100%;
+}
+
+.table th {
+  text-align: left;
+  padding: var(--spacing-md);
+  background: #f9fafb;
+  font-weight: 600;
+  color: var(--font-color);
+  border-bottom: 2px solid var(--gray-color);
+  font-size: var(--font-size-base);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.requestRow:hover {
+  background: #e3e4e5;
+}
+
+.table td {
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-bottom: 1px solid var(--gray-color);
+  vertical-align: top;
+}
+
+.idCell {
+  font-weight: 600;
+  color: var(--font-color);
+  font-size: var(--font-size-base);
+}
+
+.requestInfo {
+  max-width: 300px;
+}
+
+.requestTitle {
+  display: flex;
+  color: var(--font-color);
+  margin-bottom: 6px;
+  font-size: var(--font-size-base);
+}
+
+.requestDescription {
+  font-size: var(--font-size-base);
+  color: #6b7280;
+  font-size: var(--font-size-base);
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+}
+
+.addressInfo {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.addressIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--element-color);
+  flex-shrink: 0;
+}
+
+.district {
+  font-weight: 500;
+  color: #111827;
+  margin-bottom: 4px;
+  font-size: var(--font-size-base);
+}
+
+.street {
+  color: #6b7280;
+  font-size: var(--font-size-sm);
+}
+
+.dateCell {
+  color: #6b7280;
+  font-size: var(--font-size-sm);
+}
+
+.statusBadge {
+  display: flex;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 20px;
+  color: var(--main-color);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  text-align: center;
+  min-width: 100px;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: flex-start;
+}
+
+.actionButton {
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.actionIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.viewButton {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.viewButton:hover {
+  background: #bae6fd;
+}
+
+.completeButton {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.completeButton:hover {
+  background: #bbf7d0;
+}
+
+.commentButton {
+  background: #f3e8ff;
+  color: #7c3aed;
+}
+
+.commentButton:hover {
+  background: #e9d5ff;
+}
+
+.rejectButton {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.rejectButton:hover {
+  background: #fecaca;
+}

@@ -1,0 +1,302 @@
+.modalContent {
+  width: 100%;
+  max-height: 90vh;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.modalHeader {
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid #e5e7eb;
+  z-index: 1;
+  width: 100%;
+}
+
+.title {
+  margin: 0 0 var(--spacing-md) 0;
+  color: var(--font-color);
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+}
+
+.subtitle {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.id {
+  color: #6b7280;
+  font-size: var(--font-size-base);
+  font-family: monospace;
+  background: #f9fafb;
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+}
+
+.status {
+  padding: 6px 14px;
+  border-radius: var(--border-radius);
+  color: var(--main-color);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.content {
+  padding: 0 24px 24px;
+}
+
+.detailGrid {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+  margin: 24px 0;
+}
+
+.detailSection {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.sectionTitle {
+  margin: 0 0 16px 0;
+  color: var(--font-size);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.detailIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--element-color);
+}
+
+.detailInfo {
+  width: 100%;
+  background: var(--main-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+.detailInfo p {
+  margin: 8px 0;
+  color: var(--font-color);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+}
+
+.detailInfo strong {
+  color: var(--font-color);
+  min-width: 80px;
+  display: inline-block;
+}
+
+.coordinates {
+  font-size: 14px !important;
+  color: #6b7280 !important;
+  font-family: monospace;
+  margin-top: 16px !important;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+.descriptionBox {
+  line-height: 1.6;
+  color: #374151;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+.photoSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: 8px;
+}
+
+.photoPreview {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--border-color);
+}
+
+.noPhoto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 2px dashed #e5e7eb;
+  color: #6b7280;
+  text-align: center;
+}
+
+.noPhotoIcon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.fileInput {
+  display: none;
+}
+
+.commentsSection {
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+  margin-top: 8px;
+}
+
+.comment {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  margin-bottom: 16px;
+}
+
+.commentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.commentHeader strong {
+  color: #111827;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.commentTime {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.commentText {
+  color: #374151;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.addComment {
+  margin-top: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.statusActions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.statusLabel {
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.statusButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid transparent;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  transition: all 0.2s;
+}
+
+.statusButton:hover {
+  transform: translateY(-1px);
+}
+
+.statusButtonIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.statusComplete {
+  background: #dcfce7;
+  color: green;
+}
+
+.statusComplete:hover {
+  background: #bbf7d0;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+  border: 1px solid transparent;
+  color: green;
+}
+
+.statusReject {
+  background: #fee2e2;
+  color: red;
+}
+
+.statusReject:hover {
+  background: #fecaca;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+  border: 1px solid transparent;
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95vw;
+    margin: 10px;
+  }
+
+  .modalHeader {
+    padding: 20px 20px 16px;
+  }
+
+  .content {
+    padding: 0 20px 20px;
+  }
+
+  .modalActions {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .statusActions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .addComment {
+    flex-direction: column;
+  }
+
+  .commentSubmit {
+    width: 100%;
+  }
+}

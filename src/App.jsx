@@ -23,6 +23,7 @@ import StatisticPage from "./pages/StatisticPage/StatisticPage";
 import MapPage from "./pages/MapPage/MapPage";
 import NoAccess from "./components/NoAccess/NoAccess";
 import EmployeeSurveysPage from "./pages/EmployeeSurveysPage/EmployeeSurveysPage";
+import EmployeeRequestsPage from "./pages/EmployeeRequestsPage/EmployeeRequestsPage";
 
 export default function App() {
   useEffect(() => {
@@ -92,6 +93,17 @@ export default function App() {
           element={
             <ProtectedRoute roles={["employee"]}>
               <EmployeeSurveysPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      <Route path={routes.requests} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["employee"]}>
+              <EmployeeRequestsPage />
             </ProtectedRoute>
           }
         />
