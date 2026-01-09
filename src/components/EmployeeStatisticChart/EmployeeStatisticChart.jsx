@@ -5,6 +5,7 @@ import styles from "./EmployeeStatisticChart.module.css";
 
 const EmployeeStatisticChart = ({ requests = [] }) => {
   const [animated, setAnimated] = useState(false);
+  const [period, setPeriod] = useState("week"); // week, twoWeeks, month, halfYear, year
 
   const formatLocalYMD = (date) => {
     const y = date.getFullYear();
@@ -13,78 +14,134 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
     return `${y}-${m}-${d}`;
   };
 
-  const getLast7Days = () => {
-    const days = [];
-    const now = new Date();
-
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date(now);
-      d.setDate(now.getDate() - i);
-      days.push(formatLocalYMD(d));
-    }
-
-    return days;
+  const formatLocalYM = (date) => {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, "0");
+    return `${y}-${m}`;
   };
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimated(true);
-    }, 300);
-
+    const timer = setTimeout(() => setAnimated(true), 300);
     return () => clearTimeout(timer);
   }, []);
 
-  const last7Days = getLast7Days();
+  const periodDaysMap = {
+    week: 7,
+    twoWeeks: 14,
+    month: 30,
+    halfYear: 182,
+    year: 365,
+  };
 
-  const chartData = last7Days.map((date) => {
-    const count = requests.filter((r) => {
-      return r.date === date;
-    }).length;
+  const now = new Date();
 
-    const displayDate = new Date(`${date}T00:00:00`).toLocaleDateString(
-      "ru-RU",
-      {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
+  // 🔑 Генерация массива дат или месяцев
+  const getLabels = () => {
+    if (period === "halfYear" || period === "year") {
+      const months = [];
+      const count = period === "halfYear" ? 6 : 12;
+      for (let i = count - 1; i >= 0; i--) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        months.push(formatLocalYM(d));
       }
-    );
-    const todayStr = formatLocalYMD(new Date());
+      return months;
+    } else {
+      const days = [];
+      for (let i = periodDaysMap[period] - 1; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(now.getDate() - i);
+        days.push(formatLocalYMD(d));
+      }
+      return days;
+    }
+  };
 
-    return {
-      date,
-      count,
-      displayDate,
-      isToday: date === todayStr,
-      hasData: count > 0,
-      heightPercentage: 0,
-    };
+  const labels = getLabels();
+
+  // 🔑 Агрегация заявок
+  const chartData = labels.map((label) => {
+    let count = 0;
+
+    if (period === "halfYear" || period === "year") {
+      count = requests.filter((r) => r.date.trim().startsWith(label)).length;
+      const displayDate = new Date(`${label}-01T00:00:00`).toLocaleDateString(
+        "ru-RU",
+        {
+          month: "short",
+          year: "numeric",
+        }
+      );
+      return {
+        date: label,
+        count,
+        displayDate,
+        isToday: false,
+        hasData: count > 0,
+      };
+    } else {
+      count = requests.filter((r) => r.date.trim() === label).length;
+      const displayDate = new Date(`${label}T00:00:00`).toLocaleDateString(
+        "ru-RU",
+        {
+          weekday: "short",
+          day: "numeric",
+          month: "short",
+        }
+      );
+      const todayStr = formatLocalYMD(now);
+      return {
+        date: label,
+        count,
+        displayDate,
+        isToday: label === todayStr,
+        hasData: count > 0,
+      };
+    }
   });
 
   const maxCount = Math.max(...chartData.map((d) => d.count), 1);
-
-  const enhancedChartData = chartData.map((day) => ({
-    ...day,
-    heightPercentage: day.count > 0 ? (day.count / maxCount) * 100 : 0,
+  const enhancedChartData = chartData.map((d) => ({
+    ...d,
+    heightPercentage: d.count > 0 ? (d.count / maxCount) * 100 : 0,
   }));
 
-  const todayCount = enhancedChartData.find((d) => d.isToday)?.count || 0;
+  const todayCount =
+    period === "halfYear" || period === "year"
+      ? 0
+      : enhancedChartData.find((d) => d.isToday)?.count || 0;
+
   const periodCount = enhancedChartData.reduce((sum, d) => sum + d.count, 0);
 
   const getBarColor = (heightPercentage) => {
     if (heightPercentage === 0) return "var(--color-gray-light)";
-
     const intensity = Math.min(heightPercentage / 100, 1);
-
     return `linear-gradient(to top, 
-    rgba(45, 163, 137, ${0.6 + intensity * 0.4}),  /* Темный #2da389 */
-    rgba(61, 191, 163, ${0.7 + intensity * 0.3}),  /* Основной #3dbfa3 */
-    rgba(93, 212, 184, ${0.8 + intensity * 0.2})   /* Светлый #5dd4b8 */
-  )`;
+      rgba(45, 163, 137, ${0.6 + intensity * 0.4}),
+      rgba(61, 191, 163, ${0.7 + intensity * 0.3}),
+      rgba(93, 212, 184, ${0.8 + intensity * 0.2})
+    )`;
   };
 
   return (
-    <Block title="Динамика заявок (последние 7 дней)" Icon={CalendarDaysIcon}>
+    <Block title="Динамика заявок" Icon={CalendarDaysIcon}>
+      <div className={styles.periodSelector}>
+        {["week", "twoWeeks", "month", "halfYear", "year"].map((key) => (
+          <button
+            key={key}
+            className={`${styles.periodButton} ${
+              period === key ? styles.active : ""
+            }`}
+            onClick={() => setPeriod(key)}
+          >
+            {key === "week" && "Неделя"}
+            {key === "twoWeeks" && "2 недели"}
+            {key === "month" && "Месяц"}
+            {key === "halfYear" && "Полгода"}
+            {key === "year" && "Год"}
+          </button>
+        ))}
+      </div>
+
       <div className={styles.dailyStats}>
         <div className={styles.dailyChart}>
           {enhancedChartData.map((day, index) => {
@@ -93,7 +150,6 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
               background: getBarColor(day.heightPercentage),
               "--final-height": `${day.heightPercentage}%`,
             };
-
             return (
               <div
                 key={`${day.date}-${index}`}
@@ -112,9 +168,6 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
                     {day.hasData && (
                       <span className={styles.dayCount}>{day.count}</span>
                     )}
-                    {day.hasData && day.heightPercentage > 30 && (
-                      <div className={styles.barInnerGlow} />
-                    )}
                   </div>
                 </div>
                 <div className={styles.dayLabels}>
@@ -124,32 +177,25 @@ const EmployeeStatisticChart = ({ requests = [] }) => {
                   <span className={styles.dayDate}>
                     {day.displayDate.split(" ").slice(1).join(" ")}
                   </span>
-                  {day.hasData && <div className={styles.dataIndicator} />}
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className={styles.chartGridLines}>
-          {[0, 25, 50, 75, 100].map((percent, index) => (
-            <div
-              key={index}
-              className={styles.gridLine}
-              style={{ bottom: `${percent}%` }}
-            />
-          ))}
-        </div>
-
         <div className={`${styles.dailySummary} ${styles.cards}`}>
+          {period !== "halfYear" && period !== "year" && (
+            <div className={styles.summaryItem}>
+              <span className={styles.summaryLabel}>Сегодня</span>
+              <span
+                className={`${styles.summaryValue} ${styles.highlightToday}`}
+              >
+                {todayCount} заявок
+              </span>
+            </div>
+          )}
           <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>Сегодня</span>
-            <span className={`${styles.summaryValue} ${styles.highlightToday}`}>
-              {todayCount} заявок
-            </span>
-          </div>
-          <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>За неделю</span>
+            <span className={styles.summaryLabel}>За период</span>
             <span className={styles.summaryValue}>{periodCount} заявок</span>
           </div>
           <div className={styles.summaryItem}>
