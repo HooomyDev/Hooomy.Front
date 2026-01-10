@@ -26,26 +26,58 @@ Font.register({
 });
 
 const pdfStyles = StyleSheet.create({
-  page: { padding: 30, fontSize: 12, fontFamily: "Roboto" },
-  section: { marginBottom: 20 },
+  page: {
+    padding: 40,
+    fontSize: 11,
+    fontFamily: "Roboto",
+    lineHeight: 1.4,
+  },
+  section: {
+    marginBottom: 25,
+  },
   header: {
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 20,
+    marginBottom: 12,
     fontFamily: "Roboto",
     fontWeight: "bold",
+    textAlign: "center",
+    borderBottom: "1pt solid #333",
+    paddingBottom: 6,
   },
   table: {
     display: "table",
-    width: "auto",
-    marginTop: 10,
+    width: "100%",
+    marginTop: 12,
+    border: "1pt solid #333",
+    borderCollapse: "collapse",
     fontFamily: "Roboto",
   },
-  row: { flexDirection: "row" },
+  row: {
+    flexDirection: "row",
+  },
   cell: {
     flex: 1,
-    border: "1pt solid #000",
-    padding: 4,
+    borderRight: "1pt solid #333",
+    borderBottom: "1pt solid #333",
+    padding: 6,
     fontFamily: "Roboto",
+    fontSize: 10,
+  },
+  cellHeader: {
+    flex: 1,
+    borderRight: "1pt solid #333",
+    borderBottom: "1pt solid #333",
+    padding: 6,
+    fontFamily: "Roboto",
+    fontSize: 10,
+    fontWeight: "bold",
+    backgroundColor: "#f0f0f0",
+  },
+  footer: {
+    marginTop: 20,
+    fontSize: 9,
+    textAlign: "right",
+    color: "#555",
   },
 });
 
