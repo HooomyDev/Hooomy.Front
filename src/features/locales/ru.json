@@ -1023,5 +1023,150 @@
     "text2": "Зарегистрируйтесь, чтобы получить полный доступ ко всем функциям сервиса.",
     "register": "Зарегистрироваться",
     "login": "Войти"
+  },
+
+  "employeeHome": {
+    "header": "Панель сотрудника",
+    "profile": "Профиль",
+    "companyDefault": "Компания",
+    "linksTitle": "Навигация",
+    "links": {
+      "requests": {
+        "label": "Заявки",
+        "description": "Приём, обработка и закрытие заявок жильцов"
+      },
+      "surveys": {
+        "label": "Опросы",
+        "description": "Создание и управление опросами и голосованиями"
+      },
+      "statistics": {
+        "label": "Статистика",
+        "description": "Просмотр и экспорт статистики по заявкам"
+      }
+    }
+  },
+  "employeeStatisticCards": {
+    "pending": "В обработке",
+    "completed": "Выполнено",
+    "rejected": "Отклонено",
+    "avgTime": "Среднее время",
+    "avgTimeDescription": "выполнения заявки",
+    "notAvailable": "Н/Д",
+    "days": "дн."
+  },
+  "employeeRequests": {
+    "header": "Заявки жильцов",
+    "description": "Управление заявками от жильцов",
+    "empty": "Заявки не найдены",
+    "defaultAuthor": "Сотрудник ЖЭУ",
+    "status": {
+      "pending": "В обработке",
+      "completed": "Выполнено",
+      "rejected": "Отклонено"
+    }
+  },
+  "employeeRequestsControls": {
+    "searchPlaceholder": "Поиск по адресу, описанию или дате...",
+    "filters": {
+      "all": "Все статусы",
+      "pending": "В обработке",
+      "completed": "Выполненные",
+      "rejected": "Отклонённые"
+    }
+  },
+  "employeeRequestsTable": {
+    "empty": "Заявки не найдены",
+    "headers": {
+      "id": "ID",
+      "title": "Заявка",
+      "address": "Адрес",
+      "date": "Дата",
+      "status": "Статус",
+      "actions": "Действия"
+    },
+    "actions": {
+      "view": "Просмотр деталей",
+      "complete": "Отметить как выполненное",
+      "reject": "Отклонить заявку",
+      "comment": "Добавить комментарий"
+    }
+  },
+  "employeeSurveys": {
+    "header": "Опросы",
+    "nav": {
+      "title": "Навигация",
+      "items": {
+        "create": "Создать опрос",
+        "all": "Все опросы",
+        "active": "Активные опросы",
+        "archive": "Архив опросов"
+      }
+    },
+    "workplace": {
+      "title": "Рабочее пространство"
+    },
+    "empty": "Выберите раздел"
+  },
+  "employeeSurveysCreateForm": {
+    "titleLabel": "Название опроса",
+    "titlePlaceholder": "Введите название",
+    "titleRequired": "Введите название опроса",
+    "descriptionLabel": "Описание",
+    "descriptionPlaceholder": "Введите описание",
+    "typeLabel": "Тип опроса",
+    "typeOptions": {
+      "one": "Один вариант",
+      "more": "Несколько вариантов",
+      "text": "Текстовый ответ",
+      "scale": "Шкала"
+    },
+    "answersLabel": "Варианты ответов",
+    "answerRequired": "Введите вариант",
+    "answerPlaceholder": "Вариант",
+    "addAnswer": "+ Добавить вариант",
+    "continue": "Далее",
+    "back": "Назад",
+    "create": "Создать"
+  },
+  "employeeStatistic": {
+    "header": "Статистика заявок",
+    "export": "Экспорт",
+    "exportItems": {
+      "pdf": "Экспорт в PDF",
+      "excel": "Экспорт в Excel",
+      "csv": "Экспорт в CSV"
+    },
+    "exportError": "Ошибка при экспорте в PDF"
+  },
+  "employeeStatisticDistricts": {
+    "header": "Распределение по районам",
+    "requestsCount": "{{count}} заявки(-ок)",
+    "showAll": "Показать все",
+    "collapse": "Свернуть"
+  },
+  "employeeStatisticChart": {
+    "header": "Динамика заявок",
+    "periods": {
+      "week": "Неделя",
+      "twoWeeks": "2 недели",
+      "month": "30 дней",
+      "currentMonth": "Текущий месяц",
+      "halfYear": "Полгода",
+      "year": "Год"
+    },
+    "barTitle": "{{date}}: {{count}} заявок",
+    "summary": {
+      "today": "Сегодня",
+      "period": "За период",
+      "max": "Максимум"
+    },
+    "requestsCount": "{{count}} заявок"
+  },
+  "employeesStatisticStatus": {
+    "header": "Статистика по статусам",
+    "label": "{{status}}: {{percent}}%"
+  },
+  "employeesStatisticTypes": {
+    "header": "Статистика по типам"
   }
 }

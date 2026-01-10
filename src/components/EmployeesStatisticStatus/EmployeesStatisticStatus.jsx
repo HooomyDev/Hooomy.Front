@@ -3,8 +3,11 @@ import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeesStatisticStatus.module.css";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import { useT } from "../../utils/useT";
 
 export default function EmployeesStatisticStatus({ requests = [] }) {
+  const t = useT();
+
   const statusStats = requests.reduce(
     (acc, r) => {
       if (r.status === "В обработке") acc.pending++;
@@ -24,7 +27,10 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
   const COLORS = ["#22c55e", "#f97316", "#ef4444"];
 
   return (
-    <Block title="Статистика по статусам" Icon={ClipboardDocumentListIcon}>
+    <Block
+      title={t("employeesStatisticStatus.header")}
+      Icon={ClipboardDocumentListIcon}
+    >
       <div className={styles.statusWrapper}>
         <PieChart width={750} height={750}>
           <Pie
@@ -35,7 +41,10 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
             outerRadius={250}
             dataKey="value"
             label={({ name, percent }) =>
-              `${name}: ${(percent * 100).toFixed(0)}%`
+              t("employeesStatisticStatus.label", {
+                status: name,
+                percent: (percent * 100).toFixed(0),
+              })
             }
           >
             {chartData.map((entry, index) => (

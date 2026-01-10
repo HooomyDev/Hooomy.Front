@@ -6,8 +6,11 @@ import {
   CalendarDaysIcon,
 } from "@heroicons/react/24/solid";
 import styles from "./EmployeeStatisticCards.module.css";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeStatisticCards({ requests = [] }) {
+  const t = useT();
+
   const totalRequests = requests.length;
   const pendingRequests = requests.filter(
     (r) => r.status === "В обработке"
@@ -32,15 +35,18 @@ export default function EmployeeStatisticCards({ requests = [] }) {
 
   const getCompletionTime = () => {
     const completed = requests.filter((r) => r.status === "Выполнено");
-    if (completed.length === 0) return "Н/Д";
+
+    if (completed.length === 0) return t("employeeStatisticCards.notAvailable");
+
     const avgDays = completed.length;
-    return `${avgDays} дн.`;
+
+    return `${avgDays} ${t("employeeStatisticCards.days")}`;
   };
 
   const statCards = [
     {
       key: "pending",
-      label: "В обработке",
+      label: t("employeeStatisticCards.pending"),
       icon: ClockIcon,
       number: pendingRequests,
       percentage: pendingPercentage,
@@ -48,7 +54,7 @@ export default function EmployeeStatisticCards({ requests = [] }) {
     },
     {
       key: "completed",
-      label: "Выполнено",
+      label: t("employeeStatisticCards.completed"),
       icon: CheckCircleIcon,
       number: completedRequests,
       percentage: completedPercentage,
@@ -56,7 +62,7 @@ export default function EmployeeStatisticCards({ requests = [] }) {
     },
     {
       key: "rejected",
-      label: "Отклонено",
+      label: t("employeeStatisticCards.rejected"),
       icon: XCircleIcon,
       number: rejectedRequests,
       percentage: rejectedPercentage,
@@ -64,10 +70,10 @@ export default function EmployeeStatisticCards({ requests = [] }) {
     },
     {
       key: "avgTime",
-      label: "Среднее время",
+      label: t("employeeStatisticCards.avgTime"),
       icon: CalendarDaysIcon,
       number: getCompletionTime(),
-      description: "выполнения заявки",
+      description: t("employeeStatisticCards.avgTimeDescription"),
       showProgress: false,
     },
   ];

@@ -10,6 +10,7 @@ import Block from "../../common/Block/Block";
 import Button from "../../common/Button/Button";
 import EmployeeSurveysList from "../EmployeeSurveysList/EmployeeSurveysList";
 import EmployeeSurveysCreateForm from "../EmployeeSurveysCreateForm/EmployeeSurveysCreateForm";
+import { useT } from "../../utils/useT";
 
 const surveys = [
   {
@@ -73,11 +74,13 @@ const surveys = [
 ];
 
 export default function EmployeeSurveys() {
+  const t = useT();
+
   const navItems = [
-    { id: 1, label: "Создать опрос" },
-    { id: 2, label: "Все опросы" },
-    { id: 3, label: "Активные опросы" },
-    { id: 4, label: "Архив опросов" },
+    { id: 1, label: t("employeeSurveys.nav.items.create") },
+    { id: 2, label: t("employeeSurveys.nav.items.all") },
+    { id: 3, label: t("employeeSurveys.nav.items.active") },
+    { id: 4, label: t("employeeSurveys.nav.items.archive") },
   ];
 
   const [activeItem, setActiveItem] = useState(navItems[0].id);
@@ -103,17 +106,17 @@ export default function EmployeeSurveys() {
       case 3:
         return (
           <EmployeeSurveysList
-            items={surveys.filter((survey) => survey.status === "active")}
+            items={surveys.filter((s) => s.status === "active")}
           />
         );
       case 4:
         return (
           <EmployeeSurveysList
-            items={surveys.filter((survey) => survey.status === "finished")}
+            items={surveys.filter((s) => s.status === "finished")}
           />
         );
       case 0:
-        return <div className={styles.empty}>Выберите раздел</div>;
+        return <div className={styles.empty}>{t("employeeSurveys.empty")}</div>;
       default:
         return <div></div>;
     }
@@ -121,11 +124,10 @@ export default function EmployeeSurveys() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Опросы" icon={MegaphoneIcon} />
-
+      <PageHeader title={t("employeeSurveys.header")} icon={MegaphoneIcon} />
       <div className={styles.container}>
         <div className={styles.nav}>
-          <Block title="Навигация" Icon={Bars3Icon}>
+          <Block title={t("employeeSurveys.nav.title")} Icon={Bars3Icon}>
             <div className={styles.navItems}>
               {navItems.map((item) => (
                 <Button
@@ -140,9 +142,11 @@ export default function EmployeeSurveys() {
             </div>
           </Block>
         </div>
-
         <div className={styles.workplace}>
-          <Block title="Рабочее пространство" Icon={Squares2X2Icon}>
+          <Block
+            title={t("employeeSurveys.workplace.title")}
+            Icon={Squares2X2Icon}
+          >
             {renderContent()}
           </Block>
         </div>

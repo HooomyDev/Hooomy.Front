@@ -7,6 +7,7 @@ import {
   MapPinIcon,
   XCircleIcon,
 } from "@heroicons/react/24/solid";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeRequestsTable({
   requests = [],
@@ -14,10 +15,12 @@ export default function EmployeeRequestsTable({
   onStatusChange,
   getStatusColor,
 }) {
+  const t = useT();
+
   if (requests.length === 0) {
     return (
       <div className={styles.emptyState}>
-        <p>Заявки не найдены</p>
+        <p>{t("employeeRequestsTable.empty")}</p>
       </div>
     );
   }
@@ -27,12 +30,12 @@ export default function EmployeeRequestsTable({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Заявка</th>
-            <th>Адрес</th>
-            <th>Дата</th>
-            <th>Статус</th>
-            <th>Действия</th>
+            <th>{t("employeeRequestsTable.headers.id")}</th>
+            <th>{t("employeeRequestsTable.headers.title")}</th>
+            <th>{t("employeeRequestsTable.headers.address")}</th>
+            <th>{t("employeeRequestsTable.headers.date")}</th>
+            <th>{t("employeeRequestsTable.headers.status")}</th>
+            <th>{t("employeeRequestsTable.headers.actions")}</th>
           </tr>
         </thead>
         <tbody>
@@ -53,11 +56,9 @@ export default function EmployeeRequestsTable({
                 <div className={styles.addressInfo}>
                   <MapPinIcon className={styles.addressIcon} />
                   <div>
-                    <div className={styles.district}>
-                      {request.district} район
-                    </div>
+                    <div className={styles.district}>{request.district} </div>
                     <div className={styles.street}>
-                      ул. {request.street}, д. {request.house}
+                      {request.street}, {request.house}
                     </div>
                   </div>
                 </div>
@@ -78,7 +79,7 @@ export default function EmployeeRequestsTable({
                   <button
                     className={`${styles.actionButton} ${styles.viewButton}`}
                     onClick={() => onSelectRequest(request)}
-                    title="Просмотр деталей"
+                    title={t("employeeRequestsTable.actions.view")}
                   >
                     <EyeIcon className={styles.actionIcon} />
                   </button>
@@ -91,7 +92,7 @@ export default function EmployeeRequestsTable({
                           onClick={() =>
                             onStatusChange(request.id, "Выполнено")
                           }
-                          title="Отметить как выполненное"
+                          title={t("employeeRequestsTable.actions.complete")}
                         >
                           <CheckCircleIcon className={styles.actionIcon} />
                         </button>
@@ -101,7 +102,7 @@ export default function EmployeeRequestsTable({
                           onClick={() =>
                             onStatusChange(request.id, "Отклонено")
                           }
-                          title="Отклонить заявку"
+                          title={t("employeeRequestsTable.actions.reject")}
                         >
                           <XCircleIcon className={styles.actionIcon} />
                         </button>
@@ -114,7 +115,7 @@ export default function EmployeeRequestsTable({
                       onSelectRequest(request);
                       document.getElementById("commentInput")?.focus();
                     }}
-                    title="Добавить комментарий"
+                    title={t("employeeRequestsTable.actions.comment")}
                   >
                     <ChatBubbleLeftRightIcon className={styles.actionIcon} />
                   </button>

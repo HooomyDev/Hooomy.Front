@@ -1023,5 +1023,150 @@
     "text2": "Зарэгіструйцеся, каб атрымаць поўны доступ да ўсіх функцый сэрвісу.",
     "register": "Зарэгістравацца",
     "login": "Увайсці"
+  },
+
+  "employeeHome": {
+    "header": "Панэль супрацоўніка",
+    "profile": "Профіль",
+    "companyDefault": "Кампанія",
+    "linksTitle": "Навігацыя",
+    "links": {
+      "requests": {
+        "label": "Заяўкі",
+        "description": "Прыём, апрацоўка і закрыццё заяў жыхароў"
+      },
+      "surveys": {
+        "label": "Апытанні",
+        "description": "Стварэнне і кіраванне апытаннямі і галасаваннямі"
+      },
+      "statistics": {
+        "label": "Статыстыка",
+        "description": "Прагляд і экспарт статыстыкі па заяўках"
+      }
+    }
+  },
+  "employeeStatisticCards": {
+    "pending": "У апрацоўцы",
+    "completed": "Выконана",
+    "rejected": "Адхілена",
+    "avgTime": "Сярэдні час",
+    "avgTimeDescription": "выканання заяўкі",
+    "notAvailable": "Н/Д",
+    "days": "дн."
+  },
+  "employeeRequests": {
+    "header": "Заяўкі жыхароў",
+    "description": "Кіраванне заяўкамі ад жыхароў",
+    "empty": "Заяўкі не знойдзеныя",
+    "defaultAuthor": "Супрацоўнік ЖЭУ",
+    "status": {
+      "pending": "У апрацоўцы",
+      "completed": "Выконана",
+      "rejected": "Адхілена"
+    }
+  },
+  "employeeRequestsControls": {
+    "searchPlaceholder": "Пошук па адрасе, апісанні або даце...",
+    "filters": {
+      "all": "Усе статусы",
+      "pending": "У апрацоўцы",
+      "completed": "Выконаныя",
+      "rejected": "Адхіленыя"
+    }
+  },
+  "employeeRequestsTable": {
+    "empty": "Заяўкі не знойдзеныя",
+    "headers": {
+      "id": "ID",
+      "title": "Заяўка",
+      "address": "Адрас",
+      "date": "Дата",
+      "status": "Статус",
+      "actions": "Дзеянні"
+    },
+    "actions": {
+      "view": "Прагляд дэталяў",
+      "complete": "Адзначыць як выкананую",
+      "reject": "Адхіліць заяўку",
+      "comment": "Дадаць каментар"
+    }
+  },
+  "employeeSurveys": {
+    "header": "Апытанні",
+    "nav": {
+      "title": "Навігацыя",
+      "items": {
+        "create": "Стварыць апытанне",
+        "all": "Усе апытанні",
+        "active": "Актыўныя апытанні",
+        "archive": "Архіў апытанняў"
+      }
+    },
+    "workplace": {
+      "title": "Працоўная прастора"
+    },
+    "empty": "Абярыце раздзел"
+  },
+  "employeeSurveysCreateForm": {
+    "titleLabel": "Назва апытання",
+    "titlePlaceholder": "Увядзіце назву",
+    "titleRequired": "Увядзіце назву апытання",
+    "descriptionLabel": "Апісанне",
+    "descriptionPlaceholder": "Увядзіце апісанне",
+    "typeLabel": "Тып апытання",
+    "typeOptions": {
+      "one": "Адзін варыянт",
+      "more": "Некалькі варыянтаў",
+      "text": "Тэкставы адказ",
+      "scale": "Шкала"
+    },
+    "answersLabel": "Варыянты адказаў",
+    "answerRequired": "Увядзіце варыянт",
+    "answerPlaceholder": "Варыянт",
+    "addAnswer": "+ Дадаць варыянт",
+    "continue": "Далей",
+    "back": "Назад",
+    "create": "Стварыць"
+  },
+  "employeeStatistic": {
+    "header": "Статыстыка заяўак",
+    "export": "Экспарт",
+    "exportItems": {
+      "pdf": "Экспарт у PDF",
+      "excel": "Экспарт у Excel",
+      "csv": "Экспарт у CSV"
+    },
+    "exportError": "Памылка пры экспарце ў PDF"
+  },
+  "employeeStatisticDistricts": {
+    "header": "Размерка па раёнах",
+    "requestsCount": "{{count}} заяўкі(-ак)",
+    "showAll": "Паказаць усе",
+    "collapse": "Згарнуць"
+  },
+  "employeeStatisticChart": {
+    "header": "Дынаміка заяўак",
+    "periods": {
+      "week": "Тыдзень",
+      "twoWeeks": "2 тыдні",
+      "month": "30 дзён",
+      "currentMonth": "Бягучы месяц",
+      "halfYear": "Паўгода",
+      "year": "Год"
+    },
+    "barTitle": "{{date}}: {{count}} заяўкі",
+    "summary": {
+      "today": "Сёння",
+      "period": "За перыяд",
+      "max": "Максімум"
+    },
+    "requestsCount": "{{count}} заяўкі"
+  },
+  "employeesStatisticStatus": {
+    "header": "Статыстыка па статусах",
+    "label": "{{status}}: {{percent}}%"
+  },
+  "employeesStatisticTypes": {
+    "header": "Статыстыка па тыпах"
   }
 }

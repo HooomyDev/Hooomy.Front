@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeeStatisticChart.module.css";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeStatisticChart({ requests = [] }) {
+  const t = useT();
   const [animated, setAnimated] = useState(false);
   const [period, setPeriod] = useState("week"); // week, twoWeeks, month, currentMonth, halfYear, year
 
@@ -133,7 +135,7 @@ export default function EmployeeStatisticChart({ requests = [] }) {
   };
 
   return (
-    <Block title="Динамика заявок" Icon={CalendarDaysIcon}>
+    <Block title={t("employeeStatisticChart.header")} Icon={CalendarDaysIcon}>
       <div className={styles.periodSelector}>
         {["week", "twoWeeks", "month", "currentMonth", "halfYear", "year"].map(
           (key) => (
@@ -144,12 +146,7 @@ export default function EmployeeStatisticChart({ requests = [] }) {
               }`}
               onClick={() => setPeriod(key)}
             >
-              {key === "week" && "Неделя"}
-              {key === "twoWeeks" && "2 недели"}
-              {key === "month" && "30 дней"}
-              {key === "currentMonth" && "Текущий месяц"}
-              {key === "halfYear" && "Полгода"}
-              {key === "year" && "Год"}
+              {t(`employeeStatisticChart.periods.${key}`)}
             </button>
           )
         )}
@@ -176,7 +173,10 @@ export default function EmployeeStatisticChart({ requests = [] }) {
                       day.isToday ? styles.dayBarToday : ""
                     } ${animated ? styles.animated : ""}`}
                     style={barStyle}
-                    title={`${day.displayDate}: ${day.count} заявок`}
+                    title={t("employeeStatisticChart.barTitle", {
+                      date: day.displayDate,
+                      count: day.count,
+                    })}
                   >
                     {day.hasData && (
                       <span className={styles.dayCount}>{day.count}</span>
@@ -199,22 +199,34 @@ export default function EmployeeStatisticChart({ requests = [] }) {
         <div className={`${styles.dailySummary} ${styles.cards}`}>
           {period !== "halfYear" && period !== "year" && (
             <div className={styles.summaryItem}>
-              <span className={styles.summaryLabel}>Сегодня</span>
+              <span className={styles.summaryLabel}>
+                {t("employeeStatisticChart.summary.today")}
+              </span>
               <span
                 className={`${styles.summaryValue} ${styles.highlightToday}`}
               >
-                {todayCount} заявок
+                {t("employeeStatisticChart.requestsCount", {
+                  count: todayCount,
+                })}
               </span>
             </div>
           )}
           <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>За период</span>
-            <span className={styles.summaryValue}>{periodCount} заявок</span>
+            <span className={styles.summaryLabel}>
+              {t("employeeStatisticChart.summary.period")}
+            </span>
+            <span className={styles.summaryValue}>
+              {t("employeeStatisticChart.requestsCount", {
+                count: periodCount,
+              })}
+            </span>
           </div>
           <div className={styles.summaryItem}>
-            <span className={styles.summaryLabel}>Максимум</span>
+            <span className={styles.summaryLabel}>
+              {t("employeeStatisticChart.summary.max")}
+            </span>
             <span className={`${styles.summaryValue} ${styles.highlightMax}`}>
-              {maxCount} заявок
+              {t("employeeStatisticChart.requestsCount", { count: maxCount })}
             </span>
           </div>
         </div>

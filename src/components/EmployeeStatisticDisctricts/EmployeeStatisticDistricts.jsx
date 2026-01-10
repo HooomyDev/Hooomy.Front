@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { MapPinIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeeStatisticDistricts.module.css";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeStatisticDistricts({ requests = [] }) {
+  const t = useT();
   const [showAllDistricts, setShowAllDistricts] = useState(false);
 
-  // считаем заявки по районам
   const districtStats = requests.reduce((acc, request) => {
     const district = request.district.trim();
     if (!acc[district]) {
@@ -34,7 +35,7 @@ export default function EmployeeStatisticDistricts({ requests = [] }) {
     : sortedDistricts.slice(0, 5);
 
   return (
-    <Block title="Распределение по районам" Icon={MapPinIcon}>
+    <Block title={t("employeeStatisticDistricts.header")} Icon={MapPinIcon}>
       <div
         className={`${styles.districtStats} ${
           showAllDistricts ? styles.open : styles.collapsed
@@ -47,7 +48,9 @@ export default function EmployeeStatisticDistricts({ requests = [] }) {
                 <span className={styles.districtRank}>{index + 1}</span>
                 <span className={styles.districtName}>{district.name}</span>
                 <span className={styles.districtCount}>
-                  {district.total} заявки(-ок)
+                  {t("employeeStatisticDistricts.requestsCount", {
+                    count: district.total,
+                  })}
                 </span>
               </div>
               <div className={styles.districtStatuses}>
@@ -80,7 +83,9 @@ export default function EmployeeStatisticDistricts({ requests = [] }) {
               className={styles.showAllButton}
               onClick={() => setShowAllDistricts((prev) => !prev)}
             >
-              {!showAllDistricts ? "Показать все" : "Свернуть"}
+              {!showAllDistricts
+                ? t("employeeStatisticDistricts.showAll")
+                : t("employeeStatisticDistricts.collapse")}
               <ChevronDownIcon
                 className={`${styles.buttonIcon} ${
                   showAllDistricts ? styles.iconRotated : ""

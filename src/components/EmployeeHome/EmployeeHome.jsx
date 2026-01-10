@@ -8,52 +8,58 @@ import { useAuthStore } from "../../stores/authStore";
 import routes from "../../stores/routes.json";
 import { useNavigate } from "react-router-dom";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeHome() {
+  const t = useT();
+
   const user = useAuthStore((store) => store.user);
   const navigate = useNavigate();
 
   const links = [
     {
       id: 1,
-      label: "Заявки",
-      description: "Приём, обработка и закрытие заявок жильцов",
+      label: t("employeeHome.links.requests.label"),
+      description: t("employeeHome.links.requests.description"),
       to: routes.requests,
     },
     {
       id: 2,
-      label: "Опросы",
-      description: "Создание и управление опросами и голосованиями",
+      label: t("employeeHome.links.surveys.label"),
+      description: t("employeeHome.links.surveys.description"),
       to: routes.surveys,
     },
     {
       id: 3,
-      label: "Статистика",
-      description: "Просмотр и экспорт статистики по заявкам",
+      label: t("employeeHome.links.statistics.label"),
+      description: t("employeeHome.links.statistics.description"),
       to: routes.statistics,
     },
   ];
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Панель сотрудника" icon={WrenchScrewdriverIcon} />
+      <PageHeader
+        title={t("employeeHome.header")}
+        icon={WrenchScrewdriverIcon}
+      />
 
       <div className={styles.content}>
         <div className={styles.profileWrapper}>
-          <Block title="Профиль" Icon={UserIcon}>
+          <Block title={t("employeeHome.profile")} Icon={UserIcon}>
             <div className={styles.profileCard}>
               <UserIcon className={styles.icon} />
               <div className={styles.info}>
                 <div className={styles.email}>{user?.email}</div>
                 <div className={styles.company}>
-                  {user?.company || "Компания"}
+                  {user?.company || t("employeeHome.companyDefault")}
                 </div>
               </div>
             </div>
           </Block>
         </div>
 
-        <Block title="Ссылки" Icon={BookOpenIcon}>
+        <Block title={t("employeeHome.linksTitle")} Icon={BookOpenIcon}>
           <div className={styles.linksWrapper}>
             {links.map((link) => (
               <div

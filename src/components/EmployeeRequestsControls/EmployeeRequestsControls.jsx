@@ -4,8 +4,10 @@ import { MagnifyingGlassIcon, FunnelIcon } from "@heroicons/react/24/solid";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import styles from "./EmployeeRequestsControls.module.css";
+import { useT } from "../../utils/useT";
 
-export default function Controls({ onSubmit }) {
+export default function EmployeeRequestsControls({ onSubmit }) {
+  const t = useT();
   const methods = useForm({
     defaultValues: {
       searchTerm: "",
@@ -22,7 +24,7 @@ export default function Controls({ onSubmit }) {
           <MagnifyingGlassIcon className={styles.searchIcon} />
           <InputField
             type="text"
-            placeholder="Поиск по адресу, описанию или дате..."
+            placeholder={t("employeeRequestsControls.searchPlaceholder")}
             {...register("searchTerm")}
           />
         </div>
@@ -32,10 +34,22 @@ export default function Controls({ onSubmit }) {
           <SelectField
             name="statusFilter"
             options={[
-              { value: "all", label: "Все статусы" },
-              { value: "В обработке", label: "В обработке" },
-              { value: "Выполнено", label: "Выполненные" },
-              { value: "Отклонено", label: "Отклонённые" },
+              {
+                value: "all",
+                label: t("employeeRequestsControls.filters.all"),
+              },
+              {
+                value: "В обработке",
+                label: t("employeeRequestsControls.filters.pending"),
+              },
+              {
+                value: "Выполнено",
+                label: t("employeeRequestsControls.filters.completed"),
+              },
+              {
+                value: "Отклонено",
+                label: t("employeeRequestsControls.filters.rejected"),
+              },
             ]}
           />
         </div>

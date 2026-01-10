@@ -6,8 +6,11 @@ import SelectField from "../../common/SelectField/SelectField";
 import Button from "../../common/Button/Button";
 import Survey from "../../features/Surveys/Survey";
 import { TrashIcon } from "@heroicons/react/24/solid";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeSurveysCreateForm({ onSubmit }) {
+  const t = useT();
+
   const [previewMode, setPreviewMode] = useState(false);
 
   const methods = useForm({
@@ -51,46 +54,63 @@ export default function EmployeeSurveysCreateForm({ onSubmit }) {
           <div className={styles.blocks}>
             <div className={styles.block}>
               <InputField
-                label="Название опроса"
-                {...register("title", { required: "Введите название опроса" })}
-                placeholder="Введите название"
+                label={t("employeeSurveysCreateForm.titleLabel")}
+                {...register("title", {
+                  required: t("employeeSurveysCreateForm.titleRequired"),
+                })}
+                placeholder={t("employeeSurveysCreateForm.titlePlaceholder")}
                 required
-                rules={{
-                  required: "Введите название",
-                }}
               />
 
               <InputField
-                label="Описание"
+                label={t("employeeSurveysCreateForm.descriptionLabel")}
                 {...register("description")}
-                placeholder="Введите описание"
+                placeholder={t(
+                  "employeeSurveysCreateForm.descriptionPlaceholder"
+                )}
                 multiline
               />
             </div>
 
             <div className={styles.block}>
               <SelectField
-                label="Тип опроса"
+                label={t("employeeSurveysCreateForm.typeLabel")}
                 name="type"
                 required
                 options={[
-                  { value: "one", label: "Один вариант" },
-                  { value: "more", label: "Несколько вариантов" },
-                  { value: "text", label: "Текстовый ответ" },
-                  { value: "scale", label: "Шкала" },
+                  {
+                    value: "one",
+                    label: t("employeeSurveysCreateForm.typeOptions.one"),
+                  },
+                  {
+                    value: "more",
+                    label: t("employeeSurveysCreateForm.typeOptions.more"),
+                  },
+                  {
+                    value: "text",
+                    label: t("employeeSurveysCreateForm.typeOptions.text"),
+                  },
+                  {
+                    value: "scale",
+                    label: t("employeeSurveysCreateForm.typeOptions.scale"),
+                  },
                 ]}
               />
             </div>
 
             <div className={styles.block}>
-              <label className={styles.label}>Варианты ответов</label>
+              <label className={styles.label}>
+                {t("employeeSurveysCreateForm.answersLabel")}
+              </label>
               {fields.map((field, i) => (
                 <div key={field.id} className={styles.answerRow}>
                   <InputField
                     {...register(`answers.${i}.text`, {
-                      required: "Введите вариант",
+                      required: t("employeeSurveysCreateForm.answerRequired"),
                     })}
-                    placeholder={`Вариант ${i + 1}`}
+                    placeholder={`${t(
+                      "employeeSurveysCreateForm.answerPlaceholder"
+                    )} ${i + 1}`}
                   />
                   <button
                     type="button"
@@ -108,13 +128,13 @@ export default function EmployeeSurveysCreateForm({ onSubmit }) {
                 onClick={() => append({ text: "" })}
                 className={styles.addButton}
               >
-                + Добавить вариант
+                {t("employeeSurveysCreateForm.addAnswer")}
               </Button>
             </div>
           </div>
 
           <Button type="button" variant="primary" onClick={handleContinue}>
-            Далее
+            {t("employeeSurveysCreateForm.continue")}
           </Button>
         </form>
       ) : (
@@ -128,10 +148,10 @@ export default function EmployeeSurveysCreateForm({ onSubmit }) {
           />
           <div className={styles.previewActions}>
             <Button variant="secondary" onClick={() => setPreviewMode(false)}>
-              Назад
+              {t("employeeSurveysCreateForm.back")}
             </Button>
             <Button variant="primary" onClick={handleSubmit(submitHandler)}>
-              Создать
+              {t("employeeSurveysCreateForm.create")}
             </Button>
           </div>
         </div>

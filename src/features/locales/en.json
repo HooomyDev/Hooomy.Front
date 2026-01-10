@@ -1033,5 +1033,150 @@
     "text2": "Register to get full access to all features of the service.",
     "register": "Register",
     "login": "Login"
+  },
+
+  "employeeHome": {
+    "header": "Employee Dashboard",
+    "profile": "Profile",
+    "companyDefault": "Company",
+    "linksTitle": "Navigation",
+    "links": {
+      "requests": {
+        "label": "Requests",
+        "description": "Receiving, processing and closing tenant requests"
+      },
+      "surveys": {
+        "label": "Surveys",
+        "description": "Creating and managing surveys and votes"
+      },
+      "statistics": {
+        "label": "Statistics",
+        "description": "Viewing and exporting request statistics"
+      }
+    }
+  },
+  "employeeStatisticCards": {
+    "pending": "Pending",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "avgTime": "Average time",
+    "avgTimeDescription": "to complete a request",
+    "notAvailable": "N/A",
+    "days": "d."
+  },
+  "employeeRequests": {
+    "header": "Tenant Requests",
+    "description": "Managing tenant requests",
+    "empty": "No requests found",
+    "defaultAuthor": "Housing Department Employee",
+    "status": {
+      "pending": "Pending",
+      "completed": "Completed",
+      "rejected": "Rejected"
+    }
+  },
+  "employeeRequestsControls": {
+    "searchPlaceholder": "Search by address, description or date...",
+    "filters": {
+      "all": "All statuses",
+      "pending": "Pending",
+      "completed": "Completed",
+      "rejected": "Rejected"
+    }
+  },
+  "employeeRequestsTable": {
+    "empty": "No requests found",
+    "headers": {
+      "id": "ID",
+      "title": "Request",
+      "address": "Address",
+      "date": "Date",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View details",
+      "complete": "Mark as completed",
+      "reject": "Reject request",
+      "comment": "Add comment"
+    }
+  },
+  "employeeSurveys": {
+    "header": "Surveys",
+    "nav": {
+      "title": "Navigation",
+      "items": {
+        "create": "Create survey",
+        "all": "All surveys",
+        "active": "Active surveys",
+        "archive": "Survey archive"
+      }
+    },
+    "workplace": {
+      "title": "Workspace"
+    },
+    "empty": "Select a section"
+  },
+  "employeeSurveysCreateForm": {
+    "titleLabel": "Survey title",
+    "titlePlaceholder": "Enter title",
+    "titleRequired": "Enter survey title",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Enter description",
+    "typeLabel": "Survey type",
+    "typeOptions": {
+      "one": "Single choice",
+      "more": "Multiple choice",
+      "text": "Text answer",
+      "scale": "Scale"
+    },
+    "answersLabel": "Answer options",
+    "answerRequired": "Enter option",
+    "answerPlaceholder": "Option",
+    "addAnswer": "+ Add option",
+    "continue": "Continue",
+    "back": "Back",
+    "create": "Create"
+  },
+  "employeeStatistic": {
+    "header": "Request statistics",
+    "export": "Export",
+    "exportItems": {
+      "pdf": "Export to PDF",
+      "excel": "Export to Excel",
+      "csv": "Export to CSV"
+    },
+    "exportError": "Error exporting to PDF"
+  },
+  "employeeStatisticDistricts": {
+    "header": "Distribution by districts",
+    "requestsCount": "{{count}} requests",
+    "showAll": "Show all",
+    "collapse": "Collapse"
+  },
+  "employeeStatisticChart": {
+    "header": "Request dynamics",
+    "periods": {
+      "week": "Week",
+      "twoWeeks": "2 weeks",
+      "month": "30 days",
+      "currentMonth": "Current month",
+      "halfYear": "Half year",
+      "year": "Year"
+    },
+    "barTitle": "{{date}}: {{count}} requests",
+    "summary": {
+      "today": "Today",
+      "period": "For the period",
+      "max": "Maximum"
+    },
+    "requestsCount": "{{count}} requests"
+  },
+  "employeesStatisticStatus": {
+    "header": "Status statistics",
+    "label": "{{status}}: {{percent}}%"
+  },
+  "employeesStatisticTypes": {
+    "header": "Types statistics"
   }
 }

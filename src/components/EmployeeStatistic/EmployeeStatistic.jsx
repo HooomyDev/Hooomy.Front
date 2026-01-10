@@ -16,8 +16,11 @@ import Dropdown from "../../common/Dropdown/Dropdown";
 import { StatisticPDF } from "../../features/pdf/StatisticPdf";
 import { pdf } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeStatistic() {
+  const t = useT();
+
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const ref = useRef(null);
@@ -100,19 +103,15 @@ export default function EmployeeStatistic() {
     ]);
 
     const csvContent = [headers, ...rows]
-      .map(
-        (row) =>
-          row
-            .map((cell) =>
-              typeof cell === "string" && cell.includes(",")
-                ? `"${cell}"`
-                : cell
-            )
-            .join(";") // лучше точка с запятой для русской локали
+      .map((row) =>
+        row
+          .map((cell) =>
+            typeof cell === "string" && cell.includes(",") ? `"${cell}"` : cell
+          )
+          .join(";")
       )
       .join("\n");
 
-    // Добавляем BOM перед текстом
     const blob = new Blob(["\uFEFF" + csvContent], {
       type: "text/csv;charset=utf-8;",
     });
@@ -126,17 +125,17 @@ export default function EmployeeStatistic() {
 
   const exportItems = [
     {
-      label: "Экспорт в PDF",
+      label: t("employeeStatistic.exportItems.pdf"),
       icon: PDFIcon,
       onClick: handleExportPDF,
     },
     {
-      label: "Экспорт в Excel",
+      label: t("employeeStatistic.exportItems.excel"),
       icon: ExcelIcon,
       onClick: handleExportExcel,
     },
     {
-      label: "Экспорт в CSV",
+      label: t("employeeStatistic.exportItems.csv"),
       icon: CSVIcon,
       onClick: handleExportCSV,
     },
@@ -145,7 +144,7 @@ export default function EmployeeStatistic() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.headerWrapper}>
-        <PageHeader title="Статистика заявок" icon={ChartBarIcon} />
+        <PageHeader title={t("employeeStatistic.header")} icon={ChartBarIcon} />
         <div className={styles.exportWrapper} ref={ref}>
           <Block>
             <div
@@ -153,7 +152,7 @@ export default function EmployeeStatistic() {
               onClick={() => setDropdownVisible((prev) => !prev)}
             >
               <ArrowDownTrayIcon className={styles.exportIcon} />
-              <span>Экспорт</span>
+              <span>{t("employeeStatistic.export")}</span>
             </div>
           </Block>
           <Dropdown items={exportItems} visible={dropdownVisible} />

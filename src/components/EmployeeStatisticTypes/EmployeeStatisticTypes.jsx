@@ -3,8 +3,11 @@ import { ChartPieIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import styles from "./EmployeeStatisticTypes.module.css";
 import { requestsByTypes } from "../../stores/requestsByType";
+import { useT } from "../../utils/useT";
 
-const EmployeeStatisticTypes = ({ requests = [] }) => {
+export default function EmployeeStatisticTypes({ requests = [] }) {
+  const t = useT();
+
   const typeStats = requestsByTypes.map((type) => {
     const count = requests.filter((r) => r.type === type).length;
     return { type, count };
@@ -13,7 +16,7 @@ const EmployeeStatisticTypes = ({ requests = [] }) => {
   const total = typeStats.reduce((sum, t) => sum + t.count, 0);
 
   return (
-    <Block title="Статистика по типам заявок" Icon={ChartPieIcon}>
+    <Block title={t("employeesStatisticTypes.header")} Icon={ChartPieIcon}>
       <div className={styles.typeList}>
         {typeStats.map(({ type, count }) => {
           const percentage = total ? ((count / total) * 100).toFixed(1) : 0;
@@ -35,6 +38,4 @@ const EmployeeStatisticTypes = ({ requests = [] }) => {
       </div>
     </Block>
   );
-};
-
-export default EmployeeStatisticTypes;
+}

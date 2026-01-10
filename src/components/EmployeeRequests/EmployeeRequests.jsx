@@ -6,6 +6,7 @@ import EmployeeRequestsControls from "../EmployeeRequestsControls/EmployeeReques
 import EmployeeRequestsTable from "../EmployeeRequestsTable/EmployeeRequestsTable";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal.v2/RequestDetailsModal.v2";
 import Modal from "../../features/modals/Modal/Modal";
+import { useT } from "../../utils/useT";
 
 const data = [
   {
@@ -93,6 +94,8 @@ const data = [
 ];
 
 export default function EmployeeRequests() {
+  const t = useT();
+
   const [requests, setRequests] = useState(data);
   const [searchTerm] = useState("");
   const [statusFilter] = useState("all");
@@ -128,7 +131,7 @@ export default function EmployeeRequests() {
 
     const comment = {
       text: newComment,
-      author: "Сотрудник ЖЭУ",
+      author: t("employeeRequests.defaultAuthor"),
       time: new Date().toLocaleString("ru-RU"),
     };
 
@@ -172,8 +175,7 @@ export default function EmployeeRequests() {
   return (
     <div className={styles.wrapper}>
       <PageHeader
-        title="Заявки жильцов"
-        description="Управление заявками от жильцов"
+        title={t("employeeRequests.header")}
         icon={ClipboardDocumentListIcon}
       />
 
@@ -190,7 +192,7 @@ export default function EmployeeRequests() {
             />
           ) : (
             <div className={styles.emptyState}>
-              <p>Заявки не найдены</p>
+              <p>{t("employeeRequests.empty")}</p>
             </div>
           )}
         </div>
