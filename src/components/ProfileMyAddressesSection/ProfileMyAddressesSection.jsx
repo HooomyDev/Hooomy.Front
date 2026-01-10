@@ -9,8 +9,11 @@ import {
 } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import { useT } from "../../utils/useT";
+import { useAuthStore } from "../../stores/authStore";
 
 export default function ProfileMyAddressesSection() {
+  const user = useAuthStore((store) => store.user);
+
   const t = useT();
   const [editingId, setEditingId] = useState(null);
 
@@ -36,6 +39,8 @@ export default function ProfileMyAddressesSection() {
     setFavAddresses([...favAddresses, newAddress]);
     setEditingId(newAddress.id);
   };
+
+  if (user.role === "employee") return;
 
   return (
     <Block title={t("profile.addresses")} Icon={HomeIcon}>
