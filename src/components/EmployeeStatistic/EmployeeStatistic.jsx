@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChartBarIcon, ArrowDownTrayIcon } from "@heroicons/react/24/solid";
+import { ReactComponent as PDFIcon } from "../../assets/pdf-document.svg";
+import { ReactComponent as ExcelIcon } from "../../assets/xlsx.svg";
+import { ReactComponent as CSVIcon } from "../../assets/csv.svg";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import requests from "./requests";
 import styles from "./EmployeeStatistic.module.css";
@@ -12,6 +15,7 @@ import Block from "../../common/Block/Block";
 import Dropdown from "../../common/Dropdown/Dropdown";
 import { StatisticPDF } from "../../features/pdf/StatisticPdf";
 import { pdf } from "@react-pdf/renderer";
+import * as XLSX from "xlsx";
 
 export default function EmployeeStatistic() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -51,31 +55,90 @@ export default function EmployeeStatistic() {
       setDropdownVisible(false);
     } catch (error) {
       console.error("Ошибка при экспорте в PDF:", error);
-      alert("Произошла ошибка при создании PDF");
     }
+  };
+
+  const handleExportExcel = () => {
+    const data = requests.map((r) => ({
+      "ID заявки": r.id,
+      Название: r.title,
+      Статус: r.status,
+      Дата: r.date,
+      Район: r.district,
+      Улица: r.street,
+      Дом: r.house,
+      Квартира: r.apartment,
+      Тип: r.type,
+      Приоритет: r.priority,
+    }));
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Заявки");
+
+    XLSX.writeFile(workbook, "statistic.xlsx");
+  };
+
+  const handleExportCSV = () => {
+    const headers = [
+      "ID заявки",
+      "Название",
+      "Статус",
+      "Дата",
+      "Район",
+      "Тип",
+      "Приоритет",
+    ];
+    const rows = requests.map((r) => [
+      r.id,
+      r.title,
+      r.status,
+      r.date,
+      r.district,
+      r.type,
+      r.priority,
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map(
+        (row) =>
+          row
+            .map((cell) =>
+              typeof cell === "string" && cell.includes(",")
+                ? `"${cell}"`
+                : cell
+            )
+            .join(";") // лучше точка с запятой для русской локали
+      )
+      .join("\n");
+
+    // Добавляем BOM перед текстом
+    const blob = new Blob(["\uFEFF" + csvContent], {
+      type: "text/csv;charset=utf-8;",
+    });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "statistic.csv";
+    link.click();
+
+    setDropdownVisible(false);
   };
 
   const exportItems = [
     {
       label: "Экспорт в PDF",
-      icon: ArrowDownTrayIcon,
+      icon: PDFIcon,
       onClick: handleExportPDF,
     },
     {
       label: "Экспорт в Excel",
-      icon: ArrowDownTrayIcon,
-      onClick: () => {
-        alert("Экспорт в Excel");
-        setDropdownVisible(false);
-      },
+      icon: ExcelIcon,
+      onClick: handleExportExcel,
     },
     {
       label: "Экспорт в CSV",
-      icon: ArrowDownTrayIcon,
-      onClick: () => {
-        alert("Экспорт в CSV");
-        setDropdownVisible(false);
-      },
+      icon: CSVIcon,
+      onClick: handleExportCSV,
     },
   ];
 
