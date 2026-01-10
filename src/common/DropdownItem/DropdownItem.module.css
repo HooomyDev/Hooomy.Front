@@ -15,6 +15,11 @@
   color: var(--main-color);
 }
 
+.item:hover .label,
+.item:focus .label {
+  color: var(--main-color);
+}
+
 .icon {
   width: 1.2rem;
   height: 1.2rem;
@@ -23,7 +28,8 @@
   transition: fill 0.2s ease;
 }
 
-.item:hover .icon {
+.item:hover .icon,
+.item:focus .icon {
   fill: var(--main-color);
 }
 

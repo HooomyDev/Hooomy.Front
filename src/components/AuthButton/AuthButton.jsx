@@ -16,6 +16,7 @@ export default function AuthButton() {
   const logout = useAuthStore((store) => store.logout);
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
   const ref = useRef(null);
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -26,6 +27,7 @@ export default function AuthButton() {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
   const handleClick = () => {
     if (!user) {
       navigate(routes.login);
@@ -33,6 +35,7 @@ export default function AuthButton() {
       setOpen((prev) => !prev);
     }
   };
+
   const items = [
     {
       label: t("userdrop.profile"),
