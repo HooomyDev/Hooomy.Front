@@ -25,6 +25,8 @@ import NoAccess from "./components/NoAccess/NoAccess";
 import EmployeeSurveysPage from "./pages/EmployeeSurveysPage/EmployeeSurveysPage";
 import EmployeeRequestsPage from "./pages/EmployeeRequestsPage/EmployeeRequestsPage";
 import EmployeeStatisticPage from "./pages/EmployeeStatisticPage/EmployeeStatisticPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage/AdminDashboardPage";
+import AdminDatabasePage from "./pages/AdminDatabasePage/AdminDatabasePage";
 
 export default function App() {
   useEffect(() => {
@@ -37,26 +39,8 @@ export default function App() {
       <Route path={routes.home} element={<Layout />}>
         <Route index element={<HomePage />} />
       </Route>
-      <Route path={routes.profile} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["user", "employee", "admin"]}>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.settings} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["user", "employee", "admin"]}>
-              <SettingsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
+
+      {/*Resident*/}
       <Route path={routes.myRequests} element={<Layout />}>
         <Route
           index
@@ -87,49 +71,6 @@ export default function App() {
           }
         />
       </Route>
-
-      <Route path={routes.requests} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["employee"]}>
-              <EmployeeRequestsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-
-      <Route path={routes.surveys} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["employee"]}>
-              <EmployeeSurveysPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-
-      <Route path={routes.statistics} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["employee"]}>
-              <EmployeeStatisticPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-
-      <Route path={routes.terms} element={<Layout />}>
-        <Route index element={<UserTermsPage />} />
-      </Route>
-      <Route path={routes.privacy} element={<Layout />}>
-        <Route index element={<PrivacyPolicyPage />} />
-      </Route>
-      <Route path={routes.cookies} element={<Layout />}>
-        <Route index element={<CookiesPolicyPage />} />
-      </Route>
       <Route path={routes.statistic} element={<Layout />}>
         <Route index element={<StatisticPage />} />
       </Route>
@@ -139,7 +80,6 @@ export default function App() {
       <Route path={routes.faq} element={<Layout />}>
         <Route index element={<FAQPage />} />
       </Route>
-
       <Route path={routes.news} element={<Layout />}>
         <Route
           index
@@ -151,10 +91,96 @@ export default function App() {
         />
       </Route>
 
+      {/*Employee*/}
+      <Route path={routes.requests} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["employee"]}>
+              <EmployeeRequestsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.surveys} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["employee"]}>
+              <EmployeeSurveysPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.statistics} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["employee"]}>
+              <EmployeeStatisticPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      {/*Admin*/}
+      <Route path={routes.adminDashboard} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminDashboardPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.databases} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminDatabasePage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+
+      {/*Common*/}
+      <Route path={routes.profile} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["user", "employee", "admin"]}>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.settings} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["user", "employee", "admin"]}>
+              <SettingsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
       <Route path={routes.login} element={<LoginPage />} />
       <Route path={routes.register} element={<RegisterPage />} />
       <Route path={routes.notFound} element={<NotFound />} />
       <Route path={routes.noAccess} element={<NoAccess />} />
+
+      {/*Docs*/}
+      <Route path={routes.terms} element={<Layout />}>
+        <Route index element={<UserTermsPage />} />
+      </Route>
+      <Route path={routes.privacy} element={<Layout />}>
+        <Route index element={<PrivacyPolicyPage />} />
+      </Route>
+      <Route path={routes.cookies} element={<Layout />}>
+        <Route index element={<CookiesPolicyPage />} />
+      </Route>
     </Routes>
   );
 }

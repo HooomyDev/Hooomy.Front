@@ -14,7 +14,7 @@ export default function LoginForm() {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { email: "", password: "", role: "employee" },
+    defaultValues: { email: "", password: "", role: "admin" },
   });
 
   const navigate = useNavigate();
@@ -27,13 +27,15 @@ export default function LoginForm() {
 
     setLoading(true);
 
-    // имитация загрузки
-    setTimeout(() => {
-      login(data, "qwerty12345");
-      setLoading(false);
+    login(data, "qwerty12345");
+    setLoading(false);
 
-      navigate(routes.home);
-    }, 1500);
+    if (data.role === "admin") {
+      navigate(routes.adminDashboard);
+      return;
+    }
+
+    navigate(routes.home);
   };
 
   const handlePrev = () => {

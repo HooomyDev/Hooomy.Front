@@ -124,13 +124,17 @@
   },
 
   "nav": {
-    "main": "Main",
-    "requests": "My Requests",
+    "main": "Home",
+    "requests": "My requests",
     "works": "Works",
     "stat": "Statistics",
     "news": "Surveys",
     "map": "Map",
-    "requestsEmp": "Requests"
+    "requestsEmp": "Requests",
+    "data": "Data",
+    "users": "Users",
+    "complaints": "Complaints",
+    "comments": "Comments"
   },
 
   "userdrop": {
@@ -1178,5 +1182,16 @@
   },
   "employeesStatisticTypes": {
     "header": "Types statistics"
+  },
+
+  "adminDashboard": {
+    "header": "Admin Dashboard",
+    "description": "System management and statistics",
+    "users": "Users",
+    "requests": "Requests",
+    "complaints": "Complaints",
+    "comments": "Comments",
+    "statistics": "Statistics",
+    "statsHint": "Key performance indicators of the housing office"
   }
 }

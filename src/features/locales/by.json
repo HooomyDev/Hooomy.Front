@@ -122,11 +122,15 @@
   "nav": {
     "main": "Галоўная",
     "requests": "Мае заяўкі",
-    "works": "Працы",
+    "works": "Работы",
     "stat": "Статыстыка",
     "news": "Апытанні",
     "map": "Карта",
-    "requestsEmp": "Заяўкі"
+    "requestsEmp": "Заяўкі",
+    "data": "Дадзеныя",
+    "users": "Карыстальнікі",
+    "complaints": "Скаргі",
+    "comments": "Каментарыі"
   },
 
   "userdrop": { "login": "Увайсці", "profile": "Профіль", "logout": "Выйсці" },
@@ -1168,5 +1172,16 @@
   },
   "employeesStatisticTypes": {
     "header": "Статыстыка па тыпах"
+  },
+
+  "adminDashboard": {
+    "header": "Адміністрацыйная панэль",
+    "description": "Кіраванне сістэмай і статыстыкай",
+    "users": "Карыстальнікі",
+    "requests": "Заяўкі",
+    "complaints": "Скаргі",
+    "comments": "Каментарыі",
+    "statistics": "Статыстыка",
+    "statsHint": "Тут адлюстроўваюцца ключавыя паказчыкі працы ЖЭУ"
   }
 }

@@ -1,0 +1,176 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  width: 100%;
+}
+
+.searchBlock {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  gap: var(--spacing-xxl);
+}
+
+.searchField {
+  width: 70%;
+}
+
+.roleField {
+  width: 20%;
+}
+
+.addNewUserButton {
+  align-self: flex-end;
+  max-width: 10%;
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--font-color);
+  border-radius: var(--border-radius);
+  transition: all 0.3s ease;
+
+  .icon {
+    width: 3rem;
+  }
+}
+
+.addNewUserButton:hover {
+  transform: scale(1.05);
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
+}
+
+.addNewUserButton:active {
+  transform: scale(1.02);
+}
+
+.sortIcon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  color: var(--font-color);
+  top: 4px;
+}
+
+.table {
+  width: 95%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background-color: var(--main-color);
+  color: var(--font-color);
+  font-size: var(--font-size-base);
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: #f3f4f6;
+}
+
+.table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table td {
+  padding: 12px 16px;
+  border-bottom: none;
+  color: #4b5563;
+  box-sizing: border-box;
+}
+
+.table tr:hover td {
+  background-color: #f9fafb;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.statLabel {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.statValue {
+  font-size: 20px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.editButton,
+.deleteButton,
+.saveButton {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: transparent;
+}
+
+.editButton {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.editButton:hover {
+  background: #bae6fd;
+  color: #0369a1;
+  border: transparent;
+}
+
+.deleteButton {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.deleteButton:hover {
+  background: #fecaca;
+  color: #991b1b;
+  border: transparent;
+}
+
+.saveButton {
+  background: #dcfce7;
+  color: #166534;
+  border: transparent;
+}
+
+.saveButton:hover {
+  border: transparent;
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.actionIcon {
+  width: 1.5rem;
+}

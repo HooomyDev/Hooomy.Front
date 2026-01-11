@@ -18,9 +18,14 @@
   "docs": "/docs",
   "noAccess": "/no-access",
 
-  "panel": "/panel",
-
   "surveys": "/surveys-panel",
   "requests": "/requests-panel",
-  "statistics": "/statistic-panel"
+  "statistics": "/statistic-panel",
+
+  "adminDashboard": "/admin-dashboard",
+  "databases": "/databases",
+  "users": "/users",
+  "complaints": "/complaints",
+  "hmoStat": "/hmo-statistic",
+  "comments": "/comments"
 }

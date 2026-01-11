@@ -125,7 +125,11 @@
     "stat": "Статистика",
     "news": "Опросы",
     "map": "Карта",
-    "requestsEmp": "Заявки"
+    "requestsEmp": "Заявки",
+    "data": "Данные",
+    "users": "Пользователи",
+    "complaints": "Жалобы",
+    "comments": "Комментарии"
   },
 
   "userdrop": { "login": "Войти", "profile": "Профиль", "logout": "Выйти" },
@@ -1168,5 +1172,16 @@
   },
   "employeesStatisticTypes": {
     "header": "Статистика по типам"
+  },
+
+  "adminDashboard": {
+    "header": "Административная панель",
+    "description": "Управление системой и статистикой",
+    "users": "Пользователи",
+    "requests": "Заявки",
+    "complaints": "Жалобы",
+    "comments": "Комментарии",
+    "statistics": "Статистика",
+    "statsHint": "Здесь отображаются ключевые показатели работы ЖЭУ"
   }
 }
