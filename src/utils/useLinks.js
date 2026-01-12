@@ -6,7 +6,6 @@ import {
   MapIcon,
   Cog6ToothIcon,
   InformationCircleIcon,
-  UserGroupIcon,
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/solid";
@@ -34,24 +33,18 @@ export function useLinks() {
       },
       {
         id: 3,
-        to: routes.users,
-        label: t("nav.users"),
-        icon: UserGroupIcon,
-      },
-      {
-        id: 4,
         to: routes.complaints,
         label: t("nav.complaints"),
         icon: ExclamationTriangleIcon,
       },
       {
-        id: 5,
+        id: 4,
         to: routes.hmoStat,
         label: t("nav.stat"),
         icon: ChartBarIcon,
       },
       {
-        id: 6,
+        id: 5,
         to: routes.comments,
         label: t("nav.comments"),
         icon: ChatBubbleLeftRightIcon,

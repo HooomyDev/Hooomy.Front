@@ -23,7 +23,7 @@
   "statistics": "/statistic-panel",
 
   "adminDashboard": "/admin-dashboard",
-  "databases": "/databases",
+  "databases": "/database",
   "users": "/users",
   "complaints": "/complaints",
   "hmoStat": "/hmo-statistic",

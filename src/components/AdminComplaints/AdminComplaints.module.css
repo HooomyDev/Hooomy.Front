@@ -1,0 +1,144 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: 90%;
+}
+
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--main-color);
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0px 2px 6px var(--gray-color);
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.02);
+}
+
+.info {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+.id {
+  font-weight: bold;
+  color: var(--font-color);
+  min-width: 40px;
+}
+
+.title {
+  flex: 1;
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+}
+
+.status {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: capitalize;
+}
+
+.desctition {
+  color: var(--font-color);
+}
+
+.statusOpen {
+  min-width: 7rem;
+  text-align: center;
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusInProgress {
+  min-width: 7rem;
+  text-align: center;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.statusDone {
+  min-width: 7rem;
+  text-align: center;
+  background: #00fc3b8c;
+  color: #004609;
+}
+
+.buttonIcon {
+  width: 2rem;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-sm);
+}
+
+.deleteButton,
+.doneButton,
+.inProgressButton {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: transparent;
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.deleteButton:hover {
+  background: #fecaca;
+  color: #991b1b;
+  border: transparent;
+}
+
+.doneButton {
+  background: #dcfce7;
+  color: #166534;
+  border: transparent;
+}
+
+.doneButton:hover {
+  border: transparent;
+  background: #bbf7d0;
+  color: #166534;
+}
+
+.inProgressButton {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.inProgressButton:hover {
+  background: #bae6fd;
+  color: #0369a1;
+  border: transparent;
+}
