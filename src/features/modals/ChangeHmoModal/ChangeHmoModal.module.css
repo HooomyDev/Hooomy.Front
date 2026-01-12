@@ -1,0 +1,16 @@
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  gap: var(--spacing-lg);
+  min-height: 40vh;
+}
+
+.actionIcon {
+  width: 2rem;
+}
+
+.saveButton {
+  height: 3rem;
+}

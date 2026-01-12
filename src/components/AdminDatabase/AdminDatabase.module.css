@@ -20,7 +20,7 @@
 }
 
 .searchField {
-  width: 70%;
+  width: 100%;
 }
 
 .roleField {
@@ -30,7 +30,7 @@
 .addNewUserButton {
   align-self: flex-end;
   max-width: 10%;
-  width: 4rem;
+  min-width: 4rem;
   height: 4rem;
   display: flex;
   align-items: center;
