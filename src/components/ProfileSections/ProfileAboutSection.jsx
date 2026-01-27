@@ -14,6 +14,8 @@ import ChangePasswordModal from "../../features/modals/ChangePasswordModal/Chang
 import Block from "../../common/Block/Block";
 import { IdentificationIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
+import { useAuthStore } from "../../stores/authStore";
+import { authClient as client } from "../../api/client";
 
 export default function ProfileAboutSection({ user }) {
   const t = useT();
@@ -22,15 +24,41 @@ export default function ProfileAboutSection({ user }) {
   const methods = useForm({
     defaultValues: {
       email: user?.email || "",
-      name: user?.name || "",
-      phone: user?.phone || "",
+      name: user?.firstName || "",
+      surname: user?.surname || "",
+      patronymic: user?.patronymic || "",
+      phone: user?.phoneNumber || "",
       password: user?.password,
-      about: user?.about || "",
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
+  const values = methods.watch();
+  const hasChanges =
+    values.email !== user?.email ||
+    values.name !== user?.firstName ||
+    values.surname !== user?.surname ||
+    values.patronymic !== user?.patronymic ||
+    values.phone !== user?.phoneNumber;
+
+  const { login } = useAuthStore();
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await client.put("/profile", {
+        id: user.id,
+        email: data.email,
+        firstName: data.name,
+        surname: data.surname,
+        patronymic: data.patronymic,
+        phoneNumber: data.phone || "",
+      });
+      const updatedUser = response.data.user;
+      login(updatedUser);
+      alert("Профиль обновлён");
+    } catch (error) {
+      console.error("Update failed:", error);
+      alert(error.response?.data?.message || "Ошибка обновления профиля");
+    }
   };
 
   const handleCloseModal = () => {
@@ -58,6 +86,7 @@ export default function ProfileAboutSection({ user }) {
               <InputField
                 label={t("user.surname")}
                 name="surname"
+                value={user.surname}
                 placeholder={t("placeholder.surname")}
                 required
                 rules={{
@@ -113,7 +142,11 @@ export default function ProfileAboutSection({ user }) {
               {t("profile.changePassword")}
             </button>
 
-            <button type="submit" className={`${styles.button}`}>
+            <button
+              type="submit"
+              className={hasChanges ? styles.button : styles.buttonDisabled}
+              disabled={!hasChanges}
+            >
               {t("user.save")}
             </button>
           </div>

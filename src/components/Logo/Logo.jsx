@@ -7,7 +7,7 @@ import routes from "../../stores/routes.json";
 export default function Logo() {
   return (
     <Link
-      to={routes.main}
+      to={routes.home}
       className={styles.logoWrapper}
       aria-label="На главную"
     >

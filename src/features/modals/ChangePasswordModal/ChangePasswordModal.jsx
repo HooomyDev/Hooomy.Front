@@ -7,9 +7,12 @@ import {
   validateConfirmPassword,
 } from "../../../utils/validation";
 import { useT } from "../../../utils/useT";
+import { useAuthStore } from "../../../stores/authStore";
+import { authClient as client } from "../../../api/client";
 
 export default function ChangePasswordModal({ onSuccess }) {
   const t = useT();
+  const { user } = useAuthStore();
 
   const methods = useForm({
     defaultValues: {
@@ -19,9 +22,19 @@ export default function ChangePasswordModal({ onSuccess }) {
     },
   });
 
-  const onSubmit = (data) => {
-    console.log("Change password data:", data);
-    onSuccess();
+  const onSubmit = async (data) => {
+    try {
+      await client.post("/change-password", {
+        email: user.email,
+        oldPassword: data.oldPassword,
+        newPassword: data.newPassword,
+      });
+      alert("Пароль успешно изменён");
+      onSuccess();
+    } catch (error) {
+      console.error("Change password failed:", error);
+      alert(error.response?.data?.message || "Ошибка смены пароля");
+    }
   };
 
   return (

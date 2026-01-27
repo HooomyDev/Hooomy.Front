@@ -20,8 +20,8 @@
 
 .activeLink {
   font-weight: 600;
-  background-color: var(--gray-color);
-  color: var(--font-color);
+  background-color: var(--element-color);
+  color: var(--main-color);
 }
 
 .icon {
@@ -30,4 +30,12 @@
   flex-shrink: 0;
   color: inherit;
   transition: color 0.2s ease;
+}
+
+@media (max-width: 720px) {
+  .navLink {
+    height: 2.5rem;
+    border-radius: 0;
+    font-size: var(--font-size-lg);
+  }
 }

@@ -25,7 +25,8 @@
   gap: var(--spacing-md);
 }
 
-.button {
+.button,
+.changePasswordButton {
   padding: var(--spacing-md) var(--spacing-xxl);
   font-size: var(--font-size-base);
   font-weight: 600;
@@ -35,15 +36,24 @@
   color: var(--main-color);
   cursor: pointer;
   transition: all 0.3s ease;
+  height: 3rem;
+}
+
+.button:hover {
+  transform: scale(1.02);
+}
+
+.buttonDisabled {
+  pointer-events: none;
+  opacity: 0.7;
 }
 
 .changePasswordButton {
   background-color: transparent;
   color: var(--font-color);
-}
-
-.button:hover {
-  transform: scale(1.02);
+  height: 3rem;
+  flex-wrap: none;
+  padding: 0;
 }
 
 .changePasswordButton:hover {
@@ -51,4 +61,30 @@
   border-color: transparent;
   color: var(--element-color);
   transform: scale(1);
+}
+
+@media (max-width: 1280px) {
+  .form {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .form {
+    width: 90%;
+    border-radius: 0;
+  }
+  .formRow {
+    flex-direction: column;
+  }
+  .changePasswordButton {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    margin: 0;
+    height: 100%;
+  }
 }
