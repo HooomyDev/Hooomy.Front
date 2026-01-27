@@ -23,9 +23,33 @@
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+@media (max-width: 1280px) {
+  .wrapper {
+    width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+  }
+
+  .form {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
 @media (max-width: 480px) {
   .wrapper {
     width: 100%;
-    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .form {
+    margin: 0;
+    padding: var(--spacing-md);
+    height: 100%;
   }
 }

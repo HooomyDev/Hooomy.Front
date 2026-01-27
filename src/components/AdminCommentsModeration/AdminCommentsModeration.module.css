@@ -1,0 +1,109 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xxl);
+  width: 100%;
+}
+
+.searchBlock {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: flex-end;
+  width: 95%;
+}
+
+.table {
+  width: 95%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  border: 1px solid #e5e7eb;
+  padding: 0.75rem;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.table th {
+  background: #f9fafb;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.table tr:nth-child(even) {
+  background: #f9fafb;
+}
+
+.sortIcon {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  vertical-align: middle;
+  color: #6b7280;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.buttonIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.approveButton {
+  background: #dcfce7;
+  color: #166534;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.approveButton:hover {
+  background: #bbf7d0;
+}
+
+.blockButton {
+  background: #fee2e2;
+  color: #b91c1c;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.blockButton:hover {
+  background: #fecaca;
+}
+
+.deleteButton {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.deleteButton:hover {
+  background: #e5e7eb;
+}

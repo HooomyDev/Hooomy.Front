@@ -28,6 +28,7 @@ import EmployeeStatisticPage from "./pages/EmployeeStatisticPage/EmployeeStatist
 import AdminDashboardPage from "./pages/AdminDashboardPage/AdminDashboardPage";
 import AdminDatabasePage from "./pages/AdminDatabasePage/AdminDatabasePage";
 import AdminComplaintsPage from "./pages/AdminComplaintsPage/AdminComplaintsPage";
+import AdminCommentsModerationPage from "./pages/AdminCommentsModerationPage/AdminCommentsModerationPage";
 
 export default function App() {
   useEffect(() => {
@@ -151,6 +152,26 @@ export default function App() {
           element={
             <ProtectedRoute roles={["admin"]}>
               <AdminComplaintsPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.hmoStat} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <EmployeeStatisticPage />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
+      <Route path={routes.comments} element={<Layout />}>
+        <Route
+          index
+          element={
+            <ProtectedRoute roles={["admin"]}>
+              <AdminCommentsModerationPage />
             </ProtectedRoute>
           }
         />

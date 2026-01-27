@@ -9,12 +9,13 @@ import LinkTo from "../../../common/LinkTo/LinkTo";
 import InputField from "../../../common/InputField/InputField";
 import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
+import { authClient as client } from "../../../api/client";
 
 export default function LoginForm() {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { email: "", password: "", role: "admin" },
+    defaultValues: { email: "", password: "", role: "" },
   });
 
   const navigate = useNavigate();
@@ -22,20 +23,31 @@ export default function LoginForm() {
 
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = (data) => {
-    console.log("Form data:", data);
-
+  const onSubmit = async (data) => {
     setLoading(true);
+    try {
+      const response = await client.post("/login", {
+        email: data.email,
+        password: data.password,
+        returnUrl: "/",
+      });
 
-    login(data, "qwerty12345");
-    setLoading(false);
+      const result = response.data;
+      console.log("Login success:", result);
 
-    if (data.role === "admin") {
-      navigate(routes.adminDashboard);
-      return;
+      login(data, result.token);
+
+      if (data.role === "admin") {
+        navigate(routes.adminDashboard);
+      } else {
+        navigate(routes.home);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert(error.response?.data?.message || "Ошибка авторизации");
+    } finally {
+      setLoading(false);
     }
-
-    navigate(routes.home);
   };
 
   const handlePrev = () => {

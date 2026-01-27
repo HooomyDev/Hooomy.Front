@@ -23,6 +23,7 @@ import LinkTo from "../../../common/LinkTo/LinkTo";
 import SmoothlyWrapper from "../../../common/SmoothlyWrapper/SmoothlyWrapper";
 import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
+import { authClient as client } from "../../../api/client";
 
 export default function RegistrationWizard() {
   const t = useT();
@@ -105,10 +106,25 @@ export default function RegistrationWizard() {
 
     if (step === 4) {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      setLoading(false);
-      setStep((prev) => prev + 1);
-      return;
+
+      try {
+        await client.post("/register", {
+          email: values.email,
+          password: values.password,
+          confirmPassword: values.confirmPassword,
+          role: values.role,
+          surname: values.surname,
+          firstName: values.name,
+          patronymic: values.patronymic,
+        });
+
+        navigate("/");
+      } catch (error) {
+        console.error("Register failed:", error);
+      } finally {
+        setLoading(false);
+        setStep((prev) => prev + 1);
+      }
     }
 
     if (step < steps.length) {
@@ -116,8 +132,9 @@ export default function RegistrationWizard() {
     }
 
     if (step === 5) {
-      console.log(values);
-      navigate("/");
+      setLoading(true);
+
+      navigate(routes.home);
     }
   };
 

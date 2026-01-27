@@ -9,6 +9,7 @@ import Dropdown from "../../common/Dropdown/Dropdown";
 import styles from "./AuthButton.module.css";
 import { useT } from "../../utils/useT";
 import routes from "../../stores/routes.json";
+import { authClient as client } from "../../api/client";
 
 export default function AuthButton() {
   const t = useT();
@@ -56,9 +57,16 @@ export default function AuthButton() {
     {
       label: t("userdrop.logout"),
       icon: LogoutIcon,
-      onClick: () => {
-        logout();
-        navigate(routes.home);
+      onClick: async () => {
+        try {
+          await client.post("/logout", null, { withCredentials: true });
+          logout();
+          navigate(routes.home);
+        } catch (error) {
+          console.error("Logout failed:", error);
+        } finally {
+          setOpen(false);
+        }
       },
     },
   ];
