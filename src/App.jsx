@@ -47,7 +47,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["user"]}>
+            <ProtectedRoute roles={["Resident"]}>
               <MyRequestsPage />
             </ProtectedRoute>
           }
@@ -57,7 +57,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["user"]}>
+            <ProtectedRoute roles={["Resident"]}>
               <WorksPage />
             </ProtectedRoute>
           }
@@ -67,7 +67,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["user"]}>
+            <ProtectedRoute roles={["Resident"]}>
               <SurvaysPage />
             </ProtectedRoute>
           }
@@ -87,7 +87,7 @@ export default function App() {
           index
           element={
             <ProtectedRoute>
-              <SurvaysPage roles={["user"]} />
+              <SurvaysPage roles={["Resident"]} />
             </ProtectedRoute>
           }
         />
@@ -98,7 +98,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["employee"]}>
+            <ProtectedRoute roles={["Employee"]}>
               <EmployeeRequestsPage />
             </ProtectedRoute>
           }
@@ -108,7 +108,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["employee"]}>
+            <ProtectedRoute roles={["Employee"]}>
               <EmployeeSurveysPage />
             </ProtectedRoute>
           }
@@ -118,7 +118,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["employee"]}>
+            <ProtectedRoute roles={["Employee"]}>
               <EmployeeStatisticPage />
             </ProtectedRoute>
           }
@@ -130,7 +130,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["admin"]}>
+            <ProtectedRoute roles={["Admin"]}>
               <AdminDashboardPage />
             </ProtectedRoute>
           }
@@ -140,7 +140,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["admin"]}>
+            <ProtectedRoute roles={["Admin"]}>
               <AdminDatabasePage />
             </ProtectedRoute>
           }
@@ -150,7 +150,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["admin"]}>
+            <ProtectedRoute roles={["Admin"]}>
               <AdminComplaintsPage />
             </ProtectedRoute>
           }
@@ -160,7 +160,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["admin"]}>
+            <ProtectedRoute roles={["Admin"]}>
               <EmployeeStatisticPage />
             </ProtectedRoute>
           }
@@ -170,7 +170,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["admin"]}>
+            <ProtectedRoute roles={["Admin"]}>
               <AdminCommentsModerationPage />
             </ProtectedRoute>
           }
@@ -182,7 +182,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["user", "employee", "admin"]}>
+            <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
               <ProfilePage />
             </ProtectedRoute>
           }
@@ -192,7 +192,7 @@ export default function App() {
         <Route
           index
           element={
-            <ProtectedRoute roles={["user", "employee", "admin"]}>
+            <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
               <SettingsPage />
             </ProtectedRoute>
           }

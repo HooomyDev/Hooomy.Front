@@ -34,8 +34,10 @@ export default function LoginForm() {
 
       const result = response.data;
       console.log("Login success:", result);
+      data.role = result.roles[0];
 
-      login(data, result.token);
+      login(data);
+      console.log(data);
 
       if (data.role === "admin") {
         navigate(routes.adminDashboard);
