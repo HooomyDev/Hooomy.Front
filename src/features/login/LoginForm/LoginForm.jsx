@@ -33,13 +33,21 @@ export default function LoginForm() {
       });
 
       const result = response.data;
-      console.log("Login success:", result);
-      data.role = result.roles[0];
 
-      login(data);
-      console.log(data);
+      const user = {
+        id: result.user.id,
+        email: result.user.email,
+        userName: result.user.userName,
+        firstName: result.user.firstName,
+        surname: result.user.surname,
+        patronymic: result.user.patronymic,
+        phoneNumber: result.user.phoneNumber,
+        role: result.user.roles[0],
+      };
 
-      if (data.role === "admin") {
+      login(user);
+
+      if (user.role === "Admin") {
         navigate(routes.adminDashboard);
       } else {
         navigate(routes.home);

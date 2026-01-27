@@ -24,12 +24,14 @@ import SmoothlyWrapper from "../../../common/SmoothlyWrapper/SmoothlyWrapper";
 import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
 import { authClient as client } from "../../../api/client";
+import { useAuthStore } from "../../../stores/authStore";
 
 export default function RegistrationWizard() {
   const t = useT();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const login = useAuthStore((store) => store.login);
 
   const roles = [
     { value: "resident", label: t("register.step1Var1") },
@@ -118,12 +120,19 @@ export default function RegistrationWizard() {
           patronymic: values.patronymic,
         });
 
+        await client.post(
+          "/login",
+          { email: values.email, password: values.password },
+          { withCredentials: true }
+        );
+
+        login({ email: values.email, role: values.role });
+
         navigate("/");
       } catch (error) {
         console.error("Register failed:", error);
       } finally {
         setLoading(false);
-        setStep((prev) => prev + 1);
       }
     }
 
@@ -132,8 +141,6 @@ export default function RegistrationWizard() {
     }
 
     if (step === 5) {
-      setLoading(true);
-
       navigate(routes.home);
     }
   };

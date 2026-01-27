@@ -7,6 +7,7 @@ import {
   validatePatronymic,
 } from "../../../utils/validation";
 import { useT } from "../../../utils/useT";
+import styles from "./RegistrationStepCommonUserData.module.css";
 
 export default function RegistrationStepCommonUserData() {
   const t = useT();
@@ -14,8 +15,8 @@ export default function RegistrationStepCommonUserData() {
   const role = watch("role");
 
   return (
-    <div>
-      <h1>{t("register.step2")}</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{t("register.step2")}</h1>
 
       <InputField
         required
