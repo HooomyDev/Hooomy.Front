@@ -1,133 +1,156 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ProfileMyAddressesSection.module.css";
-import {
-  HomeIcon,
-  PencilSquareIcon,
-  MapPinIcon,
-  PlusCircleIcon,
-  ClipboardDocumentCheckIcon,
-} from "@heroicons/react/24/solid";
+import { HomeIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import { useT } from "../../utils/useT";
 import { useAuthStore } from "../../stores/authStore";
+import AddressCard from "../AddressCard/AddressCard";
+import Modal from "../../features/modals/Modal/Modal";
+import { streets } from "../../stores/streets";
+import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
+import { useForm, FormProvider } from "react-hook-form";
+import InputField from "../../common/InputField/InputField";
+import Button from "../../common/Button/Button";
+import { apiClient as client } from "../../api/client";
 
 export default function ProfileMyAddressesSection() {
   const user = useAuthStore((store) => store.user);
-
   const t = useT();
-  const [editingId, setEditingId] = useState(null);
 
-  const [favAddresses, setFavAddresses] = useState([
-    { id: 1, pseudonym: "main", address: "ул. Ленина, д. 10, кв. 5" },
-    { id: 2, pseudonym: "work", address: "пр. Независимости, д. 25, офис 301" },
-  ]);
+  const [favAddresses, setFavAddresses] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingAddress, setEditingAddress] = useState(null);
 
-  const handleEditClick = (id) => {
-    setEditingId(id);
-  };
+  const allStreets = Object.entries(streets).flatMap(([district, arr]) =>
+    arr.map((s) => ({
+      value: s.value,
+      label: s.label,
+    }))
+  );
 
-  const handleSaveClick = () => {
-    setEditingId(null);
-  };
+  const methods = useForm();
 
-  const handleAddNewAddress = () => {
-    const newAddress = {
-      id: favAddresses[favAddresses.length - 1].id + 1,
-      pseudonym: "new",
-      address: t("profile.enterAddress"),
+  useEffect(() => {
+    const fetchAddresses = async () => {
+      try {
+        const response = await client.get("/favorite-addresses");
+        setFavAddresses(response.data);
+      } catch (error) {
+        console.error("Ошибка загрузки адресов:", error);
+      }
     };
-    setFavAddresses([...favAddresses, newAddress]);
-    setEditingId(newAddress.id);
+
+    fetchAddresses();
+  }, []);
+
+  const handleAddClick = () => {
+    setEditingAddress(null);
+    setIsModalOpen(true);
+    methods.reset();
   };
 
-  if (user.role === "employee") return;
+  const handleEditClick = (item) => {
+    setEditingAddress(item);
+    setIsModalOpen(true);
+    methods.reset(item);
+  };
+
+  const handleSaveAddress = async (data) => {
+    const fullAddress = `${data.street}, ${data.house}`;
+    if (editingAddress) {
+      // 🔹 обновляем на сервере
+      await client.put(`/favorite-addresses/${editingAddress.id}`, {
+        ...data,
+        address: fullAddress,
+      });
+
+      setFavAddresses(
+        favAddresses.map((addr) =>
+          addr.id === editingAddress.id
+            ? { ...addr, ...data, address: fullAddress }
+            : addr
+        )
+      );
+    } else {
+      // 🔹 сохраняем на сервере
+      const response = await client.post("/favorite-addresses", {
+        ...data,
+        address: fullAddress,
+      });
+
+      setFavAddresses([...favAddresses, response.data]);
+    }
+    setIsModalOpen(false);
+    methods.reset();
+  };
+
+  const handleDeleteClick = async (id) => {
+    await client.delete(`/favorite-addresses/${id}`);
+    setFavAddresses(favAddresses.filter((addr) => addr.id !== id));
+  };
+
+  if (user.role === "employee") return null;
 
   return (
     <Block title={t("profile.addresses")} Icon={HomeIcon}>
       <div className={styles.list}>
-        {favAddresses.map((item) => {
-          const isEditing = editingId === item.id;
-          return (
-            <div key={item.id} className={styles.item}>
-              <input
-                className={`${styles.itemPseudonym} ${
-                  isEditing ? styles.changing : ""
-                }`}
-                value={item.pseudonym}
-                disabled={!isEditing}
-                onChange={(e) =>
-                  setFavAddresses(
-                    favAddresses.map((addr) =>
-                      addr.id === item.id
-                        ? { ...addr, pseudonym: e.target.value }
-                        : addr
-                    )
-                  )
-                }
-              />
-              <input
-                className={`${styles.itemAddress} ${
-                  isEditing ? styles.changing : ""
-                }`}
-                value={item.address}
-                disabled={!isEditing}
-                onChange={(e) =>
-                  setFavAddresses(
-                    favAddresses.map((addr) =>
-                      addr.id === item.id
-                        ? { ...addr, address: e.target.value }
-                        : addr
-                    )
-                  )
-                }
-              />
-              <div className={styles.itemButtons}>
-                <div className={styles.wrap}>
-                  {!isEditing ? (
-                    <button
-                      className={styles.itemButton}
-                      onClick={() => handleEditClick(item.id)}
-                      title={t("profile.changeAddress")}
-                    >
-                      <PencilSquareIcon className={styles.icon} />
-                    </button>
-                  ) : (
-                    <button
-                      className={styles.itemButton}
-                      onClick={handleSaveClick}
-                      title={t("user.save")}
-                    >
-                      <ClipboardDocumentCheckIcon className={styles.icon} />
-                    </button>
-                  )}
-                </div>
-
-                <button
-                  className={styles.itemButton}
-                  title={t("profile.onMap2")}
-                >
-                  <MapPinIcon className={styles.icon} /> На карте
-                </button>
-              </div>
-            </div>
-          );
-        })}
+        {favAddresses.map((item) => (
+          <AddressCard
+            key={item.id}
+            item={item}
+            onEditClick={handleEditClick}
+            onDeleteClick={handleDeleteClick}
+          />
+        ))}
 
         <div className={styles.item}>
           <div className={styles.itemPseudonym}>{t("profile.newAddress")}</div>
           <div className={styles.itemAddress}>
             {t("profile.newAddressMessage")}
           </div>
-          <button
-            className={styles.addButton}
-            onClick={() => {
-              handleAddNewAddress();
-            }}
-          >
+          <button className={styles.addButton} onClick={handleAddClick}>
             <PlusCircleIcon className={styles.icon} /> {t("profile.addAddress")}
           </button>
         </div>
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className={styles.modalContent}>
+          <h2>
+            {editingAddress
+              ? t("profile.changeAddress")
+              : t("profile.addAddress")}
+          </h2>
+          <FormProvider {...methods}>
+            <form onSubmit={methods.handleSubmit(handleSaveAddress)}>
+              <InputField
+                label={t("profile.enterPseudonym")}
+                name="pseudonym"
+                type="text"
+                required
+                placeholder={t("profile.enterPseudonym")}
+              />
+
+              <AutocompleteField
+                label="Улица"
+                name="street"
+                options={allStreets}
+                required
+              />
+
+              <InputField
+                label={t("profile.enterHouse")}
+                name="house"
+                type="number"
+                required
+                placeholder={t("profile.enterHouse")}
+              />
+
+              <Button type="submit">{t("user.save")}</Button>
+            </form>
+          </FormProvider>
+        </div>
+      </Modal>
     </Block>
   );
 }

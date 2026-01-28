@@ -4,6 +4,8 @@ import { ReactComponent as CrossIcon } from "../../../assets/cross.svg";
 import styles from "./Modal.module.css";
 
 export default function Modal({ isOpen, onClose, children }) {
+  const modalRoot = document.getElementById("modal-root");
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -29,6 +31,6 @@ export default function Modal({ isOpen, onClose, children }) {
         {children}
       </div>
     </div>,
-    document.body
+    modalRoot
   );
 }

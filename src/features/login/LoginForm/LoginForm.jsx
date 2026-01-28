@@ -29,10 +29,12 @@ export default function LoginForm() {
       const response = await client.post("/login", {
         email: data.email,
         password: data.password,
-        returnUrl: "/",
       });
 
       const result = response.data;
+
+      // сохраняем токен
+      localStorage.setItem("access_token", result.access_token);
 
       const user = {
         id: result.user.id,

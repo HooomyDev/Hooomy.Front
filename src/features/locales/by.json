@@ -46,10 +46,14 @@
     "newAddressMessage": "Дадаць новы адрас",
     "addAddress": "Дадаць адрас",
     "onMap": "На карце",
-    "changePassword": "Змянiць пароль",
-    "changeAddress": "Змянiць адрас",
+    "changePassword": "Змяніць пароль",
+    "changeAddress": "Змяніць адрас",
     "onMap2": "Паказаць на карце",
-    "enterAddress": "Увядзіце адрас..."
+    "enterAddress": "Увядзіце адрас...",
+    "enterPseudonym": "Увядзіце назву (напрыклад: Дом, Праца)",
+    "enterHouse": "Увядзіце нумар дома",
+    "enterApartment": "Увядзіце нумар кватэры",
+    "deleteAddress": "Удаліць адрaс"
   },
 
   "login": {

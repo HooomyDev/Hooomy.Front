@@ -49,7 +49,11 @@
     "changePassword": "Изменить пароль",
     "changeAddress": "Изменить адрес",
     "onMap2": "Показать на карте",
-    "enterAddress": "Введите адрес..."
+    "enterAddress": "Введите адрес...",
+    "enterPseudonym": "Введите название (например: Дом, Работа)",
+    "enterHouse": "Введите номер дома",
+    "enterApartment": "Введите номер квартиры",
+    "deleteAddress": "Удалить адрес"
   },
 
   "login": {

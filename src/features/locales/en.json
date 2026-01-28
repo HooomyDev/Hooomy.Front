@@ -39,17 +39,21 @@
   },
 
   "profile": {
-    "title": "Personal Account",
-    "about": "Personal Information",
-    "addresses": "My Addresses",
-    "newAddress": "New Address",
+    "title": "Profile",
+    "about": "Personal information",
+    "addresses": "My addresses",
+    "newAddress": "New address",
     "newAddressMessage": "Add a new address",
-    "addAddress": "Add Address",
-    "onMap": "On Map",
-    "changePassword": "Change Password",
-    "changeAddress": "Change Address",
-    "onMap2": "View On Map",
-    "enterAddress": "Enter An Address..."
+    "addAddress": "Add address",
+    "onMap": "On map",
+    "changePassword": "Change password",
+    "changeAddress": "Edit address",
+    "onMap2": "Show on map",
+    "enterAddress": "Enter address...",
+    "enterPseudonym": "Enter label (e.g. Home, Work)",
+    "enterHouse": "Enter house number",
+    "enterApartment": "Enter apartment number",
+    "deleteAddress": "Delete address"
   },
 
   "login": {

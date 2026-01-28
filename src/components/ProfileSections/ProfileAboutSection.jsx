@@ -16,10 +16,12 @@ import { IdentificationIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
 import { useAuthStore } from "../../stores/authStore";
 import { authClient as client } from "../../api/client";
+import Notification from "../../common/Notification/Notification";
 
 export default function ProfileAboutSection({ user }) {
   const t = useT();
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [notification, setNotification] = useState(null);
 
   const methods = useForm({
     defaultValues: {
@@ -54,10 +56,13 @@ export default function ProfileAboutSection({ user }) {
       });
       const updatedUser = response.data.user;
       login(updatedUser);
-      alert("Профиль обновлён");
+      setNotification({ type: "success", message: "Профиль обновлён" });
     } catch (error) {
       console.error("Update failed:", error);
-      alert(error.response?.data?.message || "Ошибка обновления профиля");
+      setNotification({
+        type: "error",
+        message: error.response?.data?.message || "Ошибка обновления профиля",
+      });
     }
   };
 
@@ -67,6 +72,10 @@ export default function ProfileAboutSection({ user }) {
 
   return (
     <Block title={t("profile.about")} Icon={IdentificationIcon}>
+      {notification && (
+        <Notification duration={3000}>{notification.message}</Notification>
+      )}
+
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
           <div className={styles.formRow}>

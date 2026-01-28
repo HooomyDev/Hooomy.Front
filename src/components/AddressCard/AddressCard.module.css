@@ -1,28 +1,11 @@
-.icon {
-  width: 30px;
-  height: 30px;
-  color: var(--element-color);
-}
-
-.list {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  gap: var(--spacing-xxl);
-  padding: var(--spacing-md);
-  overflow-x: auto;
-  width: 95%;
-}
-
 .item {
   display: flex;
-  justify-content: space-between;
   gap: var(--spacing-md);
   flex-direction: column;
   min-width: 30%;
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
-  padding: var(--spacing-md);
+  padding: var(--spacing-xl) var(--spacing-md);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   transition: transform 0.2s ease;
 }
@@ -31,15 +14,8 @@
   transform: scale(1.02);
 }
 
-.itemPseudonym {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  user-select: none;
-  color: var(--font-color);
-}
-
 .itemAddress {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-lg);
   color: var(--font-color);
   font-weight: 600;
   border: 1px solid transparent;
@@ -60,6 +36,14 @@
   margin: 0;
 }
 
+.itemPseudonym {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  user-select: none;
+  color: var(--font-color);
+  border-bottom: 1px solid var(--gray-color);
+}
+
 .changing {
   border: 1px solid var(--font-color);
   background-color: var(--card-background);
@@ -69,12 +53,8 @@
 .itemButtons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-}
-
-.wrap {
-  display: flex;
-  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: auto;
 }
 
 .itemButton {
@@ -94,6 +74,8 @@
 
 .itemButton .icon {
   color: var(--font-color);
+  width: 2rem;
+  height: 2rem;
   transition: color 0.2s ease;
 }
 
@@ -109,43 +91,4 @@
 
 .message {
   color: var(--font-color);
-}
-
-.addButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-md);
-  text-align: center;
-  color: var(--main-color);
-}
-
-.addButton .icon {
-  color: var(--main-color);
-}
-
-.addButton:hover .icon {
-  color: var(--font-color);
-}
-
-.modalContent {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  width: 90%;
-  gap: var(--spacing-md);
-}
-
-.modalContent form {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-  width: 100%;
-  gap: var(--spacing-md);
-}
-
-@media (max-width: 1200px) {
-  .list {
-    flex-direction: column;
-  }
 }
