@@ -7,6 +7,7 @@ import styles from "./CreateRequestModal.module.css";
 import TabPanel from "../../../common/TabPanel/TabPanel";
 import InputField from "../../../common/InputField/InputField";
 import { useT } from "../../../utils/useT";
+import { createRequest } from "../../../api/services/requestService";
 
 export default function CreateRequestModal({ onSuccess }) {
   const t = useT();
@@ -16,17 +17,22 @@ export default function CreateRequestModal({ onSuccess }) {
       district: "",
       street: "",
       house: "",
-      entrance: "",
-      floor: "",
-      apartment: "",
+      title: "",
       description: "",
       photo: null,
       location: null,
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log("Form data:", data);
+
+    await createRequest({
+      title: data.title,
+      description: data.description,
+      address: data.district + ", " + data.street + ", " + data.house,
+    });
+
     onSuccess();
   };
 
@@ -48,6 +54,19 @@ export default function CreateRequestModal({ onSuccess }) {
               content: <RequestByMap />,
             },
           ]}
+        />
+        <InputField
+          required
+          label="Краткое описание проблемы"
+          name="title"
+          rules={{
+            max: {
+              value: 100,
+            },
+            min: {
+              value: 1,
+            },
+          }}
         />
 
         <InputField

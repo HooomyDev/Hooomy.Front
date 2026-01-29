@@ -4,12 +4,5 @@
   align-items: center;
   justify-content: center;
   gap: var(--spacing-lg);
-}
-
-.inputContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: var(--spacing-lg);
   width: 100%;
 }

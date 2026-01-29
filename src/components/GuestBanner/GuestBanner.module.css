@@ -46,3 +46,12 @@
 .guestBannerButton {
   height: 3rem;
 }
+
+@media (max-width: 720px) {
+  .guestBannerIcon {
+    display: none;
+  }
+  .guestBannerButton {
+    height: 2.5rem;
+  }
+}

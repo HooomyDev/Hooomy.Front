@@ -26,51 +26,19 @@ export default function RequestByAdress() {
         name="street"
         options={streets[selectedDistrict] || []}
       />
-
-      <div className={styles.inputContainer}>
-        <InputField
-          required
-          label={t("user.house")}
-          name="house"
-          rules={{
-            max: {
-              value: 100,
-            },
-            min: {
-              value: 1,
-            },
-          }}
-        />
-        <InputField
-          label={t("user.entrance")}
-          name="entrance"
-          type="number"
-          rules={{
-            min: {
-              value: 1,
-            },
-            max: {
-              value: 100,
-            },
-            validate: (v) => v === "" || /^\d+$/.test(v),
-          }}
-        />
-        <InputField
-          label={t("user.floor")}
-          name="floor"
-          type="number"
-          rules={{
-            max: {
-              value: 100,
-            },
-            min: {
-              value: 1,
-            },
-            validate: (v) => v === "" || /^\d+$/.test(v),
-          }}
-        />
-        <InputField label={t("user.apartment")} name="apartment" />
-      </div>
+      <InputField
+        required
+        label={t("user.house")}
+        name="house"
+        rules={{
+          max: {
+            value: 100,
+          },
+          min: {
+            value: 1,
+          },
+        }}
+      />
     </div>
   );
 }

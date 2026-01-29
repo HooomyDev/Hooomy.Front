@@ -64,6 +64,8 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  width: auto;
   gap: var(--spacing-xs);
   text-align: center;
   margin: 0;

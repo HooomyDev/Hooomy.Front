@@ -13,3 +13,9 @@
   max-width: 35vh;
   height: 100%;
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    flex-direction: column;
+  }
+}

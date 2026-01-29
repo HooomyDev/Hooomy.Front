@@ -5,46 +5,35 @@ import { useT } from "../../utils/useT";
 import Block from "../../common/Block/Block";
 import SelectField from "../../common/SelectField/SelectField";
 import DateField from "../../common/DateField/DateField";
-import {
-  AdjustmentsHorizontalIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import Button from "../../common/Button/Button";
 
-export default function MyRequestsFilters({
-  allRequests,
-  selectedFilters,
-  onFilterSubmit,
-  onFilterSelect,
-  onRemoveFilter,
-}) {
+export default function MyRequestsFilters({ allRequests, onFilterSubmit }) {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { status: "all", startDate: "", endDate: "" },
+    defaultValues: { status: 0, startDate: "", endDate: "" },
   });
 
   const onSubmit = (data) => {
-    console.log("Фильтры:", data);
     let filtered = allRequests;
 
-    if (data.status !== "all") {
-      filtered = filtered.filter((req) => {
-        if (data.status === "pending") return req.status === "В обработке";
-        if (data.status === "done") return req.status === "Выполнено";
-        if (data.status === "rejected") return req.status === "Отклонено";
-        return true;
-      });
+    const status = Number(data.status);
+
+    if (status !== 0) {
+      filtered = filtered.filter((req) => req.status === status);
     }
+
+    const normalizeDate = (d) => new Date(new Date(d).setHours(0, 0, 0, 0));
 
     if (data.startDate) {
       filtered = filtered.filter(
-        (req) => new Date(req.date) >= new Date(data.startDate)
+        (req) => normalizeDate(req.createdAt) >= normalizeDate(data.startDate)
       );
     }
     if (data.endDate) {
       filtered = filtered.filter(
-        (req) => new Date(req.date) <= new Date(data.endDate)
+        (req) => normalizeDate(req.createdAt) <= normalizeDate(data.endDate)
       );
     }
 
@@ -52,8 +41,7 @@ export default function MyRequestsFilters({
   };
 
   const handleClearFilters = () => {
-    methods.reset({ status: "all", startDate: "", endDate: "" });
-    onFilterSelect("all");
+    methods.reset({ status: 0, startDate: "", endDate: "" });
     onFilterSubmit(allRequests);
   };
 
@@ -61,30 +49,16 @@ export default function MyRequestsFilters({
     <Block title={t("requests.filters")} Icon={AdjustmentsHorizontalIcon}>
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
-          <div className={styles.selectedFilters}>
-            {selectedFilters?.map((filter, index) => (
-              <button
-                type="button"
-                key={index}
-                className={styles.filter}
-                onClick={() => onRemoveFilter(filter)}
-              >
-                <div className={styles.filterLabel}>{filter.label}</div>
-                <XMarkIcon className={styles.filterIcon} />
-              </button>
-            ))}
-          </div>
-
           <SelectField
             label={t("requests.status")}
             {...methods.register("status")}
             options={[
-              { value: "all", label: t("requests.all") },
-              { value: "done", label: t("requests.done") },
-              { value: "pending", label: t("requests.pending") },
-              { value: "rejected", label: t("requests.rejected") },
+              { value: 0, label: t("requests.all") },
+              { value: 1, label: "Создан" },
+              { value: 2, label: t("requests.rejected") },
+              { value: 3, label: t("requests.pending") },
+              { value: 4, label: t("requests.done") },
             ]}
-            onValueChange={onFilterSelect}
           />
 
           <DateField

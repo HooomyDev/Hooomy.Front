@@ -67,6 +67,7 @@ input[type="number"]::-webkit-outer-spin-button {
   justify-content: center;
   margin-left: var(--spacing-sm);
   transition: opacity 0.2s ease, transform 0.2s ease;
+  width: 50px;
 }
 
 .eye:hover {
@@ -137,5 +138,33 @@ input[type="password"]::-ms-clear {
     height: 45px;
     font-size: 16px;
     padding: 0 2.5rem 0 0.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+  }
+  .inputWrapper {
+    align-items: center;
+  }
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+
+  .inputField {
+    padding: 0 2rem 0 0.5rem;
+  }
+
+  .icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .error {
+    font-size: 12px;
+    margin-top: 2px;
   }
 }

@@ -5,6 +5,7 @@ import Block from "../../common/Block/Block";
 import { ListBulletIcon } from "@heroicons/react/24/solid";
 import Modal from "../../features/modals/Modal/Modal";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
+import { format } from "date-fns";
 
 export default function MyRequestsList({ requests }) {
   const t = useT();
@@ -12,9 +13,10 @@ export default function MyRequestsList({ requests }) {
   const [selectedRequest, setSelectedRequest] = useState(null);
 
   const statusClassMap = {
-    Выполнено: styles.done,
-    "В обработке": styles.pending,
-    Отклонено: styles.rejected,
+    1: styles.created,
+    2: styles.rejected,
+    3: styles.pending,
+    4: styles.done,
   };
 
   const handleOpenModal = (req) => {
@@ -40,10 +42,13 @@ export default function MyRequestsList({ requests }) {
                 className={styles.item}
                 onClick={() => handleOpenModal(req)}
               >
-                <span className={styles.reqTitle}>{req.title}</span>
-                <span className={styles.reqDate}>{req.date}</span>
+                <span className={styles.reqTitle}>
+                  {req.title.slice(0, 9) + "..."}
+                </span>
+                <span className={styles.reqDate}>
+                  {format(new Date(req.createdAt), "dd.MM.yyyy HH:mm")}
+                </span>
                 <div className={styles.status}>
-                  <span className={styles.reqStatus}>{req.status}</span>
                   <span
                     className={`${styles.reqStatusSquare} ${
                       statusClassMap[req.status] || styles.default

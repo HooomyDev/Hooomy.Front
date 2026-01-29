@@ -6,3 +6,9 @@
   width: 80%;
   gap: var(--spacing-xxl);
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+  }
+}

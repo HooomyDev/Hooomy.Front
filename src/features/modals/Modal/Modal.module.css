@@ -18,7 +18,8 @@
   padding: var(--spacing-xl);
   box-sizing: border-box;
   border-radius: var(--border-radius);
-  width: 60%;
+  width: auto;
+  min-width: 50%;
   color: var(--font-color);
   position: relative;
   max-height: 90vh;
@@ -39,6 +40,7 @@
   padding: 0.5rem 0.75rem;
   font-size: var(--font-size-title);
   border-radius: var(--border-radius);
+  width: 50px;
 }
 
 .close:hover {
