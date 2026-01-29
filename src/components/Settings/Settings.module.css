@@ -28,12 +28,16 @@
 }
 
 .social {
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
   display: flex;
-  margin: 0 auto;
-  padding: var(--spacing-md);
+  align-items: center;
+  gap: var(--spacing-xxl);
   transition: transform 0.3s ease;
+  font-size: var(--font-size-xxl);
+  color: var(--font-color);
+}
+
+.social span {
+  display: none;
 }
 
 .social:hover {
@@ -43,6 +47,8 @@
 .socialImg {
   width: 75px;
   height: 75px;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .container {
@@ -54,4 +60,34 @@
 .icon {
   width: 3rem;
   color: var(--element-color);
+}
+
+@media (max-width: 1280px) {
+  .wrapper {
+    width: 100%;
+  }
+  .socials {
+    width: 90%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .social span {
+    display: flex;
+  }
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 95%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-md);
+  }
 }

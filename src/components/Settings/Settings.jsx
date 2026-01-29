@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Settings.module.css";
 import Block from "../../common/Block/Block";
 import SelectField from "../../common/SelectField/SelectField";
@@ -10,10 +10,12 @@ import emailLogo from "../../assets/email-logo.png";
 import tgLogo from "../../assets/telegram-icon.png";
 import viberLogo from "../../assets/viber-icon.png";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
+import CheckBox from "../../common/CheckBox/CheckBox";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
   const currentLanguage = localStorage.getItem("lang") || "ru";
+  const [selected, setSelected] = useState([]);
 
   const langOptions = [
     { value: "ru", label: "Русский" },
@@ -30,6 +32,14 @@ export default function Settings() {
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang);
+  };
+
+  const toggleNotification = (value) => {
+    setSelected((prev) =>
+      prev.includes(value)
+        ? prev.filter((item) => item !== value)
+        : [...prev, value]
+    );
   };
 
   return (
@@ -59,23 +69,39 @@ export default function Settings() {
 
       <Block title={t("settings.notifications")} Icon={NewspaperIcon}>
         <div className={styles.socials}>
-          <div className={styles.social}>
-            <img
-              className={styles.socialImg}
-              src={emailLogo}
-              alt="social-img"
-            />
-          </div>
-          <div className={styles.social}>
-            <img className={styles.socialImg} src={tgLogo} alt="social-img" />
-          </div>
-          <div className={styles.social}>
-            <img
-              className={styles.socialImg}
-              src={viberLogo}
-              alt="social-img"
-            />
-          </div>
+          <CheckBox
+            value="email"
+            label={
+              <div className={styles.social}>
+                <img className={styles.socialImg} src={emailLogo} alt="Email" />
+                <span>Email</span>
+              </div>
+            }
+            checked={selected.includes("email")}
+            onChange={() => toggleNotification("email")}
+          />
+          <CheckBox
+            value="telegram"
+            label={
+              <div className={styles.social}>
+                <img className={styles.socialImg} src={tgLogo} alt="Telegram" />
+                <span>Telegram</span>
+              </div>
+            }
+            checked={selected.includes("telegram")}
+            onChange={() => toggleNotification("telegram")}
+          />
+          <CheckBox
+            value="viber"
+            label={
+              <div className={styles.social}>
+                <img className={styles.socialImg} src={viberLogo} alt="Viber" />
+                <span>Viber</span>
+              </div>
+            }
+            checked={selected.includes("viber")}
+            onChange={() => toggleNotification("viber")}
+          />
         </div>
       </Block>
     </div>

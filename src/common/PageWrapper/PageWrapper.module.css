@@ -7,3 +7,9 @@
   gap: var(--spacing-xxl);
   margin: var(--spacing-xxl) 0;
 }
+
+@media (max-width: 1280px) {
+  .wrapper {
+    margin: var(--spacing-md) 0;
+  }
+}

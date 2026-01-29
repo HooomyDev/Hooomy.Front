@@ -2,7 +2,6 @@ import React from "react";
 import styles from "./AddressCard.module.css";
 import {
   PencilSquareIcon,
-  MapPinIcon,
   ClipboardDocumentCheckIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
@@ -43,10 +42,6 @@ export default function AddressCard({
             <ClipboardDocumentCheckIcon className={styles.icon} />
           </button>
         )}
-
-        <button className={styles.itemButton} title={t("profile.onMap2")}>
-          <MapPinIcon className={styles.icon} />
-        </button>
 
         <button
           className={styles.itemButton}

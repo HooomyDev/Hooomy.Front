@@ -15,7 +15,7 @@
   border-color: var(--element-color);
 }
 
-.selected {
+.checkBoxLabelCheck {
   border-color: var(--element-color);
   background-color: #f9f9f9;
 }
