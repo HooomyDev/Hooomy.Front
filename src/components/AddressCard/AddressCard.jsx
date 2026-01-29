@@ -13,27 +13,18 @@ export default function AddressCard({
   isEditing,
   onEditClick,
   onSaveClick,
-  onChangeField,
   onDeleteClick,
 }) {
   const t = useT();
 
   return (
     <div className={styles.item}>
-      <input
-        className={`${styles.itemPseudonym} ${
-          isEditing ? styles.changing : ""
-        }`}
-        value={item.pseudonym}
-        disabled={!isEditing}
-        onChange={(e) => onChangeField(item.id, "pseudonym", e.target.value)}
-      />
-      <input
-        className={`${styles.itemAddress} ${isEditing ? styles.changing : ""}`}
-        value={item.address}
-        disabled={!isEditing}
-        onChange={(e) => onChangeField(item.id, "address", e.target.value)}
-      />
+      <div className={styles.itemPseudonym}>{item.pseudonym}</div>
+
+      <div className={styles.itemAddress}>
+        {item.street}, {item.house}
+      </div>
+
       <div className={styles.itemButtons}>
         {!isEditing ? (
           <button
@@ -59,7 +50,7 @@ export default function AddressCard({
 
         <button
           className={styles.itemButton}
-          onClick={() => onDeleteClick(item.id)}
+          onClick={() => onDeleteClick(item)}
           title={t("profile.deleteAddress")}
         >
           <TrashIcon className={styles.icon} />

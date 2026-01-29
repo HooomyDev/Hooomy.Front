@@ -1,0 +1,15 @@
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 90%;
+  gap: var(--spacing-md);
+}
+
+.modalContent form {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  gap: var(--spacing-md);
+}

@@ -9,13 +9,14 @@ import LinkTo from "../../../common/LinkTo/LinkTo";
 import InputField from "../../../common/InputField/InputField";
 import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
-import { authClient as client } from "../../../api/client";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export default function LoginForm() {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { email: "", password: "", role: "" },
+    defaultValues: { email: "", password: "" },
   });
 
   const navigate = useNavigate();
@@ -26,25 +27,34 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await client.post("/login", {
-        email: data.email,
-        password: data.password,
-      });
+      const params = new URLSearchParams();
+      params.append("client_id", "react-password-client");
+      params.append("grant_type", "password");
+      params.append("username", data.email);
+      params.append("password", data.password);
+      params.append("scope", "openid profile HooomeWebApi");
+
+      const response = await axios.post(
+        "https://localhost:5001/connect/token",
+        params,
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
 
       const result = response.data;
 
-      // сохраняем токен
       localStorage.setItem("access_token", result.access_token);
 
+      const decoded = jwtDecode(result.access_token);
+
       const user = {
-        id: result.user.id,
-        email: result.user.email,
-        userName: result.user.userName,
-        firstName: result.user.firstName,
-        surname: result.user.surname,
-        patronymic: result.user.patronymic,
-        phoneNumber: result.user.phoneNumber,
-        role: result.user.roles[0],
+        email: decoded.email,
+        role: decoded.role,
+        surname: decoded.family_name,
+        firstName: decoded.given_name,
+        patronymic: decoded.middle_name,
+        phoneNumber: decoded.phone_number,
       };
 
       login(user);
@@ -56,7 +66,6 @@ export default function LoginForm() {
       }
     } catch (error) {
       console.error("Login failed:", error);
-      alert(error.response?.data?.message || "Ошибка авторизации");
     } finally {
       setLoading(false);
     }
