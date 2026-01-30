@@ -119,3 +119,19 @@
 .reqAddress {
   color: var(--font-color);
 }
+
+@media (max-width: 720px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .photoWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 500px;
+    height: 500px;
+    border: 2px dashed var(--border-color);
+    border-radius: var(--border-radius);
+  }
+}

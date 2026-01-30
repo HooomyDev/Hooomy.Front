@@ -1,31 +1,46 @@
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import { districts } from "../../stores/districts";
-import { streets } from "../../stores/streets";
+import React, { useState } from "react";
 import styles from "./RequestByAdress.module.css";
-import SelectField from "../../common/SelectField/SelectField";
 import InputField from "../../common/InputField/InputField";
 import { useT } from "../../utils/useT";
+import { apiClient as client } from "../../api/client";
+import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
 
 export default function RequestByAdress() {
   const t = useT();
-  const { watch } = useFormContext();
-  const selectedDistrict = watch("district");
+
+  const [streetOptions, setStreetOptions] = useState([]);
+
+  const handleStreetSearch = async (query) => {
+    if (!query) {
+      setStreetOptions([]);
+      return;
+    }
+
+    try {
+      const res = await client.get(
+        `/search?query=${encodeURIComponent(query)}`
+      );
+      const options = res.data.streets.map((s) => ({
+        value: s.title,
+        label: s.title,
+      }));
+      setStreetOptions(options);
+    } catch (error) {
+      console.error("Street search failed:", error);
+      setStreetOptions([]);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
-      <SelectField
-        label={t("user.district")}
-        name="district"
-        options={districts}
-        required
-      />
-      <SelectField
-        required
+      <AutocompleteField
         label={t("user.street")}
         name="street"
-        options={streets[selectedDistrict] || []}
+        options={streetOptions}
+        required
+        onSearch={handleStreetSearch}
       />
+
       <InputField
         required
         label={t("user.house")}

@@ -25,8 +25,6 @@ export default function CreateRequestModal({ onSuccess }) {
   });
 
   const onSubmit = async (data) => {
-    console.log("Form data:", data);
-
     await createRequest({
       title: data.title,
       description: data.description,

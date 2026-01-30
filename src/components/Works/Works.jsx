@@ -11,6 +11,7 @@ import { useT } from "../../utils/useT";
 import styles from "./Works.module.css";
 import Loader from "../../common/Loader/Loader";
 import PageHeader from "../../common/PageHeader/PageHeader";
+import { getWorks } from "../../api/services/workService";
 
 export default function Works() {
   const t = useT();
@@ -23,72 +24,25 @@ export default function Works() {
       try {
         setLoading(true);
 
-        // имитация загрузки
-        //await new Promise((resolve) => setTimeout(resolve, 2000));
+        const data = await getWorks();
 
-        // TODO: подключить реальные данные
-        const data = [
-          {
-            id: 1,
-            seriousness: "info",
-            title: "Database migration",
-            plannedPeriod: {
-              start: "22-12-2025 08:00",
-              end: "30-12-2025 09:00",
-            },
-            actualPeriod: {
-              start: "22-12-2025 08:01",
-              end: "23-12-2025 08:25",
-            },
-            description: "Description",
-            address: "adressssssssssssssssss",
-          },
-          {
-            id: 2,
-            seriousness: "warn",
-            title: "Server maintenance",
-            plannedPeriod: {
-              start: "24-12-2025 10:00",
-              end: "24-12-2025 14:00",
-            },
-            actualPeriod: {
-              start: "24-12-2025 10:15",
-              end: "24-12-2025 13:45",
-            },
-            description: "Description",
-            address: "adressssssssssssssssss",
-          },
-          {
-            id: 3,
-            seriousness: "warn",
-            title: "Security patch deployment",
-            plannedPeriod: {
-              start: "26-12-2025 20:00",
-              end: "27-12-2025 02:00",
-            },
-            actualPeriod: {
-              start: "26-12-2025 20:30",
-              end: "27-12-2025 01:50",
-            },
-            description: "Description",
-            address: "adressssssssssssssssss",
-          },
-          {
-            id: 4,
-            seriousness: "info",
-            title: "UI update rollout",
-            plannedPeriod: {
-              start: "28-12-2025 09:00",
-              end: "28-12-2025 11:00",
-            },
-            actualPeriod: {
-              start: "28-12-2025 09:10",
-              end: "28-12-2025 11:05",
-            },
-            description: "Description",
-            address: "adressssssssssssssssss",
-          },
-        ];
+        // const data = [
+        //   {
+        //     id: 1,
+        //     seriousness: "info",
+        //     title: "Database migration",
+        //     plannedPeriod: {
+        //       start: "22-12-2025 08:00",
+        //       end: "30-12-2025 09:00",
+        //     },
+        //     actualPeriod: {
+        //       start: "22-12-2025 08:01",
+        //       end: "23-12-2025 08:25",
+        //     },
+        //     description: "Description",
+        //     address: "adressssssssssssssssss",
+        //   },
+        // ];
 
         setWorks(data);
       } catch (err) {
@@ -126,7 +80,7 @@ export default function Works() {
                 key={work.id}
               >
                 <div className={styles.workIconWrapper}>
-                  {work.seriousness === "info" ? (
+                  {work.seriousness === 1 ? (
                     <InformationCircleIcon
                       className={`${styles.workIcon} ${styles.infoIcon}`}
                     />
@@ -139,17 +93,20 @@ export default function Works() {
                 <div className={styles.work}>
                   <div className={styles.title}>{work.title}</div>
                   <div className={styles.address}>
-                    {t("works.address")}: {work.address}
+                    {t("works.address")}: {work.street + ", " + work.house}
                   </div>
                   <div className={styles.periods}>
                     <div>
-                      {t("works.plannedPeriod")}: {work.plannedPeriod.start} -{" "}
-                      {work.plannedPeriod.end}
+                      {t("works.plannedPeriod")}: {work.plannedStartTime} -{" "}
+                      {work.plannedEndTime}
                     </div>
-                    <div>
-                      {t("works.actualPeriod")}: {work.actualPeriod.start} -{" "}
-                      {work.actualPeriod.end}
-                    </div>
+                    {work.factStartTime && (
+                      <div>
+                        {t("works.actualPeriod")}: {work.factStartTime} -{" "}
+                        {work.factEndTime}
+                      </div>
+                    )}
+
                     <div>
                       {t("works.description")}: {work.description}
                     </div>

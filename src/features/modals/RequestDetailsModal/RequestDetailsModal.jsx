@@ -9,14 +9,18 @@ export default function RequestDetailsModal({ request }) {
   const [requestDetails, setRequestDetails] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  const STATUS_MAP = {
+    1: "Создан",
+    2: "Отклонено",
+    3: "В обработке",
+    4: "Выполнено",
+  };
+
   useEffect(() => {
     async function fetchRequestDetails() {
       try {
         setLoading(true);
-
         const data = await getRequestDetails(request.id);
-        console.log(data);
-
         setRequestDetails(data);
       } catch (err) {
         console.error(err);
@@ -24,18 +28,15 @@ export default function RequestDetailsModal({ request }) {
         setLoading(false);
       }
     }
-
     fetchRequestDetails();
   }, [request.id]);
 
   if (!requestDetails) return;
-
   if (loading) return <Loader />;
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Детали заявки</div>
-
       <div className={styles.content}>
         <div className={styles.photoWrapper}>
           {requestDetails.photoUrl !== "" ? (
@@ -51,7 +52,9 @@ export default function RequestDetailsModal({ request }) {
 
         <div className={styles.infoWrapper}>
           <div className={styles.reqTitle}>{requestDetails.title}</div>
-          <div className={styles.reqStatus}>{requestDetails.status}</div>
+          <div className={styles.reqStatus}>
+            {STATUS_MAP[requestDetails.status] || "Неизвестный статус"}
+          </div>
           <div className={styles.reqDate}>
             Создано:{" "}
             {format(new Date(requestDetails.createdAt), "dd.MM.yyyy HH:mm")}

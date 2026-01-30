@@ -10,6 +10,7 @@ export default function AutocompleteField({
   options,
   required = false,
   rules = {},
+  onSearch, // 👈 новый проп
 }) {
   const t = useT();
   const [open, setOpen] = useState(false);
@@ -31,7 +32,6 @@ export default function AutocompleteField({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // фильтрация по вводу
   const filteredOptions = options.filter((opt) =>
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
@@ -67,11 +67,13 @@ export default function AutocompleteField({
                 }
                 placeholder={t("placeholder.selectField")}
                 onChange={(e) => {
-                  setSearch(e.target.value);
-                  if (e.target.value === "") {
+                  const query = e.target.value;
+                  setSearch(query);
+                  if (query === "") {
                     onChange("");
                   }
                   setOpen(true);
+                  if (onSearch) onSearch(query);
                 }}
                 onFocus={() => setOpen(true)}
               />
@@ -79,7 +81,7 @@ export default function AutocompleteField({
               {open && filteredOptions.length > 0 && (
                 <Dropdown
                   visible={open}
-                  items={filteredOptions.slice(0, 3).map((opt) => ({
+                  items={filteredOptions.slice(0, 5).map((opt) => ({
                     label: opt.label,
                     onClick: () => handleSelect(opt),
                   }))}

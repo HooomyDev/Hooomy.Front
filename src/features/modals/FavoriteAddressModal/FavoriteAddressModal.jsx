@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./FavoriteAddressModal.module.css";
 import { useT } from "../../../utils/useT";
 import { FormProvider } from "react-hook-form";
 import InputField from "../../../common/InputField/InputField";
 import AutocompleteField from "../../../common/AutocompleteField/AutocompleteField";
 import Button from "../../../common/Button/Button";
-import { streets } from "../../../stores/streets";
+import { apiClient as client } from "../../../api/client";
 
 export default function FavoriteAddressModal({
   editingAddress,
@@ -14,12 +14,28 @@ export default function FavoriteAddressModal({
 }) {
   const t = useT();
 
-  const allStreets = Object.entries(streets).flatMap(([district, arr]) =>
-    arr.map((s) => ({
-      value: s.value,
-      label: s.label,
-    }))
-  );
+  const [streetOptions, setStreetOptions] = useState([]);
+
+  const handleStreetSearch = async (query) => {
+    if (!query) {
+      setStreetOptions([]);
+      return;
+    }
+
+    try {
+      const res = await client.get(
+        `/search?query=${encodeURIComponent(query)}`
+      );
+      const options = res.data.streets.map((s) => ({
+        value: s.title,
+        label: s.title,
+      }));
+      setStreetOptions(options);
+    } catch (error) {
+      console.error("Street search failed:", error);
+      setStreetOptions([]);
+    }
+  };
 
   return (
     <div className={styles.modalContent}>
@@ -37,10 +53,11 @@ export default function FavoriteAddressModal({
           />
 
           <AutocompleteField
-            label="Улица"
+            label={t("user.street")}
             name="street"
-            options={allStreets}
+            options={streetOptions}
             required
+            onSearch={handleStreetSearch}
           />
 
           <InputField
