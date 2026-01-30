@@ -9,7 +9,7 @@ export default function HomePage() {
 
   return (
     <PageWrapper>
-      {user?.role === "employee" ? <EmployeeHome /> : <Home />}
+      {user?.role === "Employee" ? <EmployeeHome /> : <Home />}
     </PageWrapper>
   );
 }

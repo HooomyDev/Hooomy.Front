@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 35%;
+  width: 50%;
   padding: var(--spacing-xxl);
   margin: auto 0;
   gap: var(--spacing-md);

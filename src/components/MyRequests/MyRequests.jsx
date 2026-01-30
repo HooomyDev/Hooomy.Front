@@ -11,6 +11,7 @@ import CreateRequestModal from "../../features/modals/CreateRequestModal/CreateR
 import PageHeader from "../../common/PageHeader/PageHeader";
 import { getMyRequests } from "../../api/services/requestService";
 import { useAuthStore } from "../../stores/authStore";
+import Notification from "../../common/Notification/Notification";
 
 export default function MyRequests() {
   const t = useT();
@@ -23,6 +24,8 @@ export default function MyRequests() {
   const [selectedStatus, setSelectedStatus] = useState(0);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const [notification, setNotification] = useState(null);
 
   const handleCreateRequest = () => {
     setIsModalOpen(true);
@@ -38,12 +41,14 @@ export default function MyRequests() {
         setLoading(true);
 
         const data = await getMyRequests(user.id);
-        console.log(data);
 
         setAllRequests(data);
         setRequests(data);
-      } catch (err) {
-        console.error(err);
+      } catch (error) {
+        setNotification({
+          type: "error",
+          message: "Возникли проблемы при загрузке заявок",
+        });
       } finally {
         setLoading(false);
       }
@@ -60,6 +65,15 @@ export default function MyRequests() {
 
   return (
     <div className={styles.wrapper}>
+      {notification && (
+        <Notification
+          duration={3000}
+          onClose={() => setNotification(null)}
+          type={notification.type}
+        >
+          <div>{notification.message}</div>
+        </Notification>
+      )}
       <PageHeader
         title={t("requests.title")}
         icon={ClipboardDocumentListIcon}
@@ -71,8 +85,6 @@ export default function MyRequests() {
         </div>
 
         <div className={styles.sectionItem2}>
-          <MyRequestsNewRequest handleCreateRequest={handleCreateRequest} />
-
           <MyRequestsFilters
             allRequests={allRequests}
             selectedStatus={selectedStatus}
@@ -83,6 +95,7 @@ export default function MyRequests() {
             onEndDateChange={setEndDate}
             onFilterSubmit={handleFilterSubmit}
           />
+          <MyRequestsNewRequest handleCreateRequest={handleCreateRequest} />
         </div>
       </div>
       <Modal onClose={handleCloseModal} isOpen={isModalOpen}>

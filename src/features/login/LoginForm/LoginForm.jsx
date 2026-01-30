@@ -11,9 +11,12 @@ import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import Notification from "../../../common/Notification/Notification";
 
 export default function LoginForm() {
   const t = useT();
+
+  const [notification, setNotification] = useState(null);
 
   const methods = useForm({
     defaultValues: { email: "", password: "" },
@@ -32,7 +35,7 @@ export default function LoginForm() {
       params.append("grant_type", "password");
       params.append("username", data.email);
       params.append("password", data.password);
-      params.append("scope", "openid profile HooomeWebApi");
+      params.append("scope", "openid profile HooomeWebApi offline_access");
 
       const response = await axios.post(
         "https://localhost:5001/connect/token",
@@ -45,6 +48,7 @@ export default function LoginForm() {
       const result = response.data;
 
       localStorage.setItem("access_token", result.access_token);
+      localStorage.setItem("refresh_token", result.refresh_token);
 
       const decoded = jwtDecode(result.access_token);
 
@@ -65,7 +69,16 @@ export default function LoginForm() {
         navigate(routes.home);
       }
     } catch (error) {
-      console.error("Login failed:", error);
+      setNotification({
+        type: "error",
+        message:
+          (error.response?.data?.error_description ===
+            "invalid_username_or_password" &&
+            "Неправильная почта или пароль") ||
+          error.response?.data?.message ||
+          error.response?.data?.errors?.[0]?.description ||
+          "Ошибка входа",
+      });
     } finally {
       setLoading(false);
     }
@@ -77,6 +90,15 @@ export default function LoginForm() {
 
   return (
     <div className={styles.wrapper}>
+      {notification && (
+        <Notification
+          duration={3000}
+          onClose={() => setNotification(null)}
+          type={notification.type}
+        >
+          <div>{notification.message}</div>
+        </Notification>
+      )}
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
           <FormHeader title={t("login.title")} />

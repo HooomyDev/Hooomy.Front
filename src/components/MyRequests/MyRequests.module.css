@@ -24,3 +24,19 @@
   flex-direction: column;
   gap: var(--spacing-xxl);
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    gap: var(--spacing-lg);
+  }
+
+  .section {
+    gap: var(--spacing-lg);
+    flex-direction: column;
+  }
+
+  .sectionItem2 {
+    gap: var(--spacing-lg);
+  }
+}

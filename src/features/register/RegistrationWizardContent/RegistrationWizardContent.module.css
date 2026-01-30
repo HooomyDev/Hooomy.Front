@@ -6,4 +6,5 @@
   box-sizing: border-box;
   transition: height 0.3s ease;
   padding-bottom: var(--spacing-xxl);
+  margin: 0 auto;
 }

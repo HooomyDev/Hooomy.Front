@@ -24,18 +24,19 @@ import SmoothlyWrapper from "../../../common/SmoothlyWrapper/SmoothlyWrapper";
 import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
 import { authClient as client } from "../../../api/client";
-import { useAuthStore } from "../../../stores/authStore";
+import Notification from "../../../common/Notification/Notification";
 
 export default function RegistrationWizard() {
   const t = useT();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const login = useAuthStore((store) => store.login);
+
+  const [notification, setNotification] = useState(null);
 
   const roles = [
-    { value: "resident", label: t("register.step1Var1") },
-    { value: "management", label: t("register.step1Var2") },
+    { value: "Resident", label: t("register.step1Var1") },
+    { value: "Employee", label: t("register.step1Var2") },
   ];
 
   const methods = useForm({
@@ -108,9 +109,8 @@ export default function RegistrationWizard() {
 
     if (step === 4) {
       setLoading(true);
-
       try {
-        await client.post("/register", {
+        const res = await client.post("/register", {
           email: values.email,
           password: values.password,
           confirmPassword: values.confirmPassword,
@@ -119,21 +119,25 @@ export default function RegistrationWizard() {
           firstName: values.name,
           patronymic: values.patronymic,
         });
+        if (res.data?.errors) {
+          setNotification(res.data.errors.description);
+        }
 
-        await client.post(
-          "/login",
-          { email: values.email, password: values.password },
-          { withCredentials: true }
-        );
-
-        login({ email: values.email, role: values.role });
-
-        navigate("/");
+        setNotification({
+          type: "success",
+          message: "Регистрация прошла успешно",
+        });
+        setStep((prev) => prev + 1);
       } catch (error) {
-        console.error("Register failed:", error);
+        console.log(error.response?.data);
+        setNotification({
+          type: "error",
+          message: error.response?.data?.errors[0].description,
+        });
       } finally {
         setLoading(false);
       }
+      return;
     }
 
     if (step < steps.length) {
@@ -167,6 +171,15 @@ export default function RegistrationWizard() {
 
   return (
     <div className={styles.wrapper}>
+      {notification && (
+        <Notification
+          duration={3000}
+          onClose={() => setNotification(null)}
+          type={notification.type}
+        >
+          <div>{notification.message}</div>
+        </Notification>
+      )}
       <FormProvider {...methods}>
         <form className={styles.form}>
           <FormHeader title={t("register.title")} />

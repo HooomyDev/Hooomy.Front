@@ -5,6 +5,7 @@
   justify-content: center;
   gap: var(--space-md);
   padding: var(--space-lg);
+  margin: 0 auto;
 }
 
 .image {

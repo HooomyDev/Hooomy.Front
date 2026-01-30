@@ -17,7 +17,7 @@ export function useLinks() {
   const t = useT();
   const user = useAuthStore((store) => store.user);
 
-  if (user?.role === "admin")
+  if (user?.role === "Admin")
     return [
       {
         id: 1,
@@ -51,7 +51,7 @@ export function useLinks() {
       },
     ];
 
-  if (user?.role === "employee")
+  if (user?.role === "Employee")
     return [
       { id: 1, to: routes.home, label: t("nav.main"), icon: HomeIcon },
       {

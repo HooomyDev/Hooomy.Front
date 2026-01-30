@@ -15,6 +15,25 @@
   border: 1px solid var(--font-color);
 }
 
+.info {
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
+}
+
+.success {
+  border: 1px solid #1eff00;
+  color: #1eff00;
+}
+
+.error {
+  border: 1px solid var(--error-color);
+  color: var(--error-color);
+}
+
+.icon {
+  width: 3rem;
+}
+
 @keyframes slideIn {
   from {
     transform: translateX(100%);
@@ -37,7 +56,6 @@
   }
 }
 
-/* Адаптивность для уведомления */
 @media (max-width: 768px) {
   .notification {
     top: 10px;

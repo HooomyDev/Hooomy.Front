@@ -20,7 +20,18 @@
 }
 
 .photoWrapper {
-  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 600px;
+  height: 600px;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+.icon {
+  color: var(--border-color);
+  width: 50px;
 }
 
 .photo {
@@ -34,7 +45,7 @@
 }
 
 .infoWrapper {
-  width: 100%;
+  width: 400px;
   background-color: var(--main-color);
   border-radius: var(--border-radius);
   padding: var(--spacing-lg);
@@ -86,27 +97,6 @@
   margin-bottom: var(--spacing-sm);
 }
 
-.reqStatus span {
-  display: block;
-  font-size: var(--font-size-base);
-  color: var(--font-color);
-  padding-left: var(--spacing-md);
-  position: relative;
-  margin-bottom: var(--spacing-xs);
-}
-
-.reqStatus span::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--element-color);
-  font-weight: bold;
-}
-
-.reqStatus span:last-child {
-  margin-bottom: 0;
-}
-
 .reqDescription {
   font-size: var(--font-size-base);
   color: var(--font-color);
@@ -123,5 +113,9 @@
   display: block;
   font-weight: 600;
   margin-bottom: var(--spacing-sm);
+  color: var(--font-color);
+}
+
+.reqAddress {
   color: var(--font-color);
 }

@@ -30,7 +30,7 @@ export default function CreateRequestModal({ onSuccess }) {
     await createRequest({
       title: data.title,
       description: data.description,
-      address: data.district + ", " + data.street + ", " + data.house,
+      address: data.street + ", " + data.house,
     });
 
     onSuccess();
