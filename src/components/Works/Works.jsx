@@ -26,24 +26,6 @@ export default function Works() {
 
         const data = await getWorks();
 
-        // const data = [
-        //   {
-        //     id: 1,
-        //     seriousness: "info",
-        //     title: "Database migration",
-        //     plannedPeriod: {
-        //       start: "22-12-2025 08:00",
-        //       end: "30-12-2025 09:00",
-        //     },
-        //     actualPeriod: {
-        //       start: "22-12-2025 08:01",
-        //       end: "23-12-2025 08:25",
-        //     },
-        //     description: "Description",
-        //     address: "adressssssssssssssssss",
-        //   },
-        // ];
-
         setWorks(data);
       } catch (err) {
         console.error(err);
