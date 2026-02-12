@@ -37,7 +37,7 @@ export default function Header() {
   return (
     <div className={styles.header}>
       <div className={styles.wrapper}>
-        <>
+        <div className={styles.logoWrapper}>
           <button
             className={styles.burgerButton}
             onClick={() => setIsOpen((prev) => !prev)}
@@ -49,7 +49,7 @@ export default function Header() {
             )}
           </button>
           <Logo />
-        </>
+        </div>
 
         <div className={styles.actions}>
           <button

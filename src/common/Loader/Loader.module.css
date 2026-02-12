@@ -1,4 +1,6 @@
 .loader {
+  min-height: 50px;
+  min-height: 50px;
   width: 5%;
   aspect-ratio: 1;
   --_g: no-repeat
