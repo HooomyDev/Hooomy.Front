@@ -12,16 +12,13 @@
   width: 100%;
 }
 
-.cards {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-xxl);
-}
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    gap: var(--spacing-lg);
+  }
 
-.cards {
-  display: flex;
-  width: 100%;
-  font-size: var(--font-size-title);
-  font-weight: 700;
-  color: var(--font-color);
+  .content {
+    gap: var(--spacing-lg);
+  }
 }

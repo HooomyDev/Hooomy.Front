@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -10,7 +11,6 @@ import ProtectedRoute from "./features/route/ProtectedRouter/ProtectedRouter";
 import "./styles/variables.css";
 import "./styles/global.css";
 import NotFound from "./components/NotFound/NotFound";
-import { useEffect } from "react";
 import MyRequestsPage from "./pages/MyRequestsPage/MyRequestsPage";
 import routes from "./stores/routes.json";
 import UserTermsPage from "./pages/UserTermsPage/UserTermsPage";
@@ -36,183 +36,195 @@ export default function App() {
     document.documentElement.setAttribute("data-theme", savedTheme);
   }, []);
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false, // Optional: disable refetch on window focus
+        retry: 1, // Optional: retry failed requests once
+        staleTime: 5 * 60 * 1000, // Optional: data stays fresh for 5 minutes
+      },
+    },
+  });
+
   return (
-    <Routes>
-      <Route path={routes.home} element={<Layout />}>
-        <Route index element={<HomePage />} />
-      </Route>
+    <QueryClientProvider client={queryClient}>
+      <Routes>
+        <Route path={routes.home} element={<Layout />}>
+          <Route index element={<HomePage />} />
+        </Route>
 
-      {/*Resident*/}
-      <Route path={routes.myRequests} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Resident"]}>
-              <MyRequestsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.works} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Resident"]}>
-              <WorksPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.news} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Resident"]}>
-              <SurvaysPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.statistic} element={<Layout />}>
-        <Route index element={<StatisticPage />} />
-      </Route>
-      <Route path={routes.map} element={<Layout />}>
-        <Route index element={<MapPage />} />
-      </Route>
-      <Route path={routes.faq} element={<Layout />}>
-        <Route index element={<FAQPage />} />
-      </Route>
-      <Route path={routes.news} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute>
-              <SurvaysPage roles={["Resident"]} />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
+        {/*Resident*/}
+        <Route path={routes.myRequests} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident"]}>
+                <MyRequestsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.works} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident"]}>
+                <WorksPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.news} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident"]}>
+                <SurvaysPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.statistic} element={<Layout />}>
+          <Route index element={<StatisticPage />} />
+        </Route>
+        <Route path={routes.map} element={<Layout />}>
+          <Route index element={<MapPage />} />
+        </Route>
+        <Route path={routes.faq} element={<Layout />}>
+          <Route index element={<FAQPage />} />
+        </Route>
+        <Route path={routes.news} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <SurvaysPage roles={["Resident"]} />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-      {/*Employee*/}
-      <Route path={routes.requests} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Employee"]}>
-              <EmployeeRequestsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.surveys} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Employee"]}>
-              <EmployeeSurveysPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.statistics} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Employee"]}>
-              <EmployeeStatisticPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
+        {/*Employee*/}
+        <Route path={routes.requests} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Employee"]}>
+                <EmployeeRequestsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.surveys} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Employee"]}>
+                <EmployeeSurveysPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.statistics} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Employee"]}>
+                <EmployeeStatisticPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-      {/*Admin*/}
-      <Route path={routes.adminDashboard} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Admin"]}>
-              <AdminDashboardPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.databases} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Admin"]}>
-              <AdminDatabasePage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.complaints} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Admin"]}>
-              <AdminComplaintsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.hmoStat} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Admin"]}>
-              <EmployeeStatisticPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.comments} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Admin"]}>
-              <AdminCommentsModerationPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
+        {/*Admin*/}
+        <Route path={routes.adminDashboard} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AdminDashboardPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.databases} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AdminDatabasePage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.complaints} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AdminComplaintsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.hmoStat} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <EmployeeStatisticPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.comments} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AdminCommentsModerationPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
 
-      {/*Common*/}
-      <Route path={routes.profile} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
-              <ProfilePage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.settings} element={<Layout />}>
-        <Route
-          index
-          element={
-            <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
-              <SettingsPage />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      <Route path={routes.login} element={<LoginPage />} />
-      <Route path={routes.register} element={<RegisterPage />} />
-      <Route path={routes.notFound} element={<NotFound />} />
-      <Route path={routes.noAccess} element={<NoAccess />} />
+        {/*Common*/}
+        <Route path={routes.profile} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.settings} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
+                <SettingsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.login} element={<LoginPage />} />
+        <Route path={routes.register} element={<RegisterPage />} />
+        <Route path={routes.notFound} element={<NotFound />} />
+        <Route path={routes.noAccess} element={<NoAccess />} />
 
-      {/*Docs*/}
-      <Route path={routes.terms} element={<Layout />}>
-        <Route index element={<UserTermsPage />} />
-      </Route>
-      <Route path={routes.privacy} element={<Layout />}>
-        <Route index element={<PrivacyPolicyPage />} />
-      </Route>
-      <Route path={routes.cookies} element={<Layout />}>
-        <Route index element={<CookiesPolicyPage />} />
-      </Route>
-    </Routes>
+        {/*Docs*/}
+        <Route path={routes.terms} element={<Layout />}>
+          <Route index element={<UserTermsPage />} />
+        </Route>
+        <Route path={routes.privacy} element={<Layout />}>
+          <Route index element={<PrivacyPolicyPage />} />
+        </Route>
+        <Route path={routes.cookies} element={<Layout />}>
+          <Route index element={<CookiesPolicyPage />} />
+        </Route>
+      </Routes>
+    </QueryClientProvider>
   );
 }

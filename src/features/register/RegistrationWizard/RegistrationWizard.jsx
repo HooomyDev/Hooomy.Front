@@ -110,7 +110,7 @@ export default function RegistrationWizard() {
     if (step === 4) {
       setLoading(true);
       try {
-        const res = await client.post("/register", {
+        const res = await client.post("auth/register", {
           email: values.email,
           password: values.password,
           confirmPassword: values.confirmPassword,

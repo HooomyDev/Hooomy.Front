@@ -14,7 +14,7 @@ apiClient.interceptors.request.use((config) => {
 });
 
 const authClient = axios.create({
-  baseURL: "https://localhost:5001/auth",
+  baseURL: "https://localhost:5001",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
