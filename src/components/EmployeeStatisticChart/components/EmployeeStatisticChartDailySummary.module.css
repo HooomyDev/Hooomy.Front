@@ -1,0 +1,32 @@
+.dailySummary {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-lg);
+  width: 90%;
+}
+
+.summaryItem {
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  padding: var(--spacing-md);
+  box-shadow: 0 2px 6px rgba(18, 36, 53, 0.05);
+  transition: all 0.3s ease;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.summaryLabel {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+}
+
+.summaryValue {
+  font-size: var(--font-size-lg);
+  color: var(--element-color);
+}

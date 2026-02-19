@@ -59,7 +59,7 @@ export default function AuthButton() {
       icon: LogoutIcon,
       onClick: async () => {
         try {
-          await client.post("/logout", null, { withCredentials: true });
+          await client.post("auth/logout", null, { withCredentials: true });
           logout();
           navigate(routes.home);
         } catch (error) {

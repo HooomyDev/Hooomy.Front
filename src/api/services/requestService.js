@@ -34,3 +34,13 @@ export const getRequestCount = async () => {
 
   return data;
 };
+
+export const getRequestStatistic = async (period = 1) => {
+  const res = await client.get(`/requests/statistic?period=${period}`);
+
+  await getMyRequests();
+
+  const data = res.data.requests;
+
+  return data ?? [];
+};
