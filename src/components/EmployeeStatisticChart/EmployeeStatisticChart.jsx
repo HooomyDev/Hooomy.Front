@@ -19,7 +19,7 @@ export default function EmployeeStatisticChart() {
   const { data, isLoading } = useQuery({
     queryKey: ["requestStatistic", period],
     queryFn: () => getRequestStatistic(period),
-    staleTime: 5 * 60 * 1000,
+    staleTime: 0,
   });
 
   // Анимация

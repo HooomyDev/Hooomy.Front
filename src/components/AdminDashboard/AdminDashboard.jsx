@@ -36,7 +36,6 @@ export default function AdminDashboard() {
   });
 
   const mockStats = {
-    complaints: Math.floor(Math.random() * 100),
     comments: Math.floor(Math.random() * 300),
   };
 

@@ -8,7 +8,7 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import styles from "../AdminDatabase/AdminDatabase.module.css";
+import styles from "./AdminDatabaseStyles.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";

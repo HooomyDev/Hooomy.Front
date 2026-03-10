@@ -8,6 +8,7 @@ export default function Button({
   variant = "primary",
   disabled = false,
   className = "",
+  title = "",
 }) {
   const classes = [
     styles.button,
@@ -22,6 +23,7 @@ export default function Button({
       className={classes}
       onClick={onClick}
       disabled={disabled}
+      title={title}
     >
       {children}
     </button>
