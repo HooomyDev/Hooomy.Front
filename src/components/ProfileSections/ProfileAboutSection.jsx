@@ -46,7 +46,8 @@ export default function ProfileAboutSection({ user }) {
 
   const onSubmit = async (data) => {
     try {
-      const response = await client.put("/profile", {
+      console.log(user);
+      const response = await client.put("/auth/profile", {
         id: user.id,
         email: data.email,
         firstName: data.name,
@@ -73,7 +74,9 @@ export default function ProfileAboutSection({ user }) {
   return (
     <Block title={t("profile.about")} Icon={IdentificationIcon}>
       {notification && (
-        <Notification duration={3000}>{notification.message}</Notification>
+        <Notification duration={3000} type={notification.type}>
+          {notification.message}
+        </Notification>
       )}
 
       <FormProvider {...methods}>

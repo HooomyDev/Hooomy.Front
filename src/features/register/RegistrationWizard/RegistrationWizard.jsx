@@ -129,7 +129,7 @@ export default function RegistrationWizard() {
         });
         setStep((prev) => prev + 1);
       } catch (error) {
-        console.log(error.response?.data);
+        console.log(error);
         setNotification({
           type: "error",
           message: error.response?.data?.errors[0].description,

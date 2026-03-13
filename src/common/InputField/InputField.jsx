@@ -25,10 +25,12 @@ export default function InputField({
 
   return (
     <div className={styles.wrapper}>
-      <label className={styles.label} htmlFor={name}>
-        {label}
-        {required && <span className={styles.required}> *</span>}
-      </label>
+      {label && (
+        <label className={styles.label} htmlFor={name}>
+          {label}
+          {required && <span className={styles.required}> *</span>}
+        </label>
+      )}
 
       <div className={styles.inputWrapper}>
         {multiline ? (

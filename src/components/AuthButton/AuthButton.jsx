@@ -5,6 +5,7 @@ import { ReactComponent as UserLogo } from "../../assets/user.svg";
 import { ReactComponent as ProfileIcon } from "../../assets/user.svg";
 import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
 import { ReactComponent as LogoutIcon } from "../../assets/logout.svg";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
 import Dropdown from "../../common/Dropdown/Dropdown";
 import styles from "./AuthButton.module.css";
 import { useT } from "../../utils/useT";
@@ -52,6 +53,14 @@ export default function AuthButton() {
       onClick: () => {
         setOpen(false);
         navigate(routes.settings);
+      },
+    },
+    {
+      label: "Сообщения",
+      icon: ChatBubbleBottomCenterTextIcon,
+      onClick: () => {
+        setOpen(false);
+        navigate(routes.chat);
       },
     },
     {

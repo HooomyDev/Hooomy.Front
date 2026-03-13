@@ -29,6 +29,8 @@ import AdminDashboardPage from "./pages/AdminDashboardPage/AdminDashboardPage";
 import AdminDatabasePage from "./pages/AdminDatabasePage/AdminDatabasePage";
 import AdminComplaintsPage from "./pages/AdminComplaintsPage/AdminComplaintsPage";
 import AdminCommentsModerationPage from "./pages/AdminCommentsModerationPage/AdminCommentsModerationPage";
+import ChatsPage from "./pages/ChatsPage/ChatsPage";
+import ChatPage from "./pages/ChatPage/ChatPage";
 
 export default function App() {
   useEffect(() => {
@@ -97,8 +99,28 @@ export default function App() {
           <Route
             index
             element={
-              <ProtectedRoute>
-                <SurvaysPage roles={["Resident"]} />
+              <ProtectedRoute roles={["Resident"]}>
+                <SurvaysPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.chat} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident", "Employee"]}>
+                <ChatsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={`${routes.chat}/:chatId`} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident", "Employee"]}>
+                <ChatPage />
               </ProtectedRoute>
             }
           />

@@ -38,7 +38,7 @@ export default function LoginForm() {
       params.append("scope", "openid profile HooomeWebApi offline_access");
 
       const response = await axios.post(
-        "https://localhost:5001/connect/token",
+        "http://localhost:5005/connect/token",
         params,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -69,6 +69,7 @@ export default function LoginForm() {
         navigate(routes.home);
       }
     } catch (error) {
+      console.log(error);
       setNotification({
         type: "error",
         message:

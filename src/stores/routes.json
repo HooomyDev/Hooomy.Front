@@ -17,6 +17,7 @@
   "report": "/report",
   "docs": "/docs",
   "noAccess": "/no-access",
+  "chat": "/chat",
 
   "surveys": "/surveys-panel",
   "requests": "/requests-panel",

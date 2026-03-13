@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "https://localhost:7111/api",
+  baseURL: "http://localhost:5001/api",
   headers: { "Content-Type": "application/json" },
 });
 
@@ -14,7 +14,7 @@ apiClient.interceptors.request.use((config) => {
 });
 
 const authClient = axios.create({
-  baseURL: "https://localhost:5001",
+  baseURL: "http://localhost:5005",
   headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
@@ -30,7 +30,7 @@ const refreshToken = async () => {
 
   try {
     const response = await axios.post(
-      "https://localhost:5001/connect/token",
+      "http://localhost:5005/connect/token",
       params,
       { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
     );
