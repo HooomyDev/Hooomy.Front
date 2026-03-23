@@ -9,12 +9,21 @@ import routes from "../../stores/routes.json";
 import { useNavigate } from "react-router-dom";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
+import { useQuery } from "@tanstack/react-query";
+import { getCompanyDetails } from "../../api/services/companyService";
+import Loader from "../../common/Loader/Loader";
 
 export default function EmployeeHome() {
   const t = useT();
 
   const user = useAuthStore((store) => store.user);
   const navigate = useNavigate();
+
+  const { data: userCompany, isLoading } = useQuery({
+    queryKey: ["userCompany"],
+    queryFn: () => getCompanyDetails(user.companyId),
+    staleTime: 5 * 60 * 1000,
+  });
 
   const links = [
     {
@@ -37,6 +46,10 @@ export default function EmployeeHome() {
     },
   ];
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className={styles.wrapper}>
       <PageHeader
@@ -52,7 +65,7 @@ export default function EmployeeHome() {
               <div className={styles.info}>
                 <div className={styles.email}>{user?.email}</div>
                 <div className={styles.company}>
-                  {user?.company || t("employeeHome.companyDefault")}
+                  {userCompany?.name || t("employeeHome.companyDefault")}
                 </div>
               </div>
             </div>

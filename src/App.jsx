@@ -31,6 +31,8 @@ import AdminComplaintsPage from "./pages/AdminComplaintsPage/AdminComplaintsPage
 import AdminCommentsModerationPage from "./pages/AdminCommentsModerationPage/AdminCommentsModerationPage";
 import ChatsPage from "./pages/ChatsPage/ChatsPage";
 import ChatPage from "./pages/ChatPage/ChatPage";
+import CompanyListPage from "./pages/CompanyListPage/CompanyListPage";
+import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage";
 
 export default function App() {
   useEffect(() => {
@@ -41,12 +43,14 @@ export default function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        refetchOnWindowFocus: false, // Optional: disable refetch on window focus
-        retry: 1, // Optional: retry failed requests once
-        staleTime: 5 * 60 * 1000, // Optional: data stays fresh for 5 minutes
+        refetchOnWindowFocus: false,
+        retry: 1,
+        staleTime: 5 * 60 * 1000,
       },
     },
   });
+
+  window.__TANSTACK_QUERY_CLIENT__ = queryClient;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -124,6 +128,12 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+        </Route>
+        <Route path={`${routes.companies}/:companyId`} element={<Layout />}>
+          <Route index element={<CompanyDetailsPage />} />
+        </Route>
+        <Route path={routes.companies} element={<Layout />}>
+          <Route index element={<CompanyListPage />} />
         </Route>
 
         {/*Employee*/}

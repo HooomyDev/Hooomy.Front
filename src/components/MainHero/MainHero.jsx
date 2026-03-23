@@ -23,7 +23,6 @@ export default function MainHero() {
 
   return (
     <div className={styles.wrapper}>
-      <MascotIcon className={styles.image} />
       <MainHeroContent>
         <MainHeroTitle />
         <MainHeroStats />

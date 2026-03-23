@@ -59,6 +59,7 @@ export default function LoginForm() {
         firstName: decoded.given_name,
         patronymic: decoded.middle_name,
         phoneNumber: decoded.phone_number,
+        companyId: decoded.company_id,
       };
 
       login(user);

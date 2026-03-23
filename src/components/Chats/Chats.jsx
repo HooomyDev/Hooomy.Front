@@ -1,166 +1,118 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./Chats.module.css";
 import PageHeader from "../../common/PageHeader/PageHeader";
-import {
-  ChatBubbleBottomCenterTextIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/solid";
+import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
-import { FormProvider, useForm } from "react-hook-form";
-import InputField from "../../common/InputField/InputField";
-import Button from "../../common/Button/Button";
-import { useNavigate } from "react-router-dom";
-import routes from "../../stores/routes.json";
-
-/* 
-Chat status:
-    Active = 1
-    Closed = 2
-    Pending = 3
-Sender type:
-    Resident = 1
-    Employee = 2
-Message type:
-    Text = 1
-    Photo = 2
-*/
+import { useQuery } from "@tanstack/react-query";
+import { getChatDetails, getChats } from "../../api/services/chatService";
+import Loader from "../../common/Loader/Loader";
+import { useAuthStore } from "../../stores/authStore";
+import ChatCard from "./components/ChatCard/ChatCard";
+import ChatSearchForm from "./components/ChatSearchForm/ChatSearchForm";
+import { HubConnectionBuilder } from "@microsoft/signalr";
+import Chat from "../Chat/Chat";
 
 export default function Chats() {
-  const chats = [
-    {
-      id: 1,
-      residentId: 1,
-      status: 1,
-      lastMessage: {
-        id: 1,
-        senderId: 1,
-        senderName: "Артём",
-        senderType: 1,
-        content: "Привет, Мир!:)",
-        messageType: 1,
-        createdAt: "2026-03-12",
-        isRead: false,
-        readAt: "2026-03-12",
-      },
-      createdAt: "2026-03-11",
-      updatedAt: "2026-03-11",
-      unreadCount: 1,
-    },
-    {
-      id: 2,
-      residentId: 2,
-      status: 1,
-      lastMessage: {
-        id: 1,
-        senderId: 1,
-        senderName: "Паша",
-        senderType: 1,
-        content: "Привет, Мир!:)",
-        messageType: 1,
-        createdAt: "2026-03-12",
-        isRead: true,
-        readAt: "2026-03-12",
-      },
-      createdAt: "2026-03-11",
-      updatedAt: "2026-03-11",
-      unreadCount: 0,
-    },
-  ];
-
+  const [filteredChats, setFilteredChats] = useState([]);
   const navigate = useNavigate();
+  const user = useAuthStore((store) => store.user);
+  const [messages, setMessages] = useState([]);
+  const [connection, setConnection] = useState(null);
+  const [selectedChatId, setSelectedChatId] = useState(null);
 
-  const handleChatClick = (chatId) => {
-    navigate(`${routes.chat}/${chatId}`);
+  const joinChat = async (userName, chatId) => {
+    var connection = new HubConnectionBuilder()
+      .withUrl("http://localhost:5001/chat-hub")
+      .withAutomaticReconnect()
+      .build();
+
+    connection.on("ReceiveMessage", (userName, message) => {
+      setMessages((messages) => [...messages, { userName, message }]);
+    });
+
+    try {
+      await connection.start();
+      await connection.invoke("JoinChat", { userName, chatId });
+
+      setConnection(connection);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const [filteredChats, setFilteredChats] = useState(chats);
+  const closeChat = async () => {
+    await connection.stop();
+    setConnection(null);
+  };
 
-  const methods = useForm({
-    defaultValues: {
-      search: "",
-    },
+  const { data: chats, isLoading } = useQuery({
+    queryKey: ["chats"],
+    queryFn: () => getChats(user),
+    staleTime: 5 * 1000,
   });
 
-  const onSearch = (data) => {
-    const searchTerm = data.search.toLowerCase().trim();
+  const handleChatClick = async (chatId) => {
+    setSelectedChatId(chatId);
+    await joinChat(`${user.surname} ${user.firstName}`, chatId);
+  };
 
-    if (!searchTerm) {
+  const sendMessage = (message) => {
+    connection.invoke("SendAsync", message);
+  };
+
+  useEffect(() => {
+    if (chats) {
       setFilteredChats(chats);
-      return;
     }
+  }, [chats]);
 
-    const filtered = chats.filter(
-      (chat) =>
-        chat.lastMessage.senderName.toLowerCase().includes(searchTerm) ||
-        chat.lastMessage.content.toLowerCase().includes(searchTerm)
-    );
+  const onSubmit = (data) => {
+    const filtered =
+      chats?.filter((chat) =>
+        chat.companyName.toLowerCase().includes(data.search.toLowerCase())
+      ) || [];
 
     setFilteredChats(filtered);
   };
 
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
-    <div className={styles.wrapper}>
-      <PageHeader title="Чаты" icon={ChatBubbleBottomCenterTextIcon} />
-      <Block>
-        <div className={styles.container}>
-          <div className={styles.search}>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(onSearch)}>
-                <InputField
-                  name="search"
-                  type="text"
-                  placeholder="Поиск по чатам..."
-                  rules={{}}
-                />
-                <Button
-                  type="submit"
-                  className={styles.searchButton}
-                  variant="secondary"
-                >
-                  <MagnifyingGlassIcon className={styles.icon} />
-                </Button>
-              </form>
-            </FormProvider>
-          </div>
-          <div className={styles.chats}>
-            {filteredChats.map((chat) => (
-              <div
-                key={chat.id}
-                className={
-                  chat.lastMessage.isRead ? styles.chatRead : styles.chatUnread
-                }
-                onClick={() => handleChatClick(chat.id)}
-              >
-                <div className={styles.avatar}>
-                  {chat.lastMessage.senderName.charAt(0)}
-                </div>
-                <div className={styles.content}>
-                  <div className={styles.header}>
-                    <span className={styles.name}>
-                      {chat.lastMessage.senderName}
-                    </span>
-                    <span className={styles.date}>
-                      {chat.lastMessage.createdAt}
-                    </span>
+    <>
+      {connection ? (
+        <Chat
+          chatId={selectedChatId}
+          messages={messages}
+          sendMessage={sendMessage}
+          closeChat={closeChat}
+        />
+      ) : (
+        <div className={styles.wrapper}>
+          <PageHeader title="Чаты" icon={ChatBubbleBottomCenterTextIcon} />
+          <div className={styles.container}>
+            <ChatSearchForm onSubmit={onSubmit} user={user} />
+            <Block>
+              <div className={styles.chats}>
+                {chats.length === 0 ? (
+                  <div className={styles.empty}>
+                    <ChatBubbleBottomCenterTextIcon className={styles.icon} />
+                    Нет чатов
                   </div>
-                  <div className={styles.message}>
-                    <span
-                      className={
-                        chat.lastMessage.isRead ? styles.read : styles.unread
-                      }
-                    >
-                      {chat.lastMessage.content}
-                    </span>
-                    {chat.unreadCount > 0 && (
-                      <span className={styles.badge}>{chat.unreadCount}</span>
-                    )}
-                  </div>
-                </div>
+                ) : (
+                  filteredChats.map((chat) => (
+                    <li key={chat.id}>
+                      <ChatCard chat={chat} handleChatClick={handleChatClick} />
+                    </li>
+                  ))
+                )}
               </div>
-            ))}
+            </Block>
           </div>
         </div>
-      </Block>
-    </div>
+      )}
+    </>
   );
 }

@@ -25,6 +25,7 @@ import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
 import { authClient as client } from "../../../api/client";
 import Notification from "../../../common/Notification/Notification";
+import { getCompanies } from "../../../api/services/companyService";
 
 export default function RegistrationWizard() {
   const t = useT();
@@ -110,6 +111,9 @@ export default function RegistrationWizard() {
     if (step === 4) {
       setLoading(true);
       try {
+        const companies = await getCompanies();
+        const companyId = values.role === "Employee" ? companies[0].id : null;
+
         const res = await client.post("auth/register", {
           email: values.email,
           password: values.password,
@@ -118,6 +122,7 @@ export default function RegistrationWizard() {
           surname: values.surname,
           firstName: values.name,
           patronymic: values.patronymic,
+          companyId: companyId,
         });
         if (res.data?.errors) {
           setNotification(res.data.errors.description);

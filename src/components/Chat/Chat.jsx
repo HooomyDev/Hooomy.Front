@@ -1,132 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./Chat.module.css";
 import { ArrowLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
-import Button from "../../common/Button/Button";
 import InputField from "../../common/InputField/InputField";
+import Button from "../../common/Button/Button";
 import { FormProvider, useForm } from "react-hook-form";
+import { useAuthStore } from "../../stores/authStore";
+import { useQuery } from "@tanstack/react-query";
+import { getChatDetails } from "../../api/services/chatService";
+import Loader from "../../common/Loader/Loader";
 
-export default function Chat() {
-  const { chatId } = useParams();
-  const navigate = useNavigate();
-  const [message, setMessage] = useState("");
+export default function Chat({ chatId, messages, sendMessage, closeChat }) {
+  const user = useAuthStore((store) => store.user);
+  const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      senderId: 1,
-      senderName: "Паша",
-      senderType: 1,
-      content: "Привет, Мир!:)",
-      messageType: 1,
-      createdAt: "2026-03-12",
-      isRead: true,
-      readAt: "2026-03-12",
-    },
-    {
-      id: 2,
-      senderId: 2,
-      senderName: "Вы",
-      senderType: 2,
-      content: "Привет! Как дела?",
-      messageType: 1,
-      createdAt: new Date().toISOString().split("T")[0],
-      isRead: false,
-      readAt: null,
-    },
-  ]);
-
-  const methods = useForm({
-    defaultValues: {
-      message: "",
-    },
+  const { data: chat, isLoading } = useQuery({
+    queryKey: ["chat"],
+    queryFn: async () => await getChatDetails(chatId),
+    staleTime: 5 * 1000,
+    enabled: !!chatId,
   });
 
-  const currentUserId = 2;
+  const methods = useForm({
+    defaultValues: { message: "" },
+  });
 
-  const handleSendMessage = (data) => {
+  const handleSendMessage = async (data) => {
     if (!data.message.trim()) return;
 
-    const newMessage = {
-      id: messages.length + 1,
-      senderId: currentUserId,
-      senderName: "Вы",
-      senderType: 2,
-      content: data.message,
-      messageType: 1,
-      createdAt: new Date().toISOString().split("T")[0],
-      isRead: false,
-      readAt: null,
-    };
+    sendMessage(data.message);
 
-    setMessages([...messages, newMessage]);
     methods.reset();
   };
 
-  const otherPerson = messages.find((m) => m.senderId !== currentUserId) || {
-    senderName: "Пользователь",
-    senderId: 1,
-  };
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <button className={styles.backButton} onClick={() => navigate(-1)}>
+        <button className={styles.backButton} onClick={() => closeChat()}>
           <ArrowLeftIcon className={styles.icon} />
         </button>
         <div className={styles.userInfo}>
           <div className={styles.avatar}>
-            {otherPerson.senderName.charAt(0)}
+            {(user.role === "Resident" ? chat.companyName : chat?.residentName)
+              .charAt(0)
+              .toUpperCase()}
           </div>
-          <div className={styles.details}>
-            <span className={styles.name}>{otherPerson.senderName}</span>
-            <span className={styles.status}>
-              {messages.some((m) => !m.isRead && m.senderId !== currentUserId)
-                ? "Новое сообщение"
-                : "онлайн"}
-            </span>
-          </div>
+          <span className={styles.name}>
+            {user.role === "Resident" ? chat.companyName : chat?.residentName}
+          </span>
         </div>
       </div>
 
-      <div className={styles.messages}>
-        {messages.map((msg) => {
-          const isMine = msg.senderId === currentUserId;
-
-          return (
-            <div
-              key={msg.id}
-              className={`${styles.messageWrapper} ${
-                isMine ? styles.myMessage : styles.theirMessage
-              }`}
-            >
-              {!isMine && (
-                <div className={styles.messageAvatar}>
-                  {msg.senderName.charAt(0)}
-                </div>
-              )}
-              <div className={styles.messageContent}>
-                <div className={styles.messageBubble}>
-                  {msg.messageType === 2 ? (
-                    <img
-                      src={msg.content}
-                      alt="Фото"
-                      className={styles.messageImage}
-                    />
-                  ) : (
-                    msg.content
-                  )}
-                </div>
-                <div className={styles.messageFooter}>
-                  <span className={styles.messageTime}>{msg.createdAt}</span>
-                  {isMine && msg.isRead && (
-                    <span className={styles.readStatus}>✓✓</span>
-                  )}
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className={styles.messages} ref={messagesContainerRef}>
+        {messages.map((msg) => (
+          <div
+            key={msg.id}
+            className={`${styles.messageWrapper} ${
+              msg.userName === `${user.surname} ${user.firstName}`
+                ? styles.myMessage
+                : styles.theirMessage
+            }`}
+          >
+            <div className={styles.messageSender}>{msg.userName}</div>
+            <div className={styles.messageBubble}>{msg.message}</div>
+          </div>
+        ))}
+        <span ref={messagesEndRef} />
       </div>
 
       <FormProvider {...methods}>
@@ -142,8 +92,8 @@ export default function Chat() {
           />
           <Button
             type="submit"
-            className={styles.sendButton}
             variant="secondary"
+            className={styles.sendButton}
           >
             <PaperAirplaneIcon className={styles.sendIcon} />
           </Button>

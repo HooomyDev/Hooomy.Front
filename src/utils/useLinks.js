@@ -8,6 +8,7 @@ import {
   InformationCircleIcon,
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
+  ChatBubbleBottomCenterTextIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "./useT";
 import routes from "../stores/routes.json";
@@ -71,6 +72,12 @@ export function useLinks() {
         to: routes.statistics,
         label: t("nav.stat"),
         icon: ChartBarIcon,
+      },
+      {
+        id: 5,
+        to: routes.chat,
+        label: "Сообщения",
+        icon: ChatBubbleBottomCenterTextIcon,
       },
     ];
 

@@ -18,6 +18,7 @@
   "docs": "/docs",
   "noAccess": "/no-access",
   "chat": "/chat",
+  "companies": "/companies",
 
   "surveys": "/surveys-panel",
   "requests": "/requests-panel",

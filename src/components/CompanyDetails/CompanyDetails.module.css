@@ -1,0 +1,82 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  gap: var(--spacing-xl);
+}
+
+.company {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--main-color);
+  padding: var(--spacing-xxl);
+  border-radius: var(--border-radius);
+  gap: var(--spacing-xl);
+}
+
+.companyHeader {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+  width: 95%;
+  border-bottom: 1px solid var(--gray-color);
+
+  .icon {
+    width: 40px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: row;
+  width: 95%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.infoCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-color);
+  padding: var(--spacing-xl);
+  width: 17%;
+  transition: all 0.2s ease;
+}
+
+.infoCard:hover {
+  border-color: var(--element-color);
+}
+
+.infoValue {
+  user-select: text;
+}
+
+.infoHeader {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-xl);
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 95%;
+  gap: var(--spacing-xl);
+  border-top: 1px solid var(--gray-color);
+  padding-top: var(--spacing-xl);
+}
+
+.actionButton {
+  margin: 0;
+  width: 200px;
+}
+
+.icon {
+  width: 24px;
+}
