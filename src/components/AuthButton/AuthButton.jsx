@@ -48,14 +48,6 @@ export default function AuthButton() {
       },
     },
     {
-      label: t("settings.title"),
-      icon: SettingsIcon,
-      onClick: () => {
-        setOpen(false);
-        navigate(routes.settings);
-      },
-    },
-    {
       label: "Сообщения",
       icon: ChatBubbleBottomCenterTextIcon,
       onClick: () => {
@@ -63,6 +55,15 @@ export default function AuthButton() {
         navigate(routes.chat);
       },
     },
+    {
+      label: t("settings.title"),
+      icon: SettingsIcon,
+      onClick: () => {
+        setOpen(false);
+        navigate(routes.settings);
+      },
+    },
+
     {
       label: t("userdrop.logout"),
       icon: LogoutIcon,

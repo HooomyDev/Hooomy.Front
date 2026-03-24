@@ -1,5 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useEffect, useRef } from "react";
 import styles from "./Chat.module.css";
 import { ArrowLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import InputField from "../../common/InputField/InputField";

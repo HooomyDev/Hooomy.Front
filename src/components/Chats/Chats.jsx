@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styles from "./Chats.module.css";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import { useQuery } from "@tanstack/react-query";
-import { getChatDetails, getChats } from "../../api/services/chatService";
+import { getChats } from "../../api/services/chatService";
 import Loader from "../../common/Loader/Loader";
 import { useAuthStore } from "../../stores/authStore";
 import ChatCard from "./components/ChatCard/ChatCard";
@@ -15,7 +14,6 @@ import Chat from "../Chat/Chat";
 
 export default function Chats() {
   const [filteredChats, setFilteredChats] = useState([]);
-  const navigate = useNavigate();
   const user = useAuthStore((store) => store.user);
   const [messages, setMessages] = useState([]);
   const [connection, setConnection] = useState(null);
@@ -44,6 +42,7 @@ export default function Chats() {
   const closeChat = async () => {
     await connection.stop();
     setConnection(null);
+    setMessages([]);
   };
 
   const { data: chats, isLoading } = useQuery({

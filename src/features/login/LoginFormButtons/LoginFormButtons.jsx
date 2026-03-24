@@ -20,6 +20,7 @@ export default function LoginFormButtons({
         className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
         onClick={onNext}
         disabled={isNextDisabled}
+        type="submit"
       >
         {loading ? <span className={styles.spinner}></span> : t("auth.next1")}
       </Button>
