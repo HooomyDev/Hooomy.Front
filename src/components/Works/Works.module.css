@@ -27,55 +27,14 @@
   gap: var(--spacing-xxl);
 }
 
-.phones {
-  display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  width: 40%;
-}
-
-.phoneList {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: var(--spacing-md);
-}
-
-.phoneBlock {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-  line-height: 1.2;
-  gap: var(--spacing-sm);
-
-  .name,
-  .phone {
-    font-size: var(--font-size-lg);
-    color: var(--font-color);
-    font-weight: 600;
-    user-select: text;
-  }
-
-  .phoneIcon {
-    width: 1rem;
-    margin-right: var(--spacing-xl);
-  }
-
-  .phone:hover {
-    color: var(--element-color);
-  }
-}
-
 .worksList {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   gap: var(--spacing-md);
+  height: 100%;
 }
 
 .workWrapper {
@@ -163,4 +122,20 @@
     padding: 0;
     gap: var(--spacing-md);
   }
+}
+
+.empty {
+  width: 100%;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-title);
+  color: var(--gray-color);
+  gap: var(--spacing-xl);
+}
+
+.empty .icon {
+  width: 50px;
+  height: 50px;
 }

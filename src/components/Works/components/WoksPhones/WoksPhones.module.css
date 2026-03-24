@@ -1,0 +1,61 @@
+.phones {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  width: 40%;
+  gap: var(--spacing-md);
+}
+
+.icon {
+  width: 30px;
+  color: var(--element-color);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 90%;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
+
+.phoneList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.phoneBlock {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  gap: var(--spacing-sm);
+  border: 1px solid var(--gray-color);
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+  width: 100%;
+  border-left: 2px solid var(--element-color);
+
+  .name,
+  .phone {
+    font-size: var(--font-size-xl);
+    color: var(--font-color);
+    font-weight: 600;
+    user-select: text;
+  }
+
+  .phoneIcon {
+    width: 1rem;
+    margin-right: var(--spacing-xl);
+  }
+
+  .phone:hover {
+    color: var(--element-color);
+  }
+}

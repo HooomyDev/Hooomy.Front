@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Block from "../../common/Block/Block";
 import {
   Cog6ToothIcon,
   WrenchScrewdriverIcon,
   ExclamationTriangleIcon,
-  PhoneIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
@@ -12,40 +11,20 @@ import styles from "./Works.module.css";
 import Loader from "../../common/Loader/Loader";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import { getWorks } from "../../api/services/workService";
+import WorksPhones from "./components/WoksPhones/WoksPhones";
+import { formatDate } from "date-fns";
+import { ru } from "date-fns/locale";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Works() {
   const t = useT();
 
-  const [loading, setLoading] = useState(true);
-  const [works, setWorks] = useState([]);
+  const { data: works, isLoading } = useQuery({
+    queryKey: ["works"],
+    queryFn: getWorks,
+  });
 
-  useEffect(() => {
-    async function fetchRequests() {
-      try {
-        setLoading(true);
-
-        const data = await getWorks();
-
-        setWorks(data);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchRequests();
-  }, []);
-
-  const phones = [
-    { id: 1, name: t("works.phones.112"), phone: "112" },
-    { id: 2, name: t("works.phones.101"), phone: "101" },
-    { id: 3, name: t("works.phones.102"), phone: "102" },
-    { id: 4, name: t("works.phones.103"), phone: "103" },
-    { id: 5, name: t("works.phones.104"), phone: "104" },
-  ];
-
-  if (loading) {
+  if (isLoading) {
     return <Loader />;
   }
 
@@ -56,67 +35,81 @@ export default function Works() {
       <div className={styles.content}>
         <Block title={t("works.byAddress")} Icon={WrenchScrewdriverIcon}>
           <div className={styles.worksList}>
-            {works.map((work) => (
-              <div
-                className={`${styles.workWrapper} ${styles[work.seriousness]}`}
-                key={work.id}
-              >
-                <div className={styles.workIconWrapper}>
-                  {work.seriousness === 1 ? (
-                    <InformationCircleIcon
-                      className={`${styles.workIcon} ${styles.infoIcon}`}
-                    />
-                  ) : (
-                    <ExclamationTriangleIcon
-                      className={`${styles.workIcon} ${styles.warnIcon}`}
-                    />
-                  )}
-                </div>
-                <div className={styles.work}>
-                  <div className={styles.title}>{work.title}</div>
-                  <div className={styles.address}>
-                    {t("works.address")}: {work.street + ", " + work.house}
-                  </div>
-                  <div className={styles.periods}>
-                    <div>
-                      {t("works.plannedPeriod")}: {work.plannedStartTime} -{" "}
-                      {work.plannedEndTime}
-                    </div>
-                    {work.factStartTime && (
-                      <div>
-                        {t("works.actualPeriod")}: {work.factStartTime} -{" "}
-                        {work.factEndTime}
-                      </div>
-                    )}
-
-                    <div>
-                      {t("works.description")}: {work.description}
-                    </div>
-                  </div>
-                </div>
+            {works.length === 0 ? (
+              <div className={styles.empty}>
+                <WrenchScrewdriverIcon className={styles.icon} />
+                Нет активных работ
               </div>
-            ))}
+            ) : (
+              works.map((work) => (
+                <div
+                  className={`${styles.workWrapper} ${
+                    styles[work.seriousness]
+                  }`}
+                  key={work.id}
+                >
+                  <div className={styles.workIconWrapper}>
+                    {work.seriousness === 1 ? (
+                      <InformationCircleIcon
+                        className={`${styles.workIcon} ${styles.infoIcon}`}
+                      />
+                    ) : (
+                      <ExclamationTriangleIcon
+                        className={`${styles.workIcon} ${styles.warnIcon}`}
+                      />
+                    )}
+                  </div>
+                  <div className={styles.work}>
+                    <div className={styles.title}>{work.title}</div>
+                    <div className={styles.address}>
+                      {t("works.address")}: {work.street + ", " + work.house}
+                    </div>
+                    <div className={styles.periods}>
+                      <div>
+                        {t("works.plannedPeriod")}:{" "}
+                        {formatDate(
+                          new Date(work.plannedStartTime),
+                          "dd.MM.yyyy HH:mm",
+                          { locale: ru }
+                        )}{" "}
+                        -{" "}
+                        {formatDate(
+                          new Date(work.plannedEndTime),
+                          "dd.MM.yyyy HH:mm",
+                          { locale: ru }
+                        )}
+                      </div>
+
+                      {work.factStartTime && (
+                        <div>
+                          {t("works.actualPeriod")}:{" "}
+                          {formatDate(
+                            new Date(work.factStartTime),
+                            "dd.MM.yyyy HH:mm",
+                            { locale: ru }
+                          )}{" "}
+                          -{" "}
+                          {work.factEndTime
+                            ? formatDate(
+                                new Date(work.factEndTime),
+                                "dd.MM.yyyy HH:mm",
+                                { locale: ru }
+                              )
+                            : t("works.inProgress")}
+                        </div>
+                      )}
+
+                      <div>
+                        {t("works.description")}: {work.description}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </Block>
-        <div className={styles.phones}>
-          <Block
-            title={t("works.emergencyServices")}
-            Icon={ExclamationTriangleIcon}
-          >
-            <div className={styles.phoneList}>
-              {phones.map((phone) => {
-                return (
-                  <div className={styles.phoneBlock} key={phone.id}>
-                    <div className={styles.name}>- {phone.name}</div>
-                    <div className={styles.phone}>
-                      <PhoneIcon className={styles.phoneIcon} /> {phone.phone}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Block>
-        </div>
+        <WorksPhones />
       </div>
     </div>
   );
