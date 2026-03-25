@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./Chat.module.css";
-import {
-  ArrowLeftIcon,
-  PaperAirplaneIcon,
-  PhotoIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import InputField from "../../common/InputField/InputField";
 import Button from "../../common/Button/Button";
 import { FormProvider, useForm } from "react-hook-form";
@@ -116,13 +112,6 @@ export default function Chat({
           onSubmit={methods.handleSubmit(handleSendMessage)}
           className={styles.inputArea}
         >
-          <Button
-            type="button"
-            variant="secondary"
-            className={styles.sendButton}
-          >
-            <PhotoIcon className={styles.sendIcon} />
-          </Button>
           <InputField
             name="message"
             type="text"
