@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import styles from "./Chat.module.css";
-import { ArrowLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
+import {
+  ArrowLeftIcon,
+  PaperAirplaneIcon,
+  PhotoIcon,
+} from "@heroicons/react/24/solid";
 import InputField from "../../common/InputField/InputField";
 import Button from "../../common/Button/Button";
 import { FormProvider, useForm } from "react-hook-form";
@@ -9,17 +13,40 @@ import { useQuery } from "@tanstack/react-query";
 import { getChatDetails } from "../../api/services/chatService";
 import Loader from "../../common/Loader/Loader";
 
-export default function Chat({ chatId, messages, sendMessage, closeChat }) {
+export default function Chat({
+  chatId,
+  messages,
+  setMessages,
+  sendMessage,
+  closeChat,
+}) {
   const user = useAuthStore((store) => store.user);
-  const messagesEndRef = useRef(null);
-  const messagesContainerRef = useRef(null);
+
+  const MESSAGE_TYPE_MAP = {
+    resident: 1,
+    employee: 2,
+    system: 3,
+  };
 
   const { data: chat, isLoading } = useQuery({
-    queryKey: ["chat"],
-    queryFn: async () => await getChatDetails(chatId),
+    queryKey: ["chat", chatId],
+    queryFn: async () => {
+      const data = await getChatDetails(chatId);
+      console.log(data);
+      return data;
+    },
     staleTime: 5 * 1000,
     enabled: !!chatId,
   });
+
+  useEffect(() => {
+    if (chat) {
+      const messages = chat.messages.map((message) => {
+        return { userName: message.senderName, message };
+      });
+      setMessages(messages);
+    }
+  }, [chat, setMessages]);
 
   const methods = useForm({
     defaultValues: { message: "" },
@@ -28,16 +55,18 @@ export default function Chat({ chatId, messages, sendMessage, closeChat }) {
   const handleSendMessage = async (data) => {
     if (!data.message.trim()) return;
 
-    sendMessage(data.message);
+    const message = {
+      chatId: chat.id,
+      senderType: user.role === "Resident" ? 1 : 2,
+      senderName: `${user.surname} ${user.firstName}`,
+      messageType: 1,
+      content: data.message,
+    };
+
+    sendMessage(message);
 
     methods.reset();
   };
-
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
 
   if (isLoading) {
     return <Loader />;
@@ -51,7 +80,7 @@ export default function Chat({ chatId, messages, sendMessage, closeChat }) {
         </button>
         <div className={styles.userInfo}>
           <div className={styles.avatar}>
-            {(user.role === "Resident" ? chat.companyName : chat?.residentName)
+            {(user.role === "Resident" ? chat?.companyName : chat?.residentName)
               .charAt(0)
               .toUpperCase()}
           </div>
@@ -61,7 +90,7 @@ export default function Chat({ chatId, messages, sendMessage, closeChat }) {
         </div>
       </div>
 
-      <div className={styles.messages} ref={messagesContainerRef}>
+      <div className={styles.messages}>
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -69,13 +98,17 @@ export default function Chat({ chatId, messages, sendMessage, closeChat }) {
               msg.userName === `${user.surname} ${user.firstName}`
                 ? styles.myMessage
                 : styles.theirMessage
+            }
+            ${
+              msg.message.messageType === MESSAGE_TYPE_MAP["system"]
+                ? styles.systemMessage
+                : ""
             }`}
           >
             <div className={styles.messageSender}>{msg.userName}</div>
-            <div className={styles.messageBubble}>{msg.message}</div>
+            <div className={styles.messageBubble}>{msg.message.content}</div>
           </div>
         ))}
-        <span ref={messagesEndRef} />
       </div>
 
       <FormProvider {...methods}>
@@ -83,6 +116,13 @@ export default function Chat({ chatId, messages, sendMessage, closeChat }) {
           onSubmit={methods.handleSubmit(handleSendMessage)}
           className={styles.inputArea}
         >
+          <Button
+            type="button"
+            variant="secondary"
+            className={styles.sendButton}
+          >
+            <PhotoIcon className={styles.sendIcon} />
+          </Button>
           <InputField
             name="message"
             type="text"

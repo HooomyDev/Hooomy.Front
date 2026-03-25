@@ -36,3 +36,11 @@ export const createChat = async (companyId) => {
     }
   }
 };
+
+export const getMessages = async (chatId) => {
+  const res = await client.get(`/chats/${chatId}/messages`);
+
+  const data = res.data?.messages ?? [];
+
+  return data;
+};

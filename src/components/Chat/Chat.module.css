@@ -162,3 +162,17 @@
   width: 24px;
   height: 24px;
 }
+
+.systemMessage {
+  align-self: center;
+}
+
+.systemMessage .messageBubble {
+  background-color: var(--gray-color);
+  color: var(--main-color);
+  border-radius: 15px;
+}
+
+.systemMessage .messageSender {
+  display: none;
+}

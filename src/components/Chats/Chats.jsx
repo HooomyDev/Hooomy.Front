@@ -20,8 +20,10 @@ export default function Chats() {
   const [selectedChatId, setSelectedChatId] = useState(null);
 
   const joinChat = async (userName, chatId) => {
+    const token = localStorage.getItem("access_token");
+
     var connection = new HubConnectionBuilder()
-      .withUrl("http://localhost:5001/chat-hub")
+      .withUrl("http://localhost:5001/chat-hub?access_token=" + token)
       .withAutomaticReconnect()
       .build();
 
@@ -57,7 +59,11 @@ export default function Chats() {
   };
 
   const sendMessage = (message) => {
-    connection.invoke("SendAsync", message);
+    try {
+      connection.invoke("SendAsync", message);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -85,6 +91,7 @@ export default function Chats() {
         <Chat
           chatId={selectedChatId}
           messages={messages}
+          setMessages={setMessages}
           sendMessage={sendMessage}
           closeChat={closeChat}
         />
@@ -102,9 +109,9 @@ export default function Chats() {
                   </div>
                 ) : (
                   filteredChats.map((chat) => (
-                    <li key={chat.id}>
+                    <div key={chat.id}>
                       <ChatCard chat={chat} handleChatClick={handleChatClick} />
-                    </li>
+                    </div>
                   ))
                 )}
               </div>

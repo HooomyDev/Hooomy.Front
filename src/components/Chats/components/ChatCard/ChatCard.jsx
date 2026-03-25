@@ -16,9 +16,6 @@ export default function ChatCard({ chat, handleChatClick }) {
           <span className={chat.unreadCount > 0 ? styles.unread : styles.read}>
             {chat.lastMessageContent || "Нет сообщений"}
           </span>
-          {chat.unreadCount > 0 && (
-            <span className={styles.badge}>{chat.unreadCount}</span>
-          )}
         </div>
       </div>
     </div>
