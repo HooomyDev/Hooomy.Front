@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./NotFound.module.css";
 import { Snowfall } from "react-snowfall";
+import Button from "../../common/Button/Button";
 
 export default function NotFound() {
   const navigate = useNavigate();
@@ -18,9 +19,20 @@ export default function NotFound() {
           Страница, которую вы ищете, могла быть удалена, переименована или
           временно недоступна.
         </div>
-        <button className={styles.button} onClick={() => navigate("/")}>
+        <Button
+          variant="primary"
+          className={styles.button}
+          onClick={() => navigate("/")}
+        >
           На главную
-        </button>
+        </Button>
+        <Button
+          variant="secondary"
+          className={styles.button}
+          onClick={() => navigate(-1)}
+        >
+          Назад
+        </Button>
       </div>
     </div>
   );

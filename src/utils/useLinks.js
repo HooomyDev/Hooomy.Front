@@ -94,5 +94,11 @@ export function useLinks() {
     { id: 5, to: routes.statistic, label: t("nav.stat"), icon: ChartBarIcon },
     { id: 6, to: routes.map, label: t("nav.map"), icon: MapIcon },
     { id: 7, to: routes.faq, label: "FAQ", icon: InformationCircleIcon },
+    {
+      id: 8,
+      to: routes.companies,
+      label: "Компании",
+      icon: ChatBubbleLeftRightIcon,
+    },
   ];
 }

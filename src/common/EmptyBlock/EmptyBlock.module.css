@@ -1,0 +1,15 @@
+.empty {
+  width: 100%;
+  margin: auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-title);
+  color: var(--gray-color);
+  gap: var(--spacing-xl);
+}
+
+.empty .icon {
+  width: 50px;
+  height: 50px;
+}

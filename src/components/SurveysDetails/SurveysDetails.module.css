@@ -1,0 +1,18 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: var(--spacing-xxl);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  color: var(--font-color);
+}
+
+.icon {
+  width: 40px;
+  color: var(--element-color);
+}

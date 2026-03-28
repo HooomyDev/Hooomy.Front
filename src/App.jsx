@@ -33,6 +33,7 @@ import ChatsPage from "./pages/ChatsPage/ChatsPage";
 import ChatPage from "./pages/ChatPage/ChatPage";
 import CompanyListPage from "./pages/CompanyListPage/CompanyListPage";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage";
+import SurveysDetailsPage from "./pages/SurveysDetailsPage/SurveysDetailsPage";
 
 export default function App() {
   useEffect(() => {
@@ -134,6 +135,9 @@ export default function App() {
         </Route>
         <Route path={routes.companies} element={<Layout />}>
           <Route index element={<CompanyListPage />} />
+        </Route>
+        <Route path={`${routes.news}/:surveyId`} element={<Layout />}>
+          <Route index element={<SurveysDetailsPage />} />
         </Route>
 
         {/*Employee*/}

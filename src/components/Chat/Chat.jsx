@@ -87,9 +87,9 @@ export default function Chat({
       </div>
 
       <div className={styles.messages}>
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <div
-            key={msg.id}
+            key={index}
             className={`${styles.messageWrapper} ${
               msg.userName === `${user.surname} ${user.firstName}`
                 ? styles.myMessage

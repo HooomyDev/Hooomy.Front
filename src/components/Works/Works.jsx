@@ -15,6 +15,7 @@ import WorksPhones from "./components/WoksPhones/WoksPhones";
 import { formatDate } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useQuery } from "@tanstack/react-query";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 
 export default function Works() {
   const t = useT();
@@ -36,10 +37,9 @@ export default function Works() {
         <Block title={t("works.byAddress")} Icon={WrenchScrewdriverIcon}>
           <div className={styles.worksList}>
             {works.length === 0 ? (
-              <div className={styles.empty}>
-                <WrenchScrewdriverIcon className={styles.icon} />
+              <EmptyBlock Icon={WrenchScrewdriverIcon}>
                 Нет активных работ
-              </div>
+              </EmptyBlock>
             ) : (
               works.map((work) => (
                 <div

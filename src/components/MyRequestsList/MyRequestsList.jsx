@@ -7,6 +7,7 @@ import Modal from "../../features/modals/Modal/Modal";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
 import { format } from "date-fns";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 
 export default function MyRequestsList({ requests }) {
   const t = useT();
@@ -34,10 +35,9 @@ export default function MyRequestsList({ requests }) {
     <Block title={t("requests.list")} Icon={ListBulletIcon}>
       <div className={styles.container}>
         {requests.length === 0 ? (
-          <div className={styles.empty}>
-            <ClipboardDocumentListIcon className={styles.icon} />
+          <EmptyBlock Icon={ClipboardDocumentListIcon}>
             {t("requests.empty")}
-          </div>
+          </EmptyBlock>
         ) : (
           <ul className={styles.list}>
             {requests.map((req) => (

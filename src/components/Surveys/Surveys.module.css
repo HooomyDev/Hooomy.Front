@@ -11,20 +11,13 @@
   color: var(--font-color);
 }
 
-.container {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-xl);
-}
-
 .icon {
   width: 3rem;
 }
 
 .surveys {
   display: flex;
-  flex-direction: row;
-  width: 90%;
+  flex-direction: column;
+  width: 95%;
   justify-content: space-between;
-  flex-wrap: wrap;
 }

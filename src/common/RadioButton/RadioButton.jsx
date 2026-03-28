@@ -7,7 +7,7 @@ export default function RadioButton({ value, label, checked, ...rest }) {
       <input
         type="radio"
         value={value}
-        checked={checked}
+        checked={checked ?? undefined}
         {...rest}
         className={styles.radioInput}
       />
