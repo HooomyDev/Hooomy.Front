@@ -6,6 +6,7 @@
   gap: var(--space-md);
   padding: var(--space-lg);
   margin: 0 auto;
+  height: 30vh;
 }
 
 .image {

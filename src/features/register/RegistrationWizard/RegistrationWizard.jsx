@@ -150,7 +150,7 @@ export default function RegistrationWizard() {
     }
 
     if (step === 5) {
-      navigate(routes.home);
+      navigate(routes.login);
     }
   };
 

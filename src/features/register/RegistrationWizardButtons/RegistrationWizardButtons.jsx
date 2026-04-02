@@ -18,6 +18,7 @@ export default function RegistrationWizardButtons({
         onClick={onPrev}
         variant="secondary"
         disabled={loading}
+        className={styles.button}
       >
         {t("auth.prev")}
       </Button>
@@ -26,7 +27,7 @@ export default function RegistrationWizardButtons({
         type="button"
         onClick={onNext}
         disabled={loading || disabledNext}
-        className={`${styles.nextStepButton} ${loading ? styles.loading : ""}`}
+        className={`${styles.button} ${loading ? styles.loading : ""}`}
       >
         {loading ? <span className={styles.spinner}></span> : t("auth.next2")}
       </Button>
