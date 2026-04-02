@@ -4,23 +4,39 @@
 }
 
 .label {
-  display: block;
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: space-between;
   margin-bottom: var(--spacing-md);
   font-weight: 600;
   font-size: var(--font-size-xl);
 }
 
+.fileCount {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--font-color);
+  background: var(--main-color);
+  border: 1px solid var(--gray-color);
+  padding: 4px 8px;
+  border-radius: 12px;
+  width: 4rem;
+  display: flex;
+  justify-content: center;
+}
+
 .dropZone {
-  border: 2px dashed var(--font-color);
-  padding: var(--spacing-xxl);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gray-color);
+  padding: var(--spacing-xl);
   text-align: center;
   cursor: pointer;
   border-radius: var(--border-radius);
   transition: transform 0.3s ease;
-}
-
-.dropZone:hover {
-  transform: scale(1.01);
+  min-height: 200px;
 }
 
 .active {
@@ -29,19 +45,88 @@
 
 .placeholder {
   color: var(--font-color);
-}
-
-.preview {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.hint {
+  font-size: var(--font-size-sm);
+  color: var(--font-color-light);
+}
+
+.previewGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: var(--spacing-md);
+  align-items: start;
+}
+
+.previewItem {
+  position: relative;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .previewImage {
-  max-width: 100%;
-  max-height: 200px;
-  margin-bottom: 0.5rem;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  display: block;
+}
+
+.removeButton {
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: background 0.2s ease;
+}
+
+.removeButton:hover {
+  color: var(--error-color);
+  background: rgba(0, 0, 0, 0.3);
+  border-color: var(--error-color);
+}
+
+.addMoreButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--border-radius);
+  background-color: var(--main-color);
+  border: 1px solid var(--font-color);
+  font-size: 48px;
+  color: var(--font-color);
+  transition: all 0.2s ease;
+  margin: auto 0;
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+}
+
+.icon {
+  width: 4rem;
+  height: 4rem;
+}
+
+.addMoreButton:hover {
+  transform: scale(1.02);
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
 }
 
 .hiddenInput {

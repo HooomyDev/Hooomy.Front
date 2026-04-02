@@ -110,6 +110,7 @@ export function useLinks() {
       icon: MegaphoneIcon,
       type: "link",
     },
+    { id: 6, to: routes.map, label: t("nav.map"), icon: MapIcon, type: "link" },
     {
       id: 5,
       label: "Ещё",
@@ -120,7 +121,7 @@ export function useLinks() {
           label: t("nav.stat"),
           icon: ChartBarIcon,
         },
-        { id: 5.2, to: routes.map, label: t("nav.map"), icon: MapIcon },
+
         { id: 5.4, to: routes.faq, label: "FAQ", icon: InformationCircleIcon },
         {
           id: 5.5,

@@ -16,15 +16,38 @@ export const getMyRequests = async () => {
   return data;
 };
 
-export const createRequest = async (data) => {
+export const getRequestCategories = async () => {
+  const res = await client.get("/requests/categories");
+
+  const data = res.data.categories;
+
+  return data;
+};
+
+export const createRequest = async (title, description, address, category) => {
+  console.log({ title, description, address, category });
+
   const res = await client.post("/requests/create", {
-    title: data.title,
-    description: data.description,
-    address: data.address,
-    photo: "",
+    title: title,
+    description: description,
+    address: address,
+    category: category,
   });
 
-  return res.data.id;
+  return res.data;
+};
+
+export const uploadRequestPhotos = async (requestId, formData) => {
+  const res = await client.post(
+    `/requests/${requestId}/upload-images`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return res.data;
 };
 
 export const getRequestCount = async () => {

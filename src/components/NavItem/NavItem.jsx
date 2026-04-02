@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import styles from "./NavItem.module.css";
 import Dropdown from "../../common/Dropdown/Dropdown";
@@ -8,6 +8,17 @@ export default function NavItem({ item, onClick }) {
   const Icon = item.icon;
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const ref = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   if (item.type === "link") {
     return (
@@ -33,11 +44,12 @@ export default function NavItem({ item, onClick }) {
       icon: subItem.icon,
       onClick: () => {
         navigate(subItem.to);
+        setIsDropdownOpen(false);
       },
     }));
 
     return (
-      <div className={styles.dropNavItem}>
+      <div className={styles.dropNavItem} ref={ref}>
         <button
           className={styles.dropNavItemBtn}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}

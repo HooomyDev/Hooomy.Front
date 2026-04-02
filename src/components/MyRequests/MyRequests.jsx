@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./MyRequests.module.css";
 import { useT } from "../../utils/useT";
 import Loader from "../../common/Loader/Loader";
 import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
-import MyRequestsList from "../MyRequestsList/MyRequestsList";
-import MyRequestsNewRequest from "../MyRequestsNewRequest/MyRequestsNewRequest";
-import MyRequestsFilters from "../MyRequestsFilters/MyRequestsFilters";
+import MyRequestsList from "./components/MyRequestsList/MyRequestsList";
+import MyRequestsNewRequest from "./components/MyRequestsNewRequest/MyRequestsNewRequest";
+import MyRequestsFilters from "./components/MyRequestsFilters/MyRequestsFilters";
 import Modal from "../../features/modals/Modal/Modal";
 import CreateRequestModal from "../../features/modals/CreateRequestModal/CreateRequestModal";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import { getMyRequests } from "../../api/services/requestService";
-import { useAuthStore } from "../../stores/authStore";
 import Notification from "../../common/Notification/Notification";
+import { useQuery } from "@tanstack/react-query";
 
 export default function MyRequests() {
   const t = useT();
-  const [allRequests, setAllRequests] = useState([]);
-  const [requests, setRequests] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const user = useAuthStore((store) => store.user);
 
   const [selectedStatus, setSelectedStatus] = useState(0);
   const [startDate, setStartDate] = useState(null);
@@ -27,41 +23,11 @@ export default function MyRequests() {
 
   const [notification, setNotification] = useState(null);
 
-  const handleCreateRequest = () => {
-    setIsModalOpen(true);
-  };
+  const { data: requests, isLoading } = useQuery({
+    queryFn: getMyRequests,
+  });
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    async function fetchRequests() {
-      try {
-        setLoading(true);
-
-        const data = await getMyRequests(user.id);
-
-        setAllRequests(data);
-        setRequests(data);
-      } catch (error) {
-        setNotification({
-          type: "error",
-          message: "Возникли проблемы при загрузке заявок",
-        });
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchRequests();
-  }, [user.id]);
-
-  const handleFilterSubmit = (filtered) => {
-    setRequests(filtered);
-  };
-
-  if (loading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.wrapper}>
@@ -85,21 +51,26 @@ export default function MyRequests() {
         </div>
 
         <div className={styles.sectionItem2}>
+          <MyRequestsNewRequest
+            handleCreateRequest={() => setIsModalOpen(true)}
+          />
+
           <MyRequestsFilters
-            allRequests={allRequests}
+            allRequests={requests}
             selectedStatus={selectedStatus}
             startDate={startDate}
             endDate={endDate}
             onStatusChange={setSelectedStatus}
             onStartDateChange={setStartDate}
             onEndDateChange={setEndDate}
-            onFilterSubmit={handleFilterSubmit}
+            onFilterSubmit={() => {
+              console.log("asd");
+            }}
           />
-          <MyRequestsNewRequest handleCreateRequest={handleCreateRequest} />
         </div>
       </div>
-      <Modal onClose={handleCloseModal} isOpen={isModalOpen}>
-        <CreateRequestModal onSuccess={handleCloseModal} />
+      <Modal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen}>
+        <CreateRequestModal onSuccess={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );

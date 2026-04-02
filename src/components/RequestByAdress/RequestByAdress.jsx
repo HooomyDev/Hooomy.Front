@@ -4,6 +4,9 @@ import InputField from "../../common/InputField/InputField";
 import { useT } from "../../utils/useT";
 import { apiClient as client } from "../../api/client";
 import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
+import { useQuery } from "@tanstack/react-query";
+import { getRequestCategories } from "../../api/services/requestService";
+import Loader from "../../common/Loader/Loader";
 
 export default function RequestByAdress() {
   const t = useT();

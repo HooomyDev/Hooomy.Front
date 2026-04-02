@@ -28,7 +28,7 @@ export default function RequestByMap() {
     });
     setValue(
       "location",
-      { lng, lat },
+      { lng, lat, address },
       {
         shouldValidate: true,
         shouldDirty: true,
@@ -42,7 +42,7 @@ export default function RequestByMap() {
       <Map onSelect={handleSelect} />
       {location && (
         <p className={styles.coords}>
-          Адрес: {location.address}
+          Адрес: {location.address ?? "адрес не найден"}
           <br />
           Координаты: {location.lat.toFixed(5)}, {location.lng.toFixed(5)}
         </p>

@@ -11,12 +11,8 @@ const reverseGeocode = async ({ lng, lat }) => {
 
   if (data.features?.length) {
     const feature = data.features[0];
-    const props = feature.properties || {};
-    const street = props.street || "";
-    const house = props.housenumber || "";
-    const result = [street, house].filter(Boolean).join(" ");
 
-    return result || feature.place_name || "Адрес не найден";
+    return feature.place_name.split(",")[0] || "Адрес не найден";
   }
 
   return "Адрес не найден";

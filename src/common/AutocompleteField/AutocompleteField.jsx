@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import styles from "./AutocompleteField.module.css";
 import Dropdown from "../Dropdown/Dropdown";
-import { useT } from "../../utils/useT";
 
 export default function AutocompleteField({
   label,
@@ -10,9 +9,8 @@ export default function AutocompleteField({
   options,
   required = false,
   rules = {},
-  onSearch, // 👈 новый проп
+  onSearch,
 }) {
-  const t = useT();
   const [open, setOpen] = useState(false);
   const [search, setSearch] = useState("");
   const wrapperRef = useRef(null);
@@ -65,7 +63,7 @@ export default function AutocompleteField({
                 value={
                   search || options.find((o) => o.value === value)?.label || ""
                 }
-                placeholder={t("placeholder.selectField")}
+                placeholder="Введите что-нибудь..."
                 onChange={(e) => {
                   const query = e.target.value;
                   setSearch(query);
