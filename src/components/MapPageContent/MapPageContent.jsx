@@ -1,163 +1,113 @@
-import React from "react";
-import styles from "./MapPageContent.module.css";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useForm, FormProvider, Controller } from "react-hook-form";
+import { useT } from "../../utils/useT";
+import { getMapData } from "../../api/services/mapService";
+import { adaptMapData } from "../../utils/mapDataAdapter";
 import PageHeader from "../../common/PageHeader/PageHeader";
-import { MapIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import Button from "../../common/Button/Button";
-import RadioButton from "../../common/RadioButton/RadioButton";
-import { useForm, FormProvider, Controller } from "react-hook-form";
-import { months } from "../../stores/months";
 import SelectField from "../../common/SelectField/SelectField";
 import Map from "../../features/map/Map/Map";
-import { useT } from "../../utils/useT";
+import Loader from "../../common/Loader/Loader";
+import { MapIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
+import styles from "./MapPageContent.module.css";
+
+const months = [
+  { id: 1, name: "Январь", year: 2025 },
+  { id: 2, name: "Февраль", year: 2025 },
+  { id: 3, name: "Март", year: 2025 },
+  { id: 4, name: "Апрель", year: 2025 },
+  { id: 5, name: "Май", year: 2025 },
+  { id: 6, name: "Июнь", year: 2025 },
+  { id: 7, name: "Июль", year: 2025 },
+  { id: 8, name: "Август", year: 2025 },
+  { id: 9, name: "Сентябрь", year: 2025 },
+  { id: 10, name: "Октябрь", year: 2025 },
+  { id: 11, name: "Ноябрь", year: 2025 },
+  { id: 12, name: "Декабрь", year: 2025 },
+];
 
 export default function MapPageContent() {
   const t = useT();
-
-  const options = [
-    { id: 0, title: t("mapPage.categories.all") },
-    { id: 1, title: t("mapPage.categories.accepted") },
-    { id: 2, title: t("mapPage.categories.completed") },
-    { id: 3, title: t("mapPage.categories.remaining") },
-  ];
-
-  const districtsData = [
-    {
-      id: 1,
-      name: t("mapPage.districts.central"),
-      lng: 27.524753,
-      lat: 53.934363,
-      requests: 120,
-    },
-    {
-      id: 2,
-      name: t("mapPage.districts.soviet"),
-      lng: 27.576935,
-      lat: 53.931336,
-      requests: 95,
-    },
-    {
-      id: 3,
-      name: t("mapPage.districts.firstMay"),
-      lng: 27.623265,
-      lat: 53.931464,
-      requests: 80,
-    },
-    {
-      id: 4,
-      name: t("mapPage.districts.partisan"),
-      lng: 27.630609,
-      lat: 53.907059,
-      requests: 60,
-    },
-    {
-      id: 5,
-      name: t("mapPage.districts.factory"),
-      lng: 27.647042,
-      lat: 53.869463,
-      requests: 70,
-    },
-    {
-      id: 6,
-      name: t("mapPage.districts.lenin"),
-      lng: 27.581887,
-      lat: 53.85876,
-      requests: 50,
-    },
-    {
-      id: 7,
-      name: t("mapPage.districts.october"),
-      lng: 27.526587,
-      lat: 53.855008,
-      requests: 40,
-    },
-    {
-      id: 8,
-      name: t("mapPage.districts.moscow"),
-      lng: 27.491451,
-      lat: 53.869271,
-      requests: 65,
-    },
-    {
-      id: 9,
-      name: t("mapPage.districts.frunze"),
-      lng: 27.453009,
-      lat: 53.898746,
-      requests: 85,
-    },
-  ];
+  const [zoom, setZoom] = useState(12);
 
   const methods = useForm({
     defaultValues: {
-      requestCategory: options[0].id,
-      month: months[months.length - 1].id,
+      requestCategory: 0,
+      month: new Date().getMonth() + 1,
     },
   });
 
+  const watchCategory = methods.watch("requestCategory");
+  const watchMonth = methods.watch("month");
+
+  const {
+    data: backendData,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["mapClusters", watchMonth, watchCategory, zoom],
+    queryFn: () =>
+      getMapData({
+        month: watchMonth,
+        requestCategory: watchCategory,
+        zoom: zoom,
+      }),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const mapData = adaptMapData(backendData, zoom);
+
   const onSubmit = (values) => {
-    console.log("Выбранные фильтры:", values);
+    refetch();
   };
+
+  if (isLoading) {
+    return (
+      <div className={styles.wrapper}>
+        <PageHeader title={t("mapPage.title")} icon={MapIcon} />
+        <div className={styles.content}>
+          <Loader />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.wrapper}>
       <PageHeader title={t("mapPage.title")} icon={MapIcon} />
 
       <div className={styles.content}>
-        <div className={styles.optionsWrapper}>
-          <Block
-            title={t("mapPage.filters.title")}
-            Icon={AdjustmentsHorizontalIcon}
-          >
-            <FormProvider {...methods}>
-              <form
-                onSubmit={methods.handleSubmit(onSubmit)}
-                className={styles.options}
-              >
-                <Controller
-                  name="month"
-                  control={methods.control}
-                  render={({ field }) => (
-                    <SelectField
-                      {...field}
-                      label={t("mapPage.filters.month")}
-                      options={months.map((m) => ({
-                        value: m.id,
-                        label: `${m.month.name}, ${m.year}`,
-                      }))}
-                    />
-                  )}
-                />
-
-                <Controller
-                  name="requestCategory"
-                  control={methods.control}
-                  render={({ field }) => (
-                    <>
-                      {options.map((option) => (
-                        <RadioButton
-                          key={option.id}
-                          value={option.id}
-                          label={option.title}
-                          checked={field.value === option.id}
-                          onChange={() => field.onChange(option.id)}
-                          name={field.name}
-                        />
-                      ))}
-                    </>
-                  )}
-                />
-
-                <Button type="submit" className={styles.submitBtn}>
-                  {t("mapPage.filters.apply")}
-                </Button>
-              </form>
-            </FormProvider>
-          </Block>
-        </div>
+        <Block
+          title={t("mapPage.filters.month")}
+          Icon={AdjustmentsHorizontalIcon}
+        >
+          <FormProvider {...methods}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className={styles.options}
+            >
+              <Controller
+                name="month"
+                control={methods.control}
+                render={({ field }) => (
+                  <SelectField
+                    {...field}
+                    options={months.map((m) => ({
+                      value: m.id,
+                      label: `${m.name}, ${m.year}`,
+                    }))}
+                  />
+                )}
+              />
+            </form>
+          </FormProvider>
+        </Block>
 
         <Block title={t("mapPage.title")} Icon={MapIcon}>
           <div className={styles.mapWrapper}>
-            <Map data={districtsData} allowMarkers={false} />
+            <Map data={mapData} allowMarkers={false} />
           </div>
         </Block>
       </div>

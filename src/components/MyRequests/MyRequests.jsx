@@ -24,6 +24,7 @@ export default function MyRequests() {
   const [notification, setNotification] = useState(null);
 
   const { data: requests, isLoading } = useQuery({
+    queryKey: ["requests"],
     queryFn: getMyRequests,
   });
 
