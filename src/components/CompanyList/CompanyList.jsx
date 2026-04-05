@@ -21,6 +21,7 @@ import Loader from "../../common/Loader/Loader";
 import { FormProvider, useForm } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import { useNavigate } from "react-router-dom";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 
 const companyIcons = [
   BuildingOffice2Icon,
@@ -94,21 +95,27 @@ export default function CompanyList() {
       </div>
 
       <div className={styles.container}>
-        {filteredCompanies.map((company, index) => (
-          <div
-            key={company.id || index}
-            className={styles.company}
-            onClick={() => hanldeCompanyClick(company.id)}
-          >
-            <div className={styles.companyInfo}>
-              {getRandomIcon(index)}
-              <span>{company.name}</span>
+        {filteredCompanies.length === 0 ? (
+          <EmptyBlock Icon={WrenchScrewdriverIcon}>
+            Пока что нет компаний
+          </EmptyBlock>
+        ) : (
+          filteredCompanies.map((company, index) => (
+            <div
+              key={company.id || index}
+              className={styles.company}
+              onClick={() => hanldeCompanyClick(company.id)}
+            >
+              <div className={styles.companyInfo}>
+                {getRandomIcon(index)}
+                <span>{company.name}</span>
+              </div>
+              <Button className={styles.writeButton} variant="secondary">
+                <ArrowRightCircleIcon className={styles.icon} />
+              </Button>
             </div>
-            <Button className={styles.writeButton} variant="secondary">
-              <ArrowRightCircleIcon className={styles.icon} />
-            </Button>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
