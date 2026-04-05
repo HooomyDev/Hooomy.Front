@@ -25,30 +25,35 @@ export function useLinks() {
         to: routes.adminDashboard,
         label: t("nav.main"),
         icon: HomeIcon,
+        type: "link",
       },
       {
         id: 2,
         to: routes.databases,
         label: t("nav.data"),
         icon: ClipboardDocumentListIcon,
+        type: "link",
       },
       {
         id: 3,
         to: routes.complaints,
         label: t("nav.complaints"),
         icon: ExclamationTriangleIcon,
+        type: "link",
       },
       {
         id: 4,
         to: routes.hmoStat,
         label: t("nav.stat"),
         icon: ChartBarIcon,
+        type: "link",
       },
       {
         id: 5,
         to: routes.comments,
         label: t("nav.comments"),
         icon: ChatBubbleLeftRightIcon,
+        type: "link",
       },
     ];
 
@@ -60,24 +65,28 @@ export function useLinks() {
         to: routes.requests,
         label: t("nav.requestsEmp"),
         icon: ClipboardDocumentListIcon,
+        type: "link",
       },
       {
         id: 3,
         to: routes.surveys,
         label: t("nav.news"),
         icon: MegaphoneIcon,
+        type: "link",
       },
       {
         id: 4,
         to: routes.statistics,
         label: t("nav.stat"),
         icon: ChartBarIcon,
+        type: "link",
       },
       {
         id: 5,
         to: routes.chat,
         label: "Сообщения",
         icon: ChatBubbleBottomCenterTextIcon,
+        type: "link",
       },
     ];
 

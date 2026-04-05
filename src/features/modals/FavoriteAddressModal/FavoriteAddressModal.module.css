@@ -4,12 +4,17 @@
   height: auto;
   width: 90%;
   gap: var(--spacing-md);
+  height: 60vh;
 }
 
 .modalContent form {
   display: flex;
   flex-direction: column;
-  height: auto;
+  height: 100%;
   width: 100%;
   gap: var(--spacing-md);
+}
+
+.button {
+  margin-top: auto;
 }

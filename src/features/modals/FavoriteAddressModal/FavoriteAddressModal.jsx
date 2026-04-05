@@ -6,6 +6,8 @@ import InputField from "../../../common/InputField/InputField";
 import AutocompleteField from "../../../common/AutocompleteField/AutocompleteField";
 import Button from "../../../common/Button/Button";
 import { apiClient as client } from "../../../api/client";
+import { useQuery } from "@tanstack/react-query";
+import { useDebounce } from "use-debounce";
 
 export default function FavoriteAddressModal({
   editingAddress,
@@ -13,28 +15,32 @@ export default function FavoriteAddressModal({
   methods,
 }) {
   const t = useT();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
 
-  const [streetOptions, setStreetOptions] = useState([]);
+  // useQuery для поиска улиц
+  const { data: streetOptions = [], isFetching } = useQuery({
+    queryKey: ["streetSearch", debouncedSearchTerm],
+    queryFn: async () => {
+      if (!debouncedSearchTerm || debouncedSearchTerm.length < 2) {
+        return [];
+      }
 
-  const handleStreetSearch = async (query) => {
-    if (!query) {
-      setStreetOptions([]);
-      return;
-    }
-
-    try {
       const res = await client.get(
-        `/search?query=${encodeURIComponent(query)}`
+        `/addresses?searchQuery=${debouncedSearchTerm}`
       );
-      const options = res.data.streets.map((s) => ({
-        value: s.title,
-        label: s.title,
+      return res.data.addresses.map((s) => ({
+        value: s.id,
+        label: `${s.street}, ${s.houseNumber}`,
       }));
-      setStreetOptions(options);
-    } catch (error) {
-      console.error("Street search failed:", error);
-      setStreetOptions([]);
-    }
+    },
+    enabled: debouncedSearchTerm?.length >= 2,
+    staleTime: 5 * 60 * 1000,
+    placeholderData: [],
+  });
+
+  const handleStreetSearch = (query) => {
+    setSearchTerm(query);
   };
 
   return (
@@ -53,22 +59,17 @@ export default function FavoriteAddressModal({
           />
 
           <AutocompleteField
-            label={t("user.street")}
+            label="Адрес"
             name="street"
             options={streetOptions}
             required
             onSearch={handleStreetSearch}
+            loading={isFetching}
           />
 
-          <InputField
-            label={t("profile.enterHouse")}
-            name="house"
-            type="number"
-            required
-            placeholder={t("profile.enterHouse")}
-          />
-
-          <Button type="submit">{t("user.save")}</Button>
+          <Button className={styles.button} type="submit">
+            {t("user.save")}
+          </Button>
         </form>
       </FormProvider>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./ProfileMyAddressesSection.module.css";
 import { HomeIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
@@ -14,30 +14,102 @@ import {
   updateFavoriteAddress,
 } from "../../api/services/favoriteAddressService";
 import FavoriteAddressModal from "../../features/modals/FavoriteAddressModal/FavoriteAddressModal";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import Loader from "../../common/Loader/Loader";
 
 export default function ProfileMyAddressesSection() {
   const user = useAuthStore((store) => store.user);
   const t = useT();
+  const queryClient = useQueryClient();
 
-  const [favAddresses, setFavAddresses] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingAddress, setEditingAddress] = useState(null);
 
   const methods = useForm();
 
-  useEffect(() => {
-    const fetchAddresses = async () => {
-      try {
-        const data = await getFavoriteAddresses();
+  const { data: favAddresses = [], isLoading } = useQuery({
+    queryKey: ["favAddresses"],
+    queryFn: getFavoriteAddresses,
+  });
 
-        setFavAddresses(data);
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
+  const createMutation = useMutation({
+    mutationFn: createFavoriteAddress,
+    onMutate: async (newAddress) => {
+      await queryClient.cancelQueries({ queryKey: ["favAddresses"] });
 
-    fetchAddresses();
-  }, []);
+      const previousAddresses = queryClient.getQueryData(["favAddresses"]);
+
+      queryClient.setQueryData(["favAddresses"], (old) => [
+        ...(old || []),
+        { ...newAddress, id: `temp-${Date.now()}`, isPending: true },
+      ]);
+
+      return { previousAddresses };
+    },
+    onError: (err, newAddress, context) => {
+      queryClient.setQueryData(["favAddresses"], context.previousAddresses);
+      console.error("Failed to create address:", err);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["favAddresses"] });
+    },
+    onSuccess: () => {
+      setIsModalOpen(false);
+      methods.reset();
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: updateFavoriteAddress,
+    onMutate: async (updatedAddress) => {
+      await queryClient.cancelQueries({ queryKey: ["favAddresses"] });
+
+      const previousAddresses = queryClient.getQueryData(["favAddresses"]);
+
+      queryClient.setQueryData(["favAddresses"], (old) =>
+        old.map((address) =>
+          address.id === editingAddress?.id
+            ? { ...address, ...updatedAddress, isPending: true }
+            : address
+        )
+      );
+
+      return { previousAddresses };
+    },
+    onError: (err, updatedAddress, context) => {
+      queryClient.setQueryData(["favAddresses"], context.previousAddresses);
+      console.error("Failed to update address:", err);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["favAddresses"] });
+    },
+    onSuccess: () => {
+      setIsModalOpen(false);
+      methods.reset();
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteFavoriteAddress,
+    onMutate: async (addressToDelete) => {
+      await queryClient.cancelQueries({ queryKey: ["favAddresses"] });
+
+      const previousAddresses = queryClient.getQueryData(["favAddresses"]);
+
+      queryClient.setQueryData(["favAddresses"], (old) =>
+        old.filter((address) => address.id !== addressToDelete.id)
+      );
+
+      return { previousAddresses };
+    },
+    onError: (err, addressToDelete, context) => {
+      queryClient.setQueryData(["favAddresses"], context.previousAddresses);
+      console.error("Failed to delete address:", err);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["favAddresses"] });
+    },
+  });
 
   const handleAddClick = () => {
     setEditingAddress(null);
@@ -51,49 +123,55 @@ export default function ProfileMyAddressesSection() {
     methods.reset(item);
   };
 
-  const handleSaveAddress = async (data) => {
+  const handleSaveAddress = (data) => {
     if (editingAddress) {
-      await updateFavoriteAddress(data);
+      updateMutation.mutate({ ...data, id: editingAddress.id });
     } else {
-      await createFavoriteAddress(data);
+      createMutation.mutate(data);
     }
-
-    const addresses = await getFavoriteAddresses();
-    setFavAddresses(addresses);
-
-    setIsModalOpen(false);
-    methods.reset();
   };
 
-  const handleDeleteClick = async (data) => {
-    await deleteFavoriteAddress(data);
-
-    const addresses = await getFavoriteAddresses();
-
-    setFavAddresses(addresses);
+  const handleDeleteClick = (data) => {
+    if (window.confirm(t("profile.confirmDelete"))) {
+      deleteMutation.mutate(data);
+    }
   };
 
-  if (user.role === "employee") return null;
+  if (user.role === "Employee") return null;
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  const isMutating =
+    createMutation.isPending ||
+    updateMutation.isPending ||
+    deleteMutation.isPending;
 
   return (
     <Block title={t("profile.addresses")} Icon={HomeIcon}>
       <div className={styles.list}>
-        {favAddresses &&
-          favAddresses.map((item) => (
-            <AddressCard
-              key={item.id}
-              item={item}
-              onEditClick={handleEditClick}
-              onDeleteClick={handleDeleteClick}
-            />
-          ))}
+        {favAddresses.map((item) => (
+          <AddressCard
+            key={item.id}
+            item={item}
+            onEditClick={handleEditClick}
+            onDeleteClick={handleDeleteClick}
+            isPending={item.isPending}
+            isDisabled={isMutating}
+          />
+        ))}
 
         <div className={styles.item}>
           <div className={styles.itemPseudonym}>{t("profile.newAddress")}</div>
           <div className={styles.itemAddress}>
             {t("profile.newAddressMessage")}
           </div>
-          <button className={styles.addButton} onClick={handleAddClick}>
+          <button
+            className={styles.addButton}
+            onClick={handleAddClick}
+            disabled={isMutating}
+          >
             <PlusCircleIcon className={styles.icon} /> {t("profile.addAddress")}
           </button>
         </div>
@@ -104,6 +182,7 @@ export default function ProfileMyAddressesSection() {
           editingAddress={editingAddress}
           handleSaveAddress={handleSaveAddress}
           methods={methods}
+          isSaving={createMutation.isPending || updateMutation.isPending}
         />
       </Modal>
     </Block>

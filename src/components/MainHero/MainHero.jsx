@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { ReactComponent as MascotIcon } from "../../assets/mascot.svg";
 import MainHeroContent from "../MainHeroContent/MainHeroContent";
 import MainHeroTitle from "../MainHeroTitle/MainHeroTitle";
 import MainHeroStats from "../MainHeroStats/MainHeroStats";

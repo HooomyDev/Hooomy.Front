@@ -14,8 +14,7 @@ export const getFavoriteAddresses = async () => {
 export const createFavoriteAddress = async (data) => {
   try {
     const res = await client.post("/favorite-addresses/create", {
-      street: data.street,
-      house: data.house,
+      addressId: data.street,
       pseudonym: data.pseudonym,
     });
 
