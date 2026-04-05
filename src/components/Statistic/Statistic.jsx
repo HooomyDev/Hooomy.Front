@@ -12,7 +12,6 @@ import { useForm, FormProvider, Controller } from "react-hook-form";
 import Button from "../../common/Button/Button";
 import CountUp from "react-countup";
 import HorizontalChart from "../../features/charts/HorizontalChart/HorizontalChart";
-import { months } from "../../stores/months";
 import { useT } from "../../utils/useT";
 
 export default function Statistic() {
@@ -24,6 +23,21 @@ export default function Statistic() {
     completedPerMonth: Math.floor(Math.random() * 20000) + 1000,
     left: Math.floor(Math.random() * 20000) + 1000,
   });
+
+  const months = [
+    { id: 1, name: "Январь", year: 2025 },
+    { id: 2, name: "Февраль", year: 2025 },
+    { id: 3, name: "Март", year: 2025 },
+    { id: 4, name: "Апрель", year: 2025 },
+    { id: 5, name: "Май", year: 2025 },
+    { id: 6, name: "Июнь", year: 2025 },
+    { id: 7, name: "Июль", year: 2025 },
+    { id: 8, name: "Август", year: 2025 },
+    { id: 9, name: "Сентябрь", year: 2025 },
+    { id: 10, name: "Октябрь", year: 2025 },
+    { id: 11, name: "Ноябрь", year: 2025 },
+    { id: 12, name: "Декабрь", year: 2025 },
+  ];
 
   const districts = [
     { id: 0, name: t("statistic.districts.all") },
@@ -110,7 +124,7 @@ export default function Statistic() {
                     label={t("statistic.filters.month")}
                     options={months.map((m) => ({
                       value: m.id,
-                      label: `${m.month.name}, ${m.year}`,
+                      label: `${m.name}, ${m.year}`,
                     }))}
                   />
                 )}

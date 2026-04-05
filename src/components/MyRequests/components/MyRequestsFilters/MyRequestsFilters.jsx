@@ -8,57 +8,56 @@ import SelectField from "../../../../common/SelectField/SelectField";
 import DateField from "../../../../common/DateField/DateField";
 import Button from "../../../../common/Button/Button";
 
-export default function MyRequestsFilters({ allRequests, onFilterSubmit }) {
+export default function MyRequestsFilters({
+  onFilterChange,
+  initialFilters = {},
+}) {
   const t = useT();
 
   const methods = useForm({
-    defaultValues: { status: 0, startDate: "", endDate: "" },
+    defaultValues: {
+      status: initialFilters.status || 0,
+      startDate: initialFilters.startDate || "",
+      endDate: initialFilters.endDate || "",
+    },
   });
 
+  const { handleSubmit, reset } = methods;
+
   const onSubmit = (data) => {
-    let filtered = allRequests;
-
-    const status = Number(data.status);
-
-    if (status !== 0) {
-      filtered = filtered.filter((req) => req.status === status);
-    }
-
-    const normalizeDate = (d) => new Date(new Date(d).setHours(0, 0, 0, 0));
-
-    if (data.startDate) {
-      filtered = filtered.filter(
-        (req) => normalizeDate(req.createdAt) >= normalizeDate(data.startDate)
-      );
-    }
-    if (data.endDate) {
-      filtered = filtered.filter(
-        (req) => normalizeDate(req.createdAt) <= normalizeDate(data.endDate)
-      );
-    }
-
-    onFilterSubmit(filtered);
+    const filters = {
+      requestStatus: data.status !== 0 ? data.status : undefined,
+      startDate: data.startDate || undefined,
+      endDate: data.endDate || undefined,
+    };
+    onFilterChange?.(filters);
   };
 
   const handleClearFilters = () => {
-    methods.reset({ status: 0, startDate: "", endDate: "" });
-    onFilterSubmit(allRequests);
+    reset({ status: 0, startDate: "", endDate: "" });
+    onFilterChange?.({
+      requestStatus: undefined,
+      startDate: undefined,
+      endDate: undefined,
+    });
   };
+
+  const statusOptions = [
+    { value: 0, label: t("requests.all") },
+    { value: 1, label: "Создан" },
+    { value: 2, label: "Отклонен" },
+    { value: 3, label: "В работе" },
+    { value: 4, label: "Завершен" },
+  ];
 
   return (
     <Block title={t("requests.filters")} Icon={AdjustmentsHorizontalIcon}>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className={styles.form}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <SelectField
             label={t("requests.status")}
             {...methods.register("status")}
-            options={[
-              { value: 0, label: t("requests.all") },
-              { value: 1, label: "Создан" },
-              { value: 2, label: t("requests.rejected") },
-              { value: 3, label: t("requests.pending") },
-              { value: 4, label: t("requests.done") },
-            ]}
+            options={statusOptions}
           />
 
           <DateField
@@ -66,6 +65,7 @@ export default function MyRequestsFilters({ allRequests, onFilterSubmit }) {
             name="startDate"
             register={methods.register}
           />
+
           <DateField
             label={t("requests.endDate")}
             name="endDate"
@@ -73,9 +73,7 @@ export default function MyRequestsFilters({ allRequests, onFilterSubmit }) {
           />
 
           <div className={styles.buttons}>
-            <Button type="submit" className={styles.submitBtn}>
-              {t("requests.applyFilters")}
-            </Button>
+            <Button type="submit">{t("requests.applyFilters")}</Button>
             <Button
               type="button"
               variant="secondary"

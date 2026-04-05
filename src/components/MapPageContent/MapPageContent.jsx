@@ -6,7 +6,6 @@ import { getMapData } from "../../api/services/mapService";
 import { adaptMapData } from "../../utils/mapDataAdapter";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import Block from "../../common/Block/Block";
-import Button from "../../common/Button/Button";
 import SelectField from "../../common/SelectField/SelectField";
 import Map from "../../features/map/Map/Map";
 import Loader from "../../common/Loader/Loader";
@@ -30,7 +29,7 @@ const months = [
 
 export default function MapPageContent() {
   const t = useT();
-  const [zoom, setZoom] = useState(12);
+  const [zoom] = useState(12);
 
   const methods = useForm({
     defaultValues: {

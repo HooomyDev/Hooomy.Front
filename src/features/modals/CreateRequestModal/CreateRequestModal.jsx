@@ -27,10 +27,7 @@ export default function CreateRequestModal({ onSuccess }) {
   const submitMutation = useMutation({
     mutationFn: async (data) => {
       // Формируем адрес
-      const address =
-        data.street && data.house
-          ? `${data.street}, ${data.house}`
-          : data.location.address || "";
+      const address = data.street ? data.street : data.location.address || "";
 
       // 1. Создаем запрос
       const requestId = await createRequest(
@@ -39,8 +36,6 @@ export default function CreateRequestModal({ onSuccess }) {
         address,
         data.category
       );
-
-      console.log(requestId);
 
       // 2. Если есть фото, загружаем их
       if (data.photos && data.photos.length > 0) {
@@ -74,7 +69,6 @@ export default function CreateRequestModal({ onSuccess }) {
     defaultValues: {
       district: "",
       street: "",
-      house: "",
       title: "",
       description: "",
       photo: [],

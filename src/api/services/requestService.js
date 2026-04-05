@@ -8,12 +8,24 @@ export const getRequestDetails = async (id) => {
   return data;
 };
 
-export const getMyRequests = async () => {
-  const res = await client.get("/requests");
+export const getMyRequests = async (requestStatus, startDate, endDate) => {
+  const params = {};
 
-  const data = res.data.requests;
+  if (requestStatus !== undefined) {
+    params.requestStatus = requestStatus;
+  }
 
-  return data;
+  if (startDate) {
+    params.startDate = startDate.toISOString?.() || startDate;
+  }
+
+  if (endDate) {
+    params.endDate = endDate.toISOString?.() || endDate;
+  }
+
+  const res = await client.get(`/requests`, { params });
+
+  return res.data.requests;
 };
 
 export const getRequestCategories = async () => {
@@ -30,7 +42,7 @@ export const createRequest = async (title, description, address, category) => {
   const res = await client.post("/requests/create", {
     title: title,
     description: description,
-    address: address,
+    addressId: address,
     category: category,
   });
 

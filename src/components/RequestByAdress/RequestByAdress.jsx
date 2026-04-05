@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./RequestByAdress.module.css";
-import InputField from "../../common/InputField/InputField";
 import { useT } from "../../utils/useT";
 import { apiClient as client } from "../../api/client";
 import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
@@ -18,11 +17,11 @@ export default function RequestByAdress() {
 
     try {
       const res = await client.get(
-        `/search?query=${encodeURIComponent(query)}`
+        `/addresses?searchQuery=${encodeURIComponent(query)}`
       );
-      const options = res.data.streets.map((s) => ({
-        value: s.title,
-        label: s.title,
+      const options = res.data.addresses.map((s) => ({
+        value: s.id,
+        label: `${s.street}, ${s.houseNumber}`,
       }));
       setStreetOptions(options);
     } catch (error) {
@@ -39,20 +38,6 @@ export default function RequestByAdress() {
         options={streetOptions}
         required
         onSearch={handleStreetSearch}
-      />
-
-      <InputField
-        required
-        label={t("user.house")}
-        name="house"
-        rules={{
-          max: {
-            value: 100,
-          },
-          min: {
-            value: 1,
-          },
-        }}
       />
     </div>
   );
