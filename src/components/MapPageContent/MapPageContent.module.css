@@ -26,4 +26,5 @@
 .mapWrapper {
   display: flex;
   width: 95%;
+  height: 80vh;
 }

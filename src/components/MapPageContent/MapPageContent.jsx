@@ -13,18 +13,18 @@ import { MapIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import styles from "./MapPageContent.module.css";
 
 const months = [
-  { id: 1, name: "Январь", year: 2025 },
-  { id: 2, name: "Февраль", year: 2025 },
-  { id: 3, name: "Март", year: 2025 },
-  { id: 4, name: "Апрель", year: 2025 },
-  { id: 5, name: "Май", year: 2025 },
-  { id: 6, name: "Июнь", year: 2025 },
-  { id: 7, name: "Июль", year: 2025 },
-  { id: 8, name: "Август", year: 2025 },
-  { id: 9, name: "Сентябрь", year: 2025 },
-  { id: 10, name: "Октябрь", year: 2025 },
-  { id: 11, name: "Ноябрь", year: 2025 },
-  { id: 12, name: "Декабрь", year: 2025 },
+  { id: 1, name: "Январь" },
+  { id: 2, name: "Февраль" },
+  { id: 3, name: "Март" },
+  { id: 4, name: "Апрель" },
+  { id: 5, name: "Май" },
+  { id: 6, name: "Июнь" },
+  { id: 7, name: "Июль" },
+  { id: 8, name: "Август" },
+  { id: 9, name: "Сентябрь" },
+  { id: 10, name: "Октябрь" },
+  { id: 11, name: "Ноябрь" },
+  { id: 12, name: "Декабрь" },
 ];
 
 export default function MapPageContent() {
@@ -95,7 +95,7 @@ export default function MapPageContent() {
                     {...field}
                     options={months.map((m) => ({
                       value: m.id,
-                      label: `${m.name}, ${m.year}`,
+                      label: `${m.name}`,
                     }))}
                   />
                 )}

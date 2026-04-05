@@ -1,0 +1,271 @@
+.galleryWrapper {
+  width: 100%;
+  margin-bottom: var(--spacing-xl);
+}
+
+.mainPhotoContainer {
+  position: relative;
+  width: 100%;
+  min-height: 500px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  margin-bottom: var(--spacing-md);
+}
+
+.mainPhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10;
+  padding: 0;
+}
+
+.navButton:hover {
+  background: var(--element-color);
+  border: none;
+}
+
+.navLeft {
+  left: var(--spacing-md);
+}
+
+.navRight {
+  right: var(--spacing-md);
+}
+
+.navIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--main-color);
+}
+
+.counter {
+  position: absolute;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--main-color);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  z-index: 10;
+}
+
+/* Миниатюры */
+.thumbnailsWrapper {
+  display: flex;
+  gap: var(--spacing-sm);
+  overflow-x: auto;
+  padding: var(--spacing-sm) 0;
+  scrollbar-width: thin;
+}
+
+.thumbnailsWrapper::-webkit-scrollbar {
+  height: 6px;
+}
+
+.thumbnailsWrapper::-webkit-scrollbar-track {
+  background: var(--gray-color);
+  border-radius: 3px;
+}
+
+.thumbnailsWrapper::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.thumbnail:hover {
+  border-color: var(--element-color);
+}
+
+.activeThumbnail {
+  border-color: var(--element-color);
+}
+
+.thumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Полноэкранный режим */
+.fullscreenModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--spacing-xl);
+  right: var(--spacing-xl);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 2001;
+  padding: 0;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.closeIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--main-color);
+}
+
+.fullscreenContent {
+  position: relative;
+  width: 90%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fullscreenImage {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.fullscreenNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.fullscreenNav:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.fullscreenNavLeft {
+  left: var(--spacing-xl);
+}
+
+.fullscreenNavRight {
+  right: var(--spacing-xl);
+}
+
+.fullscreenCounter {
+  position: absolute;
+  bottom: var(--spacing-xl);
+  right: var(--spacing-xl);
+  background: rgba(0, 0, 0, 0.6);
+  color: var(--main-color);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: 20px;
+  font-size: var(--font-size-sm);
+}
+
+.fullscreenThumbnails {
+  position: absolute;
+  bottom: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius);
+  z-index: 2001;
+}
+
+.fullscreenThumbnail {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.fullscreenThumbnail:hover {
+  border-color: var(--main-color);
+}
+
+.activeFullscreenThumbnail {
+  border-color: var(--element-color);
+}
+
+.fullscreenThumbnailImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Нет фото */
+.noPhotos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 300px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  color: var(--border-color);
+}
+
+.noPhotoIcon {
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--spacing-md);
+  color: var(--border-color);
+}
