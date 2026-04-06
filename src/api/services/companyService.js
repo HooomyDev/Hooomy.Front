@@ -15,3 +15,35 @@ export const getCompanyDetails = async (companyId) => {
 
   return data;
 };
+
+export const createCompany = async (
+  name,
+  phone,
+  email,
+  addressId,
+  workingHours
+) => {
+  var res = await client.post("/companies/create", {
+    name,
+    phone,
+    email,
+    addressId,
+    workingHours,
+  });
+
+  return res.data;
+};
+
+export const uploadLogo = async (companyId, formData) => {
+  var res = await client.post(
+    `companies/upload-image?companyId=${companyId}`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return res;
+};

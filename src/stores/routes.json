@@ -29,5 +29,6 @@
   "users": "/users",
   "complaints": "/complaints",
   "hmoStat": "/hmo-statistic",
-  "comments": "/comments"
+  "comments": "/comments",
+  "addHmo": "/add-company"
 }

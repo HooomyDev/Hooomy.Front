@@ -124,13 +124,6 @@ export function useLinks() {
       id: 5,
       label: "Ещё",
       items: [
-        {
-          id: 5.1,
-          to: routes.statistic,
-          label: t("nav.stat"),
-          icon: ChartBarIcon,
-        },
-
         { id: 5.4, to: routes.faq, label: "FAQ", icon: InformationCircleIcon },
         {
           id: 5.5,

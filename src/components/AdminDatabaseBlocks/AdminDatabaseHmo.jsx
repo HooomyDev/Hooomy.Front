@@ -1,211 +1,96 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo } from "react";
 import Block from "../../common/Block/Block";
-import {
-  Cog6ToothIcon,
-  PencilIcon,
-  TrashIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
-} from "@heroicons/react/24/solid";
+import { Cog6ToothIcon, PhotoIcon } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import styles from "./AdminDatabaseStyles.module.css";
+import styles from "./AdminDatabaseHmo.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
-import Modal from "../../features/modals/Modal/Modal";
-import ChangeHmoModal from "../../features/modals/ChangeHmoModal/ChangeHmoModal";
-import CreateNewHmoModal from "../../features/modals/CreateNewHmoModal/CreateNewHmoModal";
+import { useQuery } from "@tanstack/react-query";
+import { getCompanies } from "../../api/services/companyService";
+import { useNavigate } from "react-router-dom";
+import routes from "../../stores/routes.json";
+import Loader from "../../common/Loader/Loader";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 
 export default function AdminDatabaseHmo() {
-  const [hmo, setHmo] = useState([
-    { id: 1, name: "ЖЭУ №1", district: "Фрунзенский" },
-    { id: 2, name: "ЖЭУ №2", district: "Центральный" },
-    { id: 3, name: "ЖЭУ №3", district: "Советский" },
-    { id: 4, name: "ЖЭУ №4", district: "Партизанский" },
-    { id: 5, name: "ЖЭУ №5", district: "Первомайский" },
-  ]);
+  const navigate = useNavigate();
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
-  const [selectedHmo, setSelectedHmo] = useState(null);
+  const { data: companies = [], isLoading } = useQuery({
+    queryKey: ["companies"],
+    queryFn: () => getCompanies(),
+  });
 
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [searchName, setSearchName] = useState("");
-  const [searchDistrict, setSearchDistrict] = useState("");
-  const [visibleCount, setVisibleCount] = useState(5);
+  const methods = useForm({
+    defaultValues: {
+      searchName: "",
+    },
+  });
 
-  const methods = useForm();
+  const { watch } = methods;
+  const searchName = watch("searchName");
 
-  const handleAddHmo = (data) => {
-    const id = hmo.length ? hmo[hmo.length - 1].id + 1 : 1;
-    setHmo([...hmo, { id, ...data }]);
-    setIsAddModalOpen(false);
-    methods.reset();
-  };
+  const filteredCompanies = useMemo(() => {
+    if (!searchName) return companies;
 
-  const handleDeleteHmo = (id) => {
-    setHmo(hmo.filter((h) => h.id !== id));
-  };
+    return companies.filter((company) =>
+      company.name.toLowerCase().includes(searchName.toLowerCase())
+    );
+  }, [companies, searchName]);
 
-  const handleEditHmo = (company) => {
-    setSelectedHmo(company);
-    methods.reset(company);
-    setIsChangeModalOpen(true);
-  };
-
-  const handleSaveEdit = (data) => {
-    setHmo(hmo.map((h) => (h.id === selectedHmo.id ? { ...h, ...data } : h)));
-    setIsChangeModalOpen(false);
-    setSelectedHmo(null);
-    methods.reset();
-  };
-
-  const filteredAndSortedHmo = useMemo(() => {
-    let filtered = hmo.filter((h) => {
-      const matchesName = h.name
-        .toLowerCase()
-        .includes(searchName.toLowerCase());
-      const matchesDistrict = searchDistrict
-        ? h.district.toLowerCase().includes(searchDistrict.toLowerCase())
-        : true;
-      return matchesName && matchesDistrict;
-    });
-
-    if (sortConfig.key) {
-      filtered.sort((a, b) => {
-        const valA = a[sortConfig.key];
-        const valB = b[sortConfig.key];
-        if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
-        if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-    return filtered;
-  }, [hmo, sortConfig, searchName, searchDistrict]);
-
-  const handleSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    setSortConfig({ key, direction });
-  };
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <Block title="Управляющие компании (ЖЭУ)" Icon={Cog6ToothIcon}>
-      <FormProvider {...methods}>
-        <div className={styles.searchBlock}>
-          <div className={styles.searchField}>
-            <InputField
-              name="searchName"
-              label="Поиск по названию"
-              placeholder="Название ЖЭУ"
-              required={false}
-              rules={{
-                onChange: (e) => setSearchName(e.target.value),
-              }}
-            />
-          </div>
+      <div className={styles.wrapper}>
+        <FormProvider {...methods}>
+          <div className={styles.searchBlock}>
+            <div className={styles.searchField}>
+              <InputField
+                name="searchName"
+                label="Поиск по названию"
+                placeholder="Название ЖЭУ"
+                required={false}
+                rules={{}}
+              />
+            </div>
 
-          <div className={styles.searchField}>
-            <InputField
-              name="searchDistrict"
-              label="Поиск по району"
-              placeholder="Район"
-              required={false}
-              rules={{
-                onChange: (e) => setSearchDistrict(e.target.value),
-              }}
-            />
-          </div>
-
-          <div
-            className={styles.addNewUserButton}
-            onClick={() => setIsAddModalOpen(true)}
-          >
-            <PlusIcon className={styles.icon} />
-          </div>
-        </div>
-
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th onClick={() => handleSort("id")}>
-                ID{" "}
-                {sortConfig.key === "id" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("name")}>
-                Название{" "}
-                {sortConfig.key === "name" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("district")}>
-                Район{" "}
-                {sortConfig.key === "district" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th>Действия</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedHmo.slice(0, visibleCount).map((h) => (
-              <tr key={h.id}>
-                <td>{h.id}</td>
-                <td>{h.name}</td>
-                <td>{h.district}</td>
-                <td className={styles.actions}>
-                  <button
-                    onClick={() => handleEditHmo(h)}
-                    className={styles.editButton}
-                  >
-                    <PencilIcon className={styles.actionIcon} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteHmo(h.id)}
-                    className={styles.deleteButton}
-                  >
-                    <TrashIcon className={styles.actionIcon} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {visibleCount < filteredAndSortedHmo.length && (
-          <div className={styles.showMoreWrapper}>
-            <button
-              onClick={() => setVisibleCount((prev) => prev + 5)}
-              className={styles.showMoreButton}
+            <div
+              className={styles.addNewUserButton}
+              onClick={() => navigate(routes.addHmo)}
             >
-              Показать больше
-            </button>
+              <PlusIcon className={styles.icon} />
+            </div>
           </div>
-        )}
+        </FormProvider>
 
-        <Modal
-          isOpen={isChangeModalOpen}
-          onClose={() => setIsChangeModalOpen(false)}
-        >
-          <ChangeHmoModal methods={methods} onSave={handleSaveEdit} />
-        </Modal>
+        <div className={styles.companiesList}>
+          {filteredCompanies.length === 0 ? (
+            <EmptyBlock Icon={Cog6ToothIcon}></EmptyBlock>
+          ) : (
+            filteredCompanies.map((company) => (
+              <div key={company.id} className={styles.companyCard}>
+                <div className={styles.companyLogo}>
+                  {company.logoUrl ? (
+                    <img
+                      src={`http://localhost:5001${company.logoUrl}`}
+                      alt={company.name}
+                      className={styles.logoImage}
+                    />
+                  ) : (
+                    <PhotoIcon />
+                  )}
+                </div>
 
-        <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
-          <CreateNewHmoModal methods={methods} onSave={handleAddHmo} />
-        </Modal>
-      </FormProvider>
+                <div className={styles.companyInfo}>
+                  <h3 className={styles.companyName}>{company.name}</h3>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </Block>
   );
 }

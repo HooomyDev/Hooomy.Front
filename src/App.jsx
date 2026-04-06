@@ -34,6 +34,7 @@ import ChatPage from "./pages/ChatPage/ChatPage";
 import CompanyListPage from "./pages/CompanyListPage/CompanyListPage";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage";
 import SurveysDetailsPage from "./pages/SurveysDetailsPage/SurveysDetailsPage";
+import AddCompanyPage from "./pages/AddCompanyPage/AddCompanyPage";
 
 export default function App() {
   useEffect(() => {
@@ -173,6 +174,16 @@ export default function App() {
         </Route>
 
         {/*Admin*/}
+        <Route path={routes.addHmo} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AddCompanyPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
         <Route path={routes.adminDashboard} element={<Layout />}>
           <Route
             index

@@ -1,0 +1,197 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  padding: var(--spacing-md);
+  margin-bottom: auto;
+}
+
+.searchBlock {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-xxl);
+  width: 95%;
+  margin-bottom: var(--spacing-xl);
+}
+
+.searchField {
+  flex: 1;
+}
+
+.roleField {
+  width: 20%;
+}
+
+.addNewUserButton {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--element-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addNewUserButton .icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.addNewUserButton:hover {
+  background: #2a9d8f;
+  transform: rotate(90deg);
+}
+
+.addNewUserButton:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.companiesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 95%;
+}
+
+.companyCard {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease;
+}
+
+.companyCard:hover {
+  background: var(--main-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.companyLogo {
+  flex-shrink: 0;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  background: var(--gray-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholderLogo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  background: var(--element-color);
+  color: var(--main-color);
+}
+
+.companyInfo {
+  flex: 1;
+}
+
+.companyName {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--font-color);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.companyAddress,
+.companyPhone,
+.companyEmail,
+.companyHours {
+  font-size: var(--font-size-sm);
+  color: var(--font-color);
+  opacity: 0.7;
+  margin: var(--spacing-xs) 0;
+}
+
+.companyActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.editButton,
+.deleteButton {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.editButton {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.editButton:hover {
+  background: #bae6fd;
+}
+
+.deleteButton {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.deleteButton:hover {
+  background: #fecaca;
+}
+
+.actionIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  background: var(--card-background);
+  border-radius: var(--border-radius);
+  color: var(--font-color);
+}
+
+.emptyState p {
+  margin-bottom: var(--spacing-md);
+}
+
+.addButton {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: var(--element-color);
+  color: var(--main-color);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  transition: opacity 0.2s;
+}
+
+.addButton:hover {
+  opacity: 0.9;
+}
