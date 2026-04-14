@@ -29,8 +29,6 @@ export default function CompanyDetails() {
     mutationKey: ["createChat"],
     mutationFn: async () => {
       var chatId = await createChat(companyId);
-
-      //navigate(`/chat/${chatId}`);
     },
   });
 

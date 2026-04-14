@@ -8,12 +8,13 @@ import {
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import styles from "./AdminDatabaseStyles.module.css";
+import styles from "./AdminDatabaseAddresses.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import Modal from "../../features/modals/Modal/Modal";
 import ChangeObjectModal from "../../features/modals/ChangeObjectModal/ChangeObjectModal";
 import CreateNewObjectModal from "../../features/modals/CreateNewObjectModal/CreateNewObjectModal";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function AdminDatabaseResidentialObjects() {
   const [objects, setObjects] = useState([
@@ -87,109 +88,115 @@ export default function AdminDatabaseResidentialObjects() {
   };
 
   return (
-    <Block title="Жилые объекты" Icon={BuildingOfficeIcon}>
-      <FormProvider {...methods}>
-        <div className={styles.searchBlock}>
-          <div className={styles.searchField}>
-            <InputField
-              name="searchAddress"
-              label="Поиск"
-              placeholder="Адрес"
-              required={false}
-              rules={{
-                onChange: (e) => setSearchAddress(e.target.value),
-              }}
-            />
-          </div>
+    <div className={styles.wrapper}>
+      <PageHeader icon={BuildingOfficeIcon} title="Адреса" />
+      <Block>
+        <FormProvider {...methods}>
+          <div className={styles.searchBlock}>
+            <div className={styles.searchField}>
+              <InputField
+                name="searchAddress"
+                label="Поиск"
+                placeholder="Адрес"
+                required={false}
+                rules={{
+                  onChange: (e) => setSearchAddress(e.target.value),
+                }}
+              />
+            </div>
 
-          <div
-            className={styles.addNewUserButton}
-            onClick={() => setIsAddModalOpen(true)}
-          >
-            <PlusIcon className={styles.icon} />
-          </div>
-        </div>
-
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th onClick={() => handleSort("id")}>
-                ID{" "}
-                {sortConfig.key === "id" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("address")}>
-                Адрес{" "}
-                {sortConfig.key === "address" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("apartments")}>
-                Квартир{" "}
-                {sortConfig.key === "apartments" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th>Действия</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedObjects.slice(0, visibleCount).map((o) => (
-              <tr key={o.id}>
-                <td>{o.id}</td>
-                <td>{o.address}</td>
-                <td>{o.apartments}</td>
-                <td className={styles.actions}>
-                  <button
-                    onClick={() => handleEditObject(o)}
-                    className={styles.editButton}
-                  >
-                    <PencilIcon className={styles.actionIcon} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteObject(o.id)}
-                    className={styles.deleteButton}
-                  >
-                    <TrashIcon className={styles.actionIcon} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        {visibleCount < filteredAndSortedObjects.length && (
-          <div className={styles.showMoreWrapper}>
-            <button
-              onClick={() => setVisibleCount((prev) => prev + 5)}
-              className={styles.showMoreButton}
+            <div
+              className={styles.addNewUserButton}
+              onClick={() => setIsAddModalOpen(true)}
             >
-              Показать больше
-            </button>
+              <PlusIcon className={styles.icon} />
+            </div>
           </div>
-        )}
 
-        <Modal
-          isOpen={isChangeModalOpen}
-          onClose={() => setIsChangeModalOpen(false)}
-        >
-          <ChangeObjectModal methods={methods} onSave={handleSaveEdit} />
-        </Modal>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th onClick={() => handleSort("id")}>
+                  ID{" "}
+                  {sortConfig.key === "id" &&
+                    (sortConfig.direction === "asc" ? (
+                      <ChevronUpIcon className={styles.sortIcon} />
+                    ) : (
+                      <ChevronDownIcon className={styles.sortIcon} />
+                    ))}
+                </th>
+                <th onClick={() => handleSort("address")}>
+                  Адрес{" "}
+                  {sortConfig.key === "address" &&
+                    (sortConfig.direction === "asc" ? (
+                      <ChevronUpIcon className={styles.sortIcon} />
+                    ) : (
+                      <ChevronDownIcon className={styles.sortIcon} />
+                    ))}
+                </th>
+                <th onClick={() => handleSort("apartments")}>
+                  Квартир{" "}
+                  {sortConfig.key === "apartments" &&
+                    (sortConfig.direction === "asc" ? (
+                      <ChevronUpIcon className={styles.sortIcon} />
+                    ) : (
+                      <ChevronDownIcon className={styles.sortIcon} />
+                    ))}
+                </th>
+                <th>Действия</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredAndSortedObjects.slice(0, visibleCount).map((o) => (
+                <tr key={o.id}>
+                  <td>{o.id}</td>
+                  <td>{o.address}</td>
+                  <td>{o.apartments}</td>
+                  <td className={styles.actions}>
+                    <button
+                      onClick={() => handleEditObject(o)}
+                      className={styles.editButton}
+                    >
+                      <PencilIcon className={styles.actionIcon} />
+                    </button>
+                    <button
+                      onClick={() => handleDeleteObject(o.id)}
+                      className={styles.deleteButton}
+                    >
+                      <TrashIcon className={styles.actionIcon} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-        <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
-          <CreateNewObjectModal methods={methods} onSave={handleAddObject} />
-        </Modal>
-      </FormProvider>
-    </Block>
+          {visibleCount < filteredAndSortedObjects.length && (
+            <div className={styles.showMoreWrapper}>
+              <button
+                onClick={() => setVisibleCount((prev) => prev + 5)}
+                className={styles.showMoreButton}
+              >
+                Показать больше
+              </button>
+            </div>
+          )}
+
+          <Modal
+            isOpen={isChangeModalOpen}
+            onClose={() => setIsChangeModalOpen(false)}
+          >
+            <ChangeObjectModal methods={methods} onSave={handleSaveEdit} />
+          </Modal>
+
+          <Modal
+            isOpen={isAddModalOpen}
+            onClose={() => setIsAddModalOpen(false)}
+          >
+            <CreateNewObjectModal methods={methods} onSave={handleAddObject} />
+          </Modal>
+        </FormProvider>
+      </Block>
+    </div>
   );
 }

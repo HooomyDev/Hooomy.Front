@@ -79,3 +79,22 @@ export const getRequestStatistic = async (period = 1) => {
 
   return data ?? [];
 };
+
+export const getRequestsForAdmin = async (
+  page,
+  pageSize,
+  searchTitle,
+  searchStatus,
+  searchCategory
+) => {
+  const params = new URLSearchParams();
+  params.append("page", page);
+  params.append("pageSize", pageSize);
+
+  if (searchTitle) params.append("title", searchTitle);
+  if (searchStatus) params.append("status", searchStatus);
+  if (searchCategory) params.append("category", searchCategory);
+
+  const res = await client.get(`/requests/administration?${params.toString()}`);
+  return res.data;
+};

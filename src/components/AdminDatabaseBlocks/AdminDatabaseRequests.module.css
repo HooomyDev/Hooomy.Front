@@ -1,0 +1,194 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: var(--spacing-xxl);
+  margin-bottom: auto;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: var(--spacing-xxl);
+}
+
+.searchBlock {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-xxl);
+  width: 95%;
+  justify-content: space-between;
+}
+
+.searchField {
+  flex: 1;
+}
+
+.roleField {
+  width: 20%;
+}
+
+.addNewUserButton {
+  min-width: 48px;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--element-color);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addNewUserButton .icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.addNewUserButton:hover {
+  background: #2a9d8f;
+  transform: rotate(90deg);
+}
+
+.addNewUserButton:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.sortIcon {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  color: var(--font-color);
+  top: 4px;
+}
+
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  width: 95%;
+}
+
+.requestCard {
+  background: var(--main-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-xl);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.requestCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--font-color);
+  flex: 1;
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusNew {
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.statusInProgress {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.statusCompleted {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.statusRejected {
+  background: #ffebee;
+  color: #d32f2f;
+}
+
+.description {
+  color: var(--font-color);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.info {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.address,
+.category {
+  font-size: 14px;
+  color: #888;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.detailsButton {
+  background: none;
+  border: 1px solid transparent;
+  color: #1976d2;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.detailsButton .icon {
+  width: 18px;
+}
+
+.detailsButton:hover {
+  border: 1px solid transparent;
+  color: var(--element-color);
+}
+
+.icon {
+  width: 24px;
+}
+
+.searchButton {
+  max-width: 48px;
+  height: 48px;
+  padding: 0;
+}

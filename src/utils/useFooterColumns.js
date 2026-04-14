@@ -11,8 +11,8 @@ export function useFooterColumns() {
         { type: "link", label: t("footer.home"), href: routes.home },
         { type: "link", label: t("footer.requests"), href: routes.myRequests },
         { type: "link", label: t("footer.news"), href: routes.news },
-        { type: "link", label: t("footer.statistics"), href: routes.statistic },
         { type: "link", label: t("footer.map"), href: routes.map },
+        { type: "link", label: "FQA", href: routes.faq },
       ],
     },
     {

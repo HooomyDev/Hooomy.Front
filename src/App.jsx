@@ -35,6 +35,10 @@ import CompanyListPage from "./pages/CompanyListPage/CompanyListPage";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage/CompanyDetailsPage";
 import SurveysDetailsPage from "./pages/SurveysDetailsPage/SurveysDetailsPage";
 import AddCompanyPage from "./pages/AddCompanyPage/AddCompanyPage";
+import CompaniesDataPage from "./pages/CompaniesDataPage/CompaniesDataPage";
+import UsersDataPage from "./pages/UsersDataPage/UsersDataPage";
+import RequestsDataPage from "./pages/RequestsDataPage/RequestsDataPage";
+import AddressesDataPage from "./pages/AddressesDataPage/AddressesDataPage";
 
 export default function App() {
   useEffect(() => {
@@ -174,6 +178,46 @@ export default function App() {
         </Route>
 
         {/*Admin*/}
+        <Route path={routes["addresses-data"]} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <AddressesDataPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes["requests-data"]} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <RequestsDataPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes["companies-data"]} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <CompaniesDataPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes["users-data"]} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <UsersDataPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
         <Route path={routes.addHmo} element={<Layout />}>
           <Route
             index

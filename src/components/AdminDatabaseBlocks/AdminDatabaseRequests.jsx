@@ -1,230 +1,234 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Block from "../../common/Block/Block";
 import {
+  ChevronDoubleRightIcon,
   ClipboardDocumentListIcon,
-  PencilIcon,
-  TrashIcon,
-  ChevronUpIcon,
-  ChevronDownIcon,
+  CubeIcon,
+  MagnifyingGlassCircleIcon,
+  MagnifyingGlassIcon,
+  MapPinIcon,
 } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import styles from "./AdminDatabaseStyles.module.css";
+import styles from "./AdminDatabaseRequests.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
-import Modal from "../../features/modals/Modal/Modal";
-import ChangeRequestModal from "../../features/modals/ChangeRequestModal/ChangeRequestModal";
-import CreateNewRequestModal from "../../features/modals/CreateNewRequestModal/CreateNewRequestModal";
+import PageHeader from "../../common/PageHeader/PageHeader";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../common/Loader/Loader";
+import {
+  getRequestCategories,
+  getRequestsForAdmin,
+} from "../../api/services/requestService";
+import Pagination from "../../common/Pagination/Pagination";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import Button from "../../common/Button/Button";
+
+const statusMap = {
+  1: { text: "Новая", className: "statusNew" },
+  2: { text: "В работе", className: "statusInProgress" },
+  3: { text: "Завершена", className: "statusCompleted" },
+  4: { text: "Отклонена", className: "statusRejected" },
+};
+
+const categoryMap = {
+  0: "Все",
+  1: "Водоснабжение. Горячая вода",
+  2: "Электроснабжение",
+  3: "Бытовые услуги",
+  4: "Санитарное состояние многоквартирного дома",
+  5: "Отопление",
+  6: "Благоустройство территории",
+  7: "Водоснабжение",
+  8: "Общестроительные работы",
+  9: "Санитарное состояние территории",
+  11: "Техническое обслуживание ЗПУ",
+  12: "Техническое обслуживание лифта",
+  13: "Обращение с ТКО",
+  14: "Водоснабжение. Холодная вода",
+  15: "Канализация",
+  16: "Автомобильные дороги, тротуары",
+  17: "Кровельные работы",
+  18: "Уличное освещение",
+  19: "Общественные места (Парки, скверы)",
+  20: "Работы по ремонту стыков",
+  21: "Техническое обслуживание зданий и сооружений",
+  22: "Рекламные и информационные конструкции и объявления",
+};
 
 export default function AdminDatabaseRequests() {
-  const [requests, setRequests] = useState([
-    { id: 1, title: "Заявка на ремонт лифта", status: "open" },
-    { id: 2, title: "Заявка на уборку подъезда", status: "in_progress" },
-    { id: 3, title: "Заявка на замену лампочки", status: "done" },
-    { id: 4, title: "Заявка на ремонт крыши", status: "open" },
-    { id: 5, title: "Заявка на покраску стен", status: "in_progress" },
-  ]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    pageSize: 10,
+  });
+  const [categories, setCategories] = useState([]);
+  const [filters, setFilters] = useState({
+    searchTitle: "",
+    searchStatus: "",
+    searchCategory: "",
+  });
 
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const [isChangeModalOpen, setIsChangeModalOpen] = useState(false);
-  const [selectedRequest, setSelectedRequest] = useState(null);
+  const { data: response, isLoading } = useQuery({
+    queryKey: [
+      "requests",
+      pagination.page,
+      pagination.pageSize,
+      filters.searchTitle,
+      filters.searchStatus,
+      filters.searchCategory,
+    ],
+    queryFn: async () => {
+      const categoriesData = await getRequestCategories();
+      setCategories(categoriesData);
 
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [searchTitle, setSearchTitle] = useState("");
-  const [searchStatus, setSearchStatus] = useState("");
-  const [visibleCount, setVisibleCount] = useState(5);
+      return await getRequestsForAdmin(
+        pagination.page,
+        pagination.pageSize,
+        filters.searchTitle,
+        filters.searchStatus,
+        filters.searchCategory
+      );
+    },
+    staleTime: 5 * 60 * 1000,
+    keepPreviousData: true,
+  });
 
-  const methods = useForm();
-
-  const handleAddRequest = (data) => {
-    const id = requests.length ? requests[requests.length - 1].id + 1 : 1;
-    setRequests([...requests, { id, ...data }]);
-    setIsAddModalOpen(false);
-    methods.reset();
-  };
-
-  const handleDeleteRequest = (id) => {
-    setRequests(requests.filter((r) => r.id !== id));
-  };
-
-  const handleEditRequest = (request) => {
-    setSelectedRequest(request);
-    methods.reset(request);
-    setIsChangeModalOpen(true);
-  };
-
-  const handleSaveEdit = (data) => {
-    setRequests(
-      requests.map((r) => (r.id === selectedRequest.id ? { ...r, ...data } : r))
-    );
-    setIsChangeModalOpen(false);
-    setSelectedRequest(null);
-    methods.reset();
-  };
+  const methods = useForm({
+    defaultValues: {
+      searchTitle: "",
+      searchStatus: "",
+      searchCategory: "",
+    },
+  });
 
   const statusOptions = [
-    { value: "", label: "Все статусы" },
-    { value: "open", label: "Открыта" },
-    { value: "in_progress", label: "В работе" },
-    { value: "done", label: "Завершена" },
+    { value: 0, label: "Все статусы" },
+    { value: 1, label: "Новая" },
+    { value: 2, label: "В работе" },
+    { value: 3, label: "Завершена" },
+    { value: 4, label: "Отклонена" },
   ];
 
-  const renderStatus = (status) => {
-    switch (status) {
-      case "open":
-        return "Открыта";
-      case "in_progress":
-        return "В работе";
-      case "done":
-        return "Завершена";
-      default:
-        return "Неизвестно";
-    }
-  };
-
-  const filteredAndSortedRequests = useMemo(() => {
-    let filtered = requests.filter((r) => {
-      const matchesTitle = r.title
-        .toLowerCase()
-        .includes(searchTitle.toLowerCase());
-      const matchesStatus = searchStatus ? r.status === searchStatus : true;
-      return matchesTitle && matchesStatus;
+  const handleSearch = () => {
+    const formValues = methods.getValues();
+    setFilters({
+      searchTitle: formValues.searchTitle || "",
+      searchStatus: formValues.searchStatus || "",
+      searchCategory: formValues.searchCategory || "",
     });
-
-    if (sortConfig.key) {
-      filtered.sort((a, b) => {
-        const valA = a[sortConfig.key];
-        const valB = b[sortConfig.key];
-        if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
-        if (valA > valB) return sortConfig.direction === "asc" ? 1 : -1;
-        return 0;
-      });
-    }
-    return filtered;
-  }, [requests, sortConfig, searchTitle, searchStatus]);
-
-  const handleSort = (key) => {
-    let direction = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") {
-      direction = "desc";
-    }
-    setSortConfig({ key, direction });
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
+
+  const handlePageChange = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
-    <Block title="Заявки" Icon={ClipboardDocumentListIcon}>
-      <FormProvider {...methods}>
-        <div className={styles.searchBlock}>
-          <div className={styles.searchField}>
-            <InputField
-              name="searchTitle"
-              label="Поиск"
-              placeholder="Название заявки"
-              required={false}
-              rules={{
-                onChange: (e) => setSearchTitle(e.target.value),
-              }}
-            />
-          </div>
-
-          <div className={styles.roleField}>
-            <SelectField
-              name="searchStatus"
-              label="Статус"
-              options={statusOptions}
-              required={false}
-              onValueChange={(val) => setSearchStatus(val)}
-            />
-          </div>
-
-          <div
-            className={styles.addNewUserButton}
-            onClick={() => setIsAddModalOpen(true)}
+    <div className={styles.wrapper}>
+      <PageHeader icon={ClipboardDocumentListIcon} title="Заявки" />
+      <div className={styles.content}>
+        <Block>
+          <form
+            className={styles.searchBlock}
+            onSubmit={methods.handleSubmit(handleSearch)}
           >
-            <PlusIcon className={styles.icon} />
-          </div>
-        </div>
+            <FormProvider {...methods}>
+              <InputField
+                name="searchTitle"
+                label="Поиск"
+                placeholder="Название заявки"
+                required={false}
+                rules={{}}
+              />
 
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th onClick={() => handleSort("id")}>
-                ID{" "}
-                {sortConfig.key === "id" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("title")}>
-                Название{" "}
-                {sortConfig.key === "title" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th onClick={() => handleSort("status")}>
-                Статус{" "}
-                {sortConfig.key === "status" &&
-                  (sortConfig.direction === "asc" ? (
-                    <ChevronUpIcon className={styles.sortIcon} />
-                  ) : (
-                    <ChevronDownIcon className={styles.sortIcon} />
-                  ))}
-              </th>
-              <th>Действия</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedRequests.slice(0, visibleCount).map((r) => (
-              <tr key={r.id}>
-                <td>{r.id}</td>
-                <td>{r.title}</td>
-                <td>{renderStatus(r.status)}</td>
-                <td className={styles.actions}>
-                  <button
-                    onClick={() => handleEditRequest(r)}
-                    className={styles.editButton}
-                  >
-                    <PencilIcon className={styles.actionIcon} />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteRequest(r.id)}
-                    className={styles.deleteButton}
-                  >
-                    <TrashIcon className={styles.actionIcon} />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+              <SelectField
+                name="searchStatus"
+                label="Статус"
+                options={statusOptions}
+                required={false}
+                onValueChange={() => {}}
+              />
 
-        {visibleCount < filteredAndSortedRequests.length && (
-          <div className={styles.showMoreWrapper}>
-            <button
-              onClick={() => setVisibleCount((prev) => prev + 5)}
-              className={styles.showMoreButton}
-            >
-              Показать больше
-            </button>
-          </div>
-        )}
+              <SelectField
+                name="searchCategory"
+                label="Категория"
+                options={categories.map((category) => {
+                  return { value: category.code, label: category.name };
+                })}
+                required={false}
+                onValueChange={() => {}}
+              />
+              <Button
+                className={styles.searchButton}
+                onClick={() => handleSearch()}
+                variant="secondary"
+                type="submit"
+              >
+                <MagnifyingGlassIcon className={styles.icon} />
+              </Button>
 
-        <Modal
-          isOpen={isChangeModalOpen}
-          onClose={() => setIsChangeModalOpen(false)}
-        >
-          <ChangeRequestModal methods={methods} onSave={handleSaveEdit} />
-        </Modal>
+              <div className={styles.addNewUserButton}>
+                <PlusIcon className={styles.icon} />
+              </div>
+            </FormProvider>
+          </form>
+        </Block>
+        <Block title="Заявки" Icon={ClipboardDocumentListIcon}>
+          {response.requests.length === 0 ? (
+            <EmptyBlock Icon={ClipboardDocumentListIcon}>
+              Заявок не найдено
+            </EmptyBlock>
+          ) : (
+            <>
+              <div className={styles.requestsList}>
+                {response.requests.map((request) => (
+                  <div key={request.id} className={styles.requestCard}>
+                    <div className={styles.cardHeader}>
+                      <h3 className={styles.title}>{request.title}</h3>
+                      <span
+                        className={`${styles.status} ${
+                          styles[statusMap[request.status]?.className]
+                        }`}
+                      >
+                        {statusMap[request.status]?.text || "Неизвестно"}
+                      </span>
+                    </div>
 
-        <Modal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)}>
-          <CreateNewRequestModal methods={methods} onSave={handleAddRequest} />
-        </Modal>
-      </FormProvider>
-    </Block>
+                    <p className={styles.description}>{request.description}</p>
+
+                    <div className={styles.cardFooter}>
+                      <div className={styles.info}>
+                        <span className={styles.address}>
+                          <MapPinIcon className={styles.icon} />{" "}
+                          {request.address}
+                        </span>
+                        <span className={styles.category}>
+                          <CubeIcon className={styles.icon} />{" "}
+                          {categoryMap[request.category] || "Другое"}
+                        </span>
+                      </div>
+                      <button className={styles.detailsButton}>
+                        Подробнее{" "}
+                        <ChevronDoubleRightIcon className={styles.icon} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Pagination
+                currentPage={pagination.page}
+                totalPages={response.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </>
+          )}
+        </Block>
+      </div>
+    </div>
   );
 }

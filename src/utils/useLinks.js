@@ -9,6 +9,9 @@ import {
   ExclamationTriangleIcon,
   ChatBubbleLeftRightIcon,
   ChatBubbleBottomCenterTextIcon,
+  WrenchScrewdriverIcon,
+  MapPinIcon,
+  UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "./useT";
 import routes from "../stores/routes.json";
@@ -29,10 +32,34 @@ export function useLinks() {
       },
       {
         id: 2,
-        to: routes.databases,
         label: t("nav.data"),
-        icon: ClipboardDocumentListIcon,
-        type: "link",
+        items: [
+          {
+            id: 2.1,
+            to: routes["requests-data"],
+            label: "Заявки",
+            icon: ClipboardDocumentListIcon,
+          },
+          {
+            id: 2.2,
+            to: routes["companies-data"],
+            label: "Компании",
+            icon: WrenchScrewdriverIcon,
+          },
+          {
+            id: 2.3,
+            to: routes["addresses-data"],
+            label: "Адреса",
+            icon: MapPinIcon,
+          },
+          {
+            id: 2.4,
+            to: routes["users-data"],
+            label: "Пользователи",
+            icon: UserGroupIcon,
+          },
+        ],
+        type: "drop",
       },
       {
         id: 3,

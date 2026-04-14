@@ -30,5 +30,10 @@
   "complaints": "/complaints",
   "hmoStat": "/hmo-statistic",
   "comments": "/comments",
-  "addHmo": "/add-company"
+  "addHmo": "/add-company",
+
+  "users-data": "/users-data",
+  "companies-data": "/companies-data",
+  "addresses-data": "/addresses-data",
+  "requests-data": "/requests-data"
 }

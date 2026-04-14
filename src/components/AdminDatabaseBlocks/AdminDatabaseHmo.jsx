@@ -1,6 +1,10 @@
 import React, { useMemo } from "react";
 import Block from "../../common/Block/Block";
-import { Cog6ToothIcon, PhotoIcon } from "@heroicons/react/24/solid";
+import {
+  Cog6ToothIcon,
+  PhotoIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import styles from "./AdminDatabaseHmo.module.css";
 import { useForm, FormProvider } from "react-hook-form";
@@ -11,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../stores/routes.json";
 import Loader from "../../common/Loader/Loader";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import PageHeader from "../../common/PageHeader/PageHeader";
 
 export default function AdminDatabaseHmo() {
   const navigate = useNavigate();
@@ -42,8 +47,9 @@ export default function AdminDatabaseHmo() {
   }
 
   return (
-    <Block title="Управляющие компании (ЖЭУ)" Icon={Cog6ToothIcon}>
-      <div className={styles.wrapper}>
+    <div className={styles.wrapper}>
+      <PageHeader icon={WrenchScrewdriverIcon} title="Управляющие компании" />
+      <Block>
         <FormProvider {...methods}>
           <div className={styles.searchBlock}>
             <div className={styles.searchField}>
@@ -67,7 +73,7 @@ export default function AdminDatabaseHmo() {
 
         <div className={styles.companiesList}>
           {filteredCompanies.length === 0 ? (
-            <EmptyBlock Icon={Cog6ToothIcon}></EmptyBlock>
+            <EmptyBlock Icon={Cog6ToothIcon}>Список компаний пуст</EmptyBlock>
           ) : (
             filteredCompanies.map((company) => (
               <div key={company.id} className={styles.companyCard}>
@@ -90,7 +96,7 @@ export default function AdminDatabaseHmo() {
             ))
           )}
         </div>
-      </div>
-    </Block>
+      </Block>
+    </div>
   );
 }
