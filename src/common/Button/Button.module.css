@@ -8,7 +8,10 @@
   border: 1px solid transparent;
   border-radius: var(--border-radius);
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+  transition:
+    transform 0.2s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
   width: 100%;
   height: 3rem;
   margin: 0 auto;
@@ -41,6 +44,18 @@
   border: 1px solid var(--element-color);
   background-color: var(--main-color);
   color: var(--element-color);
+}
+
+.danger {
+  background-color: var(--red-color);
+  color: var(--main-color);
+  border-color: 1px solid var(--red-color);
+}
+
+.danger:hover:not(.disabled):not([disabled]) {
+  background-color: var(--main-color);
+  border-color: 1px solid var(--red-color);
+  color: var(--red-color);
 }
 
 .disabled {

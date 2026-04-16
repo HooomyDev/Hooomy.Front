@@ -3,6 +3,7 @@
   "profile": "/profile",
   "settings": "/settings",
   "myRequests": "/my-requests",
+  "createRequest": "/create-request",
   "works": "/works",
   "news": "/surveys",
   "statistic": "/statistic",

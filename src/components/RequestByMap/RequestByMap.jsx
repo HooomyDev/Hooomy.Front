@@ -65,7 +65,7 @@ export default function RequestByMap() {
         shouldValidate: true,
         shouldDirty: true,
         shouldTouch: true,
-      }
+      },
     );
 
     setIsLoadingAddress(true);
@@ -86,12 +86,6 @@ export default function RequestByMap() {
 
   return (
     <div className={styles.wrapper}>
-      <Map onSelect={handleSelect} />
-
-      {isLoadingAddress && (
-        <p className={styles.loading}>Сохранение адреса...</p>
-      )}
-
       {location && !isLoadingAddress && (
         <p className={styles.coords}>
           Адрес: {location.address ?? "адрес не найден"}
@@ -101,6 +95,11 @@ export default function RequestByMap() {
             <span className={styles.success}> ✓ Адрес сохранён</span>
           )}
         </p>
+      )}
+      <Map onSelect={handleSelect} />
+
+      {isLoadingAddress && (
+        <p className={styles.loading}>Сохранение адреса...</p>
       )}
 
       {errors.location && (

@@ -22,7 +22,11 @@
     "rejected": "Rejected",
     "applyFilters": "Apply Filters",
     "clearFilters": "Clear filters",
-    "empty": "No requests"
+    "empty": "No requests",
+    "category": "Category",
+    "categoryLabel": "Problem category",
+    "details": "Description",
+    "titleLabel": "Brief description of the problem"
   },
 
   "main": {

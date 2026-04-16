@@ -1,10 +1,11 @@
-// RequestDetailsModal.jsx
-import React from "react";
+import React, { useState } from "react";
 import styles from "./RequestDetailsModal.module.css";
 import { format } from "date-fns";
-
-import { useQuery } from "@tanstack/react-query";
-import { getRequestDetails } from "../../../api/services/requestService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getRequestDetails,
+  softDeleteRequest,
+} from "../../../api/services/requestService";
 import Loader from "../../../common/Loader/Loader";
 import {
   CalendarIcon,
@@ -16,8 +17,14 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import ImageGallery from "../../../common/ImageGallery/ImageGallery";
+import Button from "../../../common/Button/Button";
+import ConfirmDialog from "../../../common/ConfirmDialog/ConfirmDialog";
 
-export default function RequestDetailsModal({ request }) {
+export default function RequestDetailsModal({
+  request,
+  onClose,
+  onDeleteSuccess,
+}) {
   const STATUS_MAP = {
     1: { text: "Создан", icon: ClockIcon, color: "#1976d2" },
     2: { text: "Отклонено", icon: XCircleIcon, color: "#d32f2f" },
@@ -25,10 +32,32 @@ export default function RequestDetailsModal({ request }) {
     4: { text: "Выполнено", icon: CheckCircleIcon, color: "#388e3c" },
   };
 
+  const queryClient = useQueryClient();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
   const { data: requestDetails, isLoading } = useQuery({
     queryKey: ["request", request],
     queryFn: () => getRequestDetails(request.id),
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: (requestId) => softDeleteRequest(requestId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+      queryClient.invalidateQueries({ queryKey: ["request", request.id] });
+      setTimeout(() => {
+        if (onDeleteSuccess) onDeleteSuccess();
+        if (onClose) onClose();
+      }, 1500);
+    },
+  });
+
+  const handleCancelDelete = () => setShowConfirmDialog(false);
+
+  const handleConfirmDelete = () => {
+    setShowConfirmDialog(false);
+    deleteMutation.mutate(request.id);
+  };
 
   if (isLoading) return <Loader />;
 
@@ -54,7 +83,6 @@ export default function RequestDetailsModal({ request }) {
           />
         </div>
 
-        {/* Информация о заявке */}
         <div className={styles.infoWrapper}>
           <div className={styles.reqTitle}>{requestDetails.title}</div>
 
@@ -91,8 +119,29 @@ export default function RequestDetailsModal({ request }) {
             </div>
             <p>{requestDetails.description || "Описание отсутствует"}</p>
           </div>
+
+          <div className={styles.actions}>
+            <Button
+              variant="danger"
+              onClick={() => setShowConfirmDialog(true)}
+              disabled={deleteMutation.isPending}
+            >
+              {deleteMutation.isPending ? "Удаление..." : "Удалить"}
+            </Button>
+          </div>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={showConfirmDialog}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Подтверждение удаления"
+        message="Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить."
+        confirmText="Удалить"
+        cancelText="Отмена"
+        confirmVariant="danger"
+      />
     </div>
   );
 }

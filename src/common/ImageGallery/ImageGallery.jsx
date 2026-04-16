@@ -6,6 +6,7 @@ import {
   ChevronRightIcon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
+import EmptyBlock from "../EmptyBlock/EmptyBlock";
 
 export default function ImageGallery({
   images = [],
@@ -73,9 +74,8 @@ export default function ImageGallery({
 
   if (!hasImages) {
     return (
-      <div className={styles.noPhotos}>
-        <PhotoIcon className={styles.noPhotoIcon} />
-        <span>Нет фотографий</span>
+      <div className={styles.empty}>
+        <EmptyBlock Icon={PhotoIcon}>Нет фотографий</EmptyBlock>
       </div>
     );
   }

@@ -1,36 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import MainHeroContent from "../MainHeroContent/MainHeroContent";
 import MainHeroTitle from "../MainHeroTitle/MainHeroTitle";
 import MainHeroStats from "../MainHeroStats/MainHeroStats";
 import styles from "./MainHero.module.css";
-import CreateRequestModal from "../../features/modals/CreateRequestModal/CreateRequestModal";
-import Modal from "../../features/modals/Modal/Modal";
 import Button from "../../common/Button/Button";
 import { useT } from "../../utils/useT";
+import { useNavigate } from "react-router-dom";
+import routes from "../../stores/routes.json";
 
 export default function MainHero() {
   const t = useT();
-  const [openModal, setOpenModal] = useState(false);
-
-  const handleCTAButtonClick = () => {
-    setOpenModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
+  const navigate = useNavigate();
 
   return (
     <div className={styles.wrapper}>
       <MainHeroContent>
         <MainHeroTitle />
         <MainHeroStats />
-        <Button onClick={handleCTAButtonClick}>
+        <Button onClick={() => navigate(routes.createRequest)}>
           {t("main.createRequest")}
         </Button>
-        <Modal isOpen={openModal} onClose={handleCloseModal}>
-          <CreateRequestModal onSuccess={handleCloseModal} />
-        </Modal>
       </MainHeroContent>
     </div>
   );

@@ -6,17 +6,16 @@ import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
 import MyRequestsList from "./components/MyRequestsList/MyRequestsList";
 import MyRequestsNewRequest from "./components/MyRequestsNewRequest/MyRequestsNewRequest";
 import MyRequestsFilters from "./components/MyRequestsFilters/MyRequestsFilters";
-import Modal from "../../features/modals/Modal/Modal";
-import CreateRequestModal from "../../features/modals/CreateRequestModal/CreateRequestModal";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import { getMyRequests } from "../../api/services/requestService";
 import Notification from "../../common/Notification/Notification";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import routes from "../../stores/routes.json";
 
 export default function MyRequests() {
   const t = useT();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const [filters, setFilters] = useState({
     requestStatus: undefined,
@@ -60,20 +59,12 @@ export default function MyRequests() {
 
         <div className={styles.sectionItem2}>
           <MyRequestsNewRequest
-            handleCreateRequest={() => setIsModalOpen(true)}
+            handleCreateRequest={() => navigate(routes.createRequest)}
           />
 
           <MyRequestsFilters onFilterChange={handleFilterChange} />
         </div>
       </div>
-      <Modal onClose={() => setIsModalOpen(false)} isOpen={isModalOpen}>
-        <CreateRequestModal
-          onSuccess={() => {
-            setIsModalOpen(false);
-            queryClient.invalidateQueries({ queryKey: ["requests"] });
-          }}
-        />
-      </Modal>
     </div>
   );
 }

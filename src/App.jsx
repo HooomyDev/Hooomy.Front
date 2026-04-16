@@ -39,6 +39,7 @@ import CompaniesDataPage from "./pages/CompaniesDataPage/CompaniesDataPage";
 import UsersDataPage from "./pages/UsersDataPage/UsersDataPage";
 import RequestsDataPage from "./pages/RequestsDataPage/RequestsDataPage";
 import AddressesDataPage from "./pages/AddressesDataPage/AddressesDataPage";
+import CreateRequestPage from "./pages/CreateRequestPage/CreateRequestPage";
 
 export default function App() {
   useEffect(() => {
@@ -72,6 +73,16 @@ export default function App() {
             element={
               <ProtectedRoute roles={["Resident"]}>
                 <MyRequestsPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes.createRequest} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Resident"]}>
+                <CreateRequestPage />
               </ProtectedRoute>
             }
           />

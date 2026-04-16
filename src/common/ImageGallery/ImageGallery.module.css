@@ -3,6 +3,13 @@
   margin-bottom: var(--spacing-xl);
 }
 
+.empty {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .mainPhotoContainer {
   position: relative;
   width: 100%;

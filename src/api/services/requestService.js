@@ -57,7 +57,7 @@ export const uploadRequestPhotos = async (requestId, formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    }
+    },
   );
   return res.data;
 };
@@ -85,7 +85,7 @@ export const getRequestsForAdmin = async (
   pageSize,
   searchTitle,
   searchStatus,
-  searchCategory
+  searchCategory,
 ) => {
   const params = new URLSearchParams();
   params.append("page", page);
@@ -97,4 +97,8 @@ export const getRequestsForAdmin = async (
 
   const res = await client.get(`/requests/administration?${params.toString()}`);
   return res.data;
+};
+
+export const softDeleteRequest = async (id) => {
+  await client.delete(`requests/soft-delete/${id}`);
 };

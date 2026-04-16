@@ -22,7 +22,11 @@
     "rejected": "Отклонено",
     "applyFilters": "Применить фильтры",
     "clearFilters": "Очистить фильтры",
-    "empty": "Нет заявок"
+    "empty": "Нет заявок",
+    "category": "Категория",
+    "categoryLabel": "Категория проблемы",
+    "details": "Описание",
+    "titleLabel": "Краткое описание проблемы"
   },
 
   "main": {

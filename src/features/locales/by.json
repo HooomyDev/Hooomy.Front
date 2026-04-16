@@ -22,7 +22,11 @@
     "rejected": "Адхілена",
     "applyFilters": "Прымяніць фільтры",
     "clearFilters": "Ачысціць  фільтры",
-    "empty": "Няма заяў"
+    "empty": "Няма заяў",
+    "category": "Катэгорыя",
+    "categoryLabel": "Катэгорыя праблемы",
+    "details": "Апісанне",
+    "titleLabel": "Кароткае апісанне праблемы"
   },
 
   "main": {
