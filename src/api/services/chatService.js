@@ -29,7 +29,7 @@ export const createChat = async (companyId) => {
     console.log(res.data);
     return res.data;
   } catch (error) {
-    if (error.response?.status === 409) {
+    if (error.response?.status === 404) {
       const res = await client.get(`/chats/${companyId}`);
       console.log(res.data);
       return res.data.id;

@@ -8,6 +8,8 @@ import { useAuthStore } from "../../stores/authStore";
 import { useQuery } from "@tanstack/react-query";
 import { getChatDetails } from "../../api/services/chatService";
 import Loader from "../../common/Loader/Loader";
+import { useNavigate } from "react-router-dom";
+import routes from "../../stores/routes.json";
 
 export default function Chat({
   chatId,
@@ -16,6 +18,7 @@ export default function Chat({
   sendMessage,
   closeChat,
 }) {
+  const navigate = useNavigate();
   const user = useAuthStore((store) => store.user);
 
   const MESSAGE_TYPE_MAP = {
@@ -74,7 +77,16 @@ export default function Chat({
         <button className={styles.backButton} onClick={() => closeChat()}>
           <ArrowLeftIcon className={styles.icon} />
         </button>
-        <div className={styles.userInfo}>
+        <div
+          className={`${styles.userInfo} ${
+            user.role === "Resident" ? styles.companyInfo : ""
+          }`}
+          onClick={() => {
+            if (user.role === "Resident") {
+              navigate(`${routes.companies}/${chat?.companyId}`);
+            }
+          }}
+        >
           <div className={styles.avatar}>
             {(user.role === "Resident" ? chat?.companyName : chat?.residentName)
               .charAt(0)

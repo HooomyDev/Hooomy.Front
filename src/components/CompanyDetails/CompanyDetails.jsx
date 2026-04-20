@@ -15,6 +15,7 @@ import { BuildingOffice2Icon } from "@heroicons/react/24/outline";
 import Block from "../../common/Block/Block";
 import Button from "../../common/Button/Button";
 import { createChat } from "../../api/services/chatService";
+import routes from "../../stores/routes.json";
 
 export default function CompanyDetails() {
   const { companyId } = useParams();
@@ -28,7 +29,8 @@ export default function CompanyDetails() {
   const createChatMutation = useMutation({
     mutationKey: ["createChat"],
     mutationFn: async () => {
-      var chatId = await createChat(companyId);
+      await createChat(companyId);
+      navigate(routes.chats);
     },
   });
 

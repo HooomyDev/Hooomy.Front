@@ -47,6 +47,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  border: 1px solid transparent;
+  padding: var(--spacing-sm);
+  transition: all ease 0.1s;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+
+.companyInfo:hover {
+  transform: scale(1.01);
+  border: 1px solid var(--gray-color);
 }
 
 .avatar {
@@ -128,6 +138,7 @@
   font-size: var(--font-size-lg);
   line-height: 1.4;
   word-break: break-word;
+  user-select: text;
 }
 
 .myMessage .messageBubble {

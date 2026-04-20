@@ -66,7 +66,10 @@ export default function MyRequestsList({ requests }) {
       </div>
 
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        <RequestDetailsModal request={selectedRequest} />
+        <RequestDetailsModal
+          request={selectedRequest}
+          onClose={handleCloseModal}
+        />
       </Modal>
     </Block>
   );
