@@ -1,138 +1,190 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ExclamationTriangleIcon,
-  TrashIcon,
   CheckCircleIcon,
   ArrowPathIcon,
+  XCircleIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
+import { useForm, FormProvider } from "react-hook-form";
 import styles from "./AdminComplaints.module.css";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import Block from "../../common/Block/Block";
+import Loader from "../../common/Loader/Loader";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import InputField from "../../common/InputField/InputField";
+import SelectField from "../../common/SelectField/SelectField";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  getComplaints,
+  updateComplaintStatus,
+} from "../../api/services/complaintService";
+import { COMPLAINT_TYPES } from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
+
+const STATUS_MAP = {
+  0: { label: "Неизвестно", style: styles.statusUnknown },
+  1: { label: "Принята", style: styles.statusAccepted },
+  2: { label: "На рассмотрении", style: styles.statusOnReview },
+  3: { label: "Закрыта", style: styles.statusClosed },
+};
+
+const STATUS_OPTIONS = [
+  { value: 0, label: "Все статусы" },
+  { value: 1, label: "Принята" },
+  { value: 2, label: "На рассмотрении" },
+  { value: 3, label: "Закрыта" },
+];
+
+const TYPE_OPTIONS = [{ value: 0, label: "Все типы" }, ...COMPLAINT_TYPES];
+
+const STATUS_TRANSITIONS = {
+  0: [1],
+  1: [2, 3],
+  2: [3],
+  3: [],
+};
+
+const STATUS_ICONS = { 1: CheckCircleIcon, 2: ArrowPathIcon, 3: XCircleIcon };
+const STATUS_TITLES = { 1: "Принять", 2: "На рассмотрение", 3: "Закрыть" };
 
 export default function AdminComplaints() {
-  const [complaints, setComplaints] = useState([
-    {
-      id: 1,
-      title: "Шум в подъезде",
-      status: "open",
-      description:
-        "Жители дома жалуются на постоянный шум в подъезде в вечернее и ночное время. По словам жильцов, группа подростков собирается у входа, громко разговаривает, включает музыку и мешает отдыху. Проблема повторяется ежедневно, особенно после 21:00, и вызывает недовольство у большинства жильцов.Жители дома жалуются на постоянный шум в подъезде в вечернее и ночное время. По словам жильцов, группа подростков собирается у входа, громко разговаривает, включает музыку и мешает отдыху. Проблема повторяется ежедневно, особенно после 21:00, и вызывает недовольство у большинства жильцов.Жители дома жалуются на постоянный шум в подъезде в вечернее и ночное время. По словам жильцов, группа подростков собирается у входа, громко разговаривает, включает музыку и мешает отдыху. Проблема повторяется ежедневно, особенно после 21:00, и вызывает недовольство у большинства жильцов.Жители дома жалуются на постоянный шум в подъезде в вечернее и ночное время. По словам жильцов, группа подростков собирается у входа, громко разговаривает, включает музыку и мешает отдыху. Проблема повторяется ежедневно, особенно после 21:00, и вызывает недовольство у большинства жильцов.",
-    },
-    {
-      id: 2,
-      title: "Неубранный двор",
-      status: "in_progress",
-      description:
-        "Во дворе дома накопилось большое количество мусора: пластиковые бутылки, пакеты, бумага. Жители отмечают, что дворники не выходили на уборку уже более недели. Особенно заметно загрязнение возле детской площадки и парковки автомобилей. Ситуация ухудшается после выходных, когда мусора становится ещё больше.",
-    },
-    {
-      id: 3,
-      title: "Сломанный домофон",
-      status: "done",
-      description:
-        "Домофон на входной двери не работает уже несколько дней. Жители вынуждены открывать дверь вручную, что создаёт неудобства и снижает уровень безопасности. Особенно страдают пожилые люди, которым тяжело открывать тяжелую дверь. Жалоба была передана в обслуживающую компанию, ремонт выполнен.",
-    },
-    {
-      id: 4,
-      title: "Протечка крыши",
-      status: "open",
-      description:
-        "На верхних этажах дома жильцы заметили протечки воды с потолка во время дождя. По словам жильцов, проблема существует уже несколько месяцев, но до сих пор не устранена. В квартирах появляются пятна сырости, портится отделка и мебель. Жители требуют срочного ремонта крыши.",
-    },
-    {
-      id: 5,
-      title: "Сломанные качели во дворе",
-      status: "in_progress",
-      description:
-        "На детской площадке во дворе сломались качели: одна из цепей оборвана, а сиденье повреждено. Родители жалуются, что дети не могут пользоваться качелями, а конструкция представляет опасность. Жалоба была зарегистрирована, ремонтные работы запланированы на ближайшую неделю.",
-    },
-  ]);
+  const queryClient = useQueryClient();
 
-  const renderStatus = (status) => {
-    switch (status) {
-      case "open":
-        return "Открыта";
-      case "in_progress":
-        return "В работе";
-      case "done":
-        return "Завершена";
-      default:
-        return "Неизвестно";
-    }
-  };
+  const methods = useForm({
+    defaultValues: { shortDescription: "", status: 0, type: 0 },
+  });
 
-  const handleDeleteComplaint = (id) => {
-    setComplaints((prevComplaints) =>
-      prevComplaints.filter((complaint) => complaint.id !== id)
+  const watchSearch = methods.watch("shortDescription");
+  const watchStatus = methods.watch("status");
+  const watchType = methods.watch("type");
+
+  const [filters, setFilters] = useState({});
+  const prevSearch = React.useRef("");
+
+  useEffect(() => {
+    const isSearchChanged = watchSearch !== prevSearch.current;
+    prevSearch.current = watchSearch;
+    const t = setTimeout(
+      () => {
+        setFilters({
+          ...(watchStatus !== 0 && { status: watchStatus }),
+          ...(watchType !== 0 && { type: watchType }),
+          ...(watchSearch && { shortDescription: watchSearch }),
+        });
+      },
+      isSearchChanged ? 400 : 0
     );
-  };
+    return () => clearTimeout(t);
+  }, [watchSearch, watchStatus, watchType]);
+
+  const { data: complaints = [], isLoading } = useQuery({
+    queryKey: ["complaints", filters],
+    queryFn: () => getComplaints(filters),
+  });
+
+  const statusMutation = useMutation({
+    mutationFn: ({ id, status }) => updateComplaintStatus(id, status),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["complaints"] }),
+  });
+
+  const getType = (type) =>
+    COMPLAINT_TYPES.find((t) => t.value === type)?.label ?? "Неизвестный тип";
+  const getStatus = (status) => STATUS_MAP[status] ?? STATUS_MAP[0];
 
   return (
     <div className={styles.wrapper}>
       <PageHeader title="Жалобы" icon={ExclamationTriangleIcon} />
 
       <div className={styles.content}>
-        <Block title="Список жалоб" Icon={ExclamationTriangleIcon}>
-          <div className={styles.list}>
-            {complaints.map((item) => (
-              <div key={item.id} className={styles.item}>
-                <div className={styles.info}>
-                  <span className={styles.id}>#{item.id}</span>
-                  <span className={styles.title}>{item.title}</span>
-                  <span className={styles.description}>{item.description}</span>
-                  <span
-                    className={`${styles.status} ${
-                      item.status === "open"
-                        ? styles.statusOpen
-                        : item.status === "in_progress"
-                        ? styles.statusInProgress
-                        : styles.statusDone
-                    }`}
-                  >
-                    {renderStatus(item.status)}
-                  </span>
-                </div>
-
-                <div className={styles.actions}>
-                  <button
-                    onClick={() =>
-                      setComplaints(
-                        complaints.map((c) =>
-                          c.id === item.id ? { ...c, status: "done" } : c
-                        )
-                      )
-                    }
-                    className={styles.doneButton}
-                    title="Закрыто"
-                  >
-                    <CheckCircleIcon className={styles.buttonIcon} />
-                  </button>
-
-                  <button
-                    onClick={() =>
-                      setComplaints(
-                        complaints.map((c) =>
-                          c.id === item.id ? { ...c, status: "in_progress" } : c
-                        )
-                      )
-                    }
-                    className={styles.inProgressButton}
-                    title="В работе"
-                  >
-                    <ArrowPathIcon className={styles.buttonIcon} />
-                  </button>
-
-                  <button
-                    onClick={() => handleDeleteComplaint(item.id)}
-                    className={styles.deleteButton}
-                    title="Удалить"
-                  >
-                    <TrashIcon className={styles.buttonIcon} />
-                  </button>
-                </div>
+        <Block>
+          <FormProvider {...methods}>
+            <form className={styles.filterForm}>
+              <div className={styles.searchWrap}>
+                <MagnifyingGlassIcon className={styles.searchIcon} />
+                <InputField
+                  name="shortDescription"
+                  placeholder="Поиск по описанию..."
+                />
               </div>
-            ))}
-          </div>
+              <SelectField
+                name="status"
+                label="Статус"
+                options={STATUS_OPTIONS}
+              />
+              <SelectField name="type" label="Тип" options={TYPE_OPTIONS} />
+            </form>
+          </FormProvider>
+        </Block>
+
+        <Block title="Список жалоб" Icon={ExclamationTriangleIcon}>
+          {isLoading ? (
+            <Loader />
+          ) : complaints.length === 0 ? (
+            <EmptyBlock Icon={ExclamationTriangleIcon}>
+              Жалоб не найдено
+            </EmptyBlock>
+          ) : (
+            <div className={styles.list}>
+              {complaints.map((item) => {
+                const status = getStatus(item.status);
+                const transitions = STATUS_TRANSITIONS[item.status] ?? [];
+                return (
+                  <div key={item.id} className={styles.item}>
+                    <div className={styles.itemLeft}>
+                      <div className={styles.iconWrap}>
+                        <ExclamationTriangleIcon className={styles.cardIcon} />
+                      </div>
+                      <div className={styles.info}>
+                        <span className={styles.shortDescription}>
+                          {item.shortDescription}
+                        </span>
+                        <span className={styles.typeBadge}>
+                          {getType(item.type)}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className={styles.itemRight}>
+                      <div className={styles.statusBlock}>
+                        <span className={styles.statusLabel}>
+                          Текущий статус
+                        </span>
+                        <span className={`${styles.status} ${status.style}`}>
+                          {status.label}
+                        </span>
+                      </div>
+                      {transitions.length > 0 && (
+                        <div className={styles.actions}>
+                          {transitions.map((nextStatus) => {
+                            const Icon = STATUS_ICONS[nextStatus];
+                            return (
+                              <button
+                                key={nextStatus}
+                                className={`${styles.actionBtn} ${
+                                  styles[`actionBtn${nextStatus}`]
+                                }`}
+                                disabled={statusMutation.isPending}
+                                title={STATUS_TITLES[nextStatus]}
+                                onClick={() =>
+                                  statusMutation.mutate({
+                                    id: item.id,
+                                    status: nextStatus,
+                                  })
+                                }
+                              >
+                                <Icon className={styles.actionIcon} />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </Block>
       </div>
     </div>

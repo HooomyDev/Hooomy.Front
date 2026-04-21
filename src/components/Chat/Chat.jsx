@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Chat.module.css";
 import { ArrowLeftIcon, PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import InputField from "../../common/InputField/InputField";
@@ -10,6 +10,10 @@ import { getChatDetails } from "../../api/services/chatService";
 import Loader from "../../common/Loader/Loader";
 import { useNavigate } from "react-router-dom";
 import routes from "../../stores/routes.json";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
+import CreateComplaintModal, {
+  COMPLAINT_TYPES,
+} from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
 
 export default function Chat({
   chatId,
@@ -20,6 +24,7 @@ export default function Chat({
 }) {
   const navigate = useNavigate();
   const user = useAuthStore((store) => store.user);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const MESSAGE_TYPE_MAP = {
     resident: 1,
@@ -96,6 +101,15 @@ export default function Chat({
             {user.role === "Resident" ? chat.companyName : chat?.residentName}
           </span>
         </div>
+        {user.role === "Employee" && (
+          <Button
+            className={styles.createComplaintButton}
+            title="Пожаловаться"
+            onClick={() => setIsComplaintModalOpen(true)}
+          >
+            <ExclamationTriangleIcon />
+          </Button>
+        )}
       </div>
 
       <div className={styles.messages}>
@@ -139,6 +153,13 @@ export default function Chat({
           </Button>
         </form>
       </FormProvider>
+
+      <CreateComplaintModal
+        isOpen={isComplaintModalOpen}
+        onClose={() => setIsComplaintModalOpen(false)}
+        type={COMPLAINT_TYPES[0].value}
+        data={chat}
+      />
     </div>
   );
 }

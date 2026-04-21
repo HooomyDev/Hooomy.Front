@@ -7,3 +7,33 @@ export const getComplaintCount = async () => {
 
   return data;
 };
+
+export const createComplaint = async (shortDescription, description, type) => {
+  const res = await client.post("/complaints/create", {
+    shortDescription,
+    description,
+    type,
+  });
+
+  const data = res.data;
+
+  return data;
+};
+
+export const getComplaints = async (params = {}) => {
+  const res = await client.get("/complaints", { params });
+
+  const data = res.data.complaints;
+
+  return data;
+};
+
+export const updateComplaintStatus = async (id, status) => {
+  const res = await client.put(`/complaints/update`, {
+    id: id,
+    status: status,
+    description: "",
+    shortDescription: "",
+  });
+  return res.data;
+};

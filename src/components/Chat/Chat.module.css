@@ -51,6 +51,9 @@
   padding: var(--spacing-sm);
   transition: all ease 0.1s;
   border-radius: var(--border-radius);
+}
+
+.companyInfo {
   cursor: pointer;
 }
 
@@ -186,4 +189,18 @@
 
 .systemMessage .messageSender {
   display: none;
+}
+
+.createComplaintButton {
+  background-color: var(--main-color);
+  width: 3rem;
+  border: 1px solid transparent;
+  padding: var(--spacing-xs);
+  color: var(--gray-color);
+  margin-right: 0;
+}
+
+.createComplaintButton:hover {
+  border: 1px solid transparent;
+  color: var(--element-color);
 }

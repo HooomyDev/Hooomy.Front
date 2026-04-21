@@ -15,130 +15,221 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
-  width: 90%;
+  gap: var(--spacing-md);
+  width: 95%;
 }
 
+/* Filters */
+.filterForm {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: var(--spacing-xl);
+  width: 95%;
+}
+
+.searchWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  flex: 1;
+  min-width: 40%;
+}
+
+.searchIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--font-color);
+}
+
+.selects {
+  display: flex;
+  gap: var(--spacing-xl);
+  flex-wrap: wrap;
+}
+
+/* Card */
 .item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--main-color);
-  padding: var(--spacing-lg);
+  background-color: #ffffff;
+  padding: var(--spacing-lg) var(--spacing-xl);
   border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  box-shadow: 0px 2px 6px var(--gray-color);
-  transition: all 0.3s ease;
+  border: 1px solid #d1d5db;
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+  gap: var(--spacing-lg);
 }
 
 .item:hover {
-  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
-.info {
-  width: 85%;
+/* Left */
+.itemLeft {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  gap: var(--spacing-xl);
-}
-
-.id {
-  font-weight: bold;
-  color: var(--font-color);
-  min-width: 40px;
-}
-
-.title {
+  gap: var(--spacing-lg);
   flex: 1;
-  font-size: var(--font-size-base);
-  color: var(--font-color);
+  min-width: 0;
 }
 
-.status {
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 4px 10px;
-  border-radius: 12px;
-  text-transform: capitalize;
-}
-
-.desctition {
-  color: var(--font-color);
-}
-
-.statusOpen {
-  min-width: 7rem;
-  text-align: center;
-  background: #dcfce7;
-  color: #166534;
-}
-
-.statusInProgress {
-  min-width: 7rem;
-  text-align: center;
-  background: #e0f2fe;
-  color: #0369a1;
-}
-
-.statusDone {
-  min-width: 7rem;
-  text-align: center;
-  background: #00fc3b8c;
-  color: #004609;
-}
-
-.buttonIcon {
-  width: 2rem;
-}
-
-.actions {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-sm);
-}
-
-.deleteButton,
-.doneButton,
-.inProgressButton {
-  width: 3rem;
-  height: 3rem;
+.iconWrap {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  margin: 0;
-  border: transparent;
-  background: #fee2e2;
-  color: #991b1b;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background-color: rgba(211, 47, 47, 0.1);
 }
 
-.deleteButton:hover {
-  background: #fecaca;
-  color: #991b1b;
-  border: transparent;
+.cardIcon {
+  width: 1.4rem;
+  height: 1.4rem;
+  color: var(--red-color);
 }
 
-.doneButton {
-  background: #dcfce7;
-  color: #166534;
-  border: transparent;
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  min-width: 0;
 }
 
-.doneButton:hover {
-  border: transparent;
-  background: #bbf7d0;
-  color: #166534;
+.shortDescription {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--font-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.inProgressButton {
+.typeBadge {
+  display: inline-block;
+  width: fit-content;
+  padding: 2px var(--spacing-sm);
+  border-radius: 999px;
+  background-color: var(--card-background);
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+/* Right */
+.itemRight {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.statusBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-xs);
+}
+
+.statusLabel {
+  font-size: var(--font-size-sm);
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Status badge */
+.status {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  padding: 4px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.statusUnknown {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+.statusAccepted {
   background: #e0f2fe;
   color: #0369a1;
 }
+.statusOnReview {
+  background: #fef9c3;
+  color: #854d0e;
+}
+.statusClosed {
+  background: #dcfce7;
+  color: #166534;
+}
 
-.inProgressButton:hover {
-  background: #bae6fd;
+/* Action buttons */
+.actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.actionBtn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+  flex-shrink: 0;
+
+  padding: 0;
+}
+
+.actionBtn:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+.actionBtn:active {
+  transform: translateY(0);
+}
+.actionBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.actionIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Принять */
+.actionBtn1 {
+  background: #e0f2fe;
   color: #0369a1;
-  border: transparent;
+  border-color: #bae6fd;
+}
+/* На рассмотрение */
+.actionBtn2 {
+  background: #fef9c3;
+  color: #854d0e;
+  border-color: #fde68a;
+}
+/* Закрыть */
+.actionBtn3 {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
 }
