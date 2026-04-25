@@ -17,3 +17,9 @@ export const getUserList = async (page = 1, pageSize = 10) => {
 
   return data.items;
 };
+
+//Approved, Banned, Deleted
+export const changeUserStatus = async (id, status) => {
+  const res = await client.put(`admin/users/${id}/status?status=${status}`);
+  return res.data;
+};

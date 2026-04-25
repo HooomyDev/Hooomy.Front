@@ -42,7 +42,7 @@ export default function LoginForm() {
         params,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
+        },
       );
 
       const result = response.data;
@@ -60,7 +60,21 @@ export default function LoginForm() {
         patronymic: decoded.middle_name,
         phoneNumber: decoded.phone_number,
         companyId: decoded.company_id,
+        status: decoded.status,
       };
+
+      if (user.status === "Banned" || user.status === "Deleted") {
+        setNotification({
+          type: "error",
+          message:
+            user.status === "Banned"
+              ? "Ваш аккаунт заблокирован"
+              : "Ваш аккаунт удалён",
+        });
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        return;
+      }
 
       login(user);
 

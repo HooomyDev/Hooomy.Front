@@ -2,18 +2,18 @@ import React, { useState, useMemo } from "react";
 import Block from "../../common/Block/Block";
 import {
   UserGroupIcon,
-  PencilIcon,
   TrashIcon,
   ChevronUpIcon,
   ChevronDownIcon,
+  CheckCircleIcon,
+  NoSymbolIcon,
 } from "@heroicons/react/24/solid";
 import styles from "./AdminDatabaseUsers.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
-import { PlusIcon } from "@heroicons/react/24/outline";
-import { useQuery } from "@tanstack/react-query";
-import { getUserList } from "../../api/services/userService";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getUserList, changeUserStatus } from "../../api/services/userService";
 import Loader from "../../common/Loader/Loader";
 import PageHeader from "../../common/PageHeader/PageHeader";
 
@@ -21,9 +21,12 @@ export default function AdminDatabaseUsers() {
   const [page] = useState(1);
   const [pageSize] = useState(10);
 
+  const queryClient = useQueryClient();
+
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [searchName, setSearchName] = useState("");
   const [searchRole, setSearchRole] = useState("");
+  const [searchStatus, setSearchStatus] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(5);
 
@@ -36,9 +39,39 @@ export default function AdminDatabaseUsers() {
 
   const methods = useForm();
 
-  const handleDeleteUser = () => {};
+  const statusMutation = useMutation({
+    mutationFn: ({ id, status }) => changeUserStatus(id, status),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["users"] }),
+  });
 
-  const handleEditUser = () => {};
+  const handleDeleteUser = (id) =>
+    statusMutation.mutate({ id, status: "Deleted" });
+
+  const handleApproveUser = (id) =>
+    statusMutation.mutate({ id, status: "Approved" });
+
+  const handleBanUser = (id) => statusMutation.mutate({ id, status: "Banned" });
+
+  const renderStatus = (status) => {
+    switch (status) {
+      case "Approved":
+        return "Одобрен";
+      case "Pending":
+        return "Ожидает подтверждения";
+      case "Banned":
+        return "Заблокирован";
+      case "Deleted":
+        return "Удалён";
+      default:
+        return status || "Неизвестно";
+    }
+  };
+
+  const statusOptions = [
+    { value: "", label: "Все статусы" },
+    { value: "Pending", label: "Ожидает подтверждения" },
+    { value: "Approved", label: "Одобрен" },
+  ];
 
   const roleOptions = [
     { value: "", label: "Все роли" },
@@ -56,8 +89,9 @@ export default function AdminDatabaseUsers() {
         u.email?.toLowerCase().includes(searchName.toLowerCase());
 
       const matchesRole = searchRole ? u.role === searchRole : true;
+      const matchesStatus = searchStatus ? u.status === searchStatus : true;
 
-      return matchesName && matchesRole;
+      return matchesName && matchesRole && matchesStatus;
     });
 
     if (sortConfig.key) {
@@ -76,7 +110,7 @@ export default function AdminDatabaseUsers() {
     }
 
     return filtered;
-  }, [users, sortConfig, searchName, searchRole]);
+  }, [users, sortConfig, searchName, searchRole, searchStatus]);
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -139,12 +173,15 @@ export default function AdminDatabaseUsers() {
               />
             </div>
 
-            <button
-              className={styles.addNewUserButton}
-              title="Добавить пользователя"
-            >
-              <PlusIcon className={styles.icon} />
-            </button>
+            <div className={styles.roleField}>
+              <SelectField
+                name="searchStatus"
+                label="Статус"
+                options={statusOptions}
+                required={false}
+                onValueChange={(val) => setSearchStatus(val)}
+              />
+            </div>
           </div>
 
           <table className={styles.table}>
@@ -160,7 +197,7 @@ export default function AdminDatabaseUsers() {
                   onClick={() => handleSort("userName")}
                   className={styles.sortable}
                 >
-                  Имя пользователя {getSortIcon("userName")}
+                  ФИО {getSortIcon("userName")}
                 </th>
                 <th
                   onClick={() => handleSort("email")}
@@ -175,7 +212,7 @@ export default function AdminDatabaseUsers() {
                   Роль {getSortIcon("role")}
                 </th>
                 <th>Номер телефона</th>
-                <th>Email подтвержден</th>
+                <th>Статус</th>
                 <th>Действия</th>
               </tr>
             </thead>
@@ -193,24 +230,34 @@ export default function AdminDatabaseUsers() {
                   <td>{renderRole(u.roles[0])}</td>
                   <td>{u.phoneNumber ? u.phoneNumber : "Не указан"}</td>
                   <td>
-                    {u.emailConfirmed ? (
-                      <span className={styles.confirmed}>Да</span>
-                    ) : (
-                      <span className={styles.notConfirmed}>Нет</span>
+                    {u.status && (
+                      <span className={styles.confirmed}>
+                        {renderStatus(u.status)}
+                      </span>
                     )}
                   </td>
                   <td className={styles.actions}>
                     <button
-                      onClick={() => handleEditUser(u)}
-                      className={styles.editButton}
-                      title="Редактировать"
+                      onClick={() => handleApproveUser(u.id)}
+                      className={styles.approveButton}
+                      title="Одобрить"
+                      disabled={u.status === "Approved"}
                     >
-                      <PencilIcon className={styles.actionIcon} />
+                      <CheckCircleIcon className={styles.actionIcon} />
+                    </button>
+                    <button
+                      onClick={() => handleBanUser(u.id)}
+                      className={styles.banButton}
+                      title="Заблокировать"
+                      disabled={u.status === "Banned"}
+                    >
+                      <NoSymbolIcon className={styles.actionIcon} />
                     </button>
                     <button
                       onClick={() => handleDeleteUser(u.id)}
                       className={styles.deleteButton}
                       title="Удалить"
+                      disabled={u.status === "Deleted"}
                     >
                       <TrashIcon className={styles.actionIcon} />
                     </button>

@@ -38,23 +38,29 @@ export default function AuthButton() {
     }
   };
 
+  const isAdminOrEmployee = user?.role === "Admin" || user?.role === "Employee";
+
   const items = [
-    {
-      label: t("userdrop.profile"),
-      icon: ProfileIcon,
-      onClick: () => {
-        setOpen(false);
-        navigate(routes.profile);
-      },
-    },
-    {
-      label: "Сообщения",
-      icon: ChatBubbleBottomCenterTextIcon,
-      onClick: () => {
-        setOpen(false);
-        navigate(routes.chat);
-      },
-    },
+    ...(!isAdminOrEmployee
+      ? [
+          {
+            label: t("userdrop.profile"),
+            icon: ProfileIcon,
+            onClick: () => {
+              setOpen(false);
+              navigate(routes.profile);
+            },
+          },
+          {
+            label: "Сообщения",
+            icon: ChatBubbleBottomCenterTextIcon,
+            onClick: () => {
+              setOpen(false);
+              navigate(routes.chat);
+            },
+          },
+        ]
+      : []),
     {
       label: t("settings.title"),
       icon: SettingsIcon,
@@ -63,7 +69,6 @@ export default function AuthButton() {
         navigate(routes.settings);
       },
     },
-
     {
       label: t("userdrop.logout"),
       icon: LogoutIcon,

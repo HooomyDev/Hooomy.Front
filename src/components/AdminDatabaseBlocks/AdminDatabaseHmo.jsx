@@ -80,7 +80,7 @@ export default function AdminDatabaseHmo() {
                 <div className={styles.companyLogo}>
                   {company.logoUrl ? (
                     <img
-                      src={`http://localhost:5001${company.logoUrl}`}
+                      src={`${company.logoUrl}`}
                       alt={company.name}
                       className={styles.logoImage}
                     />
