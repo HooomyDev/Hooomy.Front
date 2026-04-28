@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./MyRequests.module.css";
 import { useT } from "../../utils/useT";
 import Loader from "../../common/Loader/Loader";
@@ -23,12 +23,34 @@ export default function MyRequests() {
     endDate: undefined,
   });
   const [notification, setNotification] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
-  const { data: requests, isLoading } = useQuery({
+  const {
+    data: requests,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["requests", filters],
     queryFn: () =>
       getMyRequests(filters.requestStatus, filters.startDate, filters.endDate),
   });
+  useEffect(() => {
+    if (error) {
+      const statusCode =
+        error.response?.status || error.status || error.statusCode;
+
+      if (statusCode === 403) {
+        setNotification({
+          type: "error",
+          message:
+            error.response?.data?.message ||
+            error.response?.data?.error ||
+            "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+        });
+        setDisabled(true);
+      }
+    }
+  }, [error]);
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -54,15 +76,19 @@ export default function MyRequests() {
 
       <div className={styles.section}>
         <div className={styles.sectionItem1}>
-          <MyRequestsList requests={requests} />
+          <MyRequestsList requests={requests ?? []} />
         </div>
 
         <div className={styles.sectionItem2}>
           <MyRequestsNewRequest
             handleCreateRequest={() => navigate(routes.createRequest)}
+            disabled={disabled}
           />
 
-          <MyRequestsFilters onFilterChange={handleFilterChange} />
+          <MyRequestsFilters
+            onFilterChange={handleFilterChange}
+            disabled={disabled}
+          />
         </div>
       </div>
     </div>

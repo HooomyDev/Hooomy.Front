@@ -7,7 +7,7 @@ import Button from "../../../../common/Button/Button";
 import routes from "../../../../stores/routes.json";
 import { useNavigate } from "react-router-dom";
 
-export default function ChatSearchForm({ onSubmit, user }) {
+export default function ChatSearchForm({ onSubmit, user, disabled }) {
   const navigate = useNavigate();
 
   const methods = useForm({
@@ -19,7 +19,10 @@ export default function ChatSearchForm({ onSubmit, user }) {
   return (
     <div className={styles.search}>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form
+          onSubmit={methods.handleSubmit(onSubmit)}
+          className={`${styles.form} ${disabled ? styles.formDisabled : ""}`}
+        >
           <InputField name="search" placeholder="Поиск..." />
           <Button
             type="submit"

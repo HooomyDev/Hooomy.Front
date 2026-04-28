@@ -78,9 +78,11 @@ export default function Surveys() {
 
       <Block title={t("surveys.active")} Icon={BoltIcon}>
         {surveys.length === 0 ? (
-          <EmptyBlock Icon={MegaphoneIcon}>
-            Сейчас нет активных опросов
-          </EmptyBlock>
+          <div className={styles.empty}>
+            <EmptyBlock Icon={MegaphoneIcon}>
+              Сейчас нет активных опросов
+            </EmptyBlock>
+          </div>
         ) : (
           <>
             <div className={styles.surveys}>

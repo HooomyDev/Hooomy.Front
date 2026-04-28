@@ -111,8 +111,8 @@ export default function RegistrationWizard() {
     if (step === 4) {
       setLoading(true);
       try {
-        const companies = await getCompanies();
-        const companyId = values.role === "Employee" ? companies[0].id : null;
+        // const companies = await getCompanies();
+        // const companyId = values.role === "Employee" ? companies[0].id : null;
 
         const res = await client.post("auth/register", {
           email: values.email,
@@ -122,7 +122,7 @@ export default function RegistrationWizard() {
           surname: values.surname,
           firstName: values.name,
           patronymic: values.patronymic,
-          companyId: companyId,
+          //companyId: companyId,
         });
         if (res.data?.errors) {
           setNotification(res.data.errors.description);

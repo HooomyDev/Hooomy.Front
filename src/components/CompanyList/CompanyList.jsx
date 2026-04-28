@@ -57,7 +57,7 @@ export default function CompanyList() {
   const onSubmit = (data) => {
     const filtered =
       companies?.filter((company) =>
-        company.name.toLowerCase().includes(data.search.toLowerCase())
+        company.name.toLowerCase().includes(data.search.toLowerCase()),
       ) || [];
 
     setFilteredCompanies(filtered);

@@ -10,7 +10,8 @@ export const getChats = async (user) => {
 
   const data = res.data.chats ?? [];
 
-  return data;
+  console.log(data);
+  return data ?? [];
 };
 
 export const getChatDetails = async (chatId) => {
@@ -26,14 +27,9 @@ export const createChat = async (companyId) => {
     const res = await client.post("/chats/create", {
       companyId: companyId,
     });
-    console.log(res.data);
     return res.data;
   } catch (error) {
-    if (error.response?.status === 404) {
-      const res = await client.get(`/chats/${companyId}`);
-      console.log(res.data);
-      return res.data.id;
-    }
+    throw error;
   }
 };
 

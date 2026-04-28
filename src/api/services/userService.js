@@ -23,3 +23,15 @@ export const changeUserStatus = async (id, status) => {
   const res = await client.put(`admin/users/${id}/status?status=${status}`);
   return res.data;
 };
+
+export const getUsersForCompany = async (companyId) => {
+  const res = await client.get(
+    `admin/users/get-users-for-company/${companyId}`
+  );
+  return res.data;
+};
+
+export const addUserToCompany = async (data) => {
+  const res = await client.post("admin/users/add-to-company", data);
+  return res.data;
+};

@@ -21,7 +21,7 @@ export const createCompany = async (
   phone,
   email,
   addressId,
-  workingHours
+  workingHours,
 ) => {
   var res = await client.post("/companies/create", {
     name,
@@ -42,8 +42,30 @@ export const uploadLogo = async (companyId, formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    }
+    },
   );
 
   return res;
+};
+
+export const getCompanyEmployees = async (companyId) => {
+  const res = await client.get(`companies/${companyId}/employees`);
+  return res.data.employees ?? [];
+};
+
+export const addAddressToCompany = async (companyId, addressId) => {
+  const res = await client.put(
+    `/companies/${companyId}/add-address/${addressId}`,
+  );
+  return res.data;
+};
+
+export const deleteCompany = async (id) => {
+  const res = await client.delete(`/companies/delete/${id}`);
+  return res.data;
+};
+
+export const updateCompany = async (data) => {
+  const res = await client.put("/companies/update", data);
+  return res.data;
 };

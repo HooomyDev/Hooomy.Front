@@ -21,3 +21,9 @@
   width: 95%;
   justify-content: space-between;
 }
+
+.empty {
+  display: flex;
+  align-items: center;
+  min-height: 30vh;
+}

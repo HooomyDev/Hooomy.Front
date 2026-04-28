@@ -21,7 +21,6 @@
   display: flex;
   flex-direction: row;
   gap: var(--spacing-xl);
-  width: 95%;
   border-bottom: 1px solid var(--gray-color);
 
   .icon {
@@ -32,9 +31,9 @@
 .info {
   display: flex;
   flex-direction: row;
-  width: 95%;
-  justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-xl);
 }
 
 .infoCard {
@@ -44,7 +43,8 @@
   border-radius: var(--border-radius);
   border: 1px solid var(--gray-color);
   padding: var(--spacing-xl);
-  width: 17%;
+  min-width: 250px;
+  max-width: 300px;
   transition: all 0.2s ease;
 }
 
@@ -66,7 +66,6 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  width: 95%;
   gap: var(--spacing-xl);
   border-top: 1px solid var(--gray-color);
   padding-top: var(--spacing-xl);
@@ -79,4 +78,224 @@
 
 .icon {
   width: 24px;
+}
+
+/* Addresses */
+.addressList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 0 var(--spacing-xl);
+  height: 400px;
+  overflow-y: auto;
+}
+
+.addressItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--main-color);
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+  transition: border-color 0.2s ease;
+}
+
+.addressItem:hover {
+  border-color: var(--element-color);
+}
+
+.addressIcon {
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--element-color);
+  flex-shrink: 0;
+}
+
+/* Employees */
+.employeeList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+  padding: 0 var(--spacing-xl);
+  height: 400px;
+  overflow-y: auto;
+}
+
+.employeeItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  background: var(--card-background);
+  transition: border-color 0.2s ease;
+}
+
+.employeeItem:hover {
+  border-color: var(--element-color);
+}
+
+.employeeAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--gray-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.avatarIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--element-color);
+}
+
+.employeeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.employeeName {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.employeeRole {
+  font-size: var(--font-size-sm);
+  color: #6b7280;
+}
+
+/* Block action row */
+.blockActions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.addBtn {
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.addIcon {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+}
+
+/* Address header */
+.addressHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: var(--spacing-xl);
+  background-color: var(--main-color);
+  border-radius: var(--border-radius);
+}
+
+.addressHeader .icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--element-color);
+  flex-shrink: 0;
+}
+
+.addressHeader h2 {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  color: var(--font-color);
+  margin: 0;
+  width: 100%;
+}
+
+.companyLogo {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.blockInner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-xl);
+  width: 95%;
+}
+
+.logoSide {
+  flex-shrink: 0;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+}
+
+.companyLogo {
+  width: 100%;
+  max-width: 400px;
+  max-height: 400px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blockContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  flex: 1;
+  min-width: 0;
+}
+
+.headerActions {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-left: auto;
+  align-items: center;
+}
+
+.editBtn,
+.deleteBtn {
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+}
+
+.editBtn {
+  background: #e0f2fe;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.editBtn:hover {
+  background: #bae6fd;
+}
+
+.deleteBtn {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+
+.deleteBtn:hover {
+  background: #fecaca;
+}
+
+.btnIcon {
+  width: 1.1rem;
+  height: 1.1rem;
 }

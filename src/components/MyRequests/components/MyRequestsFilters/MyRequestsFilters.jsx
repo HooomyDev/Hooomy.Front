@@ -11,6 +11,7 @@ import Button from "../../../../common/Button/Button";
 export default function MyRequestsFilters({
   onFilterChange,
   initialFilters = {},
+  disabled,
 }) {
   const t = useT();
 
@@ -53,7 +54,10 @@ export default function MyRequestsFilters({
   return (
     <Block title={t("requests.filters")} Icon={AdjustmentsHorizontalIcon}>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={`${styles.form} ${disabled ? styles.formDisabled : ""}`}
+        >
           <SelectField
             label={t("requests.status")}
             {...methods.register("status")}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Block from "../../common/Block/Block";
 import {
   Cog6ToothIcon,
@@ -16,14 +16,40 @@ import { formatDate } from "date-fns";
 import { ru } from "date-fns/locale";
 import { useQuery } from "@tanstack/react-query";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import Notification from "../../common/Notification/Notification";
 
 export default function Works() {
   const t = useT();
+  const [notification, setNotification] = useState(null);
 
-  const { data: works, isLoading } = useQuery({
+  const {
+    data: works = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["works"],
-    queryFn: getWorks,
+    queryFn: async () => {
+      const w = await getWorks();
+      return w ?? [];
+    },
   });
+
+  useEffect(() => {
+    if (error) {
+      const statusCode =
+        error.response?.status || error.status || error.statusCode;
+
+      if (statusCode === 403) {
+        setNotification({
+          type: "error",
+          message:
+            error.response?.data?.message ||
+            error.response?.data?.error ||
+            "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+        });
+      }
+    }
+  }, [error]);
 
   if (isLoading) {
     return <Loader />;
@@ -31,6 +57,15 @@ export default function Works() {
 
   return (
     <div className={styles.wrapper}>
+      {notification && (
+        <Notification
+          duration={3000}
+          onClose={() => setNotification(null)}
+          type={notification.type}
+        >
+          <div>{notification.message}</div>
+        </Notification>
+      )}
       <PageHeader title={t("works.title")} icon={Cog6ToothIcon} />
 
       <div className={styles.content}>
@@ -41,7 +76,7 @@ export default function Works() {
                 Нет активных работ
               </EmptyBlock>
             ) : (
-              works.map((work) => (
+              works?.map((work) => (
                 <div
                   className={`${styles.workWrapper} ${
                     styles[work.seriousness]

@@ -11,6 +11,7 @@ import ChatCard from "./components/ChatCard/ChatCard";
 import ChatSearchForm from "./components/ChatSearchForm/ChatSearchForm";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import Chat from "../Chat/Chat";
+import Notification from "../../common/Notification/Notification";
 
 export default function Chats() {
   const [filteredChats, setFilteredChats] = useState([]);
@@ -18,6 +19,8 @@ export default function Chats() {
   const [messages, setMessages] = useState([]);
   const [connection, setConnection] = useState(null);
   const [selectedChatId, setSelectedChatId] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [disabled, setDisabled] = useState(false);
 
   const joinChat = async (userName, chatId) => {
     const token = localStorage.getItem("access_token");
@@ -47,7 +50,11 @@ export default function Chats() {
     setMessages([]);
   };
 
-  const { data: chats, isLoading } = useQuery({
+  const {
+    data: chats,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["chats"],
     queryFn: () => getChats(user),
     staleTime: 5 * 1000,
@@ -71,6 +78,24 @@ export default function Chats() {
       setFilteredChats(chats);
     }
   }, [chats]);
+
+  useEffect(() => {
+    if (error) {
+      const statusCode =
+        error.response?.status || error.status || error.statusCode;
+
+      if (statusCode === 403) {
+        setNotification({
+          type: "error",
+          message:
+            error.response?.data?.message ||
+            error.response?.data?.error ||
+            "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+        });
+        setDisabled(true);
+      }
+    }
+  }, [error]);
 
   const onSubmit = (data) => {
     const filtered =
@@ -97,12 +122,25 @@ export default function Chats() {
         />
       ) : (
         <div className={styles.wrapper}>
+          {notification && (
+            <Notification
+              duration={3000}
+              onClose={() => setNotification(null)}
+              type={notification.type}
+            >
+              <div>{notification.message}</div>
+            </Notification>
+          )}
           <PageHeader title="Чаты" icon={ChatBubbleBottomCenterTextIcon} />
           <div className={styles.container}>
-            <ChatSearchForm onSubmit={onSubmit} user={user} />
+            <ChatSearchForm
+              onSubmit={onSubmit}
+              user={user}
+              disabled={disabled}
+            />
             <Block>
               <div className={styles.chats}>
-                {chats.length === 0 ? (
+                {filteredChats.length === 0 ? (
                   <div className={styles.empty}>
                     <ChatBubbleBottomCenterTextIcon className={styles.icon} />
                     Нет чатов

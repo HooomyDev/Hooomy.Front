@@ -33,7 +33,7 @@ export const getRequestCategories = async () => {
 
   const data = res.data.categories;
 
-  return data;
+  return data ?? [];
 };
 
 export const createRequest = async (title, description, address, category) => {

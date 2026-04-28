@@ -5,13 +5,20 @@ import { useT } from "../../../../utils/useT";
 import Block from "../../../../common/Block/Block";
 import Button from "../../../../common/Button/Button";
 
-export default function MyRequestsNewRequest({ handleCreateRequest }) {
+export default function MyRequestsNewRequest({
+  handleCreateRequest,
+  disabled,
+}) {
   const t = useT();
 
   return (
     <Block title={t("requests.newRequest")} Icon={PencilIcon}>
       <div className={styles.container}>
-        <Button type="button" onClick={() => handleCreateRequest()}>
+        <Button
+          type="button"
+          onClick={() => handleCreateRequest()}
+          disabled={disabled}
+        >
           <PlusIcon className={styles.btnIcon} />
           {t("requests.createNewRequest")}
         </Button>

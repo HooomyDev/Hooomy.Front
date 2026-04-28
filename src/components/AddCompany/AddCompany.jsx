@@ -15,6 +15,7 @@ import { WrenchScrewdriverIcon } from "@heroicons/react/24/solid";
 import Map from "../../features/map/Map/Map";
 import { findOrCreateAddress } from "../../api/services/addressController";
 import { createCompany, uploadLogo } from "../../api/services/companyService";
+import { useNavigate } from "react-router-dom";
 
 const parseAddress = (address) => {
   if (!address) return { street: "", houseNumber: "" };
@@ -39,6 +40,7 @@ export default function AddCompany() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isAddingAddress, setIsAddingAddress] = useState(false);
+  const navigate = useNavigate();
 
   const handleSelect = (location) => {
     setSelectedLocation(location);
@@ -117,6 +119,7 @@ export default function AddCompany() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["companies"] });
       reset();
+      navigate(-1);
     },
     onError: (error) => {
       console.error("Ошибка при добавлении компании:", error);

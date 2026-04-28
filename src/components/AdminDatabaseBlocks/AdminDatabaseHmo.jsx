@@ -1,11 +1,13 @@
 import React, { useMemo } from "react";
 import Block from "../../common/Block/Block";
 import {
-  Cog6ToothIcon,
-  PhotoIcon,
   WrenchScrewdriverIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+  ClockIcon,
+  ArrowRightIcon,
 } from "@heroicons/react/24/solid";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import styles from "./AdminDatabaseHmo.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
@@ -16,6 +18,7 @@ import routes from "../../stores/routes.json";
 import Loader from "../../common/Loader/Loader";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import PageHeader from "../../common/PageHeader/PageHeader";
+import Button from "../../common/Button/Button";
 
 export default function AdminDatabaseHmo() {
   const navigate = useNavigate();
@@ -62,36 +65,69 @@ export default function AdminDatabaseHmo() {
               />
             </div>
 
-            <div
+            <Button
+              variant="secondary"
               className={styles.addNewUserButton}
               onClick={() => navigate(routes.addHmo)}
             >
               <PlusIcon className={styles.icon} />
-            </div>
+            </Button>
           </div>
         </FormProvider>
 
         <div className={styles.companiesList}>
           {filteredCompanies.length === 0 ? (
-            <EmptyBlock Icon={Cog6ToothIcon}>Список компаний пуст</EmptyBlock>
+            <EmptyBlock Icon={WrenchScrewdriverIcon}>
+              Список компаний пуст
+            </EmptyBlock>
           ) : (
             filteredCompanies.map((company) => (
               <div key={company.id} className={styles.companyCard}>
                 <div className={styles.companyLogo}>
                   {company.logoUrl ? (
                     <img
-                      src={`${company.logoUrl}`}
+                      src={company.logoUrl}
                       alt={company.name}
                       className={styles.logoImage}
                     />
                   ) : (
-                    <PhotoIcon />
+                    <div className={styles.placeholderLogo}>
+                      <PhotoIcon className={styles.placeholderIcon} />
+                    </div>
                   )}
                 </div>
 
                 <div className={styles.companyInfo}>
                   <h3 className={styles.companyName}>{company.name}</h3>
+                  <div className={styles.companyMeta}>
+                    {company.phone && (
+                      <span className={styles.metaItem}>
+                        <PhoneIcon className={styles.metaIcon} />
+                        {company.phone}
+                      </span>
+                    )}
+                    {company.email && (
+                      <span className={styles.metaItem}>
+                        <EnvelopeIcon className={styles.metaIcon} />
+                        {company.email}
+                      </span>
+                    )}
+                    {company.workingHours && (
+                      <span className={styles.metaItem}>
+                        <ClockIcon className={styles.metaIcon} />
+                        {company.workingHours}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                <button
+                  className={styles.detailsBtn}
+                  onClick={() => navigate(`${routes.companies}/${company.id}`)}
+                  title="Подробнее"
+                >
+                  <ArrowRightIcon className={styles.detailsIcon} />
+                </button>
               </div>
             ))
           )}

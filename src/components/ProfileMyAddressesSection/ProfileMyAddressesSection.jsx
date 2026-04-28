@@ -148,6 +148,8 @@ export default function ProfileMyAddressesSection() {
     updateMutation.isPending ||
     deleteMutation.isPending;
 
+  if (user.status === "Pending") return null;
+
   return (
     <Block title={t("profile.addresses")} Icon={HomeIcon}>
       <div className={styles.list}>
