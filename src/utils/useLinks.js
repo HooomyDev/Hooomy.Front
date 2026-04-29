@@ -86,7 +86,13 @@ export function useLinks() {
 
   if (user?.role === "Employee")
     return [
-      { id: 1, to: routes.home, label: t("nav.main"), icon: HomeIcon },
+      {
+        id: 1,
+        to: routes.home,
+        label: t("nav.main"),
+        icon: HomeIcon,
+        type: "link",
+      },
       {
         id: 2,
         to: routes.requests,

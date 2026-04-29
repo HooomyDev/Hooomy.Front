@@ -4,7 +4,6 @@ import { useForm, FormProvider } from "react-hook-form";
 import RegistrationWizardButtons from "../RegistrationWizardButtons/RegistrationWizardButtons";
 import RegistrationProgressBar from "../RegistrationProgressBar/RegistrationProgressBar";
 import RegistrationWizardContent from "../RegistrationWizardContent/RegistrationWizardContent";
-import RegistrationStepAccountType from "../RegistrationStepAccountType/RegistrationStepAccountType";
 import RegistrationStepCommonUserData from "../RegistrationStepCommonUserData/RegistrationStepCommonUserData";
 import RegistrationStepContactUserData from "../RegistrationStepContactUserData/RegistrationStepContactUserData";
 import RegistrationStepReview from "../RegistrationStepReview/RegistrationStepReview";
@@ -25,7 +24,6 @@ import { useT } from "../../../utils/useT";
 import routes from "../../../stores/routes.json";
 import { authClient as client } from "../../../api/client";
 import Notification from "../../../common/Notification/Notification";
-import { getCompanies } from "../../../api/services/companyService";
 
 export default function RegistrationWizard() {
   const t = useT();
@@ -35,18 +33,12 @@ export default function RegistrationWizard() {
 
   const [notification, setNotification] = useState(null);
 
-  const roles = [
-    { value: "Resident", label: t("register.step1Var1") },
-    { value: "Employee", label: t("register.step1Var2") },
-  ];
-
   const methods = useForm({
     defaultValues: {
-      role: "",
+      role: "Resident",
       surname: "",
       name: "",
       patronymic: "",
-      invite: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -55,28 +47,18 @@ export default function RegistrationWizard() {
   });
 
   const steps = [
-    { id: 1, component: <RegistrationStepAccountType roles={roles} /> },
-    { id: 2, component: <RegistrationStepCommonUserData /> },
-    { id: 3, component: <RegistrationStepContactUserData /> },
-    { id: 4, component: <RegistrationStepReview /> },
-    { id: 5, component: <RegistrationStepSuccess /> },
+    { id: 1, component: <RegistrationStepCommonUserData /> },
+    { id: 2, component: <RegistrationStepContactUserData /> },
+    { id: 3, component: <RegistrationStepReview /> },
+    { id: 4, component: <RegistrationStepSuccess /> },
   ];
-
-  const fakeServerCheck = (code) =>
-    new Promise((resolve) => {
-      setTimeout(() => resolve(code === "ABC123"), 2000);
-    });
 
   const handleNext = async () => {
     const values = methods.getValues();
 
     let newErrors = {};
 
-    if (step === 1 && !values.role) {
-      newErrors.role = t("errors.requaredRole");
-    }
-
-    if (step === 2) {
+    if (step === 1) {
       newErrors = {
         name: validateName(values.name),
         surname: validateSurname(values.surname),
@@ -84,13 +66,13 @@ export default function RegistrationWizard() {
       };
     }
 
-    if (step === 3) {
+    if (step === 2) {
       newErrors = {
         email: validateEmail(values.email),
         password: validatePassword(values.password),
         confirmPassword: validateConfirmPassword(
           values.password,
-          values.confirmPassword
+          values.confirmPassword,
         ),
       };
     }
@@ -98,22 +80,9 @@ export default function RegistrationWizard() {
     const hasErrors = Object.values(newErrors).some((err) => err !== true);
     if (hasErrors) return;
 
-    if (step === 2 && values.role === "management") {
-      setLoading(true);
-      const isValid = await fakeServerCheck(values.invite.trim());
-      setLoading(false);
-
-      if (!isValid) {
-        return;
-      }
-    }
-
-    if (step === 4) {
+    if (step === 3) {
       setLoading(true);
       try {
-        // const companies = await getCompanies();
-        // const companyId = values.role === "Employee" ? companies[0].id : null;
-
         const res = await client.post("auth/register", {
           email: values.email,
           password: values.password,
@@ -122,7 +91,6 @@ export default function RegistrationWizard() {
           surname: values.surname,
           firstName: values.name,
           patronymic: values.patronymic,
-          //companyId: companyId,
         });
         if (res.data?.errors) {
           setNotification(res.data.errors.description);
@@ -149,7 +117,7 @@ export default function RegistrationWizard() {
       setStep((prev) => prev + 1);
     }
 
-    if (step === 5) {
+    if (step === 4) {
       navigate(routes.login);
     }
   };
@@ -163,12 +131,11 @@ export default function RegistrationWizard() {
 
   const isNextDisabled =
     loading ||
-    (step === 1 && !values.role) ||
-    (step === 2 &&
+    (step === 1 &&
       (validateSurname(values.surname) !== true ||
         validateName(values.name) !== true ||
         validatePatronymic(values.patronymic) !== true)) ||
-    (step === 3 &&
+    (step === 2 &&
       (validateEmail(values.email) !== true ||
         validatePassword(values.password) !== true ||
         validateConfirmPassword(values.password, values.confirmPassword) !==

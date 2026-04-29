@@ -42,7 +42,7 @@ export default function LoginForm() {
         params,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        },
+        }
       );
 
       const result = response.data;
@@ -61,6 +61,7 @@ export default function LoginForm() {
         phoneNumber: decoded.phone_number,
         companyId: decoded.company_id,
         status: decoded.status,
+        mustChangePassword: decoded["must-change-password"],
       };
 
       if (user.status === "Banned" || user.status === "Deleted") {
@@ -78,7 +79,9 @@ export default function LoginForm() {
 
       login(user);
 
-      if (user.role === "Admin") {
+      if (user.mustChangePassword === "True") {
+        navigate(routes.changePassword);
+      } else if (user.role === "Admin") {
         navigate(routes.adminDashboard);
       } else {
         navigate(routes.home);

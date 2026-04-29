@@ -133,8 +133,13 @@
   padding: var(--spacing-md) var(--spacing-lg);
   border-radius: var(--border-radius);
   border: 1px solid var(--border-color);
-  background: var(--card-background);
+  background: var(--main-color);
   transition: border-color 0.2s ease;
+}
+
+.employeeItem .deleteBtn {
+  margin: 0;
+  margin-left: auto;
 }
 
 .employeeItem:hover {
@@ -298,4 +303,8 @@
 .btnIcon {
   width: 1.1rem;
   height: 1.1rem;
+}
+
+.addressText {
+  flex: 1;
 }

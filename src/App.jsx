@@ -40,6 +40,7 @@ import UsersDataPage from "./pages/UsersDataPage/UsersDataPage";
 import RequestsDataPage from "./pages/RequestsDataPage/RequestsDataPage";
 import AddressesDataPage from "./pages/AddressesDataPage/AddressesDataPage";
 import CreateRequestPage from "./pages/CreateRequestPage/CreateRequestPage";
+import ChangePasswordPage from "./pages/ChangePasswordPage/ChangePasswordPage";
 
 export default function App() {
   useEffect(() => {
@@ -313,6 +314,7 @@ export default function App() {
         </Route>
         <Route path={routes.login} element={<LoginPage />} />
         <Route path={routes.register} element={<RegisterPage />} />
+        <Route path={routes.changePassword} element={<ChangePasswordPage />} />
         <Route path={routes.notFound} element={<NotFound />} />
         <Route path={routes.noAccess} element={<NoAccess />} />
 

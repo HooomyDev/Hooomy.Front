@@ -10,7 +10,7 @@ export const getUserCount = async () => {
 
 export const getUserList = async (page = 1, pageSize = 10) => {
   const res = await client.get(
-    `admin/users/list?page=${page}&pageSize=${pageSize}`
+    `admin/users/list?page=${page}&pageSize=${pageSize}`,
   );
 
   const data = res.data;
@@ -26,12 +26,26 @@ export const changeUserStatus = async (id, status) => {
 
 export const getUsersForCompany = async (companyId) => {
   const res = await client.get(
-    `admin/users/get-users-for-company/${companyId}`
+    `admin/users/get-users-for-company/${companyId}`,
   );
   return res.data;
 };
 
 export const addUserToCompany = async (data) => {
   const res = await client.post("admin/users/add-to-company", data);
+  return res.data;
+};
+
+export const removeUserFromCompany = async (userId) => {
+  const res = await client.delete(`admin/users/${userId}`);
+  return res.data;
+};
+
+export const changePassword = async (oldPassword, newPassword, email) => {
+  const res = await client.post("auth/change-password", {
+    oldPassword,
+    newPassword,
+    email,
+  });
   return res.data;
 };

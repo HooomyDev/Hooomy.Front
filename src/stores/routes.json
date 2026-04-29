@@ -36,5 +36,6 @@
   "users-data": "/users-data",
   "companies-data": "/companies-data",
   "addresses-data": "/addresses-data",
-  "requests-data": "/requests-data"
+  "requests-data": "/requests-data",
+  "changePassword": "/change-password"
 }

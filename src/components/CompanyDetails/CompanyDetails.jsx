@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import styles from "./CompanyDetails.module.css";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCompanyDetails } from "../../api/services/companyService";
+import {
+  getCompanyDetails,
+  deleteCompany,
+  removeAddressFromCompany,
+} from "../../api/services/companyService";
 import Loader from "../../common/Loader/Loader";
 import {
   CalendarIcon,
@@ -26,20 +30,25 @@ import { useAuthStore } from "../../stores/authStore";
 import Notification from "../../common/Notification/Notification";
 import AddAddressToCompanyModal from "../../features/modals/AddAddressToCompanyModal/AddAddressToCompanyModal";
 import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
-import { deleteCompany } from "../../api/services/companyService";
 import EditCompanyModal from "../../features/modals/EditCompanyModal/EditCompanyModal";
-import { getUsersForCompany } from "../../api/services/userService";
+import {
+  getUsersForCompany,
+  removeUserFromCompany,
+} from "../../api/services/userService";
 import AddUserToCompanyModal from "../../features/modals/AddUserToCompanyModal/AddUserToCompanyModal";
 
 export default function CompanyDetails() {
   const { companyId } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const user = useAuthStore((store) => store.user);
   const [notification, setNotification] = useState(null);
   const [isAddAddressOpen, setIsAddAddressOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [userToDelete, setUserToDelete] = useState(null);
+  const [addressToDelete, setAddressToDelete] = useState(null);
 
   const { data: company, isLoading } = useQuery({
     queryKey: ["company", companyId],
@@ -60,6 +69,31 @@ export default function CompanyDetails() {
         type: "error",
         message: "Ошибка при удалении компании",
       }),
+  });
+
+  const removeUserMutation = useMutation({
+    mutationFn: (userId) => removeUserFromCompany(userId),
+    onSuccess: () => {
+      setUserToDelete(null);
+      queryClient.invalidateQueries({
+        queryKey: ["companyEmployees", companyId],
+      });
+    },
+    onError: () =>
+      setNotification({
+        type: "error",
+        message: "Ошибка при удалении работника",
+      }),
+  });
+
+  const removeAddressMutation = useMutation({
+    mutationFn: (addressId) => removeAddressFromCompany(companyId, addressId),
+    onSuccess: () => {
+      setAddressToDelete(null);
+      queryClient.invalidateQueries({ queryKey: ["company", companyId] });
+    },
+    onError: () =>
+      setNotification({ type: "error", message: "Ошибка при удалении адреса" }),
   });
 
   const createChatMutation = useMutation({
@@ -234,9 +268,20 @@ export default function CompanyDetails() {
         ) : (
           <div className={styles.addressList}>
             {company.addresses.map((addr, i) => (
-              <div key={i} className={styles.addressItem}>
+              <div key={addr.id ?? i} className={styles.addressItem}>
                 <MapPinIcon className={styles.addressIcon} />
-                <span>{addr}</span>
+                <span className={styles.addressText}>
+                  {addr.fullAddress ?? addr.street ?? addr}
+                </span>
+                {user?.role === "Admin" && (
+                  <Button
+                    className={styles.deleteBtn}
+                    title="Удалить адрес"
+                    onClick={() => setAddressToDelete(addr)}
+                  >
+                    <TrashIcon className={styles.btnIcon} />
+                  </Button>
+                )}
               </div>
             ))}
           </div>
@@ -247,15 +292,17 @@ export default function CompanyDetails() {
       <div className={styles.addressHeader}>
         <UsersIcon className={styles.icon} />
         <h2>Работники</h2>
-        <div className={styles.blockActions}>
-          <Button
-            className={styles.addBtn}
-            onClick={() => setIsAddUserOpen(true)}
-            variant="secondary"
-          >
-            <PlusIcon className={styles.addIcon} />
-          </Button>
-        </div>
+        {user?.role === "Admin" && (
+          <div className={styles.blockActions}>
+            <Button
+              className={styles.addBtn}
+              onClick={() => setIsAddUserOpen(true)}
+              variant="secondary"
+            >
+              <PlusIcon className={styles.addIcon} />
+            </Button>
+          </div>
+        )}
       </div>
       <Block>
         {isEmployeesLoading ? (
@@ -275,6 +322,15 @@ export default function CompanyDetails() {
                   </span>
                   <span className={styles.employeeRole}>{emp.role}</span>
                 </div>
+                {user?.role === "Admin" && (
+                  <Button
+                    className={styles.deleteBtn}
+                    title="Удалить из компании"
+                    onClick={() => setUserToDelete(emp)}
+                  >
+                    <TrashIcon className={styles.btnIcon} />
+                  </Button>
+                )}
               </div>
             ))}
           </div>
@@ -285,6 +341,28 @@ export default function CompanyDetails() {
         isOpen={isAddUserOpen}
         onClose={() => setIsAddUserOpen(false)}
         companyId={companyId}
+      />
+
+      <ConfirmDialog
+        isOpen={!!userToDelete}
+        onClose={() => setUserToDelete(null)}
+        onConfirm={() => removeUserMutation.mutate(userToDelete.id)}
+        title="Удалить работника"
+        message={`Удалить ${userToDelete?.surname} ${userToDelete?.firstName} из компании?`}
+        confirmText="Удалить"
+        confirmVariant="danger"
+      />
+
+      <ConfirmDialog
+        isOpen={!!addressToDelete}
+        onClose={() => setAddressToDelete(null)}
+        onConfirm={() =>
+          removeAddressMutation.mutate(addressToDelete.id ?? addressToDelete)
+        }
+        title="Удалить адрес"
+        message={`Удалить адрес "${addressToDelete?.fullAddress ?? addressToDelete?.street ?? addressToDelete}" из компании?`}
+        confirmText="Удалить"
+        confirmVariant="danger"
       />
 
       <EditCompanyModal

@@ -69,26 +69,29 @@ export default function AdminDatabaseUsers() {
 
   const statusOptions = [
     { value: "", label: "Все статусы" },
-    { value: "Pending", label: "Ожидает подтверждения" },
+    { value: "Pending", label: "Неподтверждён" },
     { value: "Approved", label: "Одобрен" },
+    { value: "Banned", label: "Заблокирован" },
+    { value: "Deleted", label: "Удалён" },
   ];
 
   const roleOptions = [
     { value: "", label: "Все роли" },
     { value: "Resident", label: "Жилец" },
     { value: "Employee", label: "Сотрудник ЖЭУ" },
-    { value: "Admin", label: "Администратор" },
   ];
 
   const filteredAndSortedUsers = useMemo(() => {
     if (!users) return [];
+    console.log(users);
 
     let filtered = users.filter((u) => {
       const matchesName =
         u.userName?.toLowerCase().includes(searchName.toLowerCase()) ||
         u.email?.toLowerCase().includes(searchName.toLowerCase());
 
-      const matchesRole = searchRole ? u.role === searchRole : true;
+      console.log(searchRole);
+      const matchesRole = searchRole ? u.roles.includes(searchRole) : true;
       const matchesStatus = searchStatus ? u.status === searchStatus : true;
 
       return matchesName && matchesRole && matchesStatus;
@@ -121,7 +124,6 @@ export default function AdminDatabaseUsers() {
   };
 
   const renderRole = (role) => {
-    console.log(role);
     switch (role) {
       case "Resident":
         return "Жилец";
