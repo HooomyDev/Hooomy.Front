@@ -36,9 +36,12 @@ textarea.inputField {
   min-height: 100px;
   max-height: 300px;
   resize: vertical;
-  font-weight: 600;
+  outline: none;
+  font-weight: 500;
   line-height: 1.4;
+  font-size: var(--font-size-xl);
   padding: 0.5rem 2.5rem 0 0.8rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input[type="number"]::-webkit-inner-spin-button,

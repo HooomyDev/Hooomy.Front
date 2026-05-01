@@ -102,3 +102,18 @@ export const getRequestsForAdmin = async (
 export const softDeleteRequest = async (id) => {
   await client.delete(`requests/delete/${id}`);
 };
+
+// Получить комментарии заявки
+export const getRequestComments = async (requestId) => {
+  const response = await client.get(`/requests/${requestId}/comments`);
+  return response.data;
+};
+
+// Добавить комментарий
+export const addComment = async (requestId, text) => {
+  const response = await client.post(`/requests/add-comment`, {
+    requestId: requestId,
+    text: text,
+  });
+  return response.data;
+};

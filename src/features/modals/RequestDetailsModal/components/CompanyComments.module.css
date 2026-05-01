@@ -1,0 +1,158 @@
+.commentsSection {
+  margin-top: 24px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.headerIcon {
+  width: 24px;
+  height: 24px;
+  color: #3dbfa3;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #122435;
+}
+
+.commentsList {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f5f5f5;
+  border-radius: 12px;
+}
+
+.emptyIcon {
+  width: 48px;
+  height: 48px;
+  color: #c0c7d2;
+  margin-bottom: 12px;
+}
+
+.emptyState p {
+  color: #122435;
+  opacity: 0.6;
+  margin: 0;
+}
+
+.commentItem {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.commentItem:hover {
+  background: #f9f9f9;
+}
+
+.commentAvatar {
+  flex-shrink: 0;
+}
+
+.avatarIcon {
+  width: 40px;
+  height: 40px;
+  color: #3dbfa3;
+  background: #e3f7f3;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.commentContent {
+  flex: 1;
+}
+
+.commentHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.commentAuthor {
+  font-weight: 600;
+  color: #122435;
+}
+
+.commentRole {
+  font-size: 12px;
+  padding: 2px 8px;
+  background: #3dbfa3;
+  color: #fff;
+  border-radius: 12px;
+}
+
+.commentDate {
+  font-size: 12px;
+  color: #122435;
+  opacity: 0.5;
+}
+
+.commentText {
+  margin: 0;
+  color: #122435;
+  line-height: 1.5;
+}
+
+.commentForm {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.commentInput {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #c0c7d2;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+  transition: border-color 0.2s;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #3dbfa3;
+}
+
+.commentInput:disabled {
+  background: #f5f5f5;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.submitIcon {
+  width: 16px;
+  height: 16px;
+}

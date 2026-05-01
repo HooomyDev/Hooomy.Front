@@ -19,6 +19,7 @@ import {
 import ImageGallery from "../../../common/ImageGallery/ImageGallery";
 import Button from "../../../common/Button/Button";
 import ConfirmDialog from "../../../common/ConfirmDialog/ConfirmDialog";
+import CompanyComments from "./components/CompanyComments";
 
 export default function RequestDetailsModal({
   request,
@@ -131,6 +132,8 @@ export default function RequestDetailsModal({
           </div>
         </div>
       </div>
+
+      <CompanyComments request={requestDetails} />
 
       <ConfirmDialog
         isOpen={showConfirmDialog}
