@@ -19,13 +19,9 @@ export const getSurvays = async (page = 1, pageSize = 10, filter = "all") => {
 };
 
 export const getSurvayDetails = async (surveyId) => {
-  try {
-    const res = await client.get(`/polls/${surveyId}`);
+  const res = await client.get(`/polls/${surveyId}`);
 
-    return res.data;
-  } catch (e) {
-    console.error(e);
-  }
+  return res.data;
 };
 
 export const submitSurveyAnswer = async (surveyId, answerData) => {

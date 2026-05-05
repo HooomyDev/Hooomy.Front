@@ -4,11 +4,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: var(--spacing-xl);
   line-height: 1.6;
   color: var(--font-color);
   width: 100%;
-  max-width: 80%;
   box-sizing: border-box;
 }
 

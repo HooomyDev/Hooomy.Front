@@ -22,7 +22,9 @@ export default function CompanyComments({ request }) {
   const addCommentMutation = useMutation({
     mutationFn: ({ requestId, comment }) => addComment(requestId, comment),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments", request?.id] });
+      queryClient.invalidateQueries({
+        queryKey: ["request", request],
+      });
     },
   });
 

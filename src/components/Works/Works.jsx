@@ -97,7 +97,7 @@ export default function Works() {
                   <div className={styles.work}>
                     <div className={styles.title}>{work.title}</div>
                     <div className={styles.address}>
-                      {t("works.address")}: {work.street + ", " + work.house}
+                      {t("works.address")}: {work.address}
                     </div>
                     <div className={styles.periods}>
                       <div>

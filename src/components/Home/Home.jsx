@@ -13,7 +13,6 @@ export default function Home() {
     <div className={styles.wrapper}>
       <GuestBanner user={user} />
       <MainHero />
-      <LastCompleteRequests />
       <Contacts />
     </div>
   );

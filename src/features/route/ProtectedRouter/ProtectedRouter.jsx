@@ -10,6 +10,8 @@ export default function ProtectedRouter({ roles = ["Resident"], children }) {
     return <Navigate to={routes.login} replace />;
   }
 
+  console.log(user);
+
   if (!roles.includes(user.role)) {
     return <Navigate to={routes.noAccess} replace />;
   }

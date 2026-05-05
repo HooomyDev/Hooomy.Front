@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./MyRequestsNewRequest.module.css";
-import { PencilIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../../../utils/useT";
 import Block from "../../../../common/Block/Block";
 import Button from "../../../../common/Button/Button";
@@ -12,7 +12,7 @@ export default function MyRequestsNewRequest({
   const t = useT();
 
   return (
-    <Block title={t("requests.newRequest")} Icon={PencilIcon}>
+    <Block>
       <div className={styles.container}>
         <Button
           type="button"

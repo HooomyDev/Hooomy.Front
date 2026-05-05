@@ -101,6 +101,8 @@ export default function SurveysDetails() {
     return <Loader />;
   }
 
+  if (isError) return;
+
   return (
     <div className={styles.wrapper}>
       {notification && (
