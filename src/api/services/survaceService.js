@@ -1,11 +1,21 @@
 import { apiClient as client } from "../client";
 
-export const getSurvays = async (page = 1, pageSize = 10, filter = "all") => {
+export const getSurvays = async (
+  page = 1,
+  pageSize = 10,
+  status = 0,
+  type = 0,
+  title = "",
+  companyId = null
+) => {
   try {
     const params = new URLSearchParams({
       page: page.toString(),
       pageSize: pageSize.toString(),
-      filter: filter,
+      title: title ?? null,
+      status: status ?? null,
+      type: type ?? null,
+      companyId: companyId ?? null,
     });
 
     const res = await client.get(`/polls?${params}`);
@@ -24,7 +34,7 @@ export const getSurvayDetails = async (surveyId) => {
   return res.data;
 };
 
-export const submitSurveyAnswer = async (surveyId, answerData) => {
+export const submitSurvayAnswer = async (surveyId, answerData) => {
   try {
     console.log(answerData);
     const res = await client.post(`/polls/${surveyId}/vote`, answerData);
@@ -32,4 +42,32 @@ export const submitSurveyAnswer = async (surveyId, answerData) => {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const createSurvay = async (
+  title,
+  description = "",
+  companyId = "",
+  type = 0,
+  options = []
+) => {
+  const survay = {
+    title: title,
+    description: description,
+    companyId: companyId,
+    type: type,
+    options: options,
+  };
+
+  console.log(survay);
+
+  const res = await client.post("/polls/create", survay);
+
+  return res.data;
+};
+
+export const deleteSurvay = async (id) => {
+  var res = await client.delete(`/polls/delete/${id}`);
+
+  return res.data;
 };

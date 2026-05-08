@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getSurvayDetails,
-  submitSurveyAnswer,
+  submitSurvayAnswer,
 } from "../../api/services/survaceService";
 import Loader from "../../common/Loader/Loader";
 import {
@@ -49,7 +49,7 @@ export default function SurveysDetails() {
 
   const submitMutation = useMutation({
     mutationFn: async (answerData) => {
-      return await submitSurveyAnswer(surveyId, answerData);
+      return await submitSurvayAnswer(surveyId, answerData);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["survey", surveyId] });

@@ -17,7 +17,7 @@ export default function Surveys() {
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 5,
-    filter: "active",
+    status: 1,
   });
   const [notification, setNotification] = useState(null);
 
@@ -31,7 +31,7 @@ export default function Surveys() {
       const result = await getSurvays(
         pagination.page,
         pagination.pageSize,
-        pagination.filter
+        pagination.status
       );
       return result;
     },
@@ -92,7 +92,7 @@ export default function Surveys() {
                   id={survey.id}
                   title={survey.title}
                   type={survey.type}
-                  isActive={survey.isActive}
+                  isActive={survey.type === 1}
                   companyName={survey.companyName}
                 />
               ))}
