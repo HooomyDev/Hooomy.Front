@@ -4,7 +4,6 @@ import {
   ChevronDoubleRightIcon,
   ClipboardDocumentListIcon,
   CubeIcon,
-  MagnifyingGlassCircleIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
 } from "@heroicons/react/24/solid";
@@ -171,10 +170,6 @@ export default function AdminDatabaseRequests() {
               >
                 <MagnifyingGlassIcon className={styles.icon} />
               </Button>
-
-              <div className={styles.addNewUserButton}>
-                <PlusIcon className={styles.icon} />
-              </div>
             </FormProvider>
           </form>
         </Block>

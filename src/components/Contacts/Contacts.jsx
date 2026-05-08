@@ -9,10 +9,6 @@ export default function Contacts() {
 
   return (
     <div className={styles.container}>
-      <h2>
-        {t("main.contacts.haveQuest")} <br />
-        <span className={styles.span}>{t("main.contacts.writeUs")}</span>
-      </h2>
       <ContactInfo />
       <ContactForm />
     </div>

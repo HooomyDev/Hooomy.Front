@@ -71,7 +71,6 @@ export const updateCompany = async (data) => {
 };
 
 export const removeAddressFromCompany = async (companyId, addressId) => {
-  console.log(addressId);
   const res = await client.put(
     `/companies/${companyId}/remove-address/${addressId}`
   );

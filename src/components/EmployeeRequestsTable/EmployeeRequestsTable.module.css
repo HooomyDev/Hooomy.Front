@@ -35,10 +35,14 @@
   font-weight: 600;
   color: var(--font-color);
   font-size: var(--font-size-base);
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .requestInfo {
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .requestTitle {
@@ -64,32 +68,29 @@
   justify-content: flex-start;
 }
 
-.addressIcon {
-  width: 2rem;
-  height: 2rem;
-  color: var(--element-color);
-  flex-shrink: 0;
-}
-
-.district {
-  font-weight: 500;
-  color: #111827;
-  margin-bottom: 4px;
-  font-size: var(--font-size-base);
-}
-
 .street {
   color: #6b7280;
-  font-size: var(--font-size-sm);
 }
 
 .dateCell {
   color: #6b7280;
-  font-size: var(--font-size-sm);
+}
+
+.dateInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dateIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--element-color);
 }
 
 .statusBadge {
   display: flex;
+  align-items: center;
   justify-content: center;
   padding: 6px 14px;
   border-radius: 20px;
@@ -97,7 +98,13 @@
   font-size: var(--font-size-sm);
   font-weight: 500;
   text-align: center;
-  min-width: 100px;
+  width: 150px;
+  gap: 6px;
+}
+
+.statusIcon {
+  width: 16px;
+  height: 16px;
 }
 
 .actions {
@@ -120,6 +127,10 @@
   font-weight: 500;
 }
 
+.actionButton:hover {
+  border: 1px solid transparent;
+}
+
 .actionIcon {
   width: 1.5rem;
   height: 1.5rem;
@@ -132,6 +143,15 @@
 
 .viewButton:hover {
   background: #bae6fd;
+}
+
+.inProgressButton {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.inProgressButton:hover {
+  background: #fde68a;
 }
 
 .completeButton {

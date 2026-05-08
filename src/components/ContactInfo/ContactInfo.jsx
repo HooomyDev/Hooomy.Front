@@ -6,6 +6,7 @@ export default function ContactInfo() {
   const t = useT();
   return (
     <div className={styles.container}>
+      <div className={styles.title}>Контактная информация</div>
       <p>
         <strong>{t("user.address")}:</strong> {t("address")}
       </p>

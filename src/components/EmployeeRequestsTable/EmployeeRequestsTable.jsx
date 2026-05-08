@@ -6,6 +6,8 @@ import {
   CheckCircleIcon,
   MapPinIcon,
   XCircleIcon,
+  ClockIcon,
+  PlayCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
 
@@ -16,6 +18,59 @@ export default function EmployeeRequestsTable({
   getStatusColor,
 }) {
   const t = useT();
+
+  const categoryMap = {
+    0: "Все",
+    1: "Водоснабжение. Горячая вода",
+    2: "Электроснабжение",
+    3: "Бытовые услуги",
+    4: "Санитарное состояние многоквартирного дома",
+    5: "Отопление",
+    6: "Благоустройство территории",
+    7: "Водоснабжение",
+    8: "Общестроительные работы",
+    9: "Санитарное состояние территории",
+    11: "Техническое обслуживание ЗПУ",
+    12: "Техническое обслуживание лифта",
+    13: "Обращение с ТКО",
+    14: "Водоснабжение. Холодная вода",
+    15: "Канализация",
+    16: "Автомобильные дороги, тротуары",
+    17: "Кровельные работы",
+    18: "Уличное освещение",
+    19: "Общественные места (Парки, скверы)",
+    20: "Работы по ремонту стыков",
+    21: "Техническое обслуживание зданий и сооружений",
+    22: "Рекламные и информационные конструкции и объявления",
+  };
+
+  const statusMap = {
+    0: { label: "Неизвестно", icon: null },
+    1: { label: "Новое", icon: <ClockIcon className={styles.statusIcon} /> },
+    2: {
+      label: "Отклонено",
+      icon: <XCircleIcon className={styles.statusIcon} />,
+    },
+    3: {
+      label: "В обработке",
+      icon: <ClockIcon className={styles.statusIcon} />,
+    },
+    4: {
+      label: "Выполнено",
+      icon: <CheckCircleIcon className={styles.statusIcon} />,
+    },
+  };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("ru-RU", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(date);
+  };
 
   if (requests.length === 0) {
     return (
@@ -34,63 +89,80 @@ export default function EmployeeRequestsTable({
             <th>{t("employeeRequestsTable.headers.title")}</th>
             <th>{t("employeeRequestsTable.headers.address")}</th>
             <th>{t("employeeRequestsTable.headers.date")}</th>
+            <th>Категория</th>
             <th>{t("employeeRequestsTable.headers.status")}</th>
             <th>{t("employeeRequestsTable.headers.actions")}</th>
           </tr>
         </thead>
         <tbody>
-          {requests.map((request) => (
-            <tr key={request.id} className={styles.requestRow}>
-              <td className={styles.idCell}>#{request.id}</td>
-              <td>
-                <div className={styles.requestInfo}>
-                  <strong className={styles.requestTitle}>
-                    {request.title}
-                  </strong>
-                  <p className={styles.requestDescription}>
-                    {request.description}
-                  </p>
-                </div>
-              </td>
-              <td>
-                <div className={styles.addressInfo}>
-                  <MapPinIcon className={styles.addressIcon} />
-                  <div>
-                    <div className={styles.district}>{request.district} </div>
-                    <div className={styles.street}>
-                      {request.street}, {request.house}
-                    </div>
+          {requests.map((request) => {
+            const statusInfo = statusMap[request.status] || statusMap[0];
+            return (
+              <tr key={request.id} className={styles.requestRow}>
+                <td className={styles.idCell}>#{request.id}</td>
+                <td>
+                  <div className={styles.requestInfo}>
+                    <strong className={styles.requestTitle}>
+                      {request.title}
+                    </strong>
+                    <p className={styles.requestDescription}>
+                      {request.description}
+                    </p>
                   </div>
-                </div>
-              </td>
-              <td className={styles.dateCell}>{request.date}</td>
-              <td>
-                <span
-                  className={styles.statusBadge}
-                  style={{
-                    backgroundColor: getStatusColor(request.status),
-                  }}
-                >
-                  {request.status}
-                </span>
-              </td>
-              <td>
-                <div className={styles.actions}>
-                  <button
-                    className={`${styles.actionButton} ${styles.viewButton}`}
-                    onClick={() => onSelectRequest(request)}
-                    title={t("employeeRequestsTable.actions.view")}
+                </td>
+                <td>
+                  <div className={styles.addressInfo}>{request.address}</div>
+                </td>
+                <td className={styles.dateCell}>
+                  <div className={styles.dateInfo}>
+                    <ClockIcon className={styles.dateIcon} />
+                    <span>{formatDate(request.createdAt)}</span>
+                  </div>
+                </td>
+                <td>
+                  <div className={styles.category}>
+                    {categoryMap[request.category]}
+                  </div>
+                </td>
+                <td>
+                  <span
+                    className={styles.statusBadge}
+                    style={{
+                      backgroundColor: getStatusColor(request.status),
+                    }}
                   >
-                    <EyeIcon className={styles.actionIcon} />
-                  </button>
+                    {statusInfo.icon}
+                    <span>{statusInfo.label}</span>
+                  </span>
+                </td>
+                <td>
+                  <div className={styles.actions}>
+                    <button
+                      className={`${styles.actionButton} ${styles.viewButton}`}
+                      onClick={() => onSelectRequest(request)}
+                      title={t("employeeRequestsTable.actions.view")}
+                    >
+                      <EyeIcon className={styles.actionIcon} />
+                    </button>
 
-                  {request.status !== "Выполнено" &&
-                    request.status !== "Отклонено" && (
+                    {request.status === 1 && (
+                      <button
+                        className={`${styles.actionButton} ${styles.inProgressButton}`}
+                        onClick={() =>
+                          onStatusChange({ ...request, status: 3 })
+                        }
+                        title="Взять в работу"
+                      >
+                        <PlayCircleIcon className={styles.actionIcon} />
+                      </button>
+                    )}
+
+                    {request.status === 3 && (
                       <>
                         <button
                           className={`${styles.actionButton} ${styles.completeButton}`}
                           onClick={() =>
-                            onStatusChange(request.id, "Выполнено")
+                            onStatusChange({ ...request, status: 4 })
                           }
                           title={t("employeeRequestsTable.actions.complete")}
                         >
@@ -100,7 +172,7 @@ export default function EmployeeRequestsTable({
                         <button
                           className={`${styles.actionButton} ${styles.rejectButton}`}
                           onClick={() =>
-                            onStatusChange(request.id, "Отклонено")
+                            onStatusChange({ ...request, status: 2 })
                           }
                           title={t("employeeRequestsTable.actions.reject")}
                         >
@@ -108,21 +180,11 @@ export default function EmployeeRequestsTable({
                         </button>
                       </>
                     )}
-
-                  <button
-                    className={`${styles.actionButton} ${styles.commentButton}`}
-                    onClick={() => {
-                      onSelectRequest(request);
-                      document.getElementById("commentInput")?.focus();
-                    }}
-                    title={t("employeeRequestsTable.actions.comment")}
-                  >
-                    <ChatBubbleLeftRightIcon className={styles.actionIcon} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

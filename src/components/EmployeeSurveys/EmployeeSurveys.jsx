@@ -11,70 +11,17 @@ import Button from "../../common/Button/Button";
 import EmployeeSurveysList from "../EmployeeSurveysList/EmployeeSurveysList";
 import EmployeeSurveysCreateForm from "../EmployeeSurveysCreateForm/EmployeeSurveysCreateForm";
 import { useT } from "../../utils/useT";
-
-const surveys = [
-  {
-    id: 1,
-    title: "Тестовый опрос 1",
-    description: "Тестовое описание",
-    type: "one",
-    answers: [
-      {
-        id: 1,
-        text: "Вариант 1",
-      },
-      {
-        id: 2,
-        text: "Вариант 2",
-      },
-      {
-        id: 3,
-        text: "Вариант 3",
-      },
-      {
-        id: 4,
-        text: "Вариант 4",
-      },
-      {
-        id: 5,
-        text: "Вариант 5",
-      },
-    ],
-    status: "active",
-  },
-  {
-    id: 2,
-    title: "Тестовый опрос 2",
-    description: "Тестовое описание",
-    type: "more",
-    answers: [
-      {
-        id: 1,
-        text: "Вариант 1",
-      },
-      {
-        id: 2,
-        text: "Вариант 2",
-      },
-      {
-        id: 3,
-        text: "Вариант 3",
-      },
-      {
-        id: 4,
-        text: "Вариант 4",
-      },
-      {
-        id: 5,
-        text: "Вариант 5",
-      },
-    ],
-    status: "finished",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { getSurvays } from "../../api/services/survaceService";
+import Loader from "../../common/Loader/Loader";
 
 export default function EmployeeSurveys() {
   const t = useT();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["surveys"],
+    queryFn: () => getSurvays(),
+  });
 
   const navItems = [
     { id: 1, label: t("employeeSurveys.nav.items.create") },
@@ -102,19 +49,8 @@ export default function EmployeeSurveys() {
       case 1:
         return <EmployeeSurveysCreateForm />;
       case 2:
-        return <EmployeeSurveysList items={surveys} />;
-      case 3:
-        return (
-          <EmployeeSurveysList
-            items={surveys.filter((s) => s.status === "active")}
-          />
-        );
-      case 4:
-        return (
-          <EmployeeSurveysList
-            items={surveys.filter((s) => s.status === "finished")}
-          />
-        );
+        return <EmployeeSurveysList items={data.polls} />;
+
       case 0:
         return <div className={styles.empty}>{t("employeeSurveys.empty")}</div>;
       default:
@@ -122,6 +58,7 @@ export default function EmployeeSurveys() {
     }
   };
 
+  if (isLoading) return <Loader />;
   return (
     <div className={styles.wrapper}>
       <PageHeader title={t("employeeSurveys.header")} icon={MegaphoneIcon} />

@@ -1,8 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  gap: var(--spacing-xxl);
+  width: 90%;
+  gap: var(--spacing-xl);
 }
 
 .container {
@@ -13,7 +13,7 @@
   padding: 24px;
   margin-top: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-xl);
 }
 
 .emptyState {
@@ -449,4 +449,47 @@
   .actionButton {
     width: 100%;
   }
+}
+
+.controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-xl);
+}
+
+.search {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
+  width: 80%;
+}
+
+.searchIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--font-color);
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  width: 20%;
+  gap: 10px;
+}
+
+.filterIcon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--font-color);
+}
+.icon {
+  width: 24px;
+}
+
+.searchButton {
+  max-width: 48px;
+  height: 48px;
+  padding: 0;
 }

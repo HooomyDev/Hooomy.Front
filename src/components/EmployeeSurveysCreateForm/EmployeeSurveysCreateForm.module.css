@@ -16,10 +16,10 @@
 
 .blocks {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   height: inherit;
-  gap: 5rem;
+  gap: var(--spacing-md);
 }
 
 .block {

@@ -1,35 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./EmployeeRequests.module.css";
 import PageHeader from "../../common/PageHeader/PageHeader";
-import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
-import EmployeeRequestsControls from "../EmployeeRequestsControls/EmployeeRequestsControls";
+import {
+  ClipboardDocumentListIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/solid";
 import EmployeeRequestsTable from "../EmployeeRequestsTable/EmployeeRequestsTable";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
 import Modal from "../../features/modals/Modal/Modal";
 import { useT } from "../../utils/useT";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { getRequestsForAdmin } from "../../api/services/requestService";
-import { useAuthStore } from "../../stores/authStore";
+import {
+  getRequestCategories,
+  getRequestsForAdmin,
+  updateRequest,
+} from "../../api/services/requestService";
 import Loader from "../../common/Loader/Loader";
+import { FormProvider, useForm } from "react-hook-form";
+import InputField from "../../common/InputField/InputField";
+import SelectField from "../../common/SelectField/SelectField";
+import Button from "../../common/Button/Button";
 
 export default function EmployeeRequests() {
   const t = useT();
   const queryClient = useQueryClient();
-  const { user } = useAuthStore();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all");
   const [selectedRequest, setSelectedRequest] = useState(null);
-  const [newComment, setNewComment] = useState("");
-
-  // Получаем companyId из данных пользователя
-  const companyId = user?.companyId;
+  const [categories, setCategories] = useState([]);
 
   // Загрузка заявок с сервера
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 10,
   });
-  const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({
     searchTitle: "",
     searchStatus: "",
@@ -46,6 +48,9 @@ export default function EmployeeRequests() {
       filters.searchCategory,
     ],
     queryFn: async () => {
+      const categoriesData = await getRequestCategories();
+      setCategories(categoriesData);
+
       return await getRequestsForAdmin(
         pagination.page,
         pagination.pageSize,
@@ -58,45 +63,61 @@ export default function EmployeeRequests() {
     keepPreviousData: true,
   });
 
-  // // Мутация для изменения статуса
-  // const statusMutation = useMutation({
-  //   mutationFn: ({ requestId, status }) =>
-  //     updateRequestStatus(requestId, status),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["companyRequests"] });
-  //     queryClient.invalidateQueries({ queryKey: ["request"] });
-  //   },
-  // });
+  const methods = useForm({
+    defaultValues: {
+      searchTitle: "",
+      searchStatus: "",
+      searchCategory: "",
+    },
+  });
 
-  // // Мутация для добавления комментария
-  // const commentMutation = useMutation({
-  //   mutationFn: ({ requestId, comment }) =>
-  //     addRequestComment(requestId, comment),
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries({ queryKey: ["companyRequests"] });
-  //     queryClient.invalidateQueries({ queryKey: ["request"] });
-  //     setNewComment("");
-  //   },
-  // });
-
-  const handleCloseModal = () => {
-    setSelectedRequest(null);
-    setNewComment("");
-  };
+  const statusOptions = [
+    { value: 0, label: "Все статусы" },
+    { value: 1, label: "Новая" },
+    { value: 2, label: "В работе" },
+    { value: 3, label: "Завершена" },
+    { value: 4, label: "Отклонена" },
+  ];
 
   const getStatusColor = (status) => {
     switch (status) {
-      case "Создан":
+      case 1:
         return "#1976d2";
-      case "В обработке":
+      case 3:
         return "#f57c00";
-      case "Выполнено":
+      case 4:
         return "#388e3c";
-      case "Отклонено":
+      case 2:
         return "#d32f2f";
       default:
         return "#999";
     }
+  };
+
+  // Мутация для изменения статуса
+  const statusMutation = useMutation({
+    mutationFn: (request) => updateRequest(request),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    },
+  });
+
+  const handleStatusChange = (request) => {
+    statusMutation.mutate(request);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedRequest(null);
+  };
+
+  const handleSearch = () => {
+    const formValues = methods.getValues();
+    setFilters({
+      searchTitle: formValues.searchTitle || "",
+      searchStatus: formValues.searchStatus || "",
+      searchCategory: formValues.searchCategory || "",
+    });
+    setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
   if (isLoading) {
@@ -111,21 +132,49 @@ export default function EmployeeRequests() {
       />
 
       <div className={styles.container}>
-        <EmployeeRequestsControls
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          statusFilter={statusFilter}
-          onStatusFilterChange={setStatusFilter}
-        />
+        <FormProvider {...methods}>
+          <form className={styles.controls}>
+            <InputField
+              label="Поиск"
+              name="searchTitle"
+              type="text"
+              placeholder={t("employeeRequestsControls.searchPlaceholder")}
+            />
+
+            <SelectField
+              name="searchCategory"
+              label="Категория"
+              options={categories?.map((category) => {
+                return { value: category.code, label: category.name };
+              })}
+              required={false}
+              onValueChange={() => {}}
+            />
+
+            <SelectField
+              label="Статус"
+              name="searchStatus"
+              options={statusOptions}
+            />
+
+            <Button
+              className={styles.searchButton}
+              onClick={() => handleSearch()}
+              variant="secondary"
+              type="submit"
+            >
+              <MagnifyingGlassIcon className={styles.icon} />
+            </Button>
+          </form>
+        </FormProvider>
 
         <div className={styles.requestsTable}>
-          {response.requests.length > 0 ? (
+          {response.requests?.length > 0 ? (
             <EmployeeRequestsTable
               requests={response.requests}
               onSelectRequest={setSelectedRequest}
-              //onStatusChange={handleStatusChange}
+              onStatusChange={handleStatusChange}
               getStatusColor={getStatusColor}
-              //isUpdating={statusMutation.isPending}
             />
           ) : (
             <div className={styles.emptyState}>

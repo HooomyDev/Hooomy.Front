@@ -128,6 +128,8 @@ export default function CompanyDetails() {
     }
 
     createChatMutation.mutate(companyId);
+
+    navigate(routes.chats);
   };
 
   if (isLoading) {
@@ -231,16 +233,13 @@ export default function CompanyDetails() {
               >
                 Назад
               </Button>
-              {user?.Role === "Resident" && (
-                <Button
-                  className={styles.actionButton}
-                  onClick={handleClick}
-                  disabled={user?.status === "Pending" || !user}
-                  isLoading={createChatMutation.isPending}
-                >
-                  {"Написать"}
-                </Button>
-              )}
+              <Button
+                className={styles.actionButton}
+                onClick={handleClick}
+                disabled={user?.status === "Pending" || !user}
+              >
+                {"Написать"}
+              </Button>
             </div>
           </div>
         </div>
@@ -360,7 +359,11 @@ export default function CompanyDetails() {
           removeAddressMutation.mutate(addressToDelete.id ?? addressToDelete)
         }
         title="Удалить адрес"
-        message={`Удалить адрес "${addressToDelete?.fullAddress ?? addressToDelete?.street ?? addressToDelete}" из компании?`}
+        message={`Удалить адрес "${
+          addressToDelete?.fullAddress ??
+          addressToDelete?.street ??
+          addressToDelete
+        }" из компании?`}
         confirmText="Удалить"
         confirmVariant="danger"
       />

@@ -69,3 +69,11 @@
     min-width: 70px;
   }
 }
+
+.title {
+  font-size: var(--font-size-subtitle);
+  font-weight: 700;
+  color: var(--font-color);
+  text-align: center;
+  margin-bottom: var(--spacing-xxl);
+}

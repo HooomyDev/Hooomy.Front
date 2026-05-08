@@ -9,22 +9,30 @@ export const getRequestDetails = async (id) => {
 };
 
 export const getMyRequests = async (requestStatus, startDate, endDate) => {
-  const params = {};
+  const params = new URLSearchParams();
 
-  if (requestStatus !== undefined) {
-    params.requestStatus = requestStatus;
+  if (
+    requestStatus !== undefined &&
+    requestStatus !== null &&
+    requestStatus !== 0
+  ) {
+    params.append("requestStatus", requestStatus);
   }
 
   if (startDate) {
-    params.startDate = startDate.toISOString?.() || startDate;
+    const start = startDate instanceof Date ? startDate : new Date(startDate);
+    params.append("startDate", start.toISOString());
   }
 
   if (endDate) {
-    params.endDate = endDate.toISOString?.() || endDate;
+    const end = endDate instanceof Date ? endDate : new Date(endDate);
+    params.append("endDate", end.toISOString());
   }
 
-  const res = await client.get(`/requests`, { params });
+  const queryString = params.toString();
+  const url = queryString ? `/requests?${queryString}` : "/requests";
 
+  const res = await client.get(url);
   return res.data.requests;
 };
 
@@ -37,8 +45,6 @@ export const getRequestCategories = async () => {
 };
 
 export const createRequest = async (title, description, address, category) => {
-  console.log({ title, description, address, category });
-
   const res = await client.post("/requests/create", {
     title: title,
     description: description,
@@ -85,7 +91,8 @@ export const getRequestsForAdmin = async (
   pageSize,
   searchTitle,
   searchStatus,
-  searchCategory
+  searchCategory,
+  companyId
 ) => {
   const params = new URLSearchParams();
   params.append("page", page);
@@ -94,6 +101,7 @@ export const getRequestsForAdmin = async (
   if (searchTitle) params.append("title", searchTitle);
   if (searchStatus) params.append("status", searchStatus);
   if (searchCategory) params.append("category", searchCategory);
+  if (companyId) params.append("companyId", companyId);
 
   const res = await client.get(`/requests/administration?${params.toString()}`);
   return res.data;
@@ -114,6 +122,19 @@ export const addComment = async (requestId, text) => {
   const response = await client.post(`/requests/add-comment`, {
     requestId: requestId,
     text: text,
+  });
+  return response.data;
+};
+
+// Обновить заявку
+export const updateRequest = async (request) => {
+  console.log(request);
+  const response = await client.put(`/requests/update`, {
+    id: request.id,
+    title: request.title,
+    description: request.description,
+    category: request.category,
+    status: request.status,
   });
   return response.data;
 };

@@ -86,14 +86,6 @@ export default function EmployeeSurveysCreateForm({ onSubmit }) {
                     value: "more",
                     label: t("employeeSurveysCreateForm.typeOptions.more"),
                   },
-                  {
-                    value: "text",
-                    label: t("employeeSurveysCreateForm.typeOptions.text"),
-                  },
-                  {
-                    value: "scale",
-                    label: t("employeeSurveysCreateForm.typeOptions.scale"),
-                  },
                 ]}
               />
             </div>
