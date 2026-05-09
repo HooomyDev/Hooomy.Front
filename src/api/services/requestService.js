@@ -76,12 +76,14 @@ export const getRequestCount = async () => {
   return data;
 };
 
-export const getRequestStatistic = async (period = 1) => {
-  const res = await client.get(`/requests/statistic?period=${period}`);
+export const getRequestStatistic = async (period = 1, companyId) => {
+  const params = new URLSearchParams({
+    period: period,
+    companyId: companyId ?? "",
+  });
+  const res = await client.get(`/requests/statistic?${params.toString()}`);
 
-  await getMyRequests();
-
-  const data = res.data.requests;
+  const data = res.data;
 
   return data ?? [];
 };

@@ -21,8 +21,8 @@
 }
 
 .success {
-  border: 1px solid #1eff00;
-  color: #1eff00;
+  border: 1px solid var(--element-color);
+  color: var(--element-color);
 }
 
 .error {

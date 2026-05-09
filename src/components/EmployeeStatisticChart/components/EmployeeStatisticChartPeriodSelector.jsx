@@ -37,12 +37,6 @@ export default function EmployeeStatisticChartPeriodSelector({
     { key: 1, label: t("employeeStatisticChart.periods.week") },
     { key: 2, label: t("employeeStatisticChart.periods.twoWeeks") },
     { key: 3, label: t("employeeStatisticChart.periods.month") },
-    {
-      key: 4,
-      label: t("employeeStatisticChart.periods.currentMonth"),
-    },
-    { key: 5, label: t("employeeStatisticChart.periods.halfYear") },
-    { key: 6, label: t("employeeStatisticChart.periods.year") },
   ];
 
   const handlePeriodSelect = (period) => {

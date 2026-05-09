@@ -12,11 +12,18 @@
 }
 
 .exportWrapper {
+  display: inline-block;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border: 1px solid transparent;
   border-radius: var(--border-radius);
   color: var(--font-color);
-  width: 10rem;
   transition: all 0.3s ease;
+  position: relative;
+  background-color: var(--main-color);
+  width: 7rem;
+  height: 7rem;
   position: relative;
 }
 
@@ -30,8 +37,20 @@
   transform: scale(1.02);
 }
 
+.export {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  margin-top: 15px;
+}
+
 .export span {
   font-weight: 600;
+}
+
+.exportIcon {
+  width: 3rem;
 }
 
 .content {

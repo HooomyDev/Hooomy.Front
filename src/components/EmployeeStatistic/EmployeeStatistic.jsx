@@ -17,11 +17,25 @@ import { StatisticPDF } from "../../features/pdf/StatisticPdf";
 import { pdf } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
 import { useT } from "../../utils/useT";
+import { useAuthStore } from "../../stores/authStore";
+import { useQuery } from "@tanstack/react-query";
+import { getRequestStatistic } from "../../api/services/requestService";
+import Loader from "../../common/Loader/Loader";
+import EmployeeStatisticChartPeriodSelector from "../EmployeeStatisticChart/components/EmployeeStatisticChartPeriodSelector";
 
 export default function EmployeeStatistic() {
   const t = useT();
-
   const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const { user } = useAuthStore();
+  const [period, setPeriod] = useState(1);
+
+  // Запрос данных
+  const { data, isLoading } = useQuery({
+    queryKey: ["requestStatistic", period],
+    queryFn: () => getRequestStatistic(period, user?.companyId),
+    staleTime: 0,
+  });
 
   const ref = useRef(null);
   useEffect(() => {
@@ -145,27 +159,40 @@ export default function EmployeeStatistic() {
     <div className={styles.wrapper}>
       <div className={styles.headerWrapper}>
         <PageHeader title={t("employeeStatistic.header")} icon={ChartBarIcon} />
-        <div className={styles.exportWrapper} ref={ref}>
-          <Block>
-            <div
-              className={styles.export}
-              onClick={() => setDropdownVisible((prev) => !prev)}
-            >
-              <ArrowDownTrayIcon className={styles.exportIcon} />
-              <span>{t("employeeStatistic.export")}</span>
-            </div>
-          </Block>
+        <div
+          className={styles.exportWrapper}
+          onClick={() => setDropdownVisible((prev) => !prev)}
+        >
+          <div className={styles.export} ref={ref}>
+            <ArrowDownTrayIcon className={styles.exportIcon} />
+            <span>{t("employeeStatistic.export")}</span>
+          </div>
           <Dropdown items={exportItems} visible={dropdownVisible} />
         </div>
       </div>
 
-      <div className={styles.content}>
-        <EmployeeStatisticCards requests={requests} />
-        <EmployeeStatisticDistricts requests={requests} />
-        <EmployeeStatisticChart requests={requests} />
-        <EmployeeStatisticStatus requests={requests} />
-        <EmployeeStatisticTypes requests={requests} />
-      </div>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <div className={styles.content}>
+          <EmployeeStatisticChartPeriodSelector
+            onSelect={setPeriod}
+            period={period}
+          />
+          <EmployeeStatisticChart
+            requests={data.requestsByDates}
+            period={period}
+            setPeriod={setPeriod}
+            isLoading={isLoading}
+          />
+          <EmployeeStatisticCards
+            requests={data.requestsByStatuses}
+            totalRequests={data.totalCount}
+          />
+          <EmployeeStatisticStatus requests={data.requestsByStatuses} />
+          <EmployeeStatisticTypes requests={data.requestsByCategories} />
+        </div>
+      )}
     </div>
   );
 }

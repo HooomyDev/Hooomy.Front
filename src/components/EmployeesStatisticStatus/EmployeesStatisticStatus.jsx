@@ -8,23 +8,25 @@ import { useT } from "../../utils/useT";
 export default function EmployeesStatisticStatus({ requests = [] }) {
   const t = useT();
 
-  const statusStats = requests.reduce(
-    (acc, r) => {
-      if (r.status === "В обработке") acc.pending++;
-      if (r.status === "Выполнено") acc.completed++;
-      if (r.status === "Отклонено") acc.rejected++;
-      return acc;
-    },
-    { pending: 0, completed: 0, rejected: 0 }
-  );
+  const statusMap = {
+    1: { name: "Создано", color: "#3b82f6" }, // Синий
+    2: { name: "Отклонено", color: "#ef4444" }, // Красный
+    3: { name: "В обработке", color: "#f97316" }, // Оранжевый
+    4: { name: "Выполнено", color: "#22c55e" }, // Зелёный
+  };
 
-  const chartData = [
-    { name: "Выполнено", value: statusStats.completed },
-    { name: "В обработке", value: statusStats.pending },
-    { name: "Отклонено", value: statusStats.rejected },
-  ];
+  const chartData = requests
+    .filter((item) => statusMap[item.status]) // Только известные статусы
+    .map((item) => ({
+      name: statusMap[item.status].name,
+      value: item.count,
+      percentage: item.percentage,
+      status: item.status,
+      color: statusMap[item.status].color,
+    }))
+    .sort((a, b) => a.status - b.status);
 
-  const COLORS = ["#22c55e", "#f97316", "#ef4444"];
+  const COLORS = ["#3dbfa3", "#22c55e", "#f97316", "#ef4444"];
 
   return (
     <Block
@@ -32,7 +34,7 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
       Icon={ClipboardDocumentListIcon}
     >
       <div className={styles.statusWrapper}>
-        <PieChart width={750} height={750}>
+        <PieChart width={800} height={750}>
           <Pie
             data={chartData}
             cx="50%"

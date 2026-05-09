@@ -52,10 +52,10 @@ export default function EmployeeStatisticChartStats({
               </div>
               <div className={styles.dayLabels}>
                 <span className={styles.dayLabel}>
-                  {day.displayDate.split(" ")[0]}
+                  {day.displayDate?.split(" ")[0]}
                 </span>
                 <span className={styles.dayDate}>
-                  {day.displayDate.split(" ").slice(1).join(" ")}
+                  {day.displayDate?.split(" ").slice(1).join(" ")}
                 </span>
               </div>
             </div>

@@ -6,7 +6,7 @@ export const getSurvays = async (
   status = 0,
   type = 0,
   title = "",
-  companyId = null
+  companyId = ""
 ) => {
   try {
     const params = new URLSearchParams({
@@ -15,7 +15,7 @@ export const getSurvays = async (
       title: title ?? null,
       status: status ?? null,
       type: type ?? null,
-      companyId: companyId ?? null,
+      companyId: companyId ?? "",
     });
 
     const res = await client.get(`/polls?${params}`);
@@ -68,6 +68,18 @@ export const createSurvay = async (
 
 export const deleteSurvay = async (id) => {
   var res = await client.delete(`/polls/delete/${id}`);
+
+  return res.data;
+};
+
+export const updateSurvay = async (id, data) => {
+  const body = {
+    id: id,
+    title: data.title,
+    description: data.description,
+    status: data.status,
+  };
+  const res = await client.put(`/polls/update`, body);
 
   return res.data;
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./EmployeeSurveysList.module.css";
 import {
   DocumentTextIcon,
@@ -9,8 +9,10 @@ import {
   TrashIcon,
   EyeIcon,
   EyeSlashIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
 } from "@heroicons/react/24/solid";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import EmployeeSurveysStat from "../EmployeeSurveysStat/EmployeeSurveysStat";
 import Loader from "../../../../common/Loader/Loader";
 import Button from "../../../../common/Button/Button";
@@ -19,25 +21,40 @@ import {
   deleteSurvay,
   getSurvayDetails,
   getSurvays,
+  updateSurvay,
 } from "../../../../api/services/survaceService";
 import Notification from "../../../../common/Notification/Notification";
 import { FormProvider, useForm } from "react-hook-form";
 import InputField from "../../../../common/InputField/InputField";
 import SelectField from "../../../../common/SelectField/SelectField";
 import { useAuthStore } from "../../../../stores/authStore";
+import ConfirmDialog from "../../../../common/ConfirmDialog/ConfirmDialog";
+import EditSurveyModal from "./EditSurveyModal";
+import EmptyBlock from "../../../../common/EmptyBlock/EmptyBlock";
 
 export default function EmployeeSurveysList() {
   const { user } = useAuthStore();
+  const [sort, setSort] = useState("asc");
   const [selectedSurvayId, setSelectedSurvayId] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 5,
-    status: 1,
+    status: 0,
     title: "",
     type: 0,
   });
+  const queryClient = useQueryClient();
 
   const [expandedId, setExpandedId] = useState(null);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    surveyId: null,
+  });
+
+  const [editModal, setEditModal] = useState({
+    isOpen: false,
+    surveyId: null,
+  });
 
   const toggleExpand = (id) => {
     setSelectedSurvayId(id);
@@ -84,7 +101,45 @@ export default function EmployeeSurveysList() {
   const deleteSurvayMutation = useMutation({
     mutationKey: ["deleteSurvayMutation"],
     mutationFn: (id) => deleteSurvay(id),
-    onSuccess: () => {},
+    onSuccess: () => {
+      setNotification({
+        type: "success",
+        message: "Опрос успешно удалён",
+      });
+      queryClient.invalidateQueries({
+        queryKey: [
+          "surveys",
+          pagination.page,
+          pagination.pageSize,
+          pagination.status,
+          pagination.type,
+          pagination.title,
+          user?.companyId,
+        ],
+      });
+      setTimeout(() => {}, 1500);
+    },
+  });
+
+  const updateSurvayMutation = useMutation({
+    mutationKey: ["updateSurvayMutation"],
+    mutationFn: ({ id, data }) => updateSurvay(id, data),
+    onSuccess: () => {
+      setNotification({
+        type: "success",
+        message: "Опрос успешно обновлён",
+      });
+      setEditModal({ isOpen: false, surveyId: null });
+      queryClient.invalidateQueries({
+        queryKey: ["surveys"],
+      });
+    },
+    onError: () => {
+      setNotification({
+        type: "error",
+        message: "Ошибка при обновлении опроса",
+      });
+    },
   });
 
   useEffect(() => {
@@ -133,7 +188,6 @@ export default function EmployeeSurveysList() {
       searchTitle: "",
       searchStatus: 0,
       searchType: 0,
-      sort: "asc",
     },
   });
 
@@ -148,6 +202,47 @@ export default function EmployeeSurveysList() {
     setExpandedId(null);
     setSelectedSurvayId(null);
   };
+
+  const handleDeleteClick = (id) => {
+    setConfirmDialog({ isOpen: true, surveyId: id });
+  };
+
+  const handleConfirmDelete = () => {
+    if (confirmDialog.surveyId) {
+      deleteSurvayMutation.mutate(confirmDialog.surveyId);
+    }
+    setConfirmDialog({ isOpen: false, surveyId: null });
+  };
+
+  const handleCancelDelete = () => {
+    setConfirmDialog({ isOpen: false, surveyId: null });
+  };
+
+  const handleEditClick = (id) => {
+    setEditModal({ isOpen: true, surveyId: id });
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModal({ isOpen: false, surveyId: null });
+  };
+
+  const handleConfirmEdit = (data) => {
+    if (editModal.surveyId) {
+      updateSurvayMutation.mutate({ id: editModal.surveyId, data });
+    }
+  };
+
+  const handleToggleSort = () => {
+    setSort(sort === "asc" ? "desc" : "asc");
+  };
+
+  const sortedSurveys = [...(response?.polls || [])].sort((a, b) => {
+    if (sort === "asc") {
+      return a.title.localeCompare(b.title, "ru");
+    } else {
+      return b.title.localeCompare(a.title, "ru");
+    }
+  });
 
   if (isLoading) return <Loader />;
 
@@ -194,6 +289,18 @@ export default function EmployeeSurveysList() {
           />
           <Button
             className={styles.searchButton}
+            onClick={() => handleToggleSort()}
+            variant="secondary"
+            type="button"
+          >
+            {sort === "asc" ? (
+              <ChevronDownIcon className={styles.icon} />
+            ) : (
+              <ChevronUpIcon className={styles.icon} />
+            )}
+          </Button>
+          <Button
+            className={styles.searchButton}
             onClick={() => handleSearch()}
             variant="secondary"
             type="submit"
@@ -204,12 +311,11 @@ export default function EmployeeSurveysList() {
       </FormProvider>
 
       {response.polls.length === 0 ? (
-        <div className={styles.emptyState}>
-          <DocumentTextIcon className={styles.emptyIcon} />
+        <EmptyBlock Icon={DocumentTextIcon}>
           <p>Нет доступных опросов</p>
-        </div>
+        </EmptyBlock>
       ) : (
-        response.polls.map((survey) => {
+        sortedSurveys.map((survey) => {
           const pollType = getPollType(survey.type);
           const pollStatus = getPollStatus(survey.status, survey.isActive);
 
@@ -238,13 +344,17 @@ export default function EmployeeSurveysList() {
                         <EyeIcon className={styles.btnIcon} />
                       )}
                     </Button>
-                    <Button className={styles.editBtn} title="Изменить">
+                    <Button
+                      className={styles.editBtn}
+                      title="Изменить"
+                      onClick={() => handleEditClick(survey.id)}
+                    >
                       <PencilIcon className={styles.btnIcon} />
                     </Button>
                     <Button
                       className={styles.deleteBtn}
                       title="Удалить"
-                      onClick={() => deleteSurvayMutation.mutate(survey.id)}
+                      onClick={() => handleDeleteClick(survey.id)}
                     >
                       <TrashIcon className={styles.btnIcon} />
                     </Button>
@@ -298,6 +408,23 @@ export default function EmployeeSurveysList() {
         currentPage={pagination.page}
         totalPages={response.totalPages}
         onPageChange={handlePageChange}
+      />
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Удаление опроса"
+        message="Вы уверены, что хотите удалить этот опрос? Это действие нельзя отменить."
+        confirmText="Удалить"
+        cancelText="Отмена"
+        confirmVariant="danger"
+      />
+      <EditSurveyModal
+        isOpen={editModal.isOpen}
+        onClose={handleCloseEditModal}
+        onConfirm={handleConfirmEdit}
+        survey={survay}
+        isLoading={updateSurvayMutation.isPending}
       />
     </div>
   );

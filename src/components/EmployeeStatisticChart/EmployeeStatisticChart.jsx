@@ -5,22 +5,17 @@ import { useT } from "../../utils/useT";
 import EmployeeStatisticChartPeriodSelector from "./components/EmployeeStatisticChartPeriodSelector";
 import EmployeeStatisticChartDailySummary from "./components/EmployeeStatisticChartDailySummary";
 import EmployeeStatisticChartStats from "./components/EmployeeStatisticChartStats";
-import { useQuery } from "@tanstack/react-query";
-import { getRequestStatistic } from "../../api/services/requestService";
 import styles from "./EmployeeStatisticChart.module.css";
 import Loader from "../../common/Loader/Loader";
 
-export default function EmployeeStatisticChart() {
+export default function EmployeeStatisticChart({
+  requests,
+  period,
+  setPeriod,
+  isLoading,
+}) {
   const t = useT();
-  const [period, setPeriod] = useState(1);
   const [animated, setAnimated] = useState(false);
-
-  // Запрос данных
-  const { data, isLoading } = useQuery({
-    queryKey: ["requestStatistic", period],
-    queryFn: () => getRequestStatistic(period),
-    staleTime: 0,
-  });
 
   // Анимация
   useEffect(() => {
@@ -29,12 +24,12 @@ export default function EmployeeStatisticChart() {
   }, []);
 
   const enhancedChartData =
-    data &&
-    data.map((d) => ({
+    requests &&
+    requests.map((d) => ({
       ...d,
       heightPercentage:
         d.count > 0
-          ? (d.count / Math.max(...data.map((d) => d.count), 1)) * 100
+          ? (d.count / Math.max(...requests.map((d) => d.count), 1)) * 100
           : 0,
     }));
 
@@ -42,11 +37,6 @@ export default function EmployeeStatisticChart() {
 
   return (
     <Block title={t("employeeStatisticChart.header")} Icon={CalendarDaysIcon}>
-      <EmployeeStatisticChartPeriodSelector
-        onSelect={setPeriod}
-        period={period}
-      />
-
       {enhancedChartData?.length > 0 ? (
         <>
           <EmployeeStatisticChartStats

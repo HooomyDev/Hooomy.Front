@@ -20,6 +20,9 @@ import { FormProvider, useForm } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import Button from "../../common/Button/Button";
+import { useAuthStore } from "../../stores/authStore";
+import Pagination from "../../common/Pagination/Pagination";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 
 export default function EmployeeRequests() {
   const t = useT();
@@ -28,9 +31,10 @@ export default function EmployeeRequests() {
   const [categories, setCategories] = useState([]);
 
   // Загрузка заявок с сервера
+  const { user } = useAuthStore();
   const [pagination, setPagination] = useState({
     page: 1,
-    pageSize: 10,
+    pageSize: 5,
   });
   const [filters, setFilters] = useState({
     searchTitle: "",
@@ -46,6 +50,7 @@ export default function EmployeeRequests() {
       filters.searchTitle,
       filters.searchStatus,
       filters.searchCategory,
+      user?.companyId,
     ],
     queryFn: async () => {
       const categoriesData = await getRequestCategories();
@@ -56,7 +61,8 @@ export default function EmployeeRequests() {
         pagination.pageSize,
         filters.searchTitle,
         filters.searchStatus,
-        filters.searchCategory
+        filters.searchCategory,
+        user?.companyId
       );
     },
     staleTime: 5 * 60 * 1000,
@@ -120,6 +126,11 @@ export default function EmployeeRequests() {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
+  const handlePageChange = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -168,20 +179,26 @@ export default function EmployeeRequests() {
           </form>
         </FormProvider>
 
-        <div className={styles.requestsTable}>
-          {response.requests?.length > 0 ? (
+        {response.requests?.length > 0 ? (
+          <>
             <EmployeeRequestsTable
               requests={response.requests}
               onSelectRequest={setSelectedRequest}
               onStatusChange={handleStatusChange}
               getStatusColor={getStatusColor}
             />
-          ) : (
-            <div className={styles.emptyState}>
-              <p>{t("employeeRequests.empty")}</p>
-            </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <EmptyBlock>
+            <p>{t("employeeRequests.empty")}</p>
+          </EmptyBlock>
+        )}
+
+        <Pagination
+          currentPage={pagination.page}
+          totalPages={response.totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
 
       <Modal isOpen={!!selectedRequest} onClose={handleCloseModal}>

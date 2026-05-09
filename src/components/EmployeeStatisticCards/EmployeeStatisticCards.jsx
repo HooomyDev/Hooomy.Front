@@ -8,20 +8,24 @@ import {
 import styles from "./EmployeeStatisticCards.module.css";
 import { useT } from "../../utils/useT";
 
-export default function EmployeeStatisticCards({ requests = [] }) {
+export default function EmployeeStatisticCards({
+  requests = [],
+  totalRequests = 0,
+}) {
   const t = useT();
 
-  const totalRequests = requests.length;
-  const pendingRequests = requests.filter(
-    (r) => r.status === "В обработке"
-  ).length;
-  const completedRequests = requests.filter(
-    (r) => r.status === "Выполнено"
-  ).length;
-  const rejectedRequests = requests.filter(
-    (r) => r.status === "Отклонено"
-  ).length;
+  // Получаем значения из сгруппированных данных
+  const getCountByStatus = (status) => {
+    const item = requests.find((r) => r.status === status);
+    return item ? item.count : 0;
+  };
 
+  const createdRequests = getCountByStatus(1);
+  const rejectedRequests = getCountByStatus(2);
+  const pendingRequests = getCountByStatus(3);
+  const completedRequests = getCountByStatus(4);
+
+  // Проценты
   const pendingPercentage =
     totalRequests > 0 ? Math.round((pendingRequests / totalRequests) * 100) : 0;
   const completedPercentage =
@@ -32,18 +36,32 @@ export default function EmployeeStatisticCards({ requests = [] }) {
     totalRequests > 0
       ? Math.round((rejectedRequests / totalRequests) * 100)
       : 0;
+  const createdPercentage =
+    totalRequests > 0 ? Math.round((createdRequests / totalRequests) * 100) : 0;
 
+  // Функция для получения среднего времени выполнения (если есть данные)
   const getCompletionTime = () => {
-    const completed = requests.filter((r) => r.status === "Выполнено");
+    // TODO: Добавить логику расчёта среднего времени
+    // Например, если в данных есть время выполнения
+    if (completedRequests === 0) {
+      return t("employeeStatisticCards.notAvailable");
+    }
 
-    if (completed.length === 0) return t("employeeStatisticCards.notAvailable");
-
-    const avgDays = completed.length;
-
+    // Пример: среднее время = 3 дня
+    const avgDays = 3;
     return `${avgDays} ${t("employeeStatisticCards.days")}`;
   };
 
   const statCards = [
+    {
+      key: "created",
+      label: "Создано",
+      icon: ClockIcon,
+      number: createdRequests,
+      percentage: createdPercentage,
+      showProgress: true,
+      color: "#3b82f6",
+    },
     {
       key: "pending",
       label: t("employeeStatisticCards.pending"),
@@ -51,6 +69,7 @@ export default function EmployeeStatisticCards({ requests = [] }) {
       number: pendingRequests,
       percentage: pendingPercentage,
       showProgress: true,
+      color: "#f97316",
     },
     {
       key: "completed",
@@ -59,6 +78,7 @@ export default function EmployeeStatisticCards({ requests = [] }) {
       number: completedRequests,
       percentage: completedPercentage,
       showProgress: true,
+      color: "#22c55e",
     },
     {
       key: "rejected",
@@ -67,14 +87,7 @@ export default function EmployeeStatisticCards({ requests = [] }) {
       number: rejectedRequests,
       percentage: rejectedPercentage,
       showProgress: true,
-    },
-    {
-      key: "avgTime",
-      label: t("employeeStatisticCards.avgTime"),
-      icon: CalendarDaysIcon,
-      number: getCompletionTime(),
-      description: t("employeeStatisticCards.avgTimeDescription"),
-      showProgress: false,
+      color: "#ef4444",
     },
   ];
 
@@ -86,7 +99,10 @@ export default function EmployeeStatisticCards({ requests = [] }) {
           className={`${styles.statCard} ${styles[card.key]}`}
         >
           <div className={styles.statCardHeader}>
-            <card.icon className={styles.statIcon} />
+            <card.icon
+              className={styles.statIcon}
+              style={{ color: card.color }}
+            />
             <span className={styles.statLabel}>{card.label}</span>
           </div>
 
@@ -97,7 +113,10 @@ export default function EmployeeStatisticCards({ requests = [] }) {
                 <div className={styles.statProgress}>
                   <div
                     className={styles.progressBar}
-                    style={{ width: `${card.percentage}%` }}
+                    style={{
+                      width: `${card.percentage}%`,
+                      backgroundColor: card.color,
+                    }}
                   />
                 </div>
                 <span className={styles.statPercentage}>
