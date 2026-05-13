@@ -13,15 +13,28 @@ export default function InputField({
   rows = 4,
   rules = {},
   className,
+  maxLength,
 }) {
   const [visible, setVisible] = useState(false);
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext();
 
   const isPassword = type === "password";
   const inputType = isPassword ? (visible ? "text" : "password") : type;
+
+  const currentValue = watch(name) || "";
+  const currentLength = currentValue.length;
+
+  const registerOptions = { required, ...rules };
+  if (maxLength) {
+    registerOptions.maxLength = {
+      value: maxLength,
+      message: `Максимум ${maxLength} символов`,
+    };
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -83,6 +96,19 @@ export default function InputField({
           </button>
         )}
       </div>
+
+      {maxLength && (
+        <div
+          className={`${styles.counter} ${
+            errors[name] ? styles.counterError : ""
+          }`}
+        >
+          <span className={currentLength > maxLength ? styles.exceeded : ""}>
+            {currentLength}
+          </span>
+          <span>/{maxLength}</span>
+        </div>
+      )}
 
       {errors[name] && (
         <div className={styles.error}>{errors[name].message}</div>

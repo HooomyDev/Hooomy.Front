@@ -92,7 +92,7 @@ export default function Surveys() {
                   id={survey.id}
                   title={survey.title}
                   type={survey.type}
-                  isActive={survey.type === 1}
+                  isActive={survey.status === 1}
                   companyName={survey.companyName}
                 />
               ))}

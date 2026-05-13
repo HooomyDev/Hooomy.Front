@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./CompanyComments.module.css";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -14,6 +14,7 @@ import Button from "../../../../common/Button/Button";
 import EmptyBlock from "../../../../common/EmptyBlock/EmptyBlock";
 import InputField from "../../../../common/InputField/InputField";
 import { FormProvider, useForm } from "react-hook-form";
+import { PaperClipIcon } from "@heroicons/react/24/solid";
 
 export default function CompanyComments({ request }) {
   const { user } = useAuthStore();
@@ -23,7 +24,7 @@ export default function CompanyComments({ request }) {
     mutationFn: ({ requestId, comment }) => addComment(requestId, comment),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["request", request],
+        queryKey: ["request", request.id],
       });
     },
   });
@@ -33,6 +34,7 @@ export default function CompanyComments({ request }) {
       requestId: request?.id,
       comment: data.comment,
     });
+    methods.reset();
   };
 
   const companyComments = request?.comments ?? [];
@@ -41,6 +43,7 @@ export default function CompanyComments({ request }) {
     defaultValues: {
       id: request?.id,
       comment: "",
+      photos: [],
     },
   });
 
@@ -48,8 +51,45 @@ export default function CompanyComments({ request }) {
     <div className={styles.commentsSection}>
       <div className={styles.header}>
         <ChatBubbleLeftRightIcon className={styles.headerIcon} />
-        <h3>Комментарии от управляющей компании</h3>
+        <h3>Комментарии</h3>
       </div>
+
+      {(user?.role === "Employee" || user?.role === "Admin") && (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(handleSubmit)}
+            className={styles.commentForm}
+          >
+            <InputField
+              name="comment"
+              placeholder="Напишите комментарий..."
+              rows={3}
+              multiline
+              rules={{
+                required: "Введите комментарий",
+                minLength: { value: 3, message: "Минимум 3 символа" },
+              }}
+            />
+            <div className={styles.formActions}>
+              <Button
+                type="button"
+                className={styles.submitButton}
+                variant="secondary"
+              >
+                <PaperClipIcon className={styles.submitIcon} />
+              </Button>
+
+              <Button
+                type="submit"
+                className={styles.submitButton}
+                variant="secondary"
+              >
+                <PaperAirplaneIcon className={styles.submitIcon} />
+              </Button>
+            </div>
+          </form>
+        </FormProvider>
+      )}
 
       <div className={styles.commentsList}>
         {companyComments?.length === 0 ? (
@@ -81,33 +121,6 @@ export default function CompanyComments({ request }) {
           ))
         )}
       </div>
-
-      {/* Форма добавления комментария (только для сотрудников) */}
-      {(user?.role === "Employee" || user?.role === "Admin") && (
-        <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(handleSubmit)}
-            className={styles.commentForm}
-          >
-            <InputField
-              name="comment"
-              placeholder="Напишите комментарий..."
-              rows={3}
-              multiline
-              rules={{
-                required: "Введите комментарий",
-                minLength: { value: 3, message: "Минимум 3 символа" },
-              }}
-            />
-            <div className={styles.formActions}>
-              <Button type="submit" className={styles.submitButton}>
-                <PaperAirplaneIcon className={styles.submitIcon} />
-                {addCommentMutation.isPending ? "Отправка..." : "Отправить"}
-              </Button>
-            </div>
-          </form>
-        </FormProvider>
-      )}
     </div>
   );
 }

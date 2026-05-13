@@ -64,7 +64,12 @@ export default function EmployeeHome() {
               <UserIcon className={styles.icon} />
               <div className={styles.info}>
                 <div className={styles.email}>{user?.email}</div>
-                <div className={styles.company}>
+                <div
+                  className={styles.company}
+                  onClick={() =>
+                    navigate(`${routes.companies}/${userCompany?.id}`)
+                  }
+                >
                   {userCompany?.name || t("employeeHome.companyDefault")}
                 </div>
               </div>

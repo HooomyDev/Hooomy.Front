@@ -20,12 +20,15 @@ import ImageGallery from "../../../common/ImageGallery/ImageGallery";
 import Button from "../../../common/Button/Button";
 import ConfirmDialog from "../../../common/ConfirmDialog/ConfirmDialog";
 import CompanyComments from "./components/CompanyComments";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
 
 export default function RequestDetailsModal({
   request,
   onClose,
   onDeleteSuccess,
 }) {
+  const [isExpandedDesctiption, setIsExpandedDesctiption] = useState(false);
+  const [isExpandedTitle, setIsExpandedTitle] = useState(false);
   const STATUS_MAP = {
     1: { text: "Создан", icon: ClockIcon, color: "#1976d2" },
     2: { text: "Отклонено", icon: XCircleIcon, color: "#d32f2f" },
@@ -37,7 +40,7 @@ export default function RequestDetailsModal({
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const { data: requestDetails, isLoading } = useQuery({
-    queryKey: ["request", request],
+    queryKey: ["request", request.id],
     queryFn: () => getRequestDetails(request.id),
   });
 
@@ -69,6 +72,20 @@ export default function RequestDetailsModal({
   };
   const StatusIcon = statusInfo.icon;
 
+  const title = requestDetails.title;
+  const isLongTitle = title.length > 25;
+
+  const displayedTitle =
+    isExpandedTitle || !isLongTitle ? title : `${title.slice(0, 25).trim()}...`;
+
+  const description = requestDetails.description || "Описание отсутствует";
+  const isLongDescription = description.length > 150;
+
+  const displayedDescription =
+    isExpandedDesctiption || !isLongDescription
+      ? description
+      : `${description.slice(0, 100).trim()}...`;
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>Детали заявки</div>
@@ -85,7 +102,33 @@ export default function RequestDetailsModal({
         </div>
 
         <div className={styles.infoWrapper}>
-          <div className={styles.reqTitle}>{requestDetails.title}</div>
+          <div className={styles.reqTitle}>
+            <div className={styles.titleHeader}>
+              <div className={styles.info}>
+                <DocumentTextIcon className={styles.icon} />
+                <span>Краткое описание проблемы</span>
+              </div>
+
+              {isLongTitle && (
+                <button
+                  className={styles.expandButton}
+                  onClick={() => setIsExpandedTitle(!isExpandedTitle)}
+                >
+                  {isExpandedTitle ? (
+                    <>
+                      <ChevronUpIcon className={styles.buttonIcon} />
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDownIcon className={styles.buttonIcon} />
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+
+            <div className={styles.titleContent}>{displayedTitle}</div>
+          </div>
 
           <div
             className={styles.reqStatus}
@@ -115,10 +158,32 @@ export default function RequestDetailsModal({
 
           <div className={styles.reqDescription}>
             <div className={styles.descriptionHeader}>
-              <DocumentTextIcon className={styles.icon} />
-              <span>Описание</span>
+              <div className={styles.info}>
+                <DocumentTextIcon className={styles.icon} />
+                <span>Описание</span>
+              </div>
+              {isLongDescription && (
+                <button
+                  className={styles.expandButton}
+                  onClick={() =>
+                    setIsExpandedDesctiption(!isExpandedDesctiption)
+                  }
+                >
+                  {isExpandedDesctiption ? (
+                    <>
+                      <ChevronUpIcon className={styles.buttonIcon} />
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDownIcon className={styles.buttonIcon} />
+                    </>
+                  )}
+                </button>
+              )}
             </div>
-            <p>{requestDetails.description || "Описание отсутствует"}</p>
+            <div className={styles.descriptionContent}>
+              {displayedDescription}
+            </div>
           </div>
 
           <div className={styles.actions}>

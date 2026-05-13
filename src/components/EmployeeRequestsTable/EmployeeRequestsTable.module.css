@@ -50,6 +50,10 @@
   color: var(--font-color);
   margin-bottom: 6px;
   font-size: var(--font-size-base);
+  width: inherit;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .requestDescription {

@@ -71,7 +71,7 @@ export default function CreateRequestForm() {
         data.title,
         data.description,
         address,
-        data.category,
+        data.category
       );
       if (data.photos && data.photos.length > 0) {
         const formData = new FormData();
@@ -102,7 +102,7 @@ export default function CreateRequestForm() {
           <FormProvider {...methods}>
             <form
               onSubmit={methods.handleSubmit((data) =>
-                submitMutation.mutate(data),
+                submitMutation.mutate(data)
               )}
               className={styles.form}
             >
@@ -173,13 +173,16 @@ export default function CreateRequestForm() {
                   required
                   label={t("requests.titleLabel")}
                   name="title"
-                  rules={{ max: { value: 100 }, min: { value: 1 } }}
+                  rules={{ max: { value: 150 }, min: { value: 1 } }}
+                  maxLength={150}
                 />
                 <InputField
                   label={t("user.requestDescription")}
                   name="description"
                   multiline
+                  rules={{ max: { value: 300 }, min: { value: 1 } }}
                   required
+                  maxLength={300}
                 />
               </div>
 

@@ -46,9 +46,7 @@ export default function MyRequestsList({ requests }) {
                 className={styles.item}
                 onClick={() => handleOpenModal(req)}
               >
-                <span className={styles.reqTitle}>
-                  {req.title.slice(0, 9) + "..."}
-                </span>
+                <span className={styles.reqTitle}>{req.title}</span>
                 <span className={styles.reqDate}>
                   {format(new Date(req.createdAt), "dd.MM.yyyy HH:mm")}
                 </span>

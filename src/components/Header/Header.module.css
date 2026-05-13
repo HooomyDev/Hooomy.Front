@@ -1,12 +1,11 @@
 .header {
   width: 100%;
   background-color: var(--main-color);
-  display: flex;
+  display: inline-block;
   justify-content: space-between;
   align-items: center;
   padding: var(--spacing-md) 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  position: sticky;
 }
 
 .container {
@@ -30,6 +29,7 @@
   flex-direction: row;
   align-items: center;
   gap: var(--spacing-md);
+  width: 200px;
 }
 
 .actions {

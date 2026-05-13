@@ -7,6 +7,7 @@ import { Cog6ToothIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import routes from "../../stores/routes.json";
 import NavItem from "../NavItem/NavItem";
 import { useLinks } from "../../utils/useLinks";
+import Navbar from "../Navbar/Navbar";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -50,6 +51,8 @@ export default function Header() {
           </button>
           <Logo />
         </div>
+
+        <Navbar items={links} />
 
         <div className={styles.actions}>
           <button

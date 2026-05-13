@@ -226,20 +226,24 @@ export default function CompanyDetails() {
             </div>
 
             <div className={styles.actions}>
-              <Button
-                variant="secondary"
-                className={styles.actionButton}
-                onClick={() => navigate(-1)}
-              >
-                Назад
-              </Button>
-              <Button
-                className={styles.actionButton}
-                onClick={handleClick}
-                disabled={user?.status === "Pending" || !user}
-              >
-                {"Написать"}
-              </Button>
+              {user?.role === "Resident" && (
+                <>
+                  <Button
+                    variant="secondary"
+                    className={styles.actionButton}
+                    onClick={() => navigate(-1)}
+                  >
+                    Назад
+                  </Button>
+                  <Button
+                    className={styles.actionButton}
+                    onClick={handleClick}
+                    disabled={user?.status === "Pending" || !user}
+                  >
+                    {"Написать"}
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>

@@ -118,41 +118,29 @@
   margin-top: 16px;
   padding-top: 16px;
   border-top: 1px solid #e0e0e0;
-}
-
-.commentInput {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #c0c7d2;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 14px;
-  resize: vertical;
-  transition: border-color 0.2s;
-}
-
-.commentInput:focus {
-  outline: none;
-  border-color: #3dbfa3;
-}
-
-.commentInput:disabled {
-  background: #f5f5f5;
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: 16px;
 }
 
 .formActions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 8px;
+  margin-bottom: var(--spacing-lg);
+  gap: var(--spacing-sm);
 }
 
 .submitButton {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
 }
 
 .submitIcon {
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
 }

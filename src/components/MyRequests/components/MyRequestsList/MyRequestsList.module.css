@@ -40,6 +40,10 @@
   font-size: var(--font-size-xl);
   font-weight: 500;
   color: var(--font-color);
+  max-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .status {

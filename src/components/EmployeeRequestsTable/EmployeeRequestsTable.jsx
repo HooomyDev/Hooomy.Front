@@ -2,9 +2,7 @@ import React from "react";
 import styles from "./EmployeeRequestsTable.module.css";
 import {
   EyeIcon,
-  ChatBubbleLeftRightIcon,
   CheckCircleIcon,
-  MapPinIcon,
   XCircleIcon,
   ClockIcon,
   PlayCircleIcon,
