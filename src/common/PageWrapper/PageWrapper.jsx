@@ -5,7 +5,7 @@ import { Snowfall } from "react-snowfall";
 export default function PageWrapper({ children }) {
   return (
     <>
-      <Snowfall color="#fff" />
+      <Snowfall color="#ff00e1" />
       <div className={styles.wrapper}>{children}</div>
     </>
   );

@@ -10,7 +10,7 @@ import EmptyBlock from "../EmptyBlock/EmptyBlock";
 
 export default function ImageGallery({
   images = [],
-  baseUrl = "http://localhost:5001",
+  baseUrl,
   onImageClick,
   showThumbnails = true,
   thumbnailSize = 80,

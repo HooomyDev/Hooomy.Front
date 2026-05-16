@@ -68,6 +68,20 @@ export const uploadRequestPhotos = async (requestId, formData) => {
   return res.data;
 };
 
+export const uploadRequestCommentPhotos = async (commentId, formData) => {
+  const res = await client.post(
+    `/requests/${commentId}/upload-comment-images`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+
+  return res.data;
+};
+
 export const getRequestCount = async () => {
   const res = await client.get(`/requests/count`);
 
@@ -89,8 +103,8 @@ export const getRequestStatistic = async (period = 1, companyId) => {
 };
 
 export const getRequestsForAdmin = async (
-  page,
-  pageSize,
+  page = 1,
+  pageSize = 10,
   searchTitle,
   searchStatus,
   searchCategory,
@@ -113,24 +127,62 @@ export const softDeleteRequest = async (id) => {
   await client.delete(`requests/delete/${id}`);
 };
 
+export const getCommentCount = async (requestId = null, filter = "all") => {
+  const params = new URLSearchParams();
+  if (requestId !== null) params.append("requestId", requestId);
+  params.append("filter", filter);
+
+  const res = await client.get(`requests/comments/count?${params.toString()}`);
+
+  return res.data;
+};
+
 // Получить комментарии заявки
-export const getRequestComments = async (requestId) => {
-  const response = await client.get(`/requests/${requestId}/comments`);
+export const getRequestComments = async (
+  requestId,
+  page = 1,
+  pageSize = 5,
+  status,
+  text
+) => {
+  const params = new URLSearchParams();
+  if (requestId) params.append("requestId", requestId);
+  if (status) params.append("status", status);
+  if (text) params.append("text", text);
+  params.append("page", page);
+  params.append("pageSize", pageSize);
+
+  const response = await client.get(`/requests/comments?${params.toString()}`);
+
   return response.data;
 };
 
 // Добавить комментарий
-export const addComment = async (requestId, text) => {
+export const addComment = async (requestId, companyId, text) => {
   const response = await client.post(`/requests/add-comment`, {
     requestId: requestId,
+    companyId: companyId,
     text: text,
   });
   return response.data;
 };
 
+export const updateComment = async (requestComment) => {
+  const response = await client.put(`/requests/comments/update`, {
+    id: requestComment.id,
+    text: requestComment.text,
+  });
+  return response.data;
+};
+
+export const deleteComment = async (id) => {
+  const response = await client.delete(`requests/comments/delete/${id}`);
+
+  return response.data;
+};
+
 // Обновить заявку
 export const updateRequest = async (request) => {
-  console.log(request);
   const response = await client.put(`/requests/update`, {
     id: request.id,
     title: request.title,

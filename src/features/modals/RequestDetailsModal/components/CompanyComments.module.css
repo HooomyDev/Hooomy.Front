@@ -1,5 +1,4 @@
 .commentsSection {
-  margin-top: 24px;
   border-top: 1px solid #e0e0e0;
   padding-top: 20px;
 }
@@ -7,8 +6,26 @@
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   margin-bottom: 20px;
+}
+
+.header .info {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-sm);
+}
+
+.header .count {
+  display: flex;
+  justify-content: center;
+  border-radius: 20px;
+  font-weight: 600;
+  color: var(--element-color);
+  width: 3rem;
+  border: 1px solid var(--element-color);
+  background-color: var(--main-color);
 }
 
 .headerIcon {
@@ -25,7 +42,9 @@
 }
 
 .commentsList {
-  max-height: 400px;
+  display: flex;
+  flex-direction: column;
+  max-height: 600px;
   overflow-y: auto;
   margin-bottom: 20px;
 }
@@ -52,6 +71,7 @@
 
 .commentItem {
   display: flex;
+  align-items: center;
   gap: 12px;
   padding: 16px;
   background: #fff;
@@ -75,6 +95,7 @@
   background: #e3f7f3;
   padding: 8px;
   border-radius: 50%;
+  align-self: center;
 }
 
 .commentContent {
@@ -87,6 +108,11 @@
   gap: 12px;
   margin-bottom: 8px;
   flex-wrap: wrap;
+}
+
+.commentAuthor:hover {
+  cursor: pointer;
+  color: var(--element-color);
 }
 
 .commentAuthor {
@@ -130,7 +156,8 @@
   gap: var(--spacing-sm);
 }
 
-.submitButton {
+.submitButton,
+.trashButton {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -143,4 +170,178 @@
 .submitIcon {
   width: 24px;
   height: 24px;
+}
+
+.commentActions {
+  display: flex;
+  gap: var(--spacing-sm);
+
+  .submitButton,
+  .trashButton {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon {
+    width: 16px;
+  }
+
+  .trashIcon {
+    width: 16px;
+    color: var(--error-color);
+  }
+}
+
+.filesPreview {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-lg);
+}
+
+.fileCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gray-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-sm);
+  border: 1px solid transparent;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.filePreviewImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.fileIconWrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e8f5e9;
+  border-radius: 6px;
+}
+
+.fileIcon {
+  width: 24px;
+  height: 24px;
+  color: var(--element-color);
+}
+
+.fileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.fileName {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileSize {
+  font-size: 11px;
+  color: #888;
+}
+
+.removeFileBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  width: 24px;
+  height: 24px;
+}
+
+.removeFileBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid transparent;
+}
+
+.removeIcon {
+  width: 16px;
+  height: 16px;
+  color: #999;
+}
+
+.removeFileBtn:hover .removeIcon {
+  color: #d32f2f;
+}
+
+.commentImages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.commentImage {
+  width: 160px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.commentImage:hover {
+  transform: scale(1.05);
+}
+
+.commentImageFull {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90vw;
+  max-height: 90vh;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.fullImage {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+.loadMoreBtn {
+  font-size: var(--font-size-base);
+  border: 1px solid transparent;
+  width: 250px;
+  height: 30px;
+}
+
+.loadMoreBtn:hover {
+  border: 1px solid transparent;
 }

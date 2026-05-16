@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import { useT } from "../../utils/useT";
-import EmployeeStatisticChartPeriodSelector from "./components/EmployeeStatisticChartPeriodSelector";
 import EmployeeStatisticChartDailySummary from "./components/EmployeeStatisticChartDailySummary";
 import EmployeeStatisticChartStats from "./components/EmployeeStatisticChartStats";
 import styles from "./EmployeeStatisticChart.module.css";
@@ -11,7 +10,6 @@ import Loader from "../../common/Loader/Loader";
 export default function EmployeeStatisticChart({
   requests,
   period,
-  setPeriod,
   isLoading,
 }) {
   const t = useT();

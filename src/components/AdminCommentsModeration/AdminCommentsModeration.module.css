@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   gap: var(--spacing-xxl);
 }
 
@@ -62,8 +62,17 @@
 }
 
 .buttonIcon {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+}
+
+.viewButton,
+.approveButton,
+.blockButton {
+  width: 40px;
+  height: 40px;
+  padding: 6px;
+  border: 1px solid transparent;
 }
 
 .approveButton {
@@ -94,16 +103,33 @@
   background: #fecaca;
 }
 
-.deleteButton {
-  background: #f3f4f6;
-  color: #374151;
-  border: none;
-  padding: 6px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.2s;
+.viewButton {
+  background: #e0f2fe;
+  color: #0369a1;
 }
 
-.deleteButton:hover {
-  background: #e5e7eb;
+.voteButton:hover {
+  background: #bae6fd;
+}
+
+.idCell {
+  max-width: 150px;
+}
+
+.authorCell {
+  max-width: 150px;
+}
+
+.textCell {
+  width: 300px;
+}
+.searchButton {
+  max-width: 48px;
+  height: 48px;
+  padding: 0;
+  align-self: flex-end;
+}
+
+.icon {
+  width: 24px;
 }

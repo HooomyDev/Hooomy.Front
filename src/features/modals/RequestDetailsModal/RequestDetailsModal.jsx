@@ -94,7 +94,6 @@ export default function RequestDetailsModal({
         <div className={styles.photoWrapper}>
           <ImageGallery
             images={requestDetails.imagesUrls || []}
-            baseUrl="http://localhost:5001"
             showThumbnails={true}
             thumbnailSize={80}
             mainHeight={450}

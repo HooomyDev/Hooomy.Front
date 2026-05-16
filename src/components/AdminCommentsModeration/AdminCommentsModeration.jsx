@@ -1,11 +1,12 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import {
   ChatBubbleLeftRightIcon,
   CheckCircleIcon,
-  XCircleIcon,
   TrashIcon,
   ChevronUpIcon,
   ChevronDownIcon,
+  EyeIcon,
+  MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import { useForm, FormProvider } from "react-hook-form";
 import styles from "./AdminCommentsModeration.module.css";
@@ -13,82 +14,76 @@ import PageHeader from "../../common/PageHeader/PageHeader";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import Block from "../../common/Block/Block";
+import { useQuery } from "@tanstack/react-query";
+import { getRequestComments } from "../../api/services/requestService";
+import Loader from "../../common/Loader/Loader";
+import { format } from "date-fns";
+import { ru } from "date-fns/locale";
+import Pagination from "../../common/Pagination/Pagination";
+import Button from "../../common/Button/Button";
 
 export default function AdminCommentsModeration() {
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      author: "Иван",
-      text: "Очень шумно в подъезде, невозможно отдыхать!",
-      status: "pending",
-    },
-    {
-      id: 2,
-      author: "Мария",
-      text: "Спасибо за быструю уборку двора!",
-      status: "approved",
-    },
-    {
-      id: 3,
-      author: "Алексей",
-      text: "Домофон не работает уже неделю!",
-      status: "pending",
-    },
-    {
-      id: 4,
-      author: "Ольга",
-      text: "Качели во дворе сломаны, опасно для детей.",
-      status: "blocked",
-    },
-  ]);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    pageSize: 10,
+    status: 0,
+    searchText: "",
+  });
+  const { data, isLoading } = useQuery({
+    queryKey: [
+      "comments",
+      pagination.page,
+      pagination.pageSize,
+      pagination.status,
+      pagination.searchText,
+    ],
+    queryFn: () =>
+      getRequestComments(
+        null,
+        pagination.page,
+        pagination.pageSize,
+        pagination.status,
+        pagination.searchText
+      ),
+  });
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [searchText, setSearchText] = useState("");
-  const [searchStatus, setSearchStatus] = useState("");
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      searchText: "",
+      status: 0,
+    },
+  });
 
-  const handleDeleteComment = (id) => {
-    setComments(comments.filter((c) => c.id !== id));
-  };
+  const handleDeleteComment = (id) => {};
 
-  const handleChangeStatus = (id, newStatus) => {
-    setComments(
-      comments.map((c) => (c.id === id ? { ...c, status: newStatus } : c))
-    );
-  };
+  const handleChangeStatus = (id, newStatus) => {};
 
   const statusOptions = [
     { value: "", label: "Все статусы" },
-    { value: "pending", label: "Ожидает проверки" },
-    { value: "approved", label: "Одобрен" },
-    { value: "blocked", label: "Заблокирован" },
+    { value: 1, label: "Ожидает проверки" },
+    { value: 2, label: "Одобрен" },
+    { value: 3, label: "Удален" },
   ];
 
   const renderStatus = (status) => {
     switch (status) {
-      case "pending":
+      case 1:
         return "Ожидает проверки";
-      case "approved":
+      case 2:
         return "Одобрен";
-      case "blocked":
-        return "Заблокирован";
+      case 3:
+        return "Удален";
       default:
         return "Неизвестно";
     }
   };
 
-  const filteredAndSortedComments = useMemo(() => {
-    let filtered = comments.filter((c) => {
-      const matchesText = c.text
-        .toLowerCase()
-        .includes(searchText.toLowerCase());
-      const matchesStatus = searchStatus ? c.status === searchStatus : true;
-      return matchesText && matchesStatus;
-    });
-
+  useEffect(() => {
+    let comments;
     if (sortConfig.key) {
-      filtered.sort((a, b) => {
+      data?.requestComments.sort((a, b) => {
         const valA = a[sortConfig.key];
         const valB = b[sortConfig.key];
         if (valA < valB) return sortConfig.direction === "asc" ? -1 : 1;
@@ -96,8 +91,8 @@ export default function AdminCommentsModeration() {
         return 0;
       });
     }
-    return filtered;
-  }, [comments, sortConfig, searchText, searchStatus]);
+    return comments;
+  }, [data?.requestComments, sortConfig]);
 
   const handleSort = (key) => {
     let direction = "asc";
@@ -106,6 +101,24 @@ export default function AdminCommentsModeration() {
     }
     setSortConfig({ key, direction });
   };
+
+  const handlePageChange = (newPage) => {
+    setPagination((prev) => ({ ...prev, page: newPage }));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSearch = (data) => {
+    setPagination((prev) => ({
+      ...prev,
+      page: 1,
+      searchText: data?.searchText || "",
+      status: data?.status || 0,
+    }));
+  };
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -117,30 +130,37 @@ export default function AdminCommentsModeration() {
       <div className={styles.content}>
         <Block>
           <FormProvider {...methods}>
-            <div className={styles.searchBlock}>
+            <form
+              className={styles.searchBlock}
+              onSubmit={methods.handleSubmit(handleSearch)}
+            >
               <InputField
                 name="searchText"
                 label="Поиск"
                 placeholder="Текст комментария"
                 required={false}
-                rules={{
-                  onChange: (e) => setSearchText(e.target.value),
-                }}
               />
 
               <SelectField
-                name="searchStatus"
+                name="status"
                 label="Статус"
                 options={statusOptions}
                 required={false}
-                onValueChange={(val) => setSearchStatus(val)}
               />
-            </div>
+
+              <Button
+                className={styles.searchButton}
+                variant="secondary"
+                type="submit"
+              >
+                <MagnifyingGlassIcon className={styles.icon} />
+              </Button>
+            </form>
 
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th onClick={() => handleSort("id")}>
+                  <th>
                     ID{" "}
                     {sortConfig.key === "id" &&
                       (sortConfig.direction === "asc" ? (
@@ -168,36 +188,32 @@ export default function AdminCommentsModeration() {
                         <ChevronDownIcon className={styles.sortIcon} />
                       ))}
                   </th>
+                  <th>Время создания</th>
                   <th>Действия</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredAndSortedComments.map((c) => (
+                {data.requestComments.map((c) => (
                   <tr key={c.id}>
-                    <td>{c.id}</td>
-                    <td>{c.author}</td>
-                    <td>{c.text}</td>
-                    <td>{renderStatus(c.status)}</td>
+                    <td className={styles.idCell}>{c.id}</td>
+                    <td className={styles.nameCell}>{c.senderName}</td>
+                    <td className={styles.textCell}>{c.text}</td>
+                    <td className={styles.statusCell}>
+                      {renderStatus(c.status)}
+                    </td>
+                    <td className={styles.dateCell}>
+                      {format(new Date(c.createdAt), "dd MMM yyyy, HH:mm", {
+                        locale: ru,
+                      })}
+                    </td>
                     <td className={styles.actions}>
-                      <button
-                        onClick={() => handleChangeStatus(c.id, "approved")}
-                        className={styles.approveButton}
-                        title="Одобрить"
-                      >
+                      <button className={styles.viewButton} title="Удалить">
+                        <EyeIcon className={styles.buttonIcon} />
+                      </button>
+                      <button className={styles.approveButton} title="Одобрить">
                         <CheckCircleIcon className={styles.buttonIcon} />
                       </button>
-                      <button
-                        onClick={() => handleChangeStatus(c.id, "blocked")}
-                        className={styles.blockButton}
-                        title="Заблокировать"
-                      >
-                        <XCircleIcon className={styles.buttonIcon} />
-                      </button>
-                      <button
-                        onClick={() => handleDeleteComment(c.id)}
-                        className={styles.deleteButton}
-                        title="Удалить"
-                      >
+                      <button className={styles.blockButton} title="Удалить">
                         <TrashIcon className={styles.buttonIcon} />
                       </button>
                     </td>
@@ -206,6 +222,11 @@ export default function AdminCommentsModeration() {
               </tbody>
             </table>
           </FormProvider>
+          <Pagination
+            totalPages={data.totalCount / pagination.pageSize}
+            currentPage={pagination.page}
+            onPageChange={handlePageChange}
+          />
         </Block>
       </div>
     </div>
