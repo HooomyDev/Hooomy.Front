@@ -35,10 +35,11 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: var(--spacing-md);
+  gap: var(--spacing-sm);
 }
 
-.settingButton {
+.settingButton,
+.notificationButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -54,9 +55,15 @@
     transform 0.2s ease, color 0.2s ease;
 }
 
+.notificationButton {
+  .icon {
+    width: 32px;
+  }
+}
+
+.notificationButton:hover,
 .settingButton:hover {
-  background-color: var(--element-color);
-  color: var(--main-color);
+  color: var(--element-color);
   border-color: var(--element-color);
   transform: scale(1.05);
 }

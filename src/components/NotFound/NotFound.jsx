@@ -19,20 +19,22 @@ export default function NotFound() {
           Страница, которую вы ищете, могла быть удалена, переименована или
           временно недоступна.
         </div>
-        <Button
-          variant="primary"
-          className={styles.button}
-          onClick={() => navigate("/")}
-        >
-          На главную
-        </Button>
-        <Button
-          variant="secondary"
-          className={styles.button}
-          onClick={() => navigate(-1)}
-        >
-          Назад
-        </Button>
+        <div className={styles.actions}>
+          <Button
+            variant="primary"
+            className={styles.button}
+            onClick={() => navigate("/")}
+          >
+            На главную
+          </Button>
+          <Button
+            variant="secondary"
+            className={styles.button}
+            onClick={() => navigate(-1)}
+          >
+            Назад
+          </Button>
+        </div>
       </div>
     </div>
   );

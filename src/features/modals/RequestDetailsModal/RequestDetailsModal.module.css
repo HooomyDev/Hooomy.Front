@@ -239,3 +239,14 @@
     top: var(--spacing-xl);
   }
 }
+
+.reviewButton {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+  border: 1px solid var(--element-color);
+}
+
+.reviewIcon {
+  width: 24px;
+}

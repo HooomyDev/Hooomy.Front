@@ -24,6 +24,7 @@
   "surveys": "/surveys-panel",
   "requests": "/requests-panel",
   "statistics": "/statistic-panel",
+  "employee-works": "/employee-works",
 
   "adminDashboard": "/admin-dashboard",
   "databases": "/database",

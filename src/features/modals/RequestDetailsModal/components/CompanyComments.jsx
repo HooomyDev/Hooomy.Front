@@ -12,6 +12,7 @@ import {
 } from "../../../../api/services/requestService";
 import {
   ChatBubbleLeftRightIcon,
+  ExclamationTriangleIcon,
   PaperAirplaneIcon,
   BuildingOfficeIcon,
 } from "@heroicons/react/24/outline";
@@ -31,6 +32,9 @@ import {
 import Loader from "../../../../common/Loader/Loader";
 import { useNavigate } from "react-router-dom";
 import routes from "../../../../stores/routes.json";
+import CreateComplaintModal, {
+  COMPLAINT_TYPES,
+} from "../../CreateComplaintModal/CreateComplaintModal";
 
 export default function CompanyComments({ request }) {
   const [pagination, setPagination] = useState({
@@ -39,11 +43,13 @@ export default function CompanyComments({ request }) {
   });
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedComment, setSelectedComment] = useState(null);
   const { user } = useAuthStore();
   const queryClient = useQueryClient();
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const [editingComment, setEditingComment] = useState(null);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const { data: response, isLoading } = useQuery({
     queryKey: ["comments", request.id, pagination.page, pagination.pageSize],
@@ -129,7 +135,6 @@ export default function CompanyComments({ request }) {
   const startEdit = (comment) => {
     setEditingComment(comment);
     methods.setValue("comment", comment.text);
-    methods.setValue("photos", comment.photoUrls);
     document
       .querySelector(".commentForm")
       ?.scrollIntoView({ behavior: "smooth" });
@@ -202,6 +207,19 @@ export default function CompanyComments({ request }) {
     const sizes = ["Bytes", "KB", "MB", "GB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
+
+  const renderStatus = (status) => {
+    switch (status) {
+      case 1:
+        return "Ожидает проверки";
+      case 2:
+        return "Одобрен";
+      case 3:
+        return "Удален";
+      default:
+        return "Неизвестно";
+    }
   };
 
   return (
@@ -332,7 +350,7 @@ export default function CompanyComments({ request }) {
                         navigate(`${routes.companies}/${comment?.companyId}`)
                       }
                     >
-                      {comment.senderName || "Управляющая компания"}
+                      {comment.senderName || "ЖЭУ"}
                     </span>
                     <span className={styles.commentDate}>
                       {format(
@@ -357,6 +375,15 @@ export default function CompanyComments({ request }) {
                           )
                         </>
                       )}
+                    </span>
+                    <span
+                      className={`${styles.status} ${
+                        comment.status == 1
+                          ? styles.pendingStatus
+                          : styles.approvedStatus
+                      }`}
+                    >
+                      {renderStatus(comment.status)}
                     </span>
                   </div>
                   <p className={styles.commentText}>{comment.text}</p>
@@ -385,22 +412,37 @@ export default function CompanyComments({ request }) {
                     })}
                   </div>
                 </div>
-                <div className={styles.commentActions}>
-                  <Button
-                    variant="secondary"
-                    className={styles.trashButton}
-                    onClick={() => handleDelete(comment.id)}
-                  >
-                    <TrashIcon className={styles.trashIcon} />
-                  </Button>
-                  <Button
-                    variant="secondary"
-                    className={styles.submitButton}
-                    onClick={() => startEdit(comment)}
-                  >
-                    <PencilIcon className={styles.icon} />
-                  </Button>
-                </div>
+                {user?.role === "Employee" ? (
+                  <div className={styles.commentActions}>
+                    <Button
+                      variant="secondary"
+                      className={styles.trashButton}
+                      onClick={() => handleDelete(comment.id)}
+                    >
+                      <TrashIcon className={styles.trashIcon} />
+                    </Button>
+                    <Button
+                      variant="secondary"
+                      className={styles.submitButton}
+                      onClick={() => startEdit(comment)}
+                    >
+                      <PencilIcon className={styles.icon} />
+                    </Button>
+                  </div>
+                ) : (
+                  <div className={styles.commentActions}>
+                    <Button
+                      variant="secondary"
+                      className={styles.submitButton}
+                      onClick={() => {
+                        setSelectedComment(comment);
+                        setIsComplaintModalOpen(true);
+                      }}
+                    >
+                      <ExclamationTriangleIcon className={styles.submitIcon} />
+                    </Button>
+                  </div>
+                )}
               </div>
             ))
           )}
@@ -422,6 +464,15 @@ export default function CompanyComments({ request }) {
           )}
         </div>
       )}
+      <CreateComplaintModal
+        isOpen={isComplaintModalOpen}
+        onClose={() => {
+          setIsComplaintModalOpen(false);
+          setSelectedComment(null);
+        }}
+        type={COMPLAINT_TYPES[2].value}
+        data={selectedComment}
+      />
     </div>
   );
 }

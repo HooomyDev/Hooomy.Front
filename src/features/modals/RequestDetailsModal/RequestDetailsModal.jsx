@@ -20,7 +20,11 @@ import ImageGallery from "../../../common/ImageGallery/ImageGallery";
 import Button from "../../../common/Button/Button";
 import ConfirmDialog from "../../../common/ConfirmDialog/ConfirmDialog";
 import CompanyComments from "./components/CompanyComments";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/solid";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  StarIcon,
+} from "@heroicons/react/24/solid";
 
 export default function RequestDetailsModal({
   request,
@@ -101,6 +105,13 @@ export default function RequestDetailsModal({
         </div>
 
         <div className={styles.infoWrapper}>
+          {request?.status === 4 && (
+            <div className={styles.reviewWrapper}>
+              <Button variant="secondary" className={styles.reviewButton}>
+                <StarIcon className={styles.reviewIcon} /> Оценить работу ЖЭУ
+              </Button>
+            </div>
+          )}
           <div className={styles.reqTitle}>
             <div className={styles.titleHeader}>
               <div className={styles.info}>

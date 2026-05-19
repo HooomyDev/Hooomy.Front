@@ -175,11 +175,12 @@
 .commentActions {
   display: flex;
   gap: var(--spacing-sm);
+  margin-bottom: auto;
 
   .submitButton,
   .trashButton {
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
   }
 
   .icon {
@@ -254,36 +255,6 @@
   color: #888;
 }
 
-.removeFileBtn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-  width: 24px;
-  height: 24px;
-}
-
-.removeFileBtn:hover {
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid transparent;
-}
-
-.removeIcon {
-  width: 16px;
-  height: 16px;
-  color: #999;
-}
-
-.removeFileBtn:hover .removeIcon {
-  color: #d32f2f;
-}
-
 .commentImages {
   display: flex;
   flex-wrap: wrap;
@@ -336,12 +307,29 @@
 }
 
 .loadMoreBtn {
-  font-size: var(--font-size-base);
+  width: 300px;
   border: 1px solid transparent;
-  width: 250px;
-  height: 30px;
 }
 
 .loadMoreBtn:hover {
   border: 1px solid transparent;
+}
+
+.status {
+  display: flex;
+  background-color: var(--gray-color);
+  color: var(--font-color);
+  padding: 2px var(--spacing-md);
+  font-size: var(--font-size-sm);
+  border-radius: 15px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.pendingStatus {
+  color: #f57c00;
+}
+
+.approvedStatus {
+  color: #388e3c;
 }

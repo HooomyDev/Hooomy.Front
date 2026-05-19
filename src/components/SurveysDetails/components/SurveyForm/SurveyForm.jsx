@@ -8,6 +8,12 @@ import Button from "../../../../common/Button/Button";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 export default function SurveyForm({ Icon, survey, onSubmit, methods }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = methods;
+
   const renderAnswers = (type) => {
     if (type === 1) {
       // Одиночный выбор (Radio)
@@ -43,12 +49,6 @@ export default function SurveyForm({ Icon, survey, onSubmit, methods }) {
 
     return null;
   };
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = methods;
 
   return (
     <Block>

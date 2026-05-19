@@ -11,8 +11,9 @@ import styles from "./CreateComplaintModal.module.css";
 export const COMPLAINT_TYPES = [
   { value: 1, label: "Жалоба на жильца" },
   { value: 2, label: "Жалоба на управляющую компанию" },
-  { value: 3, label: "Жалоба на исполнение заявки" },
-  { value: 4, label: "Жалоба на работу сервиса" },
+  { value: 3, label: "Жалоба на комментарий" },
+  { value: 4, label: "Жалоба на исполнение заявки" },
+  { value: 5, label: "Жалоба на работу сервиса" },
 ];
 
 export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
@@ -29,6 +30,11 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
       if (type === 1) {
         const residentId = data?.residentId || "не указан";
         finalDescription = `ID Жильца: ${residentId}\n. ${description}`;
+      }
+
+      if (type == 3) {
+        const commentId = data?.id || "не указан";
+        finalDescription = `ID Комментария: ${commentId}\n. ${description}`;
       }
 
       return createComplaint(shortDescription, finalDescription, type);

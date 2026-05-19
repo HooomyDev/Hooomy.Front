@@ -109,13 +109,20 @@ export function useLinks() {
       },
       {
         id: 4,
+        to: routes["employee-works"],
+        label: t("nav.works"),
+        icon: Cog6ToothIcon,
+        type: "link",
+      },
+      {
+        id: 5,
         to: routes.statistics,
         label: t("nav.stat"),
         icon: ChartBarIcon,
         type: "link",
       },
       {
-        id: 5,
+        id: 6,
         to: routes.chat,
         label: "Сообщения",
         icon: ChatBubbleBottomCenterTextIcon,

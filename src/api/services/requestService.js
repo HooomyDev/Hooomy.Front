@@ -70,7 +70,7 @@ export const uploadRequestPhotos = async (requestId, formData) => {
 
 export const uploadRequestCommentPhotos = async (commentId, formData) => {
   const res = await client.post(
-    `/requests/${commentId}/upload-comment-images`,
+    `/requests/comments/${commentId}/upload-comment-images`,
     formData,
     {
       headers: {
@@ -157,6 +157,12 @@ export const getRequestComments = async (
   return response.data;
 };
 
+export const getComment = async (id) => {
+  const response = await client.get(`requests/comments/${id}`);
+
+  return response.data;
+};
+
 // Добавить комментарий
 export const addComment = async (requestId, companyId, text) => {
   const response = await client.post(`/requests/add-comment`, {
@@ -171,13 +177,20 @@ export const updateComment = async (requestComment) => {
   const response = await client.put(`/requests/comments/update`, {
     id: requestComment.id,
     text: requestComment.text,
+    status: requestComment.status,
   });
   return response.data;
 };
 
 export const deleteComment = async (id) => {
   const response = await client.delete(`requests/comments/delete/${id}`);
+  return response.data;
+};
 
+export const deleteCommentPhoto = async (commentId, imageId) => {
+  const response = await client.delete(
+    `/requests/comments/${commentId}/images/${imageId}`
+  );
   return response.data;
 };
 

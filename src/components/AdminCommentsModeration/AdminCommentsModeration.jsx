@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   ChatBubbleLeftRightIcon,
   CheckCircleIcon,
@@ -14,21 +14,29 @@ import PageHeader from "../../common/PageHeader/PageHeader";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import Block from "../../common/Block/Block";
-import { useQuery } from "@tanstack/react-query";
-import { getRequestComments } from "../../api/services/requestService";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  deleteComment,
+  getRequestComments,
+  updateComment,
+} from "../../api/services/requestService";
 import Loader from "../../common/Loader/Loader";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import Pagination from "../../common/Pagination/Pagination";
 import Button from "../../common/Button/Button";
+import CommentDetailModal from "./CommentDetailModal";
 
 export default function AdminCommentsModeration() {
+  const queryClient = useQueryClient();
+
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 10,
     status: 0,
     searchText: "",
   });
+
   const { data, isLoading } = useQuery({
     queryKey: [
       "comments",
@@ -43,11 +51,45 @@ export default function AdminCommentsModeration() {
         pagination.page,
         pagination.pageSize,
         pagination.status,
-        pagination.searchText
+        pagination.searchText,
       ),
   });
 
+  const statusMutation = useMutation({
+    mutationFn: (comment) => updateComment(comment),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "comments",
+          pagination.page,
+          pagination.pageSize,
+          pagination.status,
+          pagination.searchText,
+        ],
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteComment(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "comments",
+          pagination.page,
+          pagination.pageSize,
+          pagination.status,
+          pagination.searchText,
+        ],
+      });
+    },
+  });
+
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
+  const [detailModal, setDetailModal] = useState({
+    isOpen: false,
+    comment: null,
+  });
 
   const methods = useForm({
     defaultValues: {
@@ -56,12 +98,8 @@ export default function AdminCommentsModeration() {
     },
   });
 
-  const handleDeleteComment = (id) => {};
-
-  const handleChangeStatus = (id, newStatus) => {};
-
   const statusOptions = [
-    { value: "", label: "Все статусы" },
+    { value: 0, label: "Все статусы" },
     { value: 1, label: "Ожидает проверки" },
     { value: 2, label: "Одобрен" },
     { value: 3, label: "Удален" },
@@ -114,6 +152,14 @@ export default function AdminCommentsModeration() {
       searchText: data?.searchText || "",
       status: data?.status || 0,
     }));
+  };
+
+  const handleViewClick = (comment) => {
+    setDetailModal({ isOpen: true, comment });
+  };
+
+  const handleCloseDetailModal = () => {
+    setDetailModal({ isOpen: false, comment: null });
   };
 
   if (isLoading) {
@@ -207,13 +253,27 @@ export default function AdminCommentsModeration() {
                       })}
                     </td>
                     <td className={styles.actions}>
-                      <button className={styles.viewButton} title="Удалить">
+                      <button
+                        className={styles.viewButton}
+                        title="Подробнее"
+                        onClick={() => handleViewClick(c)}
+                      >
                         <EyeIcon className={styles.buttonIcon} />
                       </button>
-                      <button className={styles.approveButton} title="Одобрить">
+                      <button
+                        className={styles.approveButton}
+                        title="Одобрить"
+                        onClick={() =>
+                          statusMutation.mutate({ ...c, status: 2 })
+                        }
+                      >
                         <CheckCircleIcon className={styles.buttonIcon} />
                       </button>
-                      <button className={styles.blockButton} title="Удалить">
+                      <button
+                        className={styles.blockButton}
+                        title="Удалить"
+                        onClick={() => deleteMutation.mutate(c.id)}
+                      >
                         <TrashIcon className={styles.buttonIcon} />
                       </button>
                     </td>
@@ -223,12 +283,17 @@ export default function AdminCommentsModeration() {
             </table>
           </FormProvider>
           <Pagination
-            totalPages={data.totalCount / pagination.pageSize}
+            totalPages={data.totalCount / pagination.pageSize + 1}
             currentPage={pagination.page}
             onPageChange={handlePageChange}
           />
         </Block>
       </div>
+      <CommentDetailModal
+        isOpen={detailModal.isOpen}
+        onClose={handleCloseDetailModal}
+        comment={detailModal.comment}
+      />
     </div>
   );
 }

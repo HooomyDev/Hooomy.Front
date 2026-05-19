@@ -1,13 +1,33 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./Header.module.css";
 import Logo from "../Logo/Logo";
-import AuthButton from "../AuthButton/AuthButton";
+import AuthButton from "./components/AuthButton/AuthButton";
 import { useNavigate } from "react-router-dom";
-import { Cog6ToothIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { Bars3Icon, Cog6ToothIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import routes from "../../stores/routes.json";
 import NavItem from "../NavItem/NavItem";
 import { useLinks } from "../../utils/useLinks";
 import Navbar from "../Navbar/Navbar";
+import Notifications from "./components/Notifications/Notifications";
+
+// testNotifications.js
+const testNotifications = [
+  {
+    id: 1,
+    message: "Системное обновление",
+    type: 1,
+    isRead: false,
+    date: "2026-05-01",
+  },
+  { id: 2, message: "Новая заявка #123", type: 2, isRead: false },
+  { id: 3, message: "Назначена работа", type: 3, isRead: false },
+  { id: 3, message: "Назначена работа", type: 3, isRead: false },
+  { id: 4, message: "Назначена работа", type: 3, isRead: false },
+  { id: 5, message: "Назначена работа", type: 3, isRead: false },
+  { id: 6, message: "Назначена работа", type: 3, isRead: false },
+  { id: 7, message: "Назначена работа", type: 3, isRead: false },
+  { id: 8, message: "Обычное уведомление", type: 0, isRead: true },
+];
 
 export default function Header() {
   const navigate = useNavigate();
@@ -55,6 +75,7 @@ export default function Header() {
         <Navbar items={links} />
 
         <div className={styles.actions}>
+          <Notifications notifications={testNotifications} />
           <button
             className={styles.settingButton}
             onClick={() => navigate(routes.settings)}

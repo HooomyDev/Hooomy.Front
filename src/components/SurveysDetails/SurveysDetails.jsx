@@ -74,7 +74,8 @@ export default function SurveysDetails() {
         type: 1,
         optionId: data.surveyAnswer,
       };
-    } else if (survey.type === 2) {
+    }
+    if (survey.type === 2) {
       const selectedIds = Object.keys(data.surveyCheckbox).filter(
         (key) => data.surveyCheckbox[key] !== false
       );
