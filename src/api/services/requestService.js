@@ -205,3 +205,18 @@ export const updateRequest = async (request) => {
   });
   return response.data;
 };
+
+export const reviewRequest = async (requestId, score, text) => {
+  const response = await client.post(`/requests/${requestId}/review`, {
+    score: score,
+    text: text,
+  });
+
+  return response.data;
+};
+
+export const deleteReview = async (reviewId) => {
+  const response = await client.delete(`/requests/delete-review/${reviewId}`);
+
+  return response.data;
+};

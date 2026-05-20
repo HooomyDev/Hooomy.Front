@@ -232,7 +232,7 @@ export default function CompanyComments({ request }) {
         <div className={styles.count}>{response?.totalCount}</div>
       </div>
 
-      {(user?.role === "Employee" || user?.role === "Admin") && (
+      {user?.role === "Employee" && (
         <FormProvider {...methods}>
           <form
             onSubmit={methods.handleSubmit(handleSubmit)}
@@ -378,7 +378,7 @@ export default function CompanyComments({ request }) {
                     </span>
                     <span
                       className={`${styles.status} ${
-                        comment.status == 1
+                        comment.status === 1
                           ? styles.pendingStatus
                           : styles.approvedStatus
                       }`}
@@ -430,18 +430,22 @@ export default function CompanyComments({ request }) {
                     </Button>
                   </div>
                 ) : (
-                  <div className={styles.commentActions}>
-                    <Button
-                      variant="secondary"
-                      className={styles.submitButton}
-                      onClick={() => {
-                        setSelectedComment(comment);
-                        setIsComplaintModalOpen(true);
-                      }}
-                    >
-                      <ExclamationTriangleIcon className={styles.submitIcon} />
-                    </Button>
-                  </div>
+                  user?.role === "Resident" && (
+                    <div className={styles.commentActions}>
+                      <Button
+                        variant="secondary"
+                        className={styles.submitButton}
+                        onClick={() => {
+                          setSelectedComment(comment);
+                          setIsComplaintModalOpen(true);
+                        }}
+                      >
+                        <ExclamationTriangleIcon
+                          className={styles.submitIcon}
+                        />
+                      </Button>
+                    </div>
+                  )
                 )}
               </div>
             ))

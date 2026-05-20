@@ -79,10 +79,10 @@ export default function EmployeeRequests() {
 
   const statusOptions = [
     { value: 0, label: "Все статусы" },
-    { value: 1, label: "Новая" },
-    { value: 2, label: "В работе" },
-    { value: 3, label: "Завершена" },
-    { value: 4, label: "Отклонена" },
+    { value: 2, label: "Новая" },
+    { value: 3, label: "В работе" },
+    { value: 4, label: "Завершена" },
+    { value: 5, label: "Отклонена" },
   ];
 
   const getStatusColor = (status) => {

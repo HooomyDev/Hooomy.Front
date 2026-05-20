@@ -17,6 +17,7 @@
 .searchBlock {
   display: flex;
   align-items: flex-end;
+  flex-direction: row;
   gap: var(--spacing-xxl);
   width: 95%;
   justify-content: space-between;
@@ -108,6 +109,11 @@
   font-weight: 500;
 }
 
+.statusPending {
+  color: #f59e0b;
+  background: #fef3c7;
+}
+
 .statusNew {
   background: #e3f2fd;
   color: #1976d2;
@@ -159,28 +165,56 @@
 }
 
 .detailsButton {
-  background: none;
+  padding: 8px 8px;
   border: 1px solid transparent;
-  color: #1976d2;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 8px 16px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+  transition: all 0.2s;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: var(--spacing-sm);
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 500;
+  width: 40px;
+  height: 40px;
+}
+
+.detailsButton:hover {
+  border: 1px solid transparent;
+  background: #bae6fd;
+  color: #0480c2;
 }
 
 .detailsButton .icon {
-  width: 18px;
+  width: 24px;
 }
 
 .detailsButton:hover {
   border: 1px solid transparent;
   color: var(--element-color);
+}
+
+.approveButton {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.approveButton:hover {
+  background: #bbf7d0;
+  color: #1d8c48;
+}
+
+.rejectButton {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.rejectButton:hover {
+  color: #bf2222;
+  background: #fecaca;
 }
 
 .icon {
@@ -191,4 +225,10 @@
   max-width: 48px;
   height: 48px;
   padding: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-sm);
 }

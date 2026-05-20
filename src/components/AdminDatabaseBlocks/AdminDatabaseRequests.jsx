@@ -1,33 +1,41 @@
 import React, { useState } from "react";
 import Block from "../../common/Block/Block";
 import {
-  ChevronDoubleRightIcon,
   ClipboardDocumentListIcon,
   CubeIcon,
+  EyeIcon,
   MagnifyingGlassIcon,
   MapPinIcon,
+  PlayCircleIcon,
+  TrashIcon,
+  XCircleIcon,
 } from "@heroicons/react/24/solid";
-import { PlusIcon } from "@heroicons/react/24/outline";
 import styles from "./AdminDatabaseRequests.module.css";
 import { useForm, FormProvider } from "react-hook-form";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import PageHeader from "../../common/PageHeader/PageHeader";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "../../common/Loader/Loader";
 import {
   getRequestCategories,
   getRequestsForAdmin,
+  softDeleteRequest,
+  updateRequest,
 } from "../../api/services/requestService";
 import Pagination from "../../common/Pagination/Pagination";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import Button from "../../common/Button/Button";
+import Modal from "../../features/modals/Modal/Modal";
+import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
+import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
 
 const statusMap = {
-  1: { text: "Новая", className: "statusNew" },
-  2: { text: "В работе", className: "statusInProgress" },
-  3: { text: "Завершена", className: "statusCompleted" },
-  4: { text: "Отклонена", className: "statusRejected" },
+  1: { text: "Ожидает проеверки", className: "statusPending" },
+  2: { text: "Новая", className: "statusNew" },
+  3: { text: "Отклонена", className: "statusRejected" },
+  4: { text: "В работе", className: "statusInProgress" },
+  5: { text: "Завершена", className: "statusCompleted" },
 };
 
 const categoryMap = {
@@ -66,6 +74,10 @@ export default function AdminDatabaseRequests() {
     searchStatus: "",
     searchCategory: "",
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const queryClient = useQueryClient();
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const { data: response, isLoading } = useQuery({
     queryKey: [
@@ -102,10 +114,11 @@ export default function AdminDatabaseRequests() {
 
   const statusOptions = [
     { value: 0, label: "Все статусы" },
-    { value: 1, label: "Новая" },
-    { value: 2, label: "В работе" },
-    { value: 3, label: "Завершена" },
-    { value: 4, label: "Отклонена" },
+    { value: 1, label: "Ожидает проверки" },
+    { value: 2, label: "Новая" },
+    { value: 3, label: "Отклонена" },
+    { value: 4, label: "В работе" },
+    { value: 5, label: "Завершена" },
   ];
 
   const handleSearch = () => {
@@ -121,6 +134,48 @@ export default function AdminDatabaseRequests() {
   const handlePageChange = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const statusMutation = useMutation({
+    mutationFn: (request) => updateRequest(request),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "requests",
+          pagination.page,
+          pagination.pageSize,
+          filters.searchTitle,
+          filters.searchStatus,
+          filters.searchCategory,
+        ],
+      });
+    },
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: (requestId) => softDeleteRequest(requestId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "requests",
+          pagination.page,
+          pagination.pageSize,
+          filters.searchTitle,
+          filters.searchStatus,
+          filters.searchCategory,
+        ],
+      });
+    },
+  });
+
+  const handleConfirmDelete = () => {
+    deleteMutation.mutate(selectedRequest.id);
+    setSelectedRequest(null);
+    setShowConfirmDialog(false);
+  };
+  const handleCancelDelete = () => {
+    setSelectedRequest(null);
+    setShowConfirmDialog(false);
   };
 
   if (isLoading) {
@@ -182,37 +237,67 @@ export default function AdminDatabaseRequests() {
             <>
               <div className={styles.requestsList}>
                 {response.requests.map((request) => (
-                  <div key={request.id} className={styles.requestCard}>
-                    <div className={styles.cardHeader}>
-                      <h3 className={styles.title}>{request.title}</h3>
-                      <span
-                        className={`${styles.status} ${
-                          styles[statusMap[request.status]?.className]
-                        }`}
-                      >
-                        {statusMap[request.status]?.text || "Неизвестно"}
-                      </span>
-                    </div>
-
-                    <p className={styles.description}>{request.description}</p>
-
-                    <div className={styles.cardFooter}>
-                      <div className={styles.info}>
-                        <span className={styles.address}>
-                          <MapPinIcon className={styles.icon} />{" "}
-                          {request.address}
-                        </span>
-                        <span className={styles.category}>
-                          <CubeIcon className={styles.icon} />{" "}
-                          {categoryMap[request.category] || "Другое"}
+                  <>
+                    <div key={request.id} className={styles.requestCard}>
+                      <div className={styles.cardHeader}>
+                        <h3 className={styles.title}>{request.title}</h3>
+                        <span
+                          className={`${styles.status} ${
+                            styles[statusMap[request.status]?.className]
+                          }`}
+                        >
+                          {statusMap[request.status]?.text || "Неизвестно"}
                         </span>
                       </div>
-                      <button className={styles.detailsButton}>
-                        Подробнее{" "}
-                        <ChevronDoubleRightIcon className={styles.icon} />
-                      </button>
+
+                      <p className={styles.description}>
+                        {request.description}
+                      </p>
+
+                      <div className={styles.cardFooter}>
+                        <div className={styles.info}>
+                          <span className={styles.address}>
+                            <MapPinIcon className={styles.icon} />{" "}
+                            {request.address}
+                          </span>
+                          <span className={styles.category}>
+                            <CubeIcon className={styles.icon} />{" "}
+                            {categoryMap[request.category] || "Другое"}
+                          </span>
+                        </div>
+                        <div className={styles.actions}>
+                          <button
+                            className={`${styles.detailsButton}`}
+                            onClick={() => {
+                              setSelectedRequest(request);
+                              setIsModalOpen(true);
+                            }}
+                          >
+                            <EyeIcon className={styles.icon} />
+                          </button>
+                          {request.status === 1 && (
+                            <button
+                              className={`${styles.detailsButton} ${styles.approveButton}`}
+                              onClick={() =>
+                                statusMutation.mutate({ ...request, status: 2 })
+                              }
+                            >
+                              <PlayCircleIcon className={styles.actionIcon} />
+                            </button>
+                          )}
+                          <button
+                            className={`${styles.detailsButton} ${styles.rejectButton}`}
+                            onClick={() => {
+                              setSelectedRequest(request);
+                              setShowConfirmDialog(true);
+                            }}
+                          >
+                            <TrashIcon className={styles.actionIcon} />
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                  </>
                 ))}
               </div>
               <Pagination
@@ -224,6 +309,31 @@ export default function AdminDatabaseRequests() {
           )}
         </Block>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedRequest(null);
+        }}
+      >
+        <RequestDetailsModal
+          request={selectedRequest}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedRequest(null);
+          }}
+        />
+      </Modal>
+      <ConfirmDialog
+        isOpen={showConfirmDialog}
+        onClose={handleCancelDelete}
+        onConfirm={handleConfirmDelete}
+        title="Подтверждение удаления"
+        message="Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить."
+        confirmText="Удалить"
+        cancelText="Отмена"
+        confirmVariant="danger"
+      />
     </div>
   );
 }

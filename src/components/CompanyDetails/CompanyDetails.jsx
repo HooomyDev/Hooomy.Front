@@ -19,6 +19,7 @@ import {
   UsersIcon,
   PencilIcon,
   TrashIcon,
+  StarIcon,
 } from "@heroicons/react/24/solid";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import Block from "../../common/Block/Block";
@@ -162,6 +163,11 @@ export default function CompanyDetails() {
       value: new Date(company.createdAt).toLocaleDateString("ru-RU"),
       icon: <CalendarIcon className={styles.icon} />,
     },
+    {
+      label: "Рейтинг",
+      value: company.averageRating || 0,
+      icon: <StarIcon className={styles.icon} />,
+    },
   ];
 
   return (
@@ -249,6 +255,45 @@ export default function CompanyDetails() {
         </div>
       </Block>
 
+      <div className={styles.addressHeader}>
+        <StarIcon className={styles.icon} />
+        <h2>Отзывы</h2>
+      </div>
+      <Block>
+        {!company.reviews || company.reviews.length === 0 ? (
+          <EmptyBlock Icon={StarIcon}>Отзывов пока нет</EmptyBlock>
+        ) : (
+          <div className={styles.reviewsList}>
+            {company.reviews.map((review) => (
+              <div key={review.id} className={styles.reviewItem}>
+                <div className={styles.reviewHeader}>
+                  <UserIcon className={styles.icon} />
+                  <div className={styles.reviewScore}>
+                    {[...Array(5)].map((_, i) => (
+                      <StarIcon
+                        key={i}
+                        className={`${styles.star} ${
+                          i < review.score ? styles.starFilled : ""
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <div className={styles.date}>
+                    {new Date(review.createdAt).toLocaleDateString("ru-RU")}
+                  </div>
+                </div>
+
+                {review.text && review.text.trim() !== "" ? (
+                  <div className={styles.reviewText}>{review.text}</div>
+                ) : (
+                  <div className={styles.reviewText}>Без комментария</div>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </Block>
+
       {/* Обслуживаемые адреса */}
       <div className={styles.addressHeader}>
         <MapPinIcon className={styles.icon} />
@@ -292,54 +337,57 @@ export default function CompanyDetails() {
       </Block>
 
       {/* Работники */}
-      <div className={styles.addressHeader}>
-        <UsersIcon className={styles.icon} />
-        <h2>Работники</h2>
-        {user?.role === "Admin" && (
-          <div className={styles.blockActions}>
-            <Button
-              className={styles.addBtn}
-              onClick={() => setIsAddUserOpen(true)}
-              variant="secondary"
-            >
-              <PlusIcon className={styles.addIcon} />
-            </Button>
-          </div>
-        )}
-      </div>
-      <Block>
-        {isEmployeesLoading ? (
-          <Loader />
-        ) : employees.length === 0 ? (
-          <EmptyBlock Icon={UsersIcon}>Работников пока что нет</EmptyBlock>
-        ) : (
-          <div className={styles.employeeList}>
-            {employees.map((emp) => (
-              <div key={emp.id} className={styles.employeeItem}>
-                <div className={styles.employeeAvatar}>
-                  <UserIcon className={styles.avatarIcon} />
-                </div>
-                <div className={styles.employeeInfo}>
-                  <span className={styles.employeeName}>
-                    {emp.surname} {emp.firstName}
-                  </span>
-                  <span className={styles.employeeRole}>{emp.role}</span>
-                </div>
-                {user?.role === "Admin" && (
-                  <Button
-                    className={styles.deleteBtn}
-                    title="Удалить из компании"
-                    onClick={() => setUserToDelete(emp)}
-                  >
-                    <TrashIcon className={styles.btnIcon} />
-                  </Button>
-                )}
+      {user?.role === "Admin" && (
+        <>
+          <div className={styles.addressHeader}>
+            <UsersIcon className={styles.icon} />
+            <h2>Работники</h2>
+            {user?.role === "Admin" && (
+              <div className={styles.blockActions}>
+                <Button
+                  className={styles.addBtn}
+                  onClick={() => setIsAddUserOpen(true)}
+                  variant="secondary"
+                >
+                  <PlusIcon className={styles.addIcon} />
+                </Button>
               </div>
-            ))}
+            )}
           </div>
-        )}
-      </Block>
-
+          <Block>
+            {isEmployeesLoading ? (
+              <Loader />
+            ) : employees.length === 0 ? (
+              <EmptyBlock Icon={UsersIcon}>Работников пока что нет</EmptyBlock>
+            ) : (
+              <div className={styles.employeeList}>
+                {employees.map((emp) => (
+                  <div key={emp.id} className={styles.employeeItem}>
+                    <div className={styles.employeeAvatar}>
+                      <UserIcon className={styles.avatarIcon} />
+                    </div>
+                    <div className={styles.employeeInfo}>
+                      <span className={styles.employeeName}>
+                        {emp.surname} {emp.firstName}
+                      </span>
+                      <span className={styles.employeeRole}>{emp.role}</span>
+                    </div>
+                    {user?.role === "Admin" && (
+                      <Button
+                        className={styles.deleteBtn}
+                        title="Удалить из компании"
+                        onClick={() => setUserToDelete(emp)}
+                      >
+                        <TrashIcon className={styles.btnIcon} />
+                      </Button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </Block>
+        </>
+      )}
       <AddUserToCompanyModal
         isOpen={isAddUserOpen}
         onClose={() => setIsAddUserOpen(false)}

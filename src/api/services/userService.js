@@ -10,7 +10,7 @@ export const getUserCount = async () => {
 
 export const getUserList = async (page = 1, pageSize = 10) => {
   const res = await client.get(
-    `admin/users/list?page=${page}&pageSize=${pageSize}`,
+    `admin/users/list?page=${page}&pageSize=${pageSize}`
   );
 
   const data = res.data;
@@ -26,7 +26,7 @@ export const changeUserStatus = async (id, status) => {
 
 export const getUsersForCompany = async (companyId) => {
   const res = await client.get(
-    `admin/users/get-users-for-company/${companyId}`,
+    `admin/users/get-users-for-company/${companyId}`
   );
   return res.data;
 };
@@ -48,4 +48,14 @@ export const changePassword = async (oldPassword, newPassword, email) => {
     email,
   });
   return res.data;
+};
+
+export const forgotPassword = async (email) => {
+  const response = await client.post("/auth/forgot-password", { email });
+  return response.data;
+};
+
+export const resetPassword = async (data) => {
+  const response = await client.post("/auth/reset-password", data);
+  return response.data;
 };

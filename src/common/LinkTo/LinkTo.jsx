@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 
 export default function LinkTo({ link, text, label }) {
   return (
-    <p className={styles.text}>
-      {text}{" "}
+    <div className={styles.text}>
+      {text !== null && text}{" "}
       <Link to={link} className={styles.link}>
         {label}
       </Link>
-    </p>
+    </div>
   );
 }

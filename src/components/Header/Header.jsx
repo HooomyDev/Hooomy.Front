@@ -9,6 +9,7 @@ import NavItem from "../NavItem/NavItem";
 import { useLinks } from "../../utils/useLinks";
 import Navbar from "../Navbar/Navbar";
 import Notifications from "./components/Notifications/Notifications";
+import { useAuthStore } from "../../stores/authStore";
 
 // testNotifications.js
 const testNotifications = [
@@ -33,6 +34,7 @@ export default function Header() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const navRef = useRef(null);
+  const { user } = useAuthStore();
 
   const links = useLinks();
 
@@ -75,7 +77,9 @@ export default function Header() {
         <Navbar items={links} />
 
         <div className={styles.actions}>
-          <Notifications notifications={testNotifications} />
+          {user?.role === "Resident" && (
+            <Notifications notifications={testNotifications} />
+          )}
           <button
             className={styles.settingButton}
             onClick={() => navigate(routes.settings)}

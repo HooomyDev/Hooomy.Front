@@ -308,3 +308,75 @@
 .addressText {
   flex: 1;
 }
+
+.reviewsList {
+  display: flex;
+  gap: var(--spacing-md);
+  width: 100%;
+  padding: 0 var(--spacing-md);
+  flex-wrap: wrap;
+  max-height: 500px;
+}
+
+.reviewItem {
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 16px 20px;
+  gap: var(--spacing-sm);
+  border: 1px solid #e2e8f0;
+  width: 350px;
+  height: 200px;
+}
+
+.reviewScore {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star {
+  width: 18px;
+  height: 18px;
+  color: #cbd5e1;
+}
+
+.starFilled {
+  color: #f59e0b;
+  fill: #f59e0b;
+}
+
+.reviewText {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+}
+
+.reviewHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: var(--spacing-sm);
+}
+
+.reviewHeader .icon {
+  color: var(--element-color);
+}
+
+.reviewText {
+  word-wrap: break-word;
+  overflow-y: auto;
+}
+
+.date {
+  margin-left: auto;
+  font-size: var(--font-size-sm);
+  color: #334155;
+}

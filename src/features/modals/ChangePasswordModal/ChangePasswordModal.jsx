@@ -24,12 +24,11 @@ export default function ChangePasswordModal({ onSuccess }) {
 
   const onSubmit = async (data) => {
     try {
-      await client.post("/change-password", {
+      await client.post("/auth/change-password", {
         email: user.email,
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       });
-      alert("Пароль успешно изменён");
       onSuccess();
     } catch (error) {
       console.error("Change password failed:", error);

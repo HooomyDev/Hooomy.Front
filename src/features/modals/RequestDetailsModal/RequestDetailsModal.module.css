@@ -32,11 +32,6 @@
 
 .infoWrapper {
   width: 100%;
-  background: linear-gradient(
-    135deg,
-    var(--main-color) 0%,
-    var(--card-background) 100%
-  );
   border-radius: var(--border-radius);
   padding: var(--spacing-xl);
   padding-top: var(--spacing-sm);
@@ -121,6 +116,7 @@
   border-radius: var(--border-radius);
 }
 
+.review,
 .reqDescription {
   background: var(--main-color);
   padding: var(--spacing-md);
@@ -131,6 +127,7 @@
   word-wrap: break-word;
 }
 
+.reviewHeader,
 .descriptionHeader {
   display: flex;
   align-items: center;
@@ -144,6 +141,7 @@
   letter-spacing: 1px;
 }
 
+.review .info,
 .descriptionHeader .info {
   display: flex;
   flex-direction: row;
@@ -240,6 +238,10 @@
   }
 }
 
+.reviewWrapper {
+  padding-top: var(--spacing-lg);
+}
+
 .reviewButton {
   display: flex;
   gap: var(--spacing-sm);
@@ -249,4 +251,35 @@
 
 .reviewIcon {
   width: 24px;
+}
+
+.reviewHeader {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #334155;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.trashButton {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  max-width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+.icon {
+  width: 16px;
+}
+
+.trashIcon {
+  width: 16px;
+  color: var(--error-color);
 }

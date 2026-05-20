@@ -44,16 +44,16 @@ export default function EmployeeRequestsTable({
 
   const statusMap = {
     0: { label: "Неизвестно", icon: null },
-    1: { label: "Новое", icon: <ClockIcon className={styles.statusIcon} /> },
-    2: {
+    2: { label: "Новое", icon: <ClockIcon className={styles.statusIcon} /> },
+    3: {
       label: "Отклонено",
       icon: <XCircleIcon className={styles.statusIcon} />,
     },
-    3: {
+    4: {
       label: "В обработке",
       icon: <ClockIcon className={styles.statusIcon} />,
     },
-    4: {
+    5: {
       label: "Выполнено",
       icon: <CheckCircleIcon className={styles.statusIcon} />,
     },
@@ -143,11 +143,11 @@ export default function EmployeeRequestsTable({
                       <EyeIcon className={styles.actionIcon} />
                     </button>
 
-                    {request.status === 1 && (
+                    {request.status === 2 && (
                       <button
                         className={`${styles.actionButton} ${styles.inProgressButton}`}
                         onClick={() =>
-                          onStatusChange({ ...request, status: 3 })
+                          onStatusChange({ ...request, status: 4 })
                         }
                         title="Взять в работу"
                       >
@@ -155,12 +155,12 @@ export default function EmployeeRequestsTable({
                       </button>
                     )}
 
-                    {request.status === 3 && (
+                    {request.status === 4 && (
                       <>
                         <button
                           className={`${styles.actionButton} ${styles.completeButton}`}
                           onClick={() =>
-                            onStatusChange({ ...request, status: 4 })
+                            onStatusChange({ ...request, status: 5 })
                           }
                           title={t("employeeRequestsTable.actions.complete")}
                         >
@@ -170,7 +170,7 @@ export default function EmployeeRequestsTable({
                         <button
                           className={`${styles.actionButton} ${styles.rejectButton}`}
                           onClick={() =>
-                            onStatusChange({ ...request, status: 2 })
+                            onStatusChange({ ...request, status: 3 })
                           }
                           title={t("employeeRequestsTable.actions.reject")}
                         >

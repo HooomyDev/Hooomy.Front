@@ -41,6 +41,8 @@ import RequestsDataPage from "./pages/RequestsDataPage/RequestsDataPage";
 import AddressesDataPage from "./pages/AddressesDataPage/AddressesDataPage";
 import CreateRequestPage from "./pages/CreateRequestPage/CreateRequestPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage/ChangePasswordPage";
+import ResetPassword from "./features/login/ResetPassword/ResetPassword";
+import ForgotPassword from "./features/login/ForgotPassword/ForgotPassword";
 
 export default function App() {
   useEffect(() => {
@@ -328,6 +330,9 @@ export default function App() {
         <Route path={routes.cookies} element={<Layout />}>
           <Route index element={<CookiesPolicyPage />} />
         </Route>
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </QueryClientProvider>
   );

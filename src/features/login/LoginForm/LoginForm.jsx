@@ -154,11 +154,15 @@ export default function LoginForm() {
             onNext={methods.handleSubmit(onSubmit)}
           />
 
-          <LinkTo
-            label={t("login.messageLink")}
-            text={t("login.message")}
-            link={routes.register}
-          />
+          <div className={styles.links}>
+            <LinkTo
+              label={t("login.messageLink")}
+              text={t("login.message")}
+              link={routes.register}
+            />
+
+            <LinkTo label={"Забыли пароль?"} link={"/forgot-password"} />
+          </div>
         </form>
       </FormProvider>
     </div>
