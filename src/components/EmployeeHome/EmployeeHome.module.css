@@ -100,3 +100,64 @@
   font-size: var(--font-size-base);
   color: var(--font-color);
 }
+
+.statWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  padding: 0 var(--spacing-lg);
+  gap: var(--spacing-md);
+}
+
+.statList {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-lg);
+}
+
+.statCard {
+  display: flex;
+  flex-direction: row;
+  width: 250px;
+  height: 125px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--gray-color);
+}
+
+.statCard .statContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  border-left: 5px solid var(--element-color);
+}
+
+.label {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--font-color);
+}
+
+.count {
+  font-size: var(--font-size-subtitle);
+  font-weight: 700;
+  color: var(--element-color);
+}
+
+.statCard .iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+}
+
+.statCard .icon {
+  width: 40px;
+}

@@ -66,44 +66,6 @@ export default function Settings() {
           </Block>
         </form>
       </FormProvider>
-
-      <Block title={t("settings.notifications")} Icon={NewspaperIcon}>
-        <div className={styles.socials}>
-          <CheckBox
-            value="email"
-            label={
-              <div className={styles.social}>
-                <img className={styles.socialImg} src={emailLogo} alt="Email" />
-                <span>Email</span>
-              </div>
-            }
-            checked={selected.includes("email")}
-            onChange={() => toggleNotification("email")}
-          />
-          <CheckBox
-            value="telegram"
-            label={
-              <div className={styles.social}>
-                <img className={styles.socialImg} src={tgLogo} alt="Telegram" />
-                <span>Telegram</span>
-              </div>
-            }
-            checked={selected.includes("telegram")}
-            onChange={() => toggleNotification("telegram")}
-          />
-          <CheckBox
-            value="viber"
-            label={
-              <div className={styles.social}>
-                <img className={styles.socialImg} src={viberLogo} alt="Viber" />
-                <span>Viber</span>
-              </div>
-            }
-            checked={selected.includes("viber")}
-            onChange={() => toggleNotification("viber")}
-          />
-        </div>
-      </Block>
     </div>
   );
 }

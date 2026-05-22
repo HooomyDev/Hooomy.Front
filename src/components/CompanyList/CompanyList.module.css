@@ -30,6 +30,7 @@
   padding: var(--spacing-lg);
   font-weight: 600;
   transition: all ease 0.2s;
+  cursor: pointer;
 }
 
 .company:hover {

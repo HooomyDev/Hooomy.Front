@@ -39,6 +39,7 @@ export default function RequestDetailsModal({
   const [showRatingModal, setShowRatingModal] = useState(false);
 
   const STATUS_MAP = {
+    1: { text: "Ожидает модерации", icon: ClockIcon, color: "#f57c00" },
     2: { text: "Создан", icon: ClockIcon, color: "#1976d2" },
     3: { text: "Отклонено", icon: XCircleIcon, color: "#d32f2f" },
     4: { text: "В обработке", icon: ExclamationCircleIcon, color: "#f57c00" },
@@ -119,7 +120,7 @@ export default function RequestDetailsModal({
           </div>
 
           <div className={styles.infoWrapper}>
-            {requestDetails?.status === 4 && requestDetails.review === null && (
+            {requestDetails?.status === 5 && requestDetails.review === null && (
               <div className={styles.reviewWrapper}>
                 <Button
                   variant="secondary"

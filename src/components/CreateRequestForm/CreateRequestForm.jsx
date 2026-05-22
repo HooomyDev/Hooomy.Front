@@ -151,10 +151,12 @@ export default function CreateRequestForm() {
                 <SelectField
                   label={t("requests.categoryLabel")}
                   {...methods.register("category")}
-                  options={requestCategories.map((c) => ({
-                    value: c.code,
-                    label: c.name,
-                  }))}
+                  options={
+                    requestCategories?.map((c) => ({
+                      value: c.code,
+                      label: c.name,
+                    })) || []
+                  }
                   required
                 />
               </div>

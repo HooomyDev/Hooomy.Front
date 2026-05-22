@@ -57,7 +57,7 @@ export default function CompanyList() {
   const onSubmit = (data) => {
     const filtered =
       companies?.filter((company) =>
-        company.name.toLowerCase().includes(data.search.toLowerCase()),
+        company.name.toLowerCase().includes(data.search.toLowerCase())
       ) || [];
 
     setFilteredCompanies(filtered);
@@ -78,7 +78,7 @@ export default function CompanyList() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={WrenchScrewdriverIcon} title="Управляющие компании" />
+      <PageHeader icon={WrenchScrewdriverIcon} title="Список ЖЭУ" />
       <div className={styles.search}>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>

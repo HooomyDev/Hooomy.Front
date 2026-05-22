@@ -21,7 +21,7 @@ import {
   TrashIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon, PlusIcon } from "@heroicons/react/24/outline";
 import Block from "../../common/Block/Block";
 import Button from "../../common/Button/Button";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
@@ -37,6 +37,9 @@ import {
   removeUserFromCompany,
 } from "../../api/services/userService";
 import AddUserToCompanyModal from "../../features/modals/AddUserToCompanyModal/AddUserToCompanyModal";
+import CreateComplaintModal, {
+  COMPLAINT_TYPES,
+} from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
 
 export default function CompanyDetails() {
   const { companyId } = useParams();
@@ -50,6 +53,8 @@ export default function CompanyDetails() {
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
   const [addressToDelete, setAddressToDelete] = useState(null);
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const { data: company, isLoading } = useQuery({
     queryKey: ["company", companyId],
@@ -101,7 +106,6 @@ export default function CompanyDetails() {
     mutationKey: ["createChat"],
     mutationFn: () => createChat(companyId),
     onSuccess: (data) => {
-      // Успешно создан чат
       console.log("Chat created:", data);
       navigate(routes.chats);
     },
@@ -198,7 +202,19 @@ export default function CompanyDetails() {
           )}
           <div className={styles.blockContent}>
             <div className={styles.companyHeader}>
-              <h1>{company.name}</h1>
+              <div className={styles.header}>
+                <h1>{company.name}</h1>
+                <Button
+                  variant="secondary"
+                  className={styles.submitButton}
+                  onClick={() => {
+                    setSelectedCompany(company);
+                    setIsComplaintModalOpen(true);
+                  }}
+                >
+                  <ExclamationTriangleIcon className={styles.submitIcon} />
+                </Button>
+              </div>
               {user?.role === "Admin" && (
                 <div className={styles.headerActions}>
                   <Button
@@ -243,10 +259,10 @@ export default function CompanyDetails() {
                   </Button>
                   <Button
                     className={styles.actionButton}
-                    onClick={handleClick}
+                    onClick={() => handleClick()}
                     disabled={user?.status === "Pending" || !user}
                   >
-                    {"Написать"}
+                    Написать
                   </Button>
                 </>
               )}
@@ -440,6 +456,16 @@ export default function CompanyDetails() {
         message={`Вы уверены, что хотите удалить компанию "${company.name}"? Это действие необратимо.`}
         confirmText="Удалить"
         confirmVariant="danger"
+      />
+
+      <CreateComplaintModal
+        isOpen={isComplaintModalOpen}
+        onClose={() => {
+          setIsComplaintModalOpen(false);
+          setSelectedCompany(null);
+        }}
+        type={COMPLAINT_TYPES[1].value}
+        data={selectedCompany}
       />
     </div>
   );

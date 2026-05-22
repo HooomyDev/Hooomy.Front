@@ -30,6 +30,15 @@ export function useLinks() {
         icon: HomeIcon,
         type: "link",
       },
+
+      {
+        id: 4,
+        to: routes.hmoStat,
+        label: t("nav.stat"),
+        icon: ChartBarIcon,
+        type: "link",
+      },
+
       {
         id: 2,
         label: t("nav.data"),
@@ -48,39 +57,24 @@ export function useLinks() {
           },
           {
             id: 2.3,
-            to: routes["addresses-data"],
-            label: "Адреса",
-            icon: MapPinIcon,
-          },
-          {
-            id: 2.4,
             to: routes["users-data"],
             label: "Пользователи",
             icon: UserGroupIcon,
           },
+          {
+            id: 2.4,
+            to: routes.complaints,
+            label: t("nav.complaints"),
+            icon: ExclamationTriangleIcon,
+          },
+          {
+            id: 2.5,
+            to: routes.comments,
+            label: t("nav.comments"),
+            icon: ChatBubbleLeftRightIcon,
+          },
         ],
         type: "drop",
-      },
-      {
-        id: 3,
-        to: routes.complaints,
-        label: t("nav.complaints"),
-        icon: ExclamationTriangleIcon,
-        type: "link",
-      },
-      {
-        id: 4,
-        to: routes.hmoStat,
-        label: t("nav.stat"),
-        icon: ChartBarIcon,
-        type: "link",
-      },
-      {
-        id: 5,
-        to: routes.comments,
-        label: t("nav.comments"),
-        icon: ChatBubbleLeftRightIcon,
-        type: "link",
       },
     ];
 

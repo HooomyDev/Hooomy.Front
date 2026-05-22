@@ -32,7 +32,12 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
         finalDescription = `ID Жильца: ${residentId}\n. ${description}`;
       }
 
-      if (type == 3) {
+      if (type === 2) {
+        const companyId = data?.id || "не указан";
+        finalDescription = `ID Компании: ${companyId}\n. ${description}`;
+      }
+
+      if (type === 3) {
         const commentId = data?.id || "не указан";
         finalDescription = `ID Комментария: ${commentId}\n. ${description}`;
       }
