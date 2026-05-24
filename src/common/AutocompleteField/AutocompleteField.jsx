@@ -30,7 +30,7 @@ export default function AutocompleteField({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const filteredOptions = options.filter((opt) =>
+  const filteredOptions = options?.filter((opt) =>
     opt.label.toLowerCase().includes(search.toLowerCase())
   );
 
@@ -61,7 +61,7 @@ export default function AutocompleteField({
                   errors[name] ? styles.inputError : ""
                 }`}
                 value={
-                  search || options.find((o) => o.value === value)?.label || ""
+                  search || options?.find((o) => o.value === value)?.label || ""
                 }
                 placeholder="Введите что-нибудь..."
                 onChange={(e) => {

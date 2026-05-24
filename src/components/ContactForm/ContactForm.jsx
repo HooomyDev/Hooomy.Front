@@ -102,7 +102,6 @@ export default function ContactForm() {
             rows={5}
             required
             rules={{
-              maxLength: 2000,
               required: "Сообщение обязательно",
               minLength: {
                 value: 3,

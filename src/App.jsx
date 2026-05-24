@@ -45,6 +45,7 @@ import ResetPassword from "./features/login/ResetPassword/ResetPassword";
 import ForgotPassword from "./features/login/ForgotPassword/ForgotPassword";
 import HousePage from "./pages/HousePage/HousePage";
 import InquiriesPage from "./pages/InquiriesPage/InquiriesPage";
+import EmployeeWorksPage from "./pages/EmployeeWorksPage/EmployeeWorksPage";
 
 export default function App() {
   useEffect(() => {
@@ -192,6 +193,16 @@ export default function App() {
             element={
               <ProtectedRoute roles={["Employee"]}>
                 <EmployeeStatisticPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        <Route path={routes["employee-works"]} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Employee"]}>
+                <EmployeeWorksPage />
               </ProtectedRoute>
             }
           />

@@ -44,6 +44,7 @@ export default function EmployeeRequestsTable({
 
   const statusMap = {
     0: { label: "Неизвестно", icon: null },
+    1: { label: "Неизвестно", icon: null },
     2: { label: "Новое", icon: <ClockIcon className={styles.statusIcon} /> },
     3: {
       label: "Отклонено",

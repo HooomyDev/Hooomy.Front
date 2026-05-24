@@ -87,13 +87,13 @@ export default function EmployeeRequests() {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 1:
+      case 2:
         return "#1976d2";
       case 3:
         return "#f57c00";
       case 4:
         return "#388e3c";
-      case 2:
+      case 5:
         return "#d32f2f";
       default:
         return "#999";

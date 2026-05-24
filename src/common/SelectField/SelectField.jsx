@@ -61,12 +61,12 @@ export default function SelectField({
                     errors[name] ? styles.inputError : ""
                   }`}
                 >
-                  {options.find((o) => o.value === value)?.label ||
+                  {options?.find((o) => o.value === value)?.label ||
                     t("placeholder.selectField")}
                 </div>
               </div>
               <Dropdown
-                items={options.map((opt) => ({
+                items={options?.map((opt) => ({
                   label: opt.label,
                   onClick: () => handleSelect(opt),
                 }))}
