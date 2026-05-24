@@ -8,7 +8,6 @@ import {
   MapPinIcon,
   PlayCircleIcon,
   TrashIcon,
-  XCircleIcon,
 } from "@heroicons/react/24/solid";
 import styles from "./AdminDatabaseRequests.module.css";
 import { useForm, FormProvider } from "react-hook-form";

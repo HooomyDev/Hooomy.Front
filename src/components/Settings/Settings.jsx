@@ -5,12 +5,8 @@ import SelectField from "../../common/SelectField/SelectField";
 import { useForm, FormProvider } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import ThemePicker from "../ThemePicker/ThemePicker";
-import { ChartPieIcon, NewspaperIcon } from "@heroicons/react/24/solid";
-import emailLogo from "../../assets/email-logo.png";
-import tgLogo from "../../assets/telegram-icon.png";
-import viberLogo from "../../assets/viber-icon.png";
+import { ChartPieIcon } from "@heroicons/react/24/solid";
 import { Cog6ToothIcon } from "@heroicons/react/24/solid";
-import CheckBox from "../../common/CheckBox/CheckBox";
 
 export default function Settings() {
   const { t, i18n } = useTranslation();

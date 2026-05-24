@@ -9,9 +9,36 @@
   border-radius: var(--border-radius);
 }
 
-.image {
-  max-width: 35vh;
-  height: 100%;
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.or {
+  font-size: var(--font-size-xxl);
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--element-color);
+}
+
+.searchForm {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: var(--spacing-lg);
+}
+
+.searchButton {
+  max-width: 48px;
+  height: 48px;
+  padding: 0;
+  align-self: flex-end;
+}
+
+.icon {
+  width: 24px;
 }
 
 @media (max-width: 720px) {

@@ -62,6 +62,7 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
                   <img
                     key={index}
                     src={url}
+                    alt={url}
                     className={styles.photo}
                     onClick={() => setSelectedImage(url)}
                   ></img>

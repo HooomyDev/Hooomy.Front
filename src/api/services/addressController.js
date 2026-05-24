@@ -6,3 +6,9 @@ export const findOrCreateAddress = async (lat, lng, address) => {
   });
   return response.data;
 };
+
+export const getAddressDetails = async (id) => {
+  const res = await client.get(`/addresses/${id}`);
+
+  return res.data;
+};

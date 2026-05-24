@@ -23,7 +23,7 @@ export default function Chat({
   closeChat,
 }) {
   const navigate = useNavigate();
-  const user = useAuthStore((store) => store.user);
+  const { user } = useAuthStore();
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const MESSAGE_TYPE_MAP = {
@@ -72,6 +72,18 @@ export default function Chat({
     methods.reset();
   };
 
+  const isMyMessage = (msg) => {
+    // Если пользователь - жилец чата
+    if (user?.role === "Resident") {
+      return msg.senderType === 1; // Сравниваем с типом "Жилец"
+    }
+    // Если пользователь - сотрудник компании
+    if (user?.companyId === chat.companyId) {
+      return msg.senderType === 2; // Сравниваем с типом "Сотрудник"
+    }
+    return false;
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -113,24 +125,29 @@ export default function Chat({
       </div>
 
       <div className={styles.messages}>
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`${styles.messageWrapper} ${
-              msg.userName === `${user.surname} ${user.firstName}`
-                ? styles.myMessage
-                : styles.theirMessage
-            }
+        {messages.map((msg, index) => {
+          console.log(msg);
+          return (
+            <div
+              key={index}
+              className={`${styles.messageWrapper} ${
+                isMyMessage(msg.message)
+                  ? styles.myMessage
+                  : styles.theirMessage
+              }
             ${
               msg.message.messageType === MESSAGE_TYPE_MAP["system"]
                 ? styles.systemMessage
                 : ""
             }`}
-          >
-            <div className={styles.messageSender}>{msg.userName}</div>
-            <div className={styles.messageBubble}>{msg.message.content}</div>
-          </div>
-        ))}
+            >
+              <div className={styles.messageSender}>
+                {msg.message.senderType === 2 ? chat.companyName : msg.userName}
+              </div>
+              <div className={styles.messageBubble}>{msg.message.content}</div>
+            </div>
+          );
+        })}
       </div>
 
       <FormProvider {...methods}>

@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "./DateField.module.css";
+import { useFormContext } from "react-hook-form";
 
-export default function DateField({ label, name, register, required }) {
+export default function DateField({ label, name, required }) {
+  const { register } = useFormContext();
   return (
     <div className={styles.wrapper}>
       {label && (

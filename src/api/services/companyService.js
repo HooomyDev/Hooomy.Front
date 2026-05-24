@@ -76,3 +76,9 @@ export const removeAddressFromCompany = async (companyId, addressId) => {
   );
   return res.data;
 };
+
+export const getStatistics = async () => {
+  const res = await client.get("/companies/statistic");
+
+  return res.data.companies;
+};

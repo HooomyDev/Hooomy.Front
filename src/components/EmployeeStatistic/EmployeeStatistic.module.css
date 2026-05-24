@@ -11,48 +11,6 @@
   gap: var(--spacing-xxl);
 }
 
-.exportWrapper {
-  display: inline-block;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid transparent;
-  border-radius: var(--border-radius);
-  color: var(--font-color);
-  transition: all 0.3s ease;
-  position: relative;
-  background-color: var(--main-color);
-  width: 7rem;
-  height: 7rem;
-  position: relative;
-}
-
-.exportWrapper:hover {
-  border: 1px solid var(--element-color);
-  color: var(--element-color);
-  transform: scale(1.05);
-}
-
-.exportWrapper:active {
-  transform: scale(1.02);
-}
-
-.export {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  align-items: center;
-  margin-top: 15px;
-}
-
-.export span {
-  font-weight: 600;
-}
-
-.exportIcon {
-  width: 3rem;
-}
-
 .content {
   display: flex;
   flex-direction: column;
@@ -92,4 +50,21 @@
   .dailyChart {
     padding: 0 10px 40px;
   }
+}
+
+.exportButtons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: var(--spacing-lg);
+}
+
+.exportButton {
+  gap: var(--spacing-lg);
+  min-height: 5rem;
+  font-size: var(--font-size-xl);
+}
+
+.icon {
+  width: 24px;
 }

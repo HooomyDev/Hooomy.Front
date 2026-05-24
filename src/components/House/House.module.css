@@ -1,0 +1,200 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-xxl);
+  min-width: 80%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--main-color);
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  border-radius: var(--border-radius);
+  height: 8rem;
+}
+
+.header .title {
+  font-size: var(--font-size-subtitle);
+  font-weight: 700;
+}
+
+.address {
+  font-size: var(--font-size-lg);
+  color: var(--element-color);
+  font-weight: 500;
+}
+
+.company {
+  background: var(--main-color);
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  border-radius: var(--border-radius);
+  gap: var(--spacing-md);
+}
+
+.company .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  width: 100%;
+  border-bottom: 1px solid var(--gray-color);
+}
+
+.titleButton {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  margin: 0;
+}
+
+.companyItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.label {
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  color: var(--font-color);
+}
+
+.companyName {
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+.companyPhone,
+.companyEmail {
+  color: var(--element-color);
+  text-decoration: none;
+}
+
+.companyPhone:hover,
+.companyEmail:hover {
+  text-decoration: underline;
+}
+
+.noCompany {
+  margin-top: 12px;
+  padding: 12px;
+  background: #fef2f2;
+  border-radius: 8px;
+  color: #ef4444;
+  font-size: 14px;
+}
+
+.worksSection {
+  background: var(--main-color);
+  padding: var(--spacing-xl) var(--spacing-xxl);
+  border-radius: var(--border-radius);
+  gap: var(--spacing-md);
+}
+
+.worksSection .title {
+  font-size: var(--font-size-xxl);
+  font-weight: 700;
+  padding-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  width: 100%;
+}
+
+.worksList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-height: 650px;
+  overflow-y: auto;
+}
+
+.workCard {
+  background: var(--main-color);
+  border: 1px solid var(--gray-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  transition: box-shadow 0.2s;
+}
+
+.workCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.workHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--gray-color);
+  padding-bottom: var(--spacing-sm);
+  margin-bottom: 12px;
+}
+
+.workHeader .title {
+  margin: 0;
+  padding-bottom: 0;
+  font-size: var(--spacing-lg);
+}
+
+.seriousness {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.icon {
+  width: 24px;
+}
+
+.seriousnessInfo .icon {
+  color: #0284c7;
+}
+
+.seriousnessWarn .icon {
+  color: #d97706;
+}
+
+.workDescription {
+  color: #475569;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.workDates {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+  background: #f8fafc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.label {
+  font-weight: 600;
+  margin-right: 8px;
+  color: #1e293b;
+}
+
+.noWorks {
+  text-align: center;
+  padding: 40px;
+  color: #94a3b8;
+  background: #f8fafc;
+  border-radius: 12px;
+}

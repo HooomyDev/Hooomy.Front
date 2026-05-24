@@ -1,13 +1,14 @@
 .notificationContainer {
   position: relative;
   display: inline-block;
-  z-index: 100000;
+  z-index: 99999;
 }
 
 .notificationButton {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
   width: 3rem;
   height: 3rem;
   padding: 0;
@@ -31,7 +32,7 @@
 
 .badge {
   position: absolute;
-  top: 0;
+  top: -5px;
   right: -5px;
   background: #ef4444;
   color: white;
@@ -48,8 +49,8 @@
 
 .dropdown {
   position: absolute;
-  top: 90%;
-  right: 0;
+  top: 7%;
+  right: 23%;
   margin-top: 8px;
   width: 400px;
   background: white;
@@ -57,7 +58,6 @@
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
     0 8px 10px -6px rgba(0, 0, 0, 0.02);
   border: 1px solid #e5e7eb;
-  z-index: 10000000;
   overflow: hidden;
   animation: slideDown 0.2s ease-out;
 }

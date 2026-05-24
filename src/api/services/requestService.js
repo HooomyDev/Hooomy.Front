@@ -8,26 +8,18 @@ export const getRequestDetails = async (id) => {
   return data;
 };
 
-export const getMyRequests = async (requestStatus, startDate, endDate) => {
+export const getMyRequests = async (
+  requestStatus,
+  searchTitle,
+  searchCategory,
+  searchAddress
+) => {
   const params = new URLSearchParams();
 
-  if (
-    requestStatus !== undefined &&
-    requestStatus !== null &&
-    requestStatus !== 0
-  ) {
-    params.append("requestStatus", requestStatus);
-  }
-
-  if (startDate) {
-    const start = startDate instanceof Date ? startDate : new Date(startDate);
-    params.append("startDate", start.toISOString());
-  }
-
-  if (endDate) {
-    const end = endDate instanceof Date ? endDate : new Date(endDate);
-    params.append("endDate", end.toISOString());
-  }
+  if (requestStatus) params.append("requestStatus", requestStatus);
+  if (searchTitle) params.append("searchTitle", searchTitle);
+  if (searchCategory) params.append("requestCategory", searchCategory);
+  if (searchAddress) params.append("addressId", searchAddress);
 
   const queryString = params.toString();
   const url = queryString ? `/requests?${queryString}` : "/requests";
@@ -82,8 +74,12 @@ export const uploadRequestCommentPhotos = async (commentId, formData) => {
   return res.data;
 };
 
-export const getRequestCount = async () => {
-  const res = await client.get(`/requests/count`);
+export const getRequestCount = async (status = 0) => {
+  const params = new URLSearchParams({
+    status: status,
+  });
+
+  const res = await client.get(`/requests/count?${params.toString()}`);
 
   const data = res.data;
 

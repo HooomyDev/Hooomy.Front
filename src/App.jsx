@@ -43,6 +43,8 @@ import CreateRequestPage from "./pages/CreateRequestPage/CreateRequestPage";
 import ChangePasswordPage from "./pages/ChangePasswordPage/ChangePasswordPage";
 import ResetPassword from "./features/login/ResetPassword/ResetPassword";
 import ForgotPassword from "./features/login/ForgotPassword/ForgotPassword";
+import HousePage from "./pages/HousePage/HousePage";
+import InquiriesPage from "./pages/InquiriesPage/InquiriesPage";
 
 export default function App() {
   useEffect(() => {
@@ -157,6 +159,10 @@ export default function App() {
         </Route>
         <Route path={`${routes.news}/:surveyId`} element={<Layout />}>
           <Route index element={<SurveysDetailsPage />} />
+        </Route>
+
+        <Route path={`${routes.house}/:addressId`} element={<Layout />}>
+          <Route index element={<HousePage />} />
         </Route>
 
         {/*Employee*/}
@@ -288,6 +294,17 @@ export default function App() {
             element={
               <ProtectedRoute roles={["Admin"]}>
                 <AdminCommentsModerationPage />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+
+        <Route path={routes.inquires} element={<Layout />}>
+          <Route
+            index
+            element={
+              <ProtectedRoute roles={["Admin"]}>
+                <InquiriesPage />
               </ProtectedRoute>
             }
           />

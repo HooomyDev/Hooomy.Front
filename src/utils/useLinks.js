@@ -10,7 +10,6 @@ import {
   ChatBubbleLeftRightIcon,
   ChatBubbleBottomCenterTextIcon,
   WrenchScrewdriverIcon,
-  MapPinIcon,
   UserGroupIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "./useT";
@@ -69,6 +68,12 @@ export function useLinks() {
           },
           {
             id: 2.5,
+            to: routes.inquires,
+            label: "Обращения",
+            icon: InformationCircleIcon,
+          },
+          {
+            id: 2.6,
             to: routes.comments,
             label: t("nav.comments"),
             icon: ChatBubbleLeftRightIcon,

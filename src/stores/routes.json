@@ -20,6 +20,8 @@
   "noAccess": "/no-access",
   "chat": "/chat",
   "companies": "/companies",
+  "inquires": "/inquires",
+  "house": "/house",
 
   "surveys": "/surveys-panel",
   "requests": "/requests-panel",

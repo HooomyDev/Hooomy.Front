@@ -22,7 +22,7 @@ const testNotifications = [
   },
   { id: 2, message: "Новая заявка #123", type: 2, isRead: false },
   { id: 3, message: "Назначена работа", type: 3, isRead: false },
-  { id: 3, message: "Назначена работа", type: 3, isRead: false },
+  { id: 22, message: "Назначена работа", type: 3, isRead: false },
   { id: 4, message: "Назначена работа", type: 3, isRead: false },
   { id: 5, message: "Назначена работа", type: 3, isRead: false },
   { id: 6, message: "Назначена работа", type: 3, isRead: false },

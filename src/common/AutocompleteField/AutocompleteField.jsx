@@ -79,7 +79,7 @@ export default function AutocompleteField({
               {open && filteredOptions.length > 0 && (
                 <Dropdown
                   visible={open}
-                  items={filteredOptions.slice(0, 10).map((opt) => ({
+                  items={filteredOptions.map((opt) => ({
                     label: opt.label,
                     onClick: () => handleSelect(opt),
                   }))}

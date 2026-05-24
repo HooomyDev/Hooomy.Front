@@ -33,7 +33,7 @@ export default function AdminDashboard() {
 
   const { data: requestCount } = useQuery({
     queryKey: ["requestCount"],
-    queryFn: getRequestCount,
+    queryFn: () => getRequestCount(),
   });
 
   const { data: userCount } = useQuery({

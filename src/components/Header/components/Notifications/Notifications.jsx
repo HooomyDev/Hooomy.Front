@@ -6,6 +6,7 @@ import {
   ClipboardDocumentListIcon,
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
+import { createPortal } from "react-dom";
 
 export default function Notifications({ notifications = [], onMarkAsRead }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,55 +45,65 @@ export default function Notifications({ notifications = [], onMarkAsRead }) {
         )}
       </button>
 
-      {isOpen && (
-        <div className={styles.dropdown}>
-          <div className={styles.header}>
-            <span className={styles.title}>Уведомления</span>
-          </div>
+      {isOpen &&
+        createPortal(
+          <div className={styles.dropdown}>
+            <div className={styles.header}>
+              <span className={styles.title}>Уведомления</span>
+            </div>
 
-          <div className={styles.list}>
-            {notifications.length === 0 ? (
-              <div className={styles.empty}>
-                <BellIcon className={styles.emptyIcon} />
-                <p>Нет уведомлений</p>
-              </div>
-            ) : (
-              notifications.map((notification) => (
-                <div
-                  key={notification.id}
-                  className={`${styles.notificationItem} ${
-                    !notification.isRead ? styles.unread : ""
-                  }`}
-                  onClick={() => handleNotificationClick(notification.id)}
-                >
-                  {(() => {
-                    const iconMap = {
-                      0: <ExclamationCircleIcon className={styles.infoIcon} />,
-                      1: <BellIcon className={styles.systemIcon} />,
-                      2: (
-                        <ClipboardDocumentListIcon
-                          className={styles.requestIcon}
-                        />
-                      ),
-                      3: <WrenchScrewdriverIcon className={styles.workIcon} />,
-                    };
-                    return iconMap[notification.type] || iconMap[0];
-                  })()}
-                  <div className={styles.content}>
-                    <div className={styles.message}>{notification.message}</div>
-                    {notification.date && (
-                      <div className={styles.time}>
-                        {new Date(notification.date).toLocaleDateString()}
+            <div className={styles.list}>
+              {notifications.length === 0 ? (
+                <div className={styles.empty}>
+                  <BellIcon className={styles.emptyIcon} />
+                  <p>Нет уведомлений</p>
+                </div>
+              ) : (
+                notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    className={`${styles.notificationItem} ${
+                      !notification.isRead ? styles.unread : ""
+                    }`}
+                    onClick={() => handleNotificationClick(notification.id)}
+                  >
+                    {(() => {
+                      const iconMap = {
+                        0: (
+                          <ExclamationCircleIcon className={styles.infoIcon} />
+                        ),
+                        1: <BellIcon className={styles.systemIcon} />,
+                        2: (
+                          <ClipboardDocumentListIcon
+                            className={styles.requestIcon}
+                          />
+                        ),
+                        3: (
+                          <WrenchScrewdriverIcon className={styles.workIcon} />
+                        ),
+                      };
+                      return iconMap[notification.type] || iconMap[0];
+                    })()}
+                    <div className={styles.content}>
+                      <div className={styles.message}>
+                        {notification.message}
                       </div>
+                      {notification.date && (
+                        <div className={styles.time}>
+                          {new Date(notification.date).toLocaleDateString()}
+                        </div>
+                      )}
+                    </div>
+                    {!notification.isRead && (
+                      <div className={styles.unreadDot} />
                     )}
                   </div>
-                  {!notification.isRead && <div className={styles.unreadDot} />}
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
+                ))
+              )}
+            </div>
+          </div>,
+          document.body
+        )}
     </div>
   );
 }

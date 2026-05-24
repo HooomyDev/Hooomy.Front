@@ -1,0 +1,124 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  gap: var(--spacing-xl);
+}
+
+.icon {
+  width: 24px;
+}
+
+.searchButton {
+  max-width: 48px;
+  height: 48px;
+  padding: 0;
+}
+
+.searchBlock {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row;
+  gap: var(--spacing-xxl);
+  width: 95%;
+  justify-content: space-between;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  width: 100%;
+  padding: 0 var(--spacing-xl);
+}
+
+.card {
+  background: var(--main-color);
+  border: 1px solid var(--gray-color);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: 2px 2px 6px var(--gray-color);
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--element-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userIcon {
+  width: 16px;
+  height: 16px;
+  color: var(--element-color);
+}
+
+.userEmail {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--font-color);
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dateIcon {
+  width: 14px;
+  height: 14px;
+  color: var(--font-color);
+}
+
+.date span {
+  font-size: var(--font-size-sm);
+  color: var(--font-color);
+}
+
+.cardBody {
+  padding-top: 4px;
+}
+
+.message {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.messageIcon {
+  width: 18px;
+  height: 18px;
+  color: #94a3b8;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.message p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--font-color);
+  word-break: break-word;
+}

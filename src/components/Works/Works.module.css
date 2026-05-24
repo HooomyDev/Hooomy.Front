@@ -1,8 +1,8 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  gap: var(--spacing-xxl);
+  width: 90%;
+  gap: var(--spacing-xl);
 }
 
 .title {
@@ -24,7 +24,7 @@
 .content {
   display: flex;
   flex-direction: row;
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-xl);
 }
 
 .worksList {
