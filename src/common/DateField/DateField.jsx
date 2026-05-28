@@ -2,8 +2,19 @@ import React from "react";
 import styles from "./DateField.module.css";
 import { useFormContext } from "react-hook-form";
 
-export default function DateField({ label, name, required }) {
-  const { register } = useFormContext();
+export default function DateField({
+  label,
+  name,
+  required,
+  type = "date",
+  rules = {},
+}) {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const error = errors[name];
+
   return (
     <div className={styles.wrapper}>
       {label && (
@@ -15,10 +26,11 @@ export default function DateField({ label, name, required }) {
       <div className={styles.inputWrapper}>
         <input
           id={name}
-          type="date"
-          {...register(name)}
-          className={styles.inputField}
+          type={type}
+          {...register(name, rules)}
+          className={`${styles.inputField} ${error ? styles.error : ""}`}
         />
+        {error && <span className={styles.errorMessage}>{error.message}</span>}
       </div>
     </div>
   );

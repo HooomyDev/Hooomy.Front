@@ -2,5 +2,11 @@
   display: flex;
   gap: var(--spacing-xxl);
   flex-wrap: wrap;
-  margin: var(--spacing-md) 0;
+  margin-top: var(--spacing-md) 0;
+}
+
+@media (max-width: 720px) {
+  .stats {
+    gap: var(--spacing-lg);
+  }
 }

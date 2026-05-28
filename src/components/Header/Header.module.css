@@ -73,7 +73,7 @@
 }
 
 .icon {
-  width: 2em;
+  width: 2rem;
   height: 2rem;
 }
 
@@ -106,19 +106,25 @@
   }
 
   .burgerButton {
-    display: inline;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     padding: 0;
     background-color: var(--main-color);
     color: var(--font-color);
-    width: 3rem;
-    height: 3rem;
-    border: 1px solid var(--font-color);
+    min-width: 40px;
+    height: 40px;
+    border: 1px solid var(--gray-color);
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
     outline: none;
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+  }
+
+  .settingButton {
+    display: none;
   }
 
   .burgerButton:hover {
@@ -135,7 +141,6 @@
   .navbar {
     display: flex;
     position: absolute;
-    top: 100%;
     left: 0;
     width: 100%;
     background: var(--main-color);
@@ -143,13 +148,14 @@
     flex-direction: column;
     gap: var(--spacing-sm);
     padding-bottom: var(--spacing-sm);
-
+    z-index: 1000;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
   }
 
   .navbarOpen {
+    display: flex;
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;

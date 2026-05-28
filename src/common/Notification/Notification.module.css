@@ -58,6 +58,7 @@
 
 @media (max-width: 768px) {
   .notification {
+    max-height: 75px;
     top: 10px;
     right: 10px;
     left: 10px;

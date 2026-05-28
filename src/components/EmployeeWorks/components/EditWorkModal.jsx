@@ -5,37 +5,16 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import InputField from "../../../common/InputField/InputField";
 import SelectField from "../../../common/SelectField/SelectField";
 import DateField from "../../../common/DateField/DateField";
+import AutocompleteField from "../../../common/AutocompleteField/AutocompleteField";
 import Button from "../../../common/Button/Button";
+import { useQuery } from "@tanstack/react-query";
+import { useAuthStore } from "../../../stores/authStore";
+import { getCompanyDetails } from "../../../api/services/companyService";
 
 const seriousnessOptions = [
   { value: 1, label: "Информационная" },
   { value: 2, label: "Важная" },
 ];
-
-const categoryMap = {
-  1: "Водоснабжение. Горячая вода",
-  2: "Электроснабжение",
-  3: "Бытовые услуги",
-  4: "Санитарное состояние многоквартирного дома",
-  5: "Отопление",
-  6: "Благоустройство территории",
-  7: "Водоснабжение",
-  8: "Общестроительные работы",
-  9: "Санитарное состояние территории",
-  11: "Техническое обслуживание ЗПУ",
-  12: "Другое",
-  13: "Техническое обслуживание лифта",
-  14: "Обращение с ТКО",
-  15: "Водоснабжение. Холодная вода",
-  16: "Канализация",
-  17: "Автомобильные дороги, тротуары",
-  18: "Кровельные работы",
-  19: "Уличное освещение",
-  20: "Общественные места (Парки, скверы)",
-  21: "Работы по ремонту стыков",
-  22: "Техническое обслуживание зданий и сооружений",
-  23: "Рекламные и информационные конструкции и объявления",
-};
 
 export default function EditWorkModal({
   isOpen,
@@ -43,25 +22,41 @@ export default function EditWorkModal({
   work,
   onSave,
   categories,
+  streetOptions = [],
+  onSearchStreets,
 }) {
+  const { user } = useAuthStore();
   const methods = useForm({
     defaultValues: {
       title: "",
       description: "",
-      category: 0,
+      category: null,
       seriousness: 1,
+      address: work?.addressId || "",
       plannedStartTime: "",
       plannedEndTime: "",
       factStartTime: "",
       factEndTime: "",
     },
+    mode: "onChange",
+  });
+
+  const { data: company } = useQuery({
+    queryKey: ["company", user?.companyId],
+    queryFn: () => getCompanyDetails(user?.companyId),
   });
 
   const {
     handleSubmit,
     reset,
+    watch,
     formState: { isSubmitting },
   } = methods;
+
+  const plannedStartTime = watch("plannedStartTime");
+  const plannedEndTime = watch("plannedEndTime");
+  const factStartTime = watch("factStartTime");
+  const factEndTime = watch("factEndTime");
 
   useEffect(() => {
     if (work) {
@@ -70,37 +65,53 @@ export default function EditWorkModal({
         description: work.description || "",
         category: work.category || 0,
         seriousness: work.seriousness || 1,
+        address: work.addressId || "",
         plannedStartTime: work.plannedStartTime
-          ? work.plannedStartTime.split("T")[0]
+          ? work.plannedStartTime.slice(0, 16)
           : "",
         plannedEndTime: work.plannedEndTime
-          ? work.plannedEndTime.split("T")[0]
+          ? work.plannedEndTime.slice(0, 16)
           : "",
         factStartTime: work.factStartTime
           ? work.factStartTime.slice(0, 16)
           : "",
         factEndTime: work.factEndTime ? work.factEndTime.slice(0, 16) : "",
       });
+    } else {
+      reset({
+        title: "",
+        description: "",
+        category: 0,
+        seriousness: 1,
+        address: "",
+        plannedStartTime: "",
+        plannedEndTime: "",
+        factStartTime: "",
+        factEndTime: "",
+      });
     }
   }, [work, reset]);
 
   const onSubmit = (data) => {
-    const updatedWork = {
-      ...work,
+    const workData = {
+      ...(work && { id: work.id }),
       title: data.title,
       description: data.description,
       category: parseInt(data.category),
       seriousness: parseInt(data.seriousness),
+      addressId: data.address,
       plannedStartTime: new Date(data.plannedStartTime).toISOString(),
       plannedEndTime: new Date(data.plannedEndTime).toISOString(),
-      factStartTime: data.factStartTime
-        ? new Date(data.factStartTime).toISOString()
-        : null,
-      factEndTime: data.factEndTime
-        ? new Date(data.factEndTime).toISOString()
-        : null,
+      ...(work && {
+        factStartTime: data.factStartTime
+          ? new Date(data.factStartTime).toISOString()
+          : null,
+        factEndTime: data.factEndTime
+          ? new Date(data.factEndTime).toISOString()
+          : null,
+      }),
     };
-    onSave(updatedWork);
+    onSave(workData);
   };
 
   if (!isOpen) return null;
@@ -110,11 +121,17 @@ export default function EditWorkModal({
       ?.filter((c) => c.code !== 0)
       .map((c) => ({ value: c.code, label: c.name })) || [];
 
+  const addressOptions =
+    company?.addresses?.map((addr) => ({
+      value: addr.id,
+      label: addr.fullAddress,
+    })) || [];
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2>Редактирование работы</h2>
+          <h2>{work ? "Редактирование работы" : "Создание новой работы"}</h2>
           <button className={styles.closeButton} onClick={onClose}>
             <XMarkIcon className={styles.closeIcon} />
           </button>
@@ -143,6 +160,7 @@ export default function EditWorkModal({
               label="Категория"
               options={categoryOptions}
               required
+              rules={{ required: "Категория обязательна" }}
             />
 
             <SelectField
@@ -150,40 +168,95 @@ export default function EditWorkModal({
               label="Серьёзность"
               options={seriousnessOptions}
               required
+              rules={{ required: "Серьёзность обязательна" }}
+            />
+
+            <AutocompleteField
+              label="Адрес"
+              name="address"
+              options={addressOptions}
+              required
+              rules={{ required: "Адрес обязателен" }}
             />
 
             <div className={styles.dateRow}>
               <DateField
                 name="plannedStartTime"
-                label="Планируемая дата начала"
+                label="Планируемая дата и время начала"
+                type="datetime-local"
                 required
+                rules={{
+                  required: "Дата и время начала обязательны",
+                  validate: (value) => {
+                    if (!value || !plannedEndTime) return true;
+                    return (
+                      new Date(value) < new Date(plannedEndTime) ||
+                      "Время начала должно быть раньше времени окончания"
+                    );
+                  },
+                }}
               />
               <DateField
                 name="plannedEndTime"
-                label="Планируемая дата окончания"
+                label="Планируемая дата и время окончания"
+                type="datetime-local"
                 required
+                rules={{
+                  required: "Дата и время окончания обязательны",
+                  validate: (value) => {
+                    if (!value || !plannedStartTime) return true;
+                    return (
+                      new Date(value) > new Date(plannedStartTime) ||
+                      "Время окончания должно быть позже времени начала"
+                    );
+                  },
+                }}
               />
             </div>
 
-            <div className={styles.dateRow}>
-              <DateField
-                name="factStartTime"
-                label="Фактическая дата начала (опционально)"
-                type="datetime-local"
-              />
-              <DateField
-                name="factEndTime"
-                label="Фактическая дата окончания (опционально)"
-                type="datetime-local"
-              />
-            </div>
+            {work && (
+              <div className={styles.dateRow}>
+                <DateField
+                  name="factStartTime"
+                  label="Фактическая дата начала (опционально)"
+                  type="datetime-local"
+                  rules={{
+                    validate: (value) => {
+                      if (!value || !factEndTime) return true;
+                      return (
+                        new Date(value) < new Date(factEndTime) ||
+                        "Время начала должно быть раньше времени окончания"
+                      );
+                    },
+                  }}
+                />
+                <DateField
+                  name="factEndTime"
+                  label="Фактическая дата окончания (опционально)"
+                  type="datetime-local"
+                  rules={{
+                    validate: (value) => {
+                      if (!value || !factStartTime) return true;
+                      return (
+                        new Date(value) > new Date(factStartTime) ||
+                        "Время окончания должно быть позже времени начала"
+                      );
+                    },
+                  }}
+                />
+              </div>
+            )}
 
             <div className={styles.actions}>
               <Button type="button" variant="secondary" onClick={onClose}>
                 Отмена
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Сохранение..." : "Сохранить"}
+                {isSubmitting
+                  ? "Сохранение..."
+                  : work
+                    ? "Сохранить изменения"
+                    : "Создать работу"}
               </Button>
             </div>
           </form>

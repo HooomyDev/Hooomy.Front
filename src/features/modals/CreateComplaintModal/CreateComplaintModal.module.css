@@ -132,3 +132,27 @@
   background-color: var(--gray-color);
   border-color: var(--element-color);
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+  .content {
+    flex-direction: column;
+  }
+
+  .typeBadge {
+    text-align: center;
+  }
+
+  .iconWrap {
+    min-width: 48px;
+    height: 48px;
+  }
+  .headerIcon {
+    width: 32px;
+    height: 32px;
+  }
+}

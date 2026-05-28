@@ -158,3 +158,10 @@
   color: #9ca3af;
   margin-top: 4px;
 }
+
+@media (max-width: 720px) {
+  .statCards {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+}

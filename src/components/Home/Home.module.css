@@ -9,6 +9,7 @@
 
 @media (max-width: 720px) {
   .wrapper {
+    gap: var(--spacing-lg);
     width: 100%;
   }
 }

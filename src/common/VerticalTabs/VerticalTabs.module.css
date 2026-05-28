@@ -67,3 +67,18 @@
   width: 100%;
   padding: var(--font-size-xxl) 0;
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    flex-direction: column;
+  }
+  .navigation {
+    flex-direction: row;
+  }
+  .tab {
+    min-height: 1rem;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: var(--border-radius);
+  }
+}

@@ -144,9 +144,10 @@ input[type="password"]::-ms-clear {
   animation: fadeIn 0.3s ease-out;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 720px) {
   .label {
-    font-size: 16px;
+    font-size: var(--font-size-xl);
+
     margin-left: 0;
   }
 
@@ -156,35 +157,8 @@ input[type="password"]::-ms-clear {
 
   .inputField {
     height: 45px;
-    font-size: 16px;
+    font-size: var(--font-size-xl);
+
     padding: 0 2.5rem 0 0.6rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .wrapper {
-    width: 100%;
-  }
-  .inputWrapper {
-    align-items: center;
-  }
-
-  .label {
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
-  .inputField {
-    padding: 0 2rem 0 0.5rem;
-  }
-
-  .icon {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
-
-  .error {
-    font-size: 12px;
-    margin-top: 2px;
   }
 }

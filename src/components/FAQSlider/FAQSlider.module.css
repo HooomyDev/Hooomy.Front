@@ -97,9 +97,7 @@
   background-color: var(--main-color);
   color: var(--font-color);
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .navButton:hover {
@@ -144,4 +142,10 @@
 .activeDot {
   background-color: var(--element-color);
   border-color: var(--element-color);
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    display: none;
+  }
 }

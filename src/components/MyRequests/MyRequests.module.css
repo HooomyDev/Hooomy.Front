@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: var(--spacing-xl);
+  gap: var(--spacing-lg);
   min-width: 90%;
 }
 .searchBlock {
@@ -21,23 +21,15 @@
   max-width: 48px;
   height: 48px;
   padding: 0;
+
+  .text {
+    display: none;
+  }
 }
 .section {
   display: flex;
   justify-content: center;
   width: 100%;
-  gap: var(--spacing-xl);
-}
-
-.sectionItem1 {
-  display: flex;
-  flex: 2;
-}
-
-.sectionItem2 {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
   gap: var(--spacing-xl);
 }
 
@@ -47,12 +39,16 @@
     gap: var(--spacing-lg);
   }
 
-  .section {
-    gap: var(--spacing-lg);
+  .searchBlock {
     flex-direction: column;
+    gap: var(--spacing-md);
   }
 
-  .sectionItem2 {
-    gap: var(--spacing-lg);
+  .searchButton {
+    min-width: 100%;
+    gap: var(--spacing-sm);
+    .text {
+      display: flex;
+    }
   }
 }

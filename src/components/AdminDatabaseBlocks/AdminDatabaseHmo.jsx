@@ -41,7 +41,7 @@ export default function AdminDatabaseHmo() {
     if (!searchName) return companies;
 
     return companies.filter((company) =>
-      company.name.toLowerCase().includes(searchName.toLowerCase())
+      company.name.toLowerCase().includes(searchName.toLowerCase()),
     );
   }, [companies, searchName]);
 
@@ -51,7 +51,7 @@ export default function AdminDatabaseHmo() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={WrenchScrewdriverIcon} title="Управляющие компании" />
+      <PageHeader icon={WrenchScrewdriverIcon} title="ЖЭУ" />
       <Block>
         <FormProvider {...methods}>
           <div className={styles.searchBlock}>
@@ -78,7 +78,7 @@ export default function AdminDatabaseHmo() {
         <div className={styles.companiesList}>
           {filteredCompanies.length === 0 ? (
             <EmptyBlock Icon={WrenchScrewdriverIcon}>
-              Список компаний пуст
+              Список ЖЭУ пуст
             </EmptyBlock>
           ) : (
             filteredCompanies.map((company) => (

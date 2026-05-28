@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import styles from "./Notifications.module.css";
 import {
   BellIcon,
@@ -7,42 +7,38 @@ import {
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/solid";
 import { createPortal } from "react-dom";
+import { getNotifications } from "../../../../api/services/notificationService";
+import { useQuery } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../../stores/routes.json";
 
-export default function Notifications({ notifications = [], onMarkAsRead }) {
+export default function Notifications() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [pagination] = useState({
+    page: 1,
+    pageSize: 15,
+  });
+  const navigate = useNavigate();
 
-  // Закрытие при клике вне компонента
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const { data, isLoading } = useQuery({
+    queryKey: ["notifications", pagination.page, pagination.pageSize],
+    queryFn: async () => {
+      return await getNotifications(pagination.page, pagination.pageSize);
+    },
+  });
 
-  const unreadCount = notifications.filter((n) => !n.isRead).length;
-
-  const handleNotificationClick = (notificationId) => {
-    onMarkAsRead?.(notificationId);
-  };
+  if (isLoading) {
+    return null;
+  }
 
   return (
     <div className={styles.notificationContainer} ref={dropdownRef}>
       <button
-        className={`${styles.notificationButton} ${
-          unreadCount > 0 ? styles.haveNotifications : ""
-        }`}
+        className={styles.notificationButton}
         onClick={() => setIsOpen(!isOpen)}
       >
         <BellIcon className={styles.icon} />
-        {unreadCount > 0 && (
-          <span className={styles.badge}>
-            {unreadCount > 99 ? "99+" : unreadCount}
-          </span>
-        )}
       </button>
 
       {isOpen &&
@@ -53,19 +49,26 @@ export default function Notifications({ notifications = [], onMarkAsRead }) {
             </div>
 
             <div className={styles.list}>
-              {notifications.length === 0 ? (
+              {!data?.notifications ? (
                 <div className={styles.empty}>
                   <BellIcon className={styles.emptyIcon} />
-                  <p>Нет уведомлений</p>
+                  <div className={styles.text}>Нет уведомлений</div>
                 </div>
               ) : (
-                notifications.map((notification) => (
+                data?.notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`${styles.notificationItem} ${
-                      !notification.isRead ? styles.unread : ""
-                    }`}
-                    onClick={() => handleNotificationClick(notification.id)}
+                    className={styles.notificationItem}
+                    onClick={() => {
+                      if (notification?.type === 2) {
+                        setIsOpen(false);
+                        navigate(`${routes.works}`);
+                      }
+                      if (notification?.type === 3) {
+                        setIsOpen(false);
+                        navigate(`${routes.myRequests}`);
+                      }
+                    }}
                   >
                     {(() => {
                       const iconMap = {
@@ -73,36 +76,31 @@ export default function Notifications({ notifications = [], onMarkAsRead }) {
                           <ExclamationCircleIcon className={styles.infoIcon} />
                         ),
                         1: <BellIcon className={styles.systemIcon} />,
-                        2: (
+                        3: (
                           <ClipboardDocumentListIcon
                             className={styles.requestIcon}
                           />
                         ),
-                        3: (
+                        2: (
                           <WrenchScrewdriverIcon className={styles.workIcon} />
                         ),
                       };
                       return iconMap[notification.type] || iconMap[0];
                     })()}
                     <div className={styles.content}>
-                      <div className={styles.message}>
-                        {notification.message}
-                      </div>
+                      <div className={styles.message}>{notification.text}</div>
                       {notification.date && (
                         <div className={styles.time}>
                           {new Date(notification.date).toLocaleDateString()}
                         </div>
                       )}
                     </div>
-                    {!notification.isRead && (
-                      <div className={styles.unreadDot} />
-                    )}
                   </div>
                 ))
               )}
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );

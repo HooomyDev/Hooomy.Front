@@ -16,3 +16,14 @@
   width: 40px;
   color: var(--element-color);
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+  .content {
+    flex-direction: column;
+  }
+}

@@ -104,23 +104,12 @@
 
 @media (max-width: 720px) {
   .wrapper {
-    width: 95%;
+    width: 100%;
     padding: 0;
     gap: var(--spacing-lg);
   }
   .content {
     flex-direction: column;
-  }
-  .phones {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .wrapper {
-    width: 100%;
-    padding: 0;
-    gap: var(--spacing-md);
   }
 }
 

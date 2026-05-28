@@ -50,7 +50,7 @@
   color: var(--font-color);
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.2s ease;
-  height: 10rem;
+  height: 7rem;
   width: 100%;
   text-decoration: none;
 }
@@ -77,4 +77,23 @@
   display: flex;
   width: 90%;
   justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+  .content {
+    flex-direction: column;
+  }
+
+  .categoriesList {
+    flex-direction: column;
+  }
+
+  .category {
+    height: 5rem;
+  }
 }

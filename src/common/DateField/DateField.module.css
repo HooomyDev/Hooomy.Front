@@ -14,7 +14,7 @@
 
 .inputWrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 100%;
   margin: 0 auto;
 }
@@ -41,28 +41,21 @@
   border-color: var(--element-color);
 }
 
+.inputField.error {
+  border-color: var(--error-color);
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
+}
+
 .inputError {
   border-color: var(--error-color);
   box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.2);
 }
 
-.required {
-  color: red;
-  margin-left: 4px;
-  font-weight: bold;
-}
-
-.error {
-  display: flex;
-  width: 100%;
-  font-size: var(--font-size-base);
+.errorMessage {
+  font-size: 14px;
   color: var(--error-color);
-  margin: 4px auto 0;
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
-  white-space: normal;
-  text-align: left;
-  animation: fadeIn 0.3s ease-out;
+  margin-top: 4px;
+  margin-left: 0;
 }
 
 @keyframes fadeIn {

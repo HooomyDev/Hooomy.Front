@@ -59,3 +59,19 @@
     color: var(--element-color);
   }
 }
+
+@media (max-width: 720px) {
+  .phones {
+    width: 100%;
+  }
+
+  .phoneList {
+    gap: 0;
+  }
+
+  .phoneBlock {
+    border-radius: 0;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--gray-color);
+  }
+}

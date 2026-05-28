@@ -106,7 +106,8 @@
 
 @media (max-width: 768px) {
   .label {
-    font-size: 16px;
+    font-size: var(--font-size-xl);
+
     margin-left: 0;
   }
 
@@ -116,7 +117,8 @@
 
   .inputField {
     height: 45px;
-    font-size: 16px;
+    font-size: var(--font-size-xl);
+
     padding: 0 2.5rem 0 0.6rem;
   }
 }

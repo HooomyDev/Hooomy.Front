@@ -22,6 +22,7 @@ import {
   softDeleteRequest,
   updateRequest,
 } from "../../api/services/requestService";
+import { createRequestNotification } from "../../api/services/notificationService";
 import Pagination from "../../common/Pagination/Pagination";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import Button from "../../common/Button/Button";
@@ -96,7 +97,7 @@ export default function AdminDatabaseRequests() {
         pagination.pageSize,
         filters.searchTitle,
         filters.searchStatus,
-        filters.searchCategory
+        filters.searchCategory,
       );
     },
     staleTime: 5 * 60 * 1000,
@@ -113,8 +114,7 @@ export default function AdminDatabaseRequests() {
 
   const statusOptions = [
     { value: 0, label: "Все статусы" },
-    { value: 1, label: "Ожидает проверки" },
-    { value: 2, label: "Новая" },
+    { value: 2, label: "Создана" },
     { value: 3, label: "Отклонена" },
     { value: 4, label: "В работе" },
     { value: 5, label: "Завершена" },
@@ -137,7 +137,7 @@ export default function AdminDatabaseRequests() {
 
   const statusMutation = useMutation({
     mutationFn: (request) => updateRequest(request),
-    onSuccess: () => {
+    onSuccess: (data, request) => {
       queryClient.invalidateQueries({
         queryKey: [
           "requests",
@@ -149,6 +149,11 @@ export default function AdminDatabaseRequests() {
         ],
       });
     },
+  });
+
+  const notificationMutation = useMutation({
+    mutationFn: ({ requestId, text }) =>
+      createRequestNotification(requestId, text),
   });
 
   const deleteMutation = useMutation({
@@ -277,9 +282,17 @@ export default function AdminDatabaseRequests() {
                           {request.status === 1 && (
                             <button
                               className={`${styles.detailsButton} ${styles.approveButton}`}
-                              onClick={() =>
-                                statusMutation.mutate({ ...request, status: 2 })
-                              }
+                              onClick={() => {
+                                statusMutation.mutate({
+                                  ...request,
+                                  status: 2,
+                                });
+                                const text = `Для заявки изменён статус на ${statusMap[2].text}`;
+                                notificationMutation.mutate({
+                                  requestId: request.id,
+                                  text,
+                                });
+                              }}
                             >
                               <PlayCircleIcon className={styles.actionIcon} />
                             </button>

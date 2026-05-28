@@ -402,3 +402,34 @@
   width: 24px;
   height: 24px;
 }
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+  .content {
+    flex-direction: column;
+  }
+
+  .info {
+    gap: var(--spacing-md);
+    width: 100%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+
+  .infoCard {
+    flex-direction: row;
+    max-width: unset;
+    width: 95%;
+  }
+
+  .infoHeader {
+    flex-direction: row;
+    .infoLabel {
+      display: none;
+    }
+  }
+}

@@ -30,3 +30,11 @@
 .icon {
   width: 24px;
 }
+
+@media (max-width: 720px) {
+  .searchButton {
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
+  }
+}

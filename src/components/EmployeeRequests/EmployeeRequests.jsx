@@ -23,6 +23,7 @@ import Button from "../../common/Button/Button";
 import { useAuthStore } from "../../stores/authStore";
 import Pagination from "../../common/Pagination/Pagination";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import { createRequestNotification } from "../../api/services/notificationService";
 
 export default function EmployeeRequests() {
   const t = useT();
@@ -62,7 +63,7 @@ export default function EmployeeRequests() {
         filters.searchTitle,
         filters.searchStatus,
         filters.searchCategory,
-        user?.companyId
+        user?.companyId,
       );
     },
     staleTime: 5 * 60 * 1000,
@@ -100,16 +101,40 @@ export default function EmployeeRequests() {
     }
   };
 
+  const statusMap = {
+    2: "Новая",
+    3: "В работе",
+    4: "Завершена",
+    5: "Отклонена",
+  };
   // Мутация для изменения статуса
   const statusMutation = useMutation({
     mutationFn: (request) => updateRequest(request),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["requests"] });
+    onSuccess: (data, request) => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "requests",
+          pagination.page,
+          pagination.pageSize,
+          filters.searchTitle,
+          filters.searchStatus,
+          filters.searchCategory,
+          user?.companyId,
+        ],
+      });
     },
+  });
+
+  // Мутация для отправки уведомления отдельно
+  const notificationMutation = useMutation({
+    mutationFn: ({ requestId, text }) =>
+      createRequestNotification(requestId, text),
   });
 
   const handleStatusChange = (request) => {
     statusMutation.mutate(request);
+    const text = `Для заявки "${request.title}" изменён статус на "${statusMap[request.status]}"`;
+    notificationMutation.mutate({ requestId: request.id, text });
   };
 
   const handleCloseModal = () => {

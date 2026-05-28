@@ -181,15 +181,18 @@ export default function MyRequests() {
               variant="secondary"
               type="submit"
             >
-              <MagnifyingGlassIcon className={styles.icon} />
+              <MagnifyingGlassIcon className={styles.icon} />{" "}
+              <span className={styles.text}>Найти</span>
             </Button>
             <Button
               className={styles.searchButton}
               onClick={() => navigate(routes.createRequest)}
               variant="secondary"
               type="button"
+              disabled={disabled}
             >
               <PlusIcon className={styles.icon} />
+              <span className={styles.text}>Создать заявку</span>
             </Button>
           </FormProvider>
         </form>

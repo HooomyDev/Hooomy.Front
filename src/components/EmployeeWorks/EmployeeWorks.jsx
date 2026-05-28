@@ -5,6 +5,7 @@ import {
   Cog6ToothIcon,
   MagnifyingGlassIcon,
   PencilIcon,
+  PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
@@ -21,6 +22,7 @@ import {
   deleteWork,
   getWorksForEmployee,
   updateWork,
+  createWork,
 } from "../../api/services/workService";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -34,6 +36,8 @@ import {
 import Pagination from "../../common/Pagination/Pagination";
 import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
 import EditWorkModal from "./components/EditWorkModal";
+import { useAuthStore } from "../../stores/authStore";
+import { createWorkNotification } from "../../api/services/notificationService";
 
 const categoryMap = {
   0: "Все",
@@ -65,6 +69,7 @@ export default function EmployeeWorks() {
   const queryClient = useQueryClient();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [selectedWork, setSelectedWork] = useState(null);
   const [streetOptions, setStreetOptions] = useState([]);
   const methods = useForm({
@@ -85,6 +90,7 @@ export default function EmployeeWorks() {
     searchTitle: "",
     address: "",
   });
+  const { user } = useAuthStore();
 
   const seriosnessMap = [
     { value: 0, label: "Все" },
@@ -106,6 +112,7 @@ export default function EmployeeWorks() {
       filters.category,
       filters.searchTitle,
       filters.seriosness,
+      user?.companyId,
     ],
     queryFn: () =>
       getWorksForEmployee(
@@ -114,7 +121,8 @@ export default function EmployeeWorks() {
         filters.seriosness,
         filters.searchTitle,
         pagination.page,
-        pagination.pageSize
+        pagination.pageSize,
+        user?.companyId,
       ),
     staleTime: 0,
   });
@@ -155,8 +163,39 @@ export default function EmployeeWorks() {
     },
   });
 
+  const createWorkMutation = useMutation({
+    mutationFn: (workData) => createWork(workData),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [
+          "works",
+          pagination.page,
+          pagination.pageSize,
+          filters.address,
+          filters.category,
+          filters.searchTitle,
+          filters.seriosness,
+        ],
+      });
+      setIsCreateModalOpen(false);
+      setSelectedWork(null);
+    },
+  });
+
+  const notificationMutation = useMutation({
+    mutationFn: ({ workId, text }) => createWorkNotification(workId, text),
+  });
+
   const handleSaveWork = (updatedWork) => {
     updateWorkMutation.mutate(updatedWork);
+    const text = `Для плановой работы "${updatedWork.title}" изменены данные.`;
+    notificationMutation.mutate({ workId: updatedWork.id, text });
+  };
+
+  const handleCreateWork = async (newWork) => {
+    var workId = await createWorkMutation.mutateAsync(newWork);
+    const text = `Создана новая плановая работа "${newWork.title}".`;
+    notificationMutation.mutate({ workId: workId, text });
   };
 
   const handleSearch = () => {
@@ -183,7 +222,7 @@ export default function EmployeeWorks() {
 
     try {
       const res = await client.get(
-        `/addresses?searchQuery=${encodeURIComponent(query)}`
+        `/addresses?searchQuery=${encodeURIComponent(query)}`,
       );
       const options = res.data.addresses.map((s) => ({
         value: s.id,
@@ -207,7 +246,11 @@ export default function EmployeeWorks() {
           onSubmit={methods.handleSubmit(handleSearch)}
         >
           <FormProvider {...methods}>
-            <InputField name="searchTitle" label="Название" />
+            <InputField
+              name="searchTitle"
+              label="Название"
+              placeholder="Введите что-нибудь..."
+            />
             <SelectField
               name="category"
               label="Категория"
@@ -237,6 +280,14 @@ export default function EmployeeWorks() {
             >
               <MagnifyingGlassIcon className={styles.icon} />
             </Button>
+            <Button
+              className={styles.searchButton}
+              variant="secondary"
+              type="button"
+              onClick={() => setIsCreateModalOpen(true)}
+            >
+              <PlusIcon className={styles.icon} />
+            </Button>
           </FormProvider>
         </form>
       </Block>
@@ -244,7 +295,7 @@ export default function EmployeeWorks() {
       <Block>
         <div className={styles.content}>
           <div className={styles.worksList}>
-            {data.works.map((work, index) => (
+            {data?.works?.map((work, index) => (
               <>
                 <div key={work.id} className={styles.workCard}>
                   <div className={styles.cardHeader}>
@@ -310,15 +361,19 @@ export default function EmployeeWorks() {
                       <span>
                         {format(
                           new Date(work.plannedStartTime),
-                          "dd MMM yyyy",
+                          "dd MMM yyyy HH:mm",
                           {
                             locale: ru,
-                          }
+                          },
                         )}{" "}
                         -{" "}
-                        {format(new Date(work.plannedEndTime), "dd MMM yyyy", {
-                          locale: ru,
-                        })}
+                        {format(
+                          new Date(work.plannedEndTime),
+                          "dd MMM yyyy HH:mm",
+                          {
+                            locale: ru,
+                          },
+                        )}
                       </span>
                     </div>
                   </div>
@@ -335,7 +390,7 @@ export default function EmployeeWorks() {
                             "dd MMM yyyy, HH:mm",
                             {
                               locale: ru,
-                            }
+                            },
                           )}
                         </span>
                       </div>
@@ -350,7 +405,7 @@ export default function EmployeeWorks() {
                               "dd MMM yyyy, HH:mm",
                               {
                                 locale: ru,
-                              }
+                              },
                             )}
                           </span>
                         </div>
@@ -363,7 +418,7 @@ export default function EmployeeWorks() {
           </div>
         </div>
         <Pagination
-          totalPages={data.totalPages}
+          totalPages={data?.totalPages || 0}
           onPageChange={handlePageChange}
           currentPage={pagination.page}
         />
@@ -392,6 +447,19 @@ export default function EmployeeWorks() {
           work={selectedWork}
           onSave={handleSaveWork}
           categories={requestCategories}
+          streetOptions={streetOptions}
+          onSearchStreets={handleStreetSearch}
+        />
+        <EditWorkModal
+          isOpen={isCreateModalOpen}
+          onClose={() => {
+            setIsCreateModalOpen(false);
+          }}
+          work={null}
+          onSave={handleCreateWork}
+          categories={requestCategories}
+          streetOptions={streetOptions}
+          onSearchStreets={handleStreetSearch}
         />
       </Block>
     </div>

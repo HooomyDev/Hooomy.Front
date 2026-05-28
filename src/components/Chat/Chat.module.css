@@ -30,6 +30,7 @@
   align-items: center;
   justify-content: center;
   color: var(--font-color);
+  width: 48px;
 }
 
 .backButton:hover {
@@ -204,4 +205,16 @@
 .createComplaintButton:hover {
   border: 1px solid transparent;
   color: var(--element-color);
+}
+
+@media (max-width: 720px) {
+  .container {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+
+  .header {
+    justify-content: flex-start;
+  }
 }

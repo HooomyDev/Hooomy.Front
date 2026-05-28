@@ -48,6 +48,7 @@
   flex-direction: row;
   gap: var(--spacing-xs);
   align-items: center;
+  justify-content: center;
 }
 
 .dropNavItemBtn:hover {
@@ -71,11 +72,13 @@
 @media (max-width: 720px) {
   .navLink,
   .dropNavItemBtn {
-    height: 2.5rem;
+    height: 32px;
     border-radius: 0;
     font-size: var(--font-size-lg);
   }
   .dropNavItemBtn {
-    width: 100%;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
   }
 }

@@ -14,7 +14,8 @@ export const getWorksForEmployee = async (
   seriosness,
   searchTitle,
   page = 1,
-  pageSize = 10
+  pageSize = 10,
+  companyId,
 ) => {
   const params = new URLSearchParams({
     page: page,
@@ -23,6 +24,7 @@ export const getWorksForEmployee = async (
     category: category || "",
     seriousness: seriosness || "",
     searchTitle: searchTitle || "",
+    companyId: companyId,
   });
 
   const res = await client.get(`/works/get-for-employee?${params.toString()}`);
@@ -36,6 +38,11 @@ export const deleteWork = async (id) => {
   const res = await client.delete(`/works/delete/${id}`);
 
   return res.data;
+};
+
+export const createWork = async (workData) => {
+  const response = await client.post(`/works/create`, workData);
+  return response.data;
 };
 
 export const updateWork = async (workData) => {

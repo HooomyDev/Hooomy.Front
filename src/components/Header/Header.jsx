@@ -63,7 +63,10 @@ export default function Header() {
         <div className={styles.logoWrapper}>
           <button
             className={styles.burgerButton}
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={() => {
+              console.log(isOpen);
+              setIsOpen((prev) => !prev);
+            }}
           >
             {isOpen ? (
               <XMarkIcon className={styles.icon} />

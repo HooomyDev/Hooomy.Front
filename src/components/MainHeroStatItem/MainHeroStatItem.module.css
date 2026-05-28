@@ -18,3 +18,9 @@
   color: var(--font-color);
   opacity: 0.8;
 }
+
+@media (max-width: 720px) {
+  .statItem {
+    padding-left: var(--spacing-md);
+  }
+}

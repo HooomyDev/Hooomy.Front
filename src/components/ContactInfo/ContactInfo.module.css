@@ -3,15 +3,20 @@
   padding: var(--spacing-xl);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--gray-color);
-  font-size: var(--font-size-md);
   line-height: 1.6;
   color: var(--font-color);
   width: 100%;
   margin: 0 auto;
   transition: transform 0.5s ease;
   user-select: text;
-  font-size: var(--font-size-lg);
   background-color: var(--main-color);
+}
+
+.title {
+  font-size: var(--font-size-subtitle);
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
 }
 
 .container:hover {
@@ -43,37 +48,15 @@
   .container {
     width: 100%;
     padding: var(--spacing-md);
-    font-size: clamp(0.9rem, 4vw, 1rem);
     text-align: center;
+  }
+
+  .title {
+    font-size: var(--font-size-xxl);
   }
 
   .container strong {
     display: block;
     min-width: auto;
-    margin-bottom: var(--spacing-xs);
   }
-
-  .container p {
-    margin-bottom: var(--spacing-md);
-  }
-}
-
-@media (max-width: 1080px) and (orientation: landscape) {
-  .container {
-    width: 90%;
-    padding: var(--spacing-lg);
-    font-size: clamp(1rem, 2vw, 1.125rem);
-  }
-
-  .container strong {
-    min-width: 70px;
-  }
-}
-
-.title {
-  font-size: var(--font-size-subtitle);
-  font-weight: 700;
-  color: var(--font-color);
-  text-align: center;
-  margin-bottom: var(--spacing-xxl);
 }
