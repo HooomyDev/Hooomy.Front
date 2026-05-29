@@ -25,9 +25,8 @@
 }
 
 .info {
-  position: absolute;
-  right: 20px;
-  top: 7px;
+  display: flex;
+  align-items: center;
 }
 
 .info:hover {

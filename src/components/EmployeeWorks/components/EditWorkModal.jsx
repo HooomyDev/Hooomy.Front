@@ -32,7 +32,7 @@ export default function EditWorkModal({
       description: "",
       category: null,
       seriousness: 1,
-      address: work?.addressId || "",
+      address: work?.addressId,
       plannedStartTime: "",
       plannedEndTime: "",
       factStartTime: "",

@@ -79,7 +79,9 @@ export default function AddUserToCompanyModal({ isOpen, onClose, companyId }) {
               type="submit"
               disabled={mutation.isPending}
               title={mutation.isPending ? "Сохранение..." : "Добавить"}
-            />
+            >
+              {mutation.isPending ? "Сохранение..." : "Добавить"}
+            </Button>
           </div>
         </form>
       </FormProvider>

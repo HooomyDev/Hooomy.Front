@@ -77,7 +77,9 @@ export default function AddAddressToCompanyModal({
               type="submit"
               disabled={mutation.isPending}
               title={mutation.isPending ? "Сохранение..." : "Добавить"}
-            />
+            >
+              {mutation.isPending ? "Сохранение..." : "Добавить"}
+            </Button>
           </div>
         </form>
       </FormProvider>

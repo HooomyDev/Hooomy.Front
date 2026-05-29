@@ -7,10 +7,12 @@
 
 .form {
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
   gap: var(--spacing-lg);
   width: 100%;
   min-width: 360px;
+  height: 40vh;
 }
 
 .error {
