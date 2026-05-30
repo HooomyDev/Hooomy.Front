@@ -5,14 +5,36 @@ import styles from "./Map.module.css";
 
 const reverseGeocode = async ({ lng, lat }) => {
   const response = await fetch(
-    `https://api.maptiler.com/geocoding/${lng},${lat}.json?key=f18LjJFT5ceYy706DQ1e`
+    `https://api.maptiler.com/geocoding/${lng},${lat}.json?key=f18LjJFT5ceYy706DQ1e`,
   );
   const data = await response.json();
 
   if (data.features?.length) {
     const feature = data.features[0];
+    const props = feature.properties || {};
+    const street =
+      props.street || props.name || props.road || props.address || "";
+    const houseNumber =
+      props.housenumber || props.house_number || props.building || "";
 
-    return feature.place_name.split(",")[0] || "Адрес не найден";
+    if (street && houseNumber) {
+      return `${street}, ${houseNumber}`;
+    }
+
+    const placeNameParts = feature.place_name
+      .split(",")
+      .map((p) => p.trim())
+      .filter(Boolean);
+
+    if (placeNameParts.length) {
+      const mainPart = placeNameParts[0];
+      const houseMatch = mainPart.match(/(.+?)\s+(\d+\S*)$/);
+      if (houseMatch) {
+        return `${houseMatch[1].trim()}, ${houseMatch[2].trim()}`;
+      }
+
+      return mainPart;
+    }
   }
 
   return "Адрес не найден";
@@ -43,7 +65,7 @@ export default function Map({ onSelect, data = [], allowMarkers = true }) {
           },
           trackUserLocation: true,
         }),
-        "top-left"
+        "top-left",
       );
 
       if (allowMarkers) {
@@ -101,8 +123,8 @@ export default function Map({ onSelect, data = [], allowMarkers = true }) {
           .setLngLat([district.lng, district.lat])
           .setPopup(
             new maplibregl.Popup().setHTML(
-              `<strong>${district.name}</strong><br>Заявок: ${district.requests}`
-            )
+              `<strong>${district.name}</strong><br>Заявок: ${district.requests}`,
+            ),
           )
           .addTo(map);
       });

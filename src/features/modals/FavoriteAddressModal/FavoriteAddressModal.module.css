@@ -4,7 +4,7 @@
   height: auto;
   width: 90%;
   gap: var(--spacing-md);
-  height: 60vh;
+  height: 100vh;
 }
 
 .modalContent form {
@@ -13,6 +13,48 @@
   height: 100%;
   width: 100%;
   gap: var(--spacing-md);
+}
+
+.modeToggle {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+}
+
+.modeBtn,
+.modeBtnActive {
+  padding: 8px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--font-color);
+  cursor: pointer;
+}
+
+.modeBtnActive {
+  background: var(--element-color);
+  color: var(--main-color);
+}
+
+.mapContainer {
+  height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.mapPreview {
+  padding: var(--spacing-sm);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--main-color);
+  font-size: var(--font-size-sm);
+}
+
+.error {
+  color: var(--red-color);
+  font-size: var(--font-size-sm);
+  text-align: center;
 }
 
 .button {

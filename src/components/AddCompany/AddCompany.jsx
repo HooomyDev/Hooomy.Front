@@ -69,7 +69,7 @@ export default function AddCompany() {
       await findOrCreateAddress(
         lat,
         lng,
-        `${parsedAddress.street}, ${parsedAddress.houseNumber}`
+        `${parsedAddress.street}, ${parsedAddress.houseNumber}`,
       );
     } catch (error) {
       console.error("Failed to save address:", error);
@@ -84,7 +84,7 @@ export default function AddCompany() {
       if (!debouncedSearchTerm) return [];
 
       const res = await apiClient.get(
-        `/addresses?searchQuery=${encodeURIComponent(debouncedSearchTerm)}`
+        `/addresses?searchQuery=${encodeURIComponent(debouncedSearchTerm)}`,
       );
       return res.data.addresses.map((s) => ({
         value: s.id,
@@ -100,12 +100,13 @@ export default function AddCompany() {
 
   const mutation = useMutation({
     mutationFn: async (data) => {
+      console.log(data);
       var companyId = await createCompany(
         data.name,
         data.phone,
         data.email,
         data.addressId || null,
-        data.workingHours
+        data.workingHours,
       );
 
       if (data.logo) {
@@ -153,11 +154,7 @@ export default function AddCompany() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader
-        title="Добавить компанию"
-        icon={WrenchScrewdriverIcon}
-        info={Info}
-      />
+      <PageHeader title="Добавить" icon={WrenchScrewdriverIcon} info={Info} />
 
       {isAddingAddress && (
         <div className={styles.createAddressContent}>
@@ -196,8 +193,8 @@ export default function AddCompany() {
               />
 
               <AutocompleteField
-                label="Улица"
-                name="street"
+                label="Адрес"
+                name="addressId"
                 options={streetOptions}
                 onSearch={handleStreetSearch}
                 loading={isFetching}

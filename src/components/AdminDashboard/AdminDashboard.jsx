@@ -8,6 +8,8 @@ import {
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/solid";
 import PageHeader from "../../common/PageHeader/PageHeader";
+import Button from "../../common/Button/Button";
+import CreateSystemNotificationModal from "../../features/modals/CreateSystemNotificationModal/CreateSystemNotificationModal";
 import styles from "./AdminDashboard.module.css";
 import { useT } from "../../utils/useT";
 import AdminDashboardStatCards from "./components/AdminDashboardStatCards";
@@ -24,6 +26,7 @@ import EmployeeStatisticChartPeriodSelector from "../EmployeeStatisticChart/comp
 export default function AdminDashboard() {
   const t = useT();
   const [period, setPeriod] = useState(1);
+  const [isCreateNotificationOpen, setIsCreateNotificationOpen] = useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["requestStatistic", period],
@@ -86,6 +89,12 @@ export default function AdminDashboard() {
         icon={HomeIcon}
       />
 
+      <div className={styles.actionsRow}>
+        <Button onClick={() => setIsCreateNotificationOpen(true)}>
+          Создать уведомление
+        </Button>
+      </div>
+
       <div className={styles.content}>
         <AdminDashboardStatCards cards={cards} />
         <EmployeeStatisticChartPeriodSelector
@@ -97,6 +106,11 @@ export default function AdminDashboard() {
           isLoading={isLoading}
         />
       </div>
+
+      <CreateSystemNotificationModal
+        isOpen={isCreateNotificationOpen}
+        onClose={() => setIsCreateNotificationOpen(false)}
+      />
     </div>
   );
 }

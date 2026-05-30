@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./CompanyDetails.module.css";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -6,6 +6,7 @@ import {
   getCompanyDetails,
   deleteCompany,
   removeAddressFromCompany,
+  uploadLogo,
 } from "../../api/services/companyService";
 import Loader from "../../common/Loader/Loader";
 import {
@@ -21,7 +22,11 @@ import {
   TrashIcon,
   StarIcon,
 } from "@heroicons/react/24/solid";
-import { ExclamationTriangleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import {
+  ExclamationTriangleIcon,
+  PlusIcon,
+  ArrowUpTrayIcon,
+} from "@heroicons/react/24/outline";
 import Block from "../../common/Block/Block";
 import Button from "../../common/Button/Button";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
@@ -51,6 +56,8 @@ export default function CompanyDetails() {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
+  const [isUploadingLogo, setIsUploadingLogo] = useState(false);
+  const fileInputRef = useRef(null);
   const [userToDelete, setUserToDelete] = useState(null);
   const [addressToDelete, setAddressToDelete] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
@@ -115,6 +122,40 @@ export default function CompanyDetails() {
     },
   });
 
+  const uploadLogoMutation = useMutation({
+    mutationFn: (file) => {
+      const formData = new FormData();
+      formData.append("logo", file);
+      return uploadLogo(companyId, formData);
+    },
+    onMutate: () => setIsUploadingLogo(true),
+    onSuccess: () => {
+      setIsUploadingLogo(false);
+      queryClient.invalidateQueries({ queryKey: ["company", companyId] });
+      setNotification({
+        type: "success",
+        message: "Логотип компании загружен",
+      });
+    },
+    onError: () => {
+      setIsUploadingLogo(false);
+      setNotification({
+        type: "error",
+        message: "Ошибка при загрузке логотипа",
+      });
+    },
+  });
+
+  const handleLogoSelect = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    uploadLogoMutation.mutate(file);
+    event.target.value = "";
+  };
+
   const handleClick = () => {
     if (!user) {
       setNotification({
@@ -144,32 +185,32 @@ export default function CompanyDetails() {
   const infoItems = [
     {
       label: "Телефон",
-      value: company.phone,
+      value: company?.phone,
       icon: <PhoneArrowDownLeftIcon className={styles.icon} />,
     },
     {
       label: "Email",
-      value: company.email,
+      value: company?.email,
       icon: <EnvelopeIcon className={styles.icon} />,
     },
     {
       label: "Адрес",
-      value: company.address,
+      value: company?.address,
       icon: <GlobeEuropeAfricaIcon className={styles.icon} />,
     },
     {
       label: "Режим работы",
-      value: company.workingHours,
+      value: company?.workingHours,
       icon: <ClockIcon className={styles.icon} />,
     },
     {
       label: "Дата регистрации",
-      value: new Date(company.createdAt).toLocaleDateString("ru-RU"),
+      value: new Date(company?.createdAt).toLocaleDateString("ru-RU"),
       icon: <CalendarIcon className={styles.icon} />,
     },
     {
       label: "Рейтинг",
-      value: company.averageRating || 0,
+      value: company?.averageRating || 0,
       icon: <StarIcon className={styles.icon} />,
     },
   ];
@@ -203,20 +244,38 @@ export default function CompanyDetails() {
           <div className={styles.blockContent}>
             <div className={styles.companyHeader}>
               <div className={styles.header}>
-                <h1>{company.name}</h1>
-                <Button
-                  variant="secondary"
-                  className={styles.submitButton}
-                  onClick={() => {
-                    setSelectedCompany(company);
-                    setIsComplaintModalOpen(true);
-                  }}
-                >
-                  <ExclamationTriangleIcon className={styles.submitIcon} />
-                </Button>
+                <h1>{company?.name}</h1>
+                {user?.role !== "Admin" && (
+                  <Button
+                    variant="secondary"
+                    className={styles.submitButton}
+                    onClick={() => {
+                      setSelectedCompany(company);
+                      setIsComplaintModalOpen(true);
+                    }}
+                  >
+                    <ExclamationTriangleIcon className={styles.submitIcon} />
+                  </Button>
+                )}
               </div>
               {user?.role === "Admin" && (
                 <div className={styles.headerActions}>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/*"
+                    className={styles.fileInput}
+                    onChange={handleLogoSelect}
+                    hidden
+                  />
+                  <Button
+                    className={styles.uploadBtn}
+                    title="Загрузить логотип"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploadingLogo}
+                  >
+                    <ArrowUpTrayIcon className={styles.btnIcon} />
+                  </Button>
                   <Button
                     className={styles.editBtn}
                     title="Изменить"

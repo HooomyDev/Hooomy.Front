@@ -4,6 +4,7 @@ import Block from "../../../common/Block/Block";
 import styles from "./EmployeesStatisticStatus.module.css";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import { useT } from "../../../utils/useT";
+import EmptyBlock from "../../../common/EmptyBlock/EmptyBlock";
 
 export default function EmployeesStatisticStatus({ requests = [] }) {
   const t = useT();
@@ -33,30 +34,36 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
       title={t("employeesStatisticStatus.header")}
       Icon={ClipboardDocumentListIcon}
     >
-      <div className={styles.statusWrapper}>
-        <PieChart width={800} height={750}>
-          <Pie
-            data={chartData}
-            cx="50%"
-            cy="50%"
-            innerRadius={100}
-            outerRadius={250}
-            dataKey="value"
-            label={({ name, percent }) =>
-              t("employeesStatisticStatus.label", {
-                status: name,
-                percent: (percent * 100).toFixed(0),
-              })
-            }
-          >
-            {chartData.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={COLORS[index]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </div>
+      {chartData?.length === 0 ? (
+        <EmptyBlock Icon={ClipboardDocumentListIcon}>
+          Нет данных для отображения
+        </EmptyBlock>
+      ) : (
+        <div className={styles.statusWrapper}>
+          <PieChart width={800} height={750}>
+            <Pie
+              data={chartData}
+              cx="50%"
+              cy="50%"
+              innerRadius={100}
+              outerRadius={250}
+              dataKey="value"
+              label={({ name, percent }) =>
+                t("employeesStatisticStatus.label", {
+                  status: name,
+                  percent: (percent * 100).toFixed(0),
+                })
+              }
+            >
+              {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
+        </div>
+      )}
     </Block>
   );
 }

@@ -12,7 +12,7 @@
   gap: var(--spacing-lg);
   width: 100%;
   min-width: 360px;
-  height: 40vh;
+  min-height: 40vh;
 }
 
 .error {
@@ -41,4 +41,41 @@
 
 .cancelBtn:hover {
   background-color: var(--gray-color);
+}
+
+.modeToggle {
+  display: flex;
+  gap: var(--spacing-sm);
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.modeBtn,
+.modeBtnActive {
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  cursor: pointer;
+}
+
+.modeBtnActive {
+  background: var(--element-color);
+  color: var(--main-color);
+}
+
+.mapPreview {
+  padding: var(--spacing-sm);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  background: var(--main-color);
+  font-size: var(--font-size-sm);
+}
+
+/* make map inside modal fit */
+.form > div > .mapContainer,
+.form .mapContainer {
+  height: 220px;
+  border-radius: 8px;
+  overflow: hidden;
 }
