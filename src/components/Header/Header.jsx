@@ -11,25 +11,6 @@ import Navbar from "../Navbar/Navbar";
 import Notifications from "./components/Notifications/Notifications";
 import { useAuthStore } from "../../stores/authStore";
 
-// testNotifications.js
-const testNotifications = [
-  {
-    id: 1,
-    message: "Системное обновление",
-    type: 1,
-    isRead: false,
-    date: "2026-05-01",
-  },
-  { id: 2, message: "Новая заявка #123", type: 2, isRead: false },
-  { id: 3, message: "Назначена работа", type: 3, isRead: false },
-  { id: 22, message: "Назначена работа", type: 3, isRead: false },
-  { id: 4, message: "Назначена работа", type: 3, isRead: false },
-  { id: 5, message: "Назначена работа", type: 3, isRead: false },
-  { id: 6, message: "Назначена работа", type: 3, isRead: false },
-  { id: 7, message: "Назначена работа", type: 3, isRead: false },
-  { id: 8, message: "Обычное уведомление", type: 0, isRead: true },
-];
-
 export default function Header() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
@@ -38,7 +19,6 @@ export default function Header() {
 
   const links = useLinks();
 
-  // обработка клика вне навбара
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
@@ -80,9 +60,7 @@ export default function Header() {
         <Navbar items={links} />
 
         <div className={styles.actions}>
-          {user?.role === "Resident" && (
-            <Notifications notifications={testNotifications} />
-          )}
+          {user?.role === "Resident" && <Notifications />}
           <button
             className={styles.settingButton}
             onClick={() => navigate(routes.settings)}

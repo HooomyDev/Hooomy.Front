@@ -17,6 +17,7 @@
     "startDate": "Начальная дата",
     "endDate": "Конечная дата",
     "all": "Все",
+    "moder": "На модерации",
     "pending": "В обработке",
     "done": "Выполнено",
     "rejected": "Отклонено",
@@ -26,7 +27,9 @@
     "category": "Категория",
     "categoryLabel": "Категория проблемы",
     "details": "Описание",
-    "titleLabel": "Краткое описание проблемы"
+    "titleLabel": "Краткое описание проблемы",
+    "error": "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+    "date": "Дата"
   },
 
   "main": {
@@ -38,7 +41,54 @@
     "contacts": {
       "haveQuest": "Есть вопросы?",
       "contactUs": "Свяжитесь с нами",
-      "writeUs": "Напишите нам!"
+      "writeUs": "Напишите нам!",
+      "infoTitle": "Контактная информация",
+      "emailLabel": "Email для обратной связи",
+      "messageLabel": "Сообщение",
+      "sending": "Отправка...",
+      "successMessage": "Обращение успешно принято",
+      "submitError": "Ошибка при отправке. Попробуйте позже.",
+      "errorMessageRequired": "Сообщение обязательно",
+      "errorMessageTooShort": "Сообщение должно содержать минимум 3 символа",
+      "errorMessageTooLong": "Сообщение не должно превышать 2000 символов"
+    },
+    "search": {
+      "title": "Поиск информации о доме",
+      "addressLabel": "Адрес",
+      "errorSelectAddress": "Пожалуйста, выберите адрес из списка"
+    },
+    "faqSlider": {
+      "title": "Часто задаваемые вопросы",
+      "prevSlide": "Предыдущий слайд",
+      "nextSlide": "Следующий слайд",
+      "goToSlide": "Перейти к слайду {{number}}",
+      "cards": {
+        "register": {
+          "title": "Регистрация",
+          "question": "Как зарегистрироваться на портале?",
+          "answer": "Нажмите кнопку «Войти» в правом верхнем углу и следуйте шагам регистрации."
+        },
+        "help": {
+          "title": "Поддержка",
+          "question": "Где можно получить помощь?",
+          "answer": "Вы можете связаться с нами по email или телефону из раздела Контакты."
+        },
+        "common": {
+          "title": "Частые вопросы",
+          "question": "Какие вопросы наиболее часто задают?",
+          "answer": "Частые вопросы касаются регистрации, восстановления пароля и подачи заявок."
+        },
+        "documents": {
+          "title": "Документы",
+          "question": "Где найти документы?",
+          "answer": "Документы доступны в разделе Документы в футере сайта."
+        },
+        "support": {
+          "title": "Техническая поддержка",
+          "question": "Как связаться с поддержкой?",
+          "answer": "Свяжитесь с нами по email hooomy.help.by@gmail.com или звонку +375 (44) 569-10-58."
+        }
+      }
     }
   },
 
@@ -137,7 +187,22 @@
     "data": "Данные",
     "users": "Пользователи",
     "complaints": "Жалобы",
-    "comments": "Комментарии"
+    "comments": "Комментарии",
+    "messages": "Чаты"
+  },
+
+  "chats": {
+    "title": "Чаты",
+    "empty": "Нет чатов",
+    "searchPlaceholder": "Поиск...",
+    "accessDeniedDefault": "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+    "addCompany": "Выбрать компанию",
+    "chatCard": {
+      "defaultChat": "Чат",
+      "noMessages": "Нет сообщений"
+    },
+    "createComplaint": "Пожаловаться",
+    "messagePlaceholder": "Напишите сообщение..."
   },
 
   "userdrop": { "login": "Войти", "profile": "Профиль", "logout": "Выйти" },
@@ -178,6 +243,7 @@
   "address": "г. Минск, ул. Пономаренко, 35А, оф. 208, БЦ «Инфо»",
 
   "errors": {
+    "required": "Обязательное поле",
     "requiredEmail": "Введите email",
     "invalidEmail": "Некорректный email",
     "requiredPassword": "Введите пароль",
@@ -945,7 +1011,14 @@
     "title": "Опросы",
     "active": "Активные опросы",
     "noSurveys": "Нет активных вопросов",
-    "voite": "Пройти опрос"
+    "voite": "Пройти опрос",
+    "vote": "Проголосовать",
+    "results": "Результаты",
+    "allVotes": "Всего голосов",
+    "error": "Ошибка при загрузке опросов. Пожалуйста, попробуйте позже.",
+    "error2": "Произошла ошибка во время загрузки опроса.",
+    "allReadyVoted": "Вы уже голосовали в этом опросе",
+    "your": "Ваш голос"
   },
 
   "statistic": {
@@ -1054,12 +1127,17 @@
       "statistics": {
         "label": "Статистика",
         "description": "Просмотр и экспорт статистики по заявкам"
+      },
+      "works": {
+        "label": "Плановые работы",
+        "description": "Управление плановыми работами"
       }
     }
   },
   "employeeStatisticCards": {
     "pending": "В обработке",
     "completed": "Выполнено",
+    "created": "Создано",
     "rejected": "Отклонено",
     "avgTime": "Среднее время",
     "avgTimeDescription": "выполнения заявки",
@@ -1072,13 +1150,21 @@
     "empty": "Заявки не найдены",
     "defaultAuthor": "Сотрудник ЖЭУ",
     "status": {
+      "all": "Все статусы",
       "pending": "В обработке",
       "completed": "Выполнено",
-      "rejected": "Отклонено"
+      "rejected": "Отклонено",
+      "new": "Новая",
+      "inProgress": "В работе",
+      "awaitingReview": "Ожидает проверки",
+      "unknown": "Неизвестно"
     }
   },
   "employeeRequestsControls": {
+    "searchLabel": "Поиск",
     "searchPlaceholder": "Поиск по адресу, описанию или дате...",
+    "categoryLabel": "Категория",
+    "statusLabel": "Статус",
     "filters": {
       "all": "Все статусы",
       "pending": "В обработке",
@@ -1093,11 +1179,13 @@
       "title": "Заявка",
       "address": "Адрес",
       "date": "Дата",
+      "category": "Категория",
       "status": "Статус",
       "actions": "Действия"
     },
     "actions": {
       "view": "Просмотр деталей",
+      "startWork": "Взять в работу",
       "complete": "Отметить как выполненное",
       "reject": "Отклонить заявку",
       "comment": "Добавить комментарий"
@@ -1140,13 +1228,74 @@
     "back": "Назад",
     "create": "Создать"
   },
+  "employeeSurveysList": {
+    "controls": {
+      "searchLabel": "Поиск",
+      "searchPlaceholder": "Поиск",
+      "typeLabel": "Тип",
+      "typeOptions": {
+        "all": "Все",
+        "single": "Один вариант ответа",
+        "multiple": "Множественный выбор"
+      },
+      "statusLabel": "Статус",
+      "statusOptions": {
+        "all": "Все",
+        "active": "Активные",
+        "completed": "Завершённые",
+        "archived": "Архивированные"
+      }
+    },
+    "empty": "Нет опросов",
+    "successMessage": "Опрос успешно создан",
+    "deleteText": "Вы уверены, что хотите удалить этот опрос? Это действие нельзя отменить.",
+    "allVotes": "Всего голосов",
+    "results": "Результаты",
+    "users": "Участвовало",
+    "variants": "Вариантов"
+  },
+  "employeeSurveysEditModal": {
+    "title": "Изменить опрос",
+    "nameLabel": "Название",
+    "namePlaceholder": "Введите название опроса",
+    "descriptionLabel": "Описание",
+    "statusLabel": "Статус",
+    "cancel": "Отмена",
+    "save": "Сохранить",
+    "statusOptions": {
+      "all": "Все",
+      "active": "Активные",
+      "completed": "Завершённые",
+      "archived": "Архивированные"
+    }
+  },
   "employeeStatistic": {
     "header": "Статистика заявок",
     "export": "Экспорт",
+    "filenamePrefix": "статистика",
     "exportItems": {
       "pdf": "Экспорт в PDF",
       "excel": "Экспорт в Excel",
       "csv": "Экспорт в CSV"
+    },
+    "exportSheets": {
+      "summary": "Сводка",
+      "daily": "Динамика по дням",
+      "statuses": "Статусы",
+      "categories": "Категории",
+      "companies": "Компании"
+    },
+    "exportColumns": {
+      "totalRequests": "Всего заявок",
+      "completed": "Выполнено",
+      "inProgress": "В работе",
+      "new": "Новых",
+      "date": "Дата",
+      "requestsCount": "Количество заявок",
+      "status": "Статус",
+      "category": "Категория",
+      "count": "Количество",
+      "percentage": "Доля"
     },
     "exportError": "Ошибка при экспорте в PDF"
   },
@@ -1176,7 +1325,28 @@
   },
   "employeesStatisticStatus": {
     "header": "Статистика по статусам",
-    "label": "{{status}}: {{percent}}%"
+    "status": {
+      "created": "Создано",
+      "rejected": "Отклонено",
+      "pending": "В обработке",
+      "completed": "Выполнено"
+    },
+    "label": "{{status}}: {{percent}}%",
+    "empty": "Нет данных для отображения"
+  },
+
+  "companyStatistics": {
+    "header": "Статистика по ЖЭУ",
+    "totalCompanies": "Всего компаний",
+    "totalRequests": "Всего заявок",
+    "withRatings": "С оценками",
+    "table": {
+      "company": "Компания",
+      "requests": "Заявки",
+      "completed": "Выполнено",
+      "pending": "В работе",
+      "rating": "Рейтинг"
+    }
   },
   "employeesStatisticTypes": {
     "header": "Статистика по типам"
@@ -1190,6 +1360,418 @@
     "complaints": "Жалобы",
     "comments": "Комментарии",
     "statistics": "Статистика",
-    "statsHint": "Здесь отображаются ключевые показатели работы ЖЭУ"
+    "statsHint": "Здесь отображаются ключевые показатели работы ЖЭУ",
+    "hmo": "ЖЭУ",
+    "inquiries": "Обращения пользователей",
+    "createNotification": "Создать уведомление",
+    "createSystemNotification": {
+      "title": "Создать системное уведомление",
+      "textLabel": "Текст уведомления",
+      "textPlaceholder": "Введите текст уведомления",
+      "createError": "Ошибка при создании уведомления. Попробуйте снова."
+    }
+  },
+
+  "inquiriesPage": {
+    "title": "Обращения пользователей",
+    "dateLabel": "Дата",
+    "emptyMessage": "Нет обращений"
+  },
+
+  "createComplaintModal": {
+    "title": "Создать жалобу",
+    "shortDescriptionLabel": "Краткое описание",
+    "shortDescriptionPlaceholder": "Кратко опишите суть проблемы",
+    "descriptionLabel": "Описание",
+    "descriptionPlaceholder": "Подробно опишите вашу проблему",
+    "requiredField": "Обязательное поле",
+    "errorBanner": "Ошибка при отправке жалобы. Попробуйте снова.",
+    "cancel": "Отмена",
+    "submit": "Отправить",
+    "sending": "Отправка...",
+    "sendButtonTitle": "Отправить жалобу",
+    "notSpecified": "не указан",
+    "ids": {
+      "resident": "ID Жильца",
+      "company": "ID Компании",
+      "comment": "ID Комментария",
+      "request": "ID Заявки"
+    }
+  },
+
+  "adminComplaints": {
+    "title": "Жалобы",
+    "search": "Поиск",
+    "searchPlaceholder": "Поиск по описанию...",
+    "statusLabel": "Статус",
+    "typeLabel": "Тип",
+    "table": {
+      "id": "ID",
+      "fullName": "Краткое описание",
+      "status": "Статус",
+      "description": "Описание"
+    },
+    "allStatuses": "Все статусы",
+    "allTypes": "Все типы",
+    "listTitle": "Список жалоб",
+    "notFound": "Жалоб не найдено",
+    "currentStatus": "Текущий статус",
+    "unknownType": "Неизвестный тип",
+    "statuses": {
+      "0": "Неизвестно",
+      "1": "Принята",
+      "2": "На рассмотрении",
+      "3": "Закрыта",
+      "unknown": "Неизвестно",
+      "accepted": "Принята",
+      "onReview": "На рассмотрении",
+      "closed": "Закрыта"
+    },
+    "actions": {
+      "accept": "Принять",
+      "review": "На рассмотрение",
+      "close": "Закрыть"
+    },
+    "types": {
+      "1": "Жалоба на жильца",
+      "2": "Жалоба на управляющую компанию",
+      "3": "Жалоба на комментарий",
+      "4": "Жалоба на исполнение заявки",
+      "5": "Жалоба на работу сервиса"
+    },
+    "detail": {
+      "title": "Детали жалобы",
+      "type": "Тип",
+      "status": "Статус",
+      "short": "Краткое описание",
+      "description": "Описание",
+      "createdAt": "Создано",
+      "updatedAt": "Обновлено"
+    }
+  },
+
+  "adminComments": {
+    "title": "Модерация комментариев",
+    "search": "Поиск",
+    "searchPlaceholder": "Текст комментария",
+    "statusLabel": "Статус",
+    "empty": "Нет комментариев",
+    "table": {
+      "id": "ID",
+      "author": "Автор",
+      "comment": "Комментарий",
+      "status": "Статус",
+      "createdAt": "Время создания",
+      "actions": "Действия"
+    },
+    "actions": {
+      "view": "Подробнее",
+      "approve": "Одобрить",
+      "delete": "Удалить"
+    },
+    "statuses": {
+      "all": "Все статусы",
+      "pending": "Ожидает проверки",
+      "approved": "Одобрен",
+      "deleted": "Удален",
+      "unknown": "Неизвестно"
+    },
+    "detail": {
+      "title": "Детали комментария",
+      "id": "ID",
+      "company": "Компания",
+      "text": "Текст",
+      "status": "Статус",
+      "photos": "Фотографии",
+      "createdAt": "Создан",
+      "updatedAt": "Обновлён",
+      "deletedAt": "Удалён",
+      "close": "Закрыть"
+    }
+  },
+
+  "common": {
+    "cancel": "Отмена",
+    "title": "Подтвердите действие",
+    "confirm": "Подтвердить",
+    "create": "Создать",
+    "saving": "Сохранение...",
+    "search": "Поиск",
+    "status": "Статус",
+    "text1": "Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить.",
+    "logo": "Логотип",
+    "createCompany": "Новый",
+    "more": "Ещё",
+    "searchPlaceholder": "Введите название",
+    "address": "Адрес",
+    "category": "Категория"
+  },
+  "company": {
+    "name": "Название компании",
+    "namePlaceholder": "Введите название компании",
+    "nameRequired": "Название компании обязательно",
+    "workingHours": "Рабочие часы",
+    "workingHoursPlaceholder": "09:00-18:00",
+    "addressInfo": {
+      "title": "Что делать, если адреса нет в списке?",
+      "spellCheck": "Проверьте правильность написания улицы",
+      "addManually": "Если адреса всё ещё нет, вы можете добавить его вручную",
+      "instructions": "Для добавления адреса нажмите на кнопку ниже.",
+      "add": "Добавить"
+    },
+    "selectedAddress": "Выбранный адрес:",
+    "emailPlaceholder": "company@example.com",
+    "addCompany": "Добавить компанию",
+    "adding": "Добавление..."
+  },
+  "pageTitle": "Плановые работы",
+  "filters": {
+    "titleLabel": "Название",
+    "titlePlaceholder": "Введите что-нибудь...",
+    "categoryLabel": "Категория",
+    "seriousnessLabel": "Серьёзность",
+    "addressLabel": "Адрес"
+  },
+  "seriousnessOptions": {
+    "all": "Все",
+    "informational": "Информационные",
+    "warning": "Предупреждения"
+  },
+  "emptyState": "Нет работ",
+  "seriousnessLabels": {
+    "info": "Информация",
+    "warn": "Важно"
+  },
+  "categoryFallback": "Другое",
+  "factDates": {
+    "startLabel": "Фактическое начало:",
+    "endLabel": "Фактическое окончание:"
+  },
+  "actions": {
+    "deleteTitle": "Удалить",
+    "deleteMessage": "Вы уверены, что хотите удалить? Это действие необратимо.",
+    "deleteConfirm": "Удалить",
+    "create": "Создать",
+    "edit": "Редактировать",
+    "search": "Найти",
+    "reset": "Сбросить"
+  },
+  "employeeWorkEditModal": {
+    "title": {
+      "edit": "Редактирование работы",
+      "create": "Создание новой работы"
+    },
+    "fields": {
+      "titleLabel": "Название работы",
+      "descriptionLabel": "Описание",
+      "categoryLabel": "Категория",
+      "seriousnessLabel": "Серьёзность",
+      "addressLabel": "Адрес",
+      "plannedStartLabel": "Планируемая дата и время начала",
+      "plannedEndLabel": "Планируемая дата и время окончания",
+      "factStartLabel": "Фактическая дата начала (опционально)",
+      "factEndLabel": "Фактическая дата окончания (опционально)"
+    },
+    "seriousnessOptions": {
+      "informational": "Информационная",
+      "important": "Важная"
+    },
+    "validation": {
+      "titleRequired": "Название обязательно",
+      "descriptionRequired": "Описание обязательно",
+      "categoryRequired": "Категория обязательна",
+      "seriousnessRequired": "Серьёзность обязательна",
+      "addressRequired": "Адрес обязателен",
+      "plannedStartRequired": "Дата и время начала обязательны",
+      "plannedEndRequired": "Дата и время окончания обязательны",
+      "startBeforeEnd": "Время начала должно быть раньше времени окончания",
+      "endAfterStart": "Время окончания должно быть позже времени начала"
+    },
+    "actions": {
+      "cancel": "Отмена",
+      "saving": "Сохранение...",
+      "saveEdit": "Сохранить изменения",
+      "saveCreate": "Создать работу"
+    }
+  },
+  "months": {
+    "1": "Январь",
+    "2": "Февраль",
+    "3": "Март",
+    "4": "Апрель",
+    "5": "Май",
+    "6": "Июнь",
+    "7": "Июль",
+    "8": "Август",
+    "9": "Сентябрь",
+    "10": "Октябрь",
+    "11": "Ноябрь",
+    "12": "Декабрь"
+  },
+  "requestDetailsModal": {
+    "title": "Детали заявки",
+    "status": {
+      "pending": "Ожидает модерации",
+      "created": "Создан",
+      "rejected": "Отклонено",
+      "processing": "В обработке",
+      "completed": "Выполнено",
+      "unknown": "Неизвестный статус"
+    },
+    "labels": {
+      "problemTitle": "Краткое описание проблемы",
+      "createdAt": "Создано:",
+      "address": "Адрес:",
+      "description": "Описание",
+      "noDescription": "Описание отсутствует",
+      "reviewScore": "Оценка",
+      "reviewText": "Комментарий к оценке"
+    },
+    "actions": {
+      "rateWork": "Оценить работу",
+      "complain": "Пожаловаться на исполнение заявки",
+      "delete": "Удалить",
+      "deleting": "Удаление...",
+      "cancel": "Отмена"
+    },
+    "confirmDelete": {
+      "title": "Подтверждение удаления",
+      "message": "Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить.",
+      "confirm": "Удалить",
+      "cancel": "Отмена"
+    },
+    "expand": {
+      "showMore": "Показать больше",
+      "showLess": "Скрыть"
+    }
+  },
+  "ratingModal": {
+    "title": "Оцените работу",
+    "fields": {
+      "commentLabel": "Комментарий",
+      "commentPlaceholder": "Оставьте комментарий к оценке (необязательно)"
+    },
+    "actions": {
+      "cancel": "Отмена",
+      "submit": "Отправить",
+      "submitting": "Отправка..."
+    },
+    "validation": {
+      "ratingRequired": "Пожалуйста, выберите оценку"
+    },
+    "aria": {
+      "closeModal": "Закрыть модальное окно",
+      "starRating": "Оценка: {{rating}} из 5"
+    }
+  },
+  "companyComments": {
+    "title": "Комментарии",
+    "emptyState": "Комментариев пока что нет",
+    "fields": {
+      "placeholder": "Напишите комментарий...",
+      "required": "Введите комментарий",
+      "minLength": "Минимум {{count}} символа"
+    },
+    "senderFallback": "ЖЭУ",
+    "labels": {
+      "updated": "обновлено",
+      "loadMore": "Загрузить ещё",
+      "filesAttached": "Файлы прикреплены"
+    },
+    "status": {
+      "pending": "Ожидает проверки",
+      "approved": "Одобрен",
+      "deleted": "Удален",
+      "unknown": "Неизвестно"
+    },
+    "actions": {
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "complain": "Пожаловаться",
+      "attachFile": "Прикрепить файл",
+      "send": "Отправить",
+      "cancel": "Отмена"
+    },
+    "file": {
+      "remove": "Удалить файл",
+      "maxFiles": "Можно прикрепить не более {{max}} файлов",
+      "size": {
+        "bytes": "Байт",
+        "kb": "КБ",
+        "mb": "МБ",
+        "gb": "ГБ"
+      }
+    },
+    "aria": {
+      "expandImage": "Открыть изображение",
+      "closeImage": "Закрыть просмотр",
+      "authorLink": "Перейти к профилю компании"
+    }
+  },
+  "companyDetails": {
+    "pageTitle": "Детали компании",
+    "info": {
+      "phone": "Телефон",
+      "email": "Email",
+      "address": "Адрес",
+      "workingHours": "Режим работы",
+      "registeredAt": "Дата регистрации",
+      "rating": "Рейтинг",
+      "noValue": "—"
+    },
+    "actions": {
+      "uploadLogo": "Загрузить логотип",
+      "edit": "Изменить",
+      "delete": "Удалить",
+      "back": "Назад",
+      "write": "Написать",
+      "addAddress": "Добавить адрес",
+      "addEmployee": "Добавить работника",
+      "deleteAddress": "Удалить адрес",
+      "deleteEmployee": "Удалить из компании",
+      "complain": "Пожаловаться"
+    },
+    "sections": {
+      "reviews": "Отзывы",
+      "addresses": "Обслуживаемые адреса",
+      "employees": "Работники"
+    },
+    "emptyStates": {
+      "noReviews": "Отзывов пока нет",
+      "noAddresses": "Адреса не указаны",
+      "noEmployees": "Работников пока что нет"
+    },
+    "reviews": {
+      "noComment": "Без комментария"
+    },
+    "notifications": {
+      "deleteCompanyError": "Ошибка при удалении компании",
+      "deleteEmployeeError": "Ошибка при удалении работника",
+      "deleteAddressError": "Ошибка при удалении адреса",
+      "logoUploaded": "Логотип компании загружен",
+      "logoUploadError": "Ошибка при загрузке логотипа",
+      "authRequired": "Необходимо авторизоваться",
+      "emailNotConfirmed": "Подтвердите email для создания чата"
+    },
+    "confirmDelete": {
+      "employee": {
+        "title": "Удалить работника",
+        "message": "Удалить {{surname}} {{firstName}} из компании?"
+      },
+      "address": {
+        "title": "Удалить адрес",
+        "message": "Удалить адрес \"{{address}}\" из компании?"
+      },
+      "company": {
+        "title": "Удалить компанию",
+        "message": "Вы уверены, что хотите удалить компанию \"{{name}}\"? Это действие необратимо."
+      },
+      "confirm": "Удалить",
+      "cancel": "Отмена"
+    },
+    "chat": {
+      "create": "Создать чат",
+      "error": "Не удалось создать чат"
+    }
   }
 }

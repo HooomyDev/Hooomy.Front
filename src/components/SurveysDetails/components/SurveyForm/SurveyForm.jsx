@@ -6,8 +6,10 @@ import RadioButton from "../../../../common/RadioButton/RadioButton";
 import CheckBox from "../../../../common/CheckBox/CheckBox";
 import Button from "../../../../common/Button/Button";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
+import { useT } from "../../../../utils/useT";
 
 export default function SurveyForm({ Icon, survey, onSubmit, methods }) {
+  const t = useT();
   const {
     register,
     handleSubmit,
@@ -21,7 +23,7 @@ export default function SurveyForm({ Icon, survey, onSubmit, methods }) {
         <RadioButton
           key={option.id}
           {...register("surveyAnswer", {
-            required: "Выберите один вариант ответа",
+            required: t("surveys.requiredAnswer"),
           })}
           value={option.id}
           label={option.content}
@@ -79,7 +81,9 @@ export default function SurveyForm({ Icon, survey, onSubmit, methods }) {
           )}
 
           <Button type="submit" className={styles.submitBtn}>
-            {survey.userHasVoted ? "Вы уже проголосовали" : "Проголосовать"}
+            {survey.userHasVoted
+              ? t("surveys.allReadyVoted")
+              : t("surveys.vote")}
           </Button>
         </form>
       </FormProvider>

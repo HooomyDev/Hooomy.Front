@@ -7,6 +7,8 @@ import {
   PencilIcon,
   PlusIcon,
   TrashIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import Block from "../../common/Block/Block";
 import { FormProvider, useForm } from "react-hook-form";
@@ -16,7 +18,6 @@ import SelectField from "../../common/SelectField/SelectField";
 import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
 import { apiClient as client } from "../../api/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getRequestCategories } from "../../api/services/requestService";
 import Loader from "../../common/Loader/Loader";
 import {
   deleteWork,
@@ -25,7 +26,7 @@ import {
   createWork,
 } from "../../api/services/workService";
 import { format } from "date-fns";
-import { ru } from "date-fns/locale";
+import { ru, enUS } from "date-fns/locale";
 import {
   CalendarIcon,
   ExclamationCircleIcon,
@@ -38,34 +39,12 @@ import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
 import EditWorkModal from "./components/EditWorkModal";
 import { useAuthStore } from "../../stores/authStore";
 import { createWorkNotification } from "../../api/services/notificationService";
-
-const categoryMap = {
-  0: "Все",
-  1: "Водоснабжение. Горячая вода",
-  2: "Электроснабжение",
-  3: "Бытовые услуги",
-  4: "Санитарное состояние многоквартирного дома",
-  5: "Отопление",
-  6: "Благоустройство территории",
-  7: "Водоснабжение",
-  8: "Общестроительные работы",
-  9: "Санитарное состояние территории",
-  11: "Техническое обслуживание ЗПУ",
-  12: "Другое",
-  13: "Техническое обслуживание лифта",
-  14: "Обращение с ТКО",
-  15: "Водоснабжение. Холодная вода",
-  16: "Канализация",
-  17: "Автомобильные дороги, тротуары",
-  18: "Кровельные работы",
-  19: "Уличное освещение",
-  20: "Общественные места (Парки, скверы)",
-  21: "Работы по ремонту стыков",
-  22: "Техническое обслуживание зданий и сооружений",
-  23: "Рекламные и информационные конструкции и объявления",
-};
+import { categoryMap } from "../../stores/categories";
+import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import { useT } from "../../utils/useT";
 
 export default function EmployeeWorks() {
+  const t = useT();
   const queryClient = useQueryClient();
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -93,15 +72,10 @@ export default function EmployeeWorks() {
   const { user } = useAuthStore();
 
   const seriosnessMap = [
-    { value: 0, label: "Все" },
-    { value: 1, label: "Информационные" },
-    { value: 2, label: "Предупреждения" },
+    { value: 0, label: t("seriousnessOptions.all") },
+    { value: 1, label: t("seriousnessOptions.informational") },
+    { value: 2, label: t("seriousnessOptions.warning") },
   ];
-
-  const { data: requestCategories } = useQuery({
-    queryKey: ["requestCategories"],
-    queryFn: () => getRequestCategories(),
-  });
 
   const { data, isLoading } = useQuery({
     queryKey: [
@@ -239,7 +213,9 @@ export default function EmployeeWorks() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={Cog6ToothIcon} title="Плановые работы" />
+      {/* 🔹 Заголовок страницы */}
+      <PageHeader icon={Cog6ToothIcon} title={t("pageTitle")} />
+
       <Block>
         <form
           className={styles.searchBlock}
@@ -248,55 +224,83 @@ export default function EmployeeWorks() {
           <FormProvider {...methods}>
             <InputField
               name="searchTitle"
-              label="Название"
-              placeholder="Введите что-нибудь..."
+              label={t("filters.titleLabel")}
+              placeholder={t("filters.titlePlaceholder")}
             />
             <SelectField
               name="category"
-              label="Категория"
-              options={
-                requestCategories?.map((c) => ({
-                  value: c.code,
-                  label: c.name,
-                })) || []
-              }
+              label={t("filters.categoryLabel")}
+              options={Object.entries(categoryMap).map(([code, key]) => {
+                const categoryCode = Number(code);
+                return {
+                  value: categoryCode,
+                  label: t(`statistic.categories.${key}`),
+                };
+              })}
             />
             <SelectField
               name="seriosness"
-              label="Серьёзность"
+              label={t("filters.seriousnessLabel")}
               options={seriosnessMap}
             />
             <AutocompleteField
-              label="Адрес"
+              label={t("filters.addressLabel")}
+              placeholder={t("filters.titleLabel")}
               name="address"
               options={streetOptions}
               onSearch={handleStreetSearch}
             />
-            <Button
-              className={styles.searchButton}
-              onClick={() => handleSearch()}
-              variant="secondary"
-              type="submit"
-            >
-              <MagnifyingGlassIcon className={styles.icon} />
-            </Button>
-            <Button
-              className={styles.searchButton}
-              variant="secondary"
-              type="button"
-              onClick={() => setIsCreateModalOpen(true)}
-            >
-              <PlusIcon className={styles.icon} />
-            </Button>
+            <div className={styles.actionButtons}>
+              <Button
+                className={styles.searchButton}
+                onClick={() => {
+                  setPagination({ page: 1, pageSize: 5 });
+                  setFilters({
+                    category: 0,
+                    seriosness: 0,
+                    searchTitle: "",
+                    address: "",
+                  });
+                  methods.reset();
+                }}
+                variant="secondary"
+                type="submit"
+                aria-label={t("actions.reset")}
+              >
+                <XMarkIcon className={styles.icon} />
+              </Button>
+              <Button
+                className={styles.searchButton}
+                onClick={() => handleSearch()}
+                variant="secondary"
+                type="submit"
+                aria-label={t("actions.search")}
+              >
+                <MagnifyingGlassIcon className={styles.icon} />
+              </Button>
+              <Button
+                className={styles.searchButton}
+                variant="secondary"
+                type="button"
+                onClick={() => setIsCreateModalOpen(true)}
+                aria-label={t("actions.create")}
+              >
+                <PlusIcon className={styles.icon} />
+              </Button>
+            </div>
           </FormProvider>
         </form>
       </Block>
 
       <Block>
         <div className={styles.content}>
-          <div className={styles.worksList}>
-            {data?.works?.map((work, index) => (
-              <>
+          {data?.works.length === 0 ? (
+            <EmptyBlock Icon={WrenchScrewdriverIcon}>
+              {t("emptyState")}
+            </EmptyBlock>
+          ) : (
+            <div className={styles.worksList}>
+              {data?.works?.map((work) => (
                 <div key={work.id} className={styles.workCard}>
                   <div className={styles.cardHeader}>
                     <div className={styles.info}>
@@ -317,7 +321,9 @@ export default function EmployeeWorks() {
                             className={styles.seriousnessIcon}
                           />
                         )}
-                        {work.seriousness === 1 ? "Информация" : "Важно"}
+                        {work.seriousness === 1
+                          ? t("seriousnessLabels.info")
+                          : t("seriousnessLabels.warn")}
                       </span>
                     </div>
                     <div className={styles.actions}>
@@ -327,16 +333,17 @@ export default function EmployeeWorks() {
                           setSelectedWork(work);
                           setIsEditModalOpen(true);
                         }}
+                        aria-label={t("actions.edit")}
                       >
                         <PencilIcon className={styles.actionIcon} />
                       </button>
-
                       <button
                         className={`${styles.actionButton} ${styles.trashButton}`}
                         onClick={() => {
                           setSelectedWork(work);
                           setIsDeleteOpen(true);
                         }}
+                        aria-label={t("actions.deleteTitle")}
                       >
                         <TrashIcon className={styles.actionIcon} />
                       </button>
@@ -350,12 +357,14 @@ export default function EmployeeWorks() {
                       <MapPinIcon className={styles.detailIcon} />
                       <span>{work.address}</span>
                     </div>
-
                     <div className={styles.detailItem}>
                       <TagIcon className={styles.detailIcon} />
-                      <span>{categoryMap[work.category] || "Другое"}</span>
+                      <span>
+                        {t(
+                          `statistic.categories.${categoryMap[work.category]}`,
+                        )}
+                      </span>
                     </div>
-
                     <div className={styles.detailItem}>
                       <CalendarIcon className={styles.detailIcon} />
                       <span>
@@ -363,7 +372,8 @@ export default function EmployeeWorks() {
                           new Date(work.plannedStartTime),
                           "dd MMM yyyy HH:mm",
                           {
-                            locale: ru,
+                            locale:
+                              t.lang === "ru" || t.lang === "by" ? ru : enUS,
                           },
                         )}{" "}
                         -{" "}
@@ -371,7 +381,8 @@ export default function EmployeeWorks() {
                           new Date(work.plannedEndTime),
                           "dd MMM yyyy HH:mm",
                           {
-                            locale: ru,
+                            locale:
+                              t.lang === "ru" || t.lang === "by" ? ru : enUS,
                           },
                         )}
                       </span>
@@ -382,14 +393,15 @@ export default function EmployeeWorks() {
                     <div className={styles.factDates}>
                       <div className={styles.detailItem}>
                         <span className={styles.factLabel}>
-                          Фактическое начало:
+                          {t("factDates.startLabel")}
                         </span>
                         <span>
                           {format(
                             new Date(work.factStartTime),
                             "dd MMM yyyy, HH:mm",
                             {
-                              locale: ru,
+                              locale:
+                                t.lang === "ru" || t.lang === "by" ? ru : enUS,
                             },
                           )}
                         </span>
@@ -397,14 +409,17 @@ export default function EmployeeWorks() {
                       {work.factEndTime && (
                         <div className={styles.detailItem}>
                           <span className={styles.factLabel}>
-                            Фактическое окончание:
+                            {t("factDates.endLabel")}
                           </span>
                           <span>
                             {format(
                               new Date(work.factEndTime),
                               "dd MMM yyyy, HH:mm",
                               {
-                                locale: ru,
+                                locale:
+                                  t.lang === "ru" || t.lang === "by"
+                                    ? ru
+                                    : enUS,
                               },
                             )}
                           </span>
@@ -413,15 +428,17 @@ export default function EmployeeWorks() {
                     </div>
                   )}
                 </div>
-              </>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
+
         <Pagination
           totalPages={data?.totalPages || 0}
           onPageChange={handlePageChange}
           currentPage={pagination.page}
         />
+
         <ConfirmDialog
           isOpen={isDeleteOpen}
           onClose={() => {
@@ -433,11 +450,13 @@ export default function EmployeeWorks() {
             setIsDeleteOpen(false);
             setSelectedWork(null);
           }}
-          title="Удалить"
-          message={`Вы уверены, что хотите удалить? Это действие необратимо.`}
-          confirmText="Удалить"
+          title={t("actions.deleteTitle")}
+          message={t("actions.deleteMessage")}
+          confirmText={t("common.deleteConfirm")}
+          cancelText={t("common.cancel")}
           confirmVariant="danger"
         />
+
         <EditWorkModal
           isOpen={isEditModalOpen}
           onClose={() => {
@@ -446,7 +465,7 @@ export default function EmployeeWorks() {
           }}
           work={selectedWork}
           onSave={handleSaveWork}
-          categories={requestCategories}
+          categories={categoryMap}
           streetOptions={streetOptions}
           onSearchStreets={handleStreetSearch}
         />
@@ -457,7 +476,7 @@ export default function EmployeeWorks() {
           }}
           work={null}
           onSave={handleCreateWork}
-          categories={requestCategories}
+          categories={categoryMap}
           streetOptions={streetOptions}
           onSearchStreets={handleStreetSearch}
         />

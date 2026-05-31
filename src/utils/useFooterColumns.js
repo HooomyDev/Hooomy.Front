@@ -56,8 +56,6 @@ export function useFooterColumns() {
     {
       title: t("footer.developers"),
       items: [
-        { type: "link", label: t("footer.report"), href: routes.report },
-        { type: "link", label: t("footer.docs"), href: routes.docs },
         {
           type: "external",
           label: t("footer.github"),

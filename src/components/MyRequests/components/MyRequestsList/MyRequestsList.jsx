@@ -13,31 +13,7 @@ import { ClipboardDocumentListIcon } from "@heroicons/react/24/solid";
 import { useT } from "../../../../utils/useT";
 import Block from "../../../../common/Block/Block";
 import EmptyBlock from "../../../../common/EmptyBlock/EmptyBlock";
-
-const categoryMap = {
-  0: "Все",
-  1: "Водоснабжение. Горячая вода",
-  2: "Электроснабжение",
-  3: "Бытовые услуги",
-  4: "Санитарное состояние многоквартирного дома",
-  5: "Отопление",
-  6: "Благоустройство территории",
-  7: "Водоснабжение",
-  8: "Общестроительные работы",
-  9: "Санитарное состояние территории",
-  11: "Техническое обслуживание ЗПУ",
-  12: "Техническое обслуживание лифта",
-  13: "Обращение с ТКО",
-  14: "Водоснабжение. Холодная вода",
-  15: "Канализация",
-  16: "Автомобильные дороги, тротуары",
-  17: "Кровельные работы",
-  18: "Уличное освещение",
-  19: "Общественные места (Парки, скверы)",
-  20: "Работы по ремонту стыков",
-  21: "Техническое обслуживание зданий и сооружений",
-  22: "Рекламные и информационные конструкции и объявления",
-};
+import { categoryMap } from "../../../../stores/categories";
 
 export default function MyRequestsList({ requests }) {
   const t = useT();
@@ -45,11 +21,11 @@ export default function MyRequestsList({ requests }) {
   const [selectedRequest, setSelectedRequest] = useState(null);
 
   const statusMap = {
-    1: "На модерации",
-    2: "Создана",
-    3: "Отклонена",
-    4: "В процессе",
-    5: "Выполнена",
+    1: t("requests.moder"),
+    2: t("employeeRequests.status.new"),
+    3: t("requests.rejected"),
+    4: t("requests.pending"),
+    5: t("employeeRequests.status.completed"),
   };
 
   const handleOpenModal = (req) => {
@@ -93,20 +69,21 @@ export default function MyRequestsList({ requests }) {
                     <div className={styles.infoRow}>
                       <span className={styles.infoLabel}>
                         <DocumentChartBarIcon className={styles.icon} />
-                        {categoryMap[req.category]}
+                        {t(`statistic.categories.${categoryMap[req.category]}`)}
                       </span>
                     </div>
 
                     <div className={styles.infoRowCategory}>
                       <span className={styles.infoLabel}>
-                        <MapPinIcon className={styles.icon} /> Адрес:{" "}
-                        {req.address}
+                        <MapPinIcon className={styles.icon} />{" "}
+                        {t("common.address")}: {req.address}
                       </span>
                     </div>
 
                     <div className={styles.infoRow}>
                       <span className={styles.infoLabel}>
-                        <CalendarDateRangeIcon className={styles.icon} /> Дата:{" "}
+                        <CalendarDateRangeIcon className={styles.icon} />{" "}
+                        {t("requests.date")}:{" "}
                         {format(new Date(req.createdAt), "dd.MM.yyyy HH:mm")}
                       </span>
                     </div>

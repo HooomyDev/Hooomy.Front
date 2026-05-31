@@ -3,38 +3,26 @@ import { ChartPieIcon } from "@heroicons/react/24/solid";
 import Block from "../../../common/Block/Block";
 import styles from "./EmployeeStatisticTypes.module.css";
 import { useT } from "../../../utils/useT";
-import { useQuery } from "@tanstack/react-query";
-import { getRequestCategories } from "../../../api/services/requestService";
-import Loader from "../../../common/Loader/Loader";
+import { categoryMap } from "../../../stores/categories";
 
 export default function EmployeeStatisticTypes({ requests = [] }) {
   const t = useT();
 
-  const { data: categories, isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => getRequestCategories(),
-  });
-
   const typeStats = useMemo(() => {
-    if (!categories) return [];
-
-    return categories
-      .filter((cat) => cat.code !== 0) // Убираем "Все"
-      .map((cat) => {
-        // Ищем данные по категории из API
-        const stat = requests.find((r) => r.category === cat.code);
+    return Object.entries(categoryMap)
+      .map(([code, key]) => {
+        const categoryCode = Number(code);
+        const stat = requests.find((r) => r.category === categoryCode);
 
         return {
-          code: cat.code,
-          name: cat.name,
+          code: categoryCode,
+          name: t(`statistic.categories.${key}`),
           count: stat?.count || 0,
           percentage: stat?.percentage || 0,
         };
       })
       .sort((a, b) => a.code - b.code);
-  }, [categories, requests]);
-
-  if (isLoading) return <Loader />;
+  }, [requests, t]);
 
   return (
     <Block title={t("employeesStatisticTypes.header")} Icon={ChartPieIcon}>

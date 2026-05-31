@@ -12,21 +12,6 @@ import Loader from "../../common/Loader/Loader";
 import { MapIcon, AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import styles from "./MapPageContent.module.css";
 
-const months = [
-  { id: 1, name: "Январь" },
-  { id: 2, name: "Февраль" },
-  { id: 3, name: "Март" },
-  { id: 4, name: "Апрель" },
-  { id: 5, name: "Май" },
-  { id: 6, name: "Июнь" },
-  { id: 7, name: "Июль" },
-  { id: 8, name: "Август" },
-  { id: 9, name: "Сентябрь" },
-  { id: 10, name: "Октябрь" },
-  { id: 11, name: "Ноябрь" },
-  { id: 12, name: "Декабрь" },
-];
-
 export default function MapPageContent() {
   const t = useT();
   const [zoom] = useState(12);
@@ -37,6 +22,21 @@ export default function MapPageContent() {
       month: new Date().getMonth() + 1,
     },
   });
+
+  const months = [
+    { id: 1, name: t("months.1") },
+    { id: 2, name: t("months.2") },
+    { id: 3, name: t("months.3") },
+    { id: 4, name: t("months.4") },
+    { id: 5, name: t("months.5") },
+    { id: 6, name: t("months.6") },
+    { id: 7, name: t("months.7") },
+    { id: 8, name: t("months.8") },
+    { id: 9, name: t("months.9") },
+    { id: 10, name: t("months.10") },
+    { id: 11, name: t("months.11") },
+    { id: 12, name: t("months.12") },
+  ];
 
   const watchCategory = methods.watch("requestCategory");
   const watchMonth = methods.watch("month");

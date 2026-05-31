@@ -8,6 +8,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/solid";
 import { useT } from "../../utils/useT";
+import { categoryMap } from "../../stores/categories";
 
 export default function EmployeeRequestsTable({
   requests = [],
@@ -17,45 +18,23 @@ export default function EmployeeRequestsTable({
 }) {
   const t = useT();
 
-  const categoryMap = {
-    0: "Все",
-    1: "Водоснабжение. Горячая вода",
-    2: "Электроснабжение",
-    3: "Бытовые услуги",
-    4: "Санитарное состояние многоквартирного дома",
-    5: "Отопление",
-    6: "Благоустройство территории",
-    7: "Водоснабжение",
-    8: "Общестроительные работы",
-    9: "Санитарное состояние территории",
-    11: "Техническое обслуживание ЗПУ",
-    12: "Техническое обслуживание лифта",
-    13: "Обращение с ТКО",
-    14: "Водоснабжение. Холодная вода",
-    15: "Канализация",
-    16: "Автомобильные дороги, тротуары",
-    17: "Кровельные работы",
-    18: "Уличное освещение",
-    19: "Общественные места (Парки, скверы)",
-    20: "Работы по ремонту стыков",
-    21: "Техническое обслуживание зданий и сооружений",
-    22: "Рекламные и информационные конструкции и объявления",
-  };
-
   const statusMap = {
-    0: { label: "Неизвестно", icon: null },
-    1: { label: "Неизвестно", icon: null },
-    2: { label: "Новое", icon: <ClockIcon className={styles.statusIcon} /> },
+    0: { label: t("employeeRequests.status.unknown"), icon: null },
+    1: { label: t("employeeRequests.status.unknown"), icon: null },
+    2: {
+      label: t("employeeRequests.status.new"),
+      icon: <ClockIcon className={styles.statusIcon} />,
+    },
     3: {
-      label: "Отклонено",
+      label: t("employeeRequests.status.rejected"),
       icon: <XCircleIcon className={styles.statusIcon} />,
     },
     4: {
-      label: "В обработке",
+      label: t("employeeRequests.status.inProgress"),
       icon: <ClockIcon className={styles.statusIcon} />,
     },
     5: {
-      label: "Выполнено",
+      label: t("employeeRequests.status.completed"),
       icon: <CheckCircleIcon className={styles.statusIcon} />,
     },
   };
@@ -88,7 +67,7 @@ export default function EmployeeRequestsTable({
             <th>{t("employeeRequestsTable.headers.title")}</th>
             <th>{t("employeeRequestsTable.headers.address")}</th>
             <th>{t("employeeRequestsTable.headers.date")}</th>
-            <th>Категория</th>
+            <th>{t("employeeRequestsTable.headers.category")}</th>
             <th>{t("employeeRequestsTable.headers.status")}</th>
             <th>{t("employeeRequestsTable.headers.actions")}</th>
           </tr>
@@ -120,7 +99,7 @@ export default function EmployeeRequestsTable({
                 </td>
                 <td>
                   <div className={styles.category}>
-                    {categoryMap[request.category]}
+                    {t(`statistic.categories.${categoryMap[request.category]}`)}
                   </div>
                 </td>
                 <td>
@@ -150,7 +129,7 @@ export default function EmployeeRequestsTable({
                         onClick={() =>
                           onStatusChange({ ...request, status: 4 })
                         }
-                        title="Взять в работу"
+                        title={t("employeeRequestsTable.actions.startWork")}
                       >
                         <PlayCircleIcon className={styles.actionIcon} />
                       </button>

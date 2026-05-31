@@ -19,10 +19,10 @@ export default function EmployeeStatisticCards({
     return item ? item.count : 0;
   };
 
-  const createdRequests = getCountByStatus(1);
-  const rejectedRequests = getCountByStatus(2);
-  const pendingRequests = getCountByStatus(3);
-  const completedRequests = getCountByStatus(4);
+  const createdRequests = getCountByStatus(2);
+  const rejectedRequests = getCountByStatus(3);
+  const pendingRequests = getCountByStatus(4);
+  const completedRequests = getCountByStatus(5);
 
   // Проценты
   const pendingPercentage =
@@ -41,7 +41,7 @@ export default function EmployeeStatisticCards({
   const statCards = [
     {
       key: "created",
-      label: "Создано",
+      label: t("employeeStatisticCards.created"),
       icon: ClockIcon,
       number: createdRequests,
       percentage: createdPercentage,

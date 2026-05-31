@@ -17,7 +17,6 @@ import PageHeader from "../../common/PageHeader/PageHeader";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Loader from "../../common/Loader/Loader";
 import {
-  getRequestCategories,
   getRequestsForAdmin,
   softDeleteRequest,
   updateRequest,
@@ -29,46 +28,15 @@ import Button from "../../common/Button/Button";
 import Modal from "../../features/modals/Modal/Modal";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
 import ConfirmDialog from "../../common/ConfirmDialog/ConfirmDialog";
-
-const statusMap = {
-  1: { text: "Ожидает проеверки", className: "statusPending" },
-  2: { text: "Новая", className: "statusNew" },
-  3: { text: "Отклонена", className: "statusRejected" },
-  4: { text: "В работе", className: "statusInProgress" },
-  5: { text: "Завершена", className: "statusCompleted" },
-};
-
-const categoryMap = {
-  0: "Все",
-  1: "Водоснабжение. Горячая вода",
-  2: "Электроснабжение",
-  3: "Бытовые услуги",
-  4: "Санитарное состояние многоквартирного дома",
-  5: "Отопление",
-  6: "Благоустройство территории",
-  7: "Водоснабжение",
-  8: "Общестроительные работы",
-  9: "Санитарное состояние территории",
-  11: "Техническое обслуживание ЗПУ",
-  12: "Техническое обслуживание лифта",
-  13: "Обращение с ТКО",
-  14: "Водоснабжение. Холодная вода",
-  15: "Канализация",
-  16: "Автомобильные дороги, тротуары",
-  17: "Кровельные работы",
-  18: "Уличное освещение",
-  19: "Общественные места (Парки, скверы)",
-  20: "Работы по ремонту стыков",
-  21: "Техническое обслуживание зданий и сооружений",
-  22: "Рекламные и информационные конструкции и объявления",
-};
+import { categoryMap } from "../../stores/categories";
+import { useT } from "../../utils/useT";
 
 export default function AdminDatabaseRequests() {
+  const t = useT();
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 10,
   });
-  const [categories, setCategories] = useState([]);
   const [filters, setFilters] = useState({
     searchTitle: "",
     searchStatus: "",
@@ -78,6 +46,26 @@ export default function AdminDatabaseRequests() {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const queryClient = useQueryClient();
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+
+  const statusMap = {
+    1: {
+      text: t("employeeRequests.status.awaitingReview"),
+      className: "statusPending",
+    },
+    2: { text: t("employeeRequests.status.new"), className: "statusNew" },
+    3: {
+      text: t("employeeRequests.status.rejected"),
+      className: "statusRejected",
+    },
+    4: {
+      text: t("employeeRequests.status.pending"),
+      className: "statusInProgress",
+    },
+    5: {
+      text: t("employeeRequests.status.completed"),
+      className: "statusCompleted",
+    },
+  };
 
   const { data: response, isLoading } = useQuery({
     queryKey: [
@@ -89,9 +77,6 @@ export default function AdminDatabaseRequests() {
       filters.searchCategory,
     ],
     queryFn: async () => {
-      const categoriesData = await getRequestCategories();
-      setCategories(categoriesData);
-
       return await getRequestsForAdmin(
         pagination.page,
         pagination.pageSize,
@@ -113,11 +98,12 @@ export default function AdminDatabaseRequests() {
   });
 
   const statusOptions = [
-    { value: 0, label: "Все статусы" },
-    { value: 2, label: "Создана" },
-    { value: 3, label: "Отклонена" },
-    { value: 4, label: "В работе" },
-    { value: 5, label: "Завершена" },
+    { value: 0, label: t("employeeRequests.status.all") },
+    { value: 1, label: t("employeeRequests.status.awaitingReview") },
+    { value: 2, label: t("employeeRequests.status.new") },
+    { value: 3, label: t("employeeRequests.status.rejected") },
+    { value: 4, label: t("employeeRequests.status.pending") },
+    { value: 5, label: t("employeeRequests.status.completed") },
   ];
 
   const handleSearch = () => {
@@ -188,7 +174,10 @@ export default function AdminDatabaseRequests() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={ClipboardDocumentListIcon} title="Заявки" />
+      <PageHeader
+        icon={ClipboardDocumentListIcon}
+        title={t("employeeRequests.header")}
+      />
       <div className={styles.content}>
         <Block>
           <form
@@ -198,15 +187,15 @@ export default function AdminDatabaseRequests() {
             <FormProvider {...methods}>
               <InputField
                 name="searchTitle"
-                label="Поиск"
-                placeholder="Название заявки"
+                label={t("common.search")}
+                placeholder={t("employeeRequestsControls.searchPlaceholder")}
                 required={false}
                 rules={{}}
               />
 
               <SelectField
                 name="searchStatus"
-                label="Статус"
+                label={t("employeeRequestsTable.headers.status")}
                 options={statusOptions}
                 required={false}
                 onValueChange={() => {}}
@@ -214,9 +203,13 @@ export default function AdminDatabaseRequests() {
 
               <SelectField
                 name="searchCategory"
-                label="Категория"
-                options={categories.map((category) => {
-                  return { value: category.code, label: category.name };
+                label={t("requests.category")}
+                options={Object.entries(categoryMap).map(([code, key]) => {
+                  const categoryCode = Number(code);
+                  return {
+                    value: categoryCode,
+                    label: t(`statistic.categories.${key}`),
+                  };
                 })}
                 required={false}
                 onValueChange={() => {}}
@@ -232,7 +225,7 @@ export default function AdminDatabaseRequests() {
             </FormProvider>
           </form>
         </Block>
-        <Block title="Заявки" Icon={ClipboardDocumentListIcon}>
+        <Block title={t("requests.list")} Icon={ClipboardDocumentListIcon}>
           {response.requests.length === 0 ? (
             <EmptyBlock Icon={ClipboardDocumentListIcon}>
               Заявок не найдено
@@ -250,7 +243,7 @@ export default function AdminDatabaseRequests() {
                             styles[statusMap[request.status]?.className]
                           }`}
                         >
-                          {statusMap[request.status]?.text || "Неизвестно"}
+                          {statusMap[request.status]?.text}
                         </span>
                       </div>
 
@@ -266,7 +259,7 @@ export default function AdminDatabaseRequests() {
                           </span>
                           <span className={styles.category}>
                             <CubeIcon className={styles.icon} />{" "}
-                            {categoryMap[request.category] || "Другое"}
+                            {categoryMap[request.category]}
                           </span>
                         </div>
                         <div className={styles.actions}>
@@ -340,10 +333,10 @@ export default function AdminDatabaseRequests() {
         isOpen={showConfirmDialog}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        title="Подтверждение удаления"
-        message="Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить."
-        confirmText="Удалить"
-        cancelText="Отмена"
+        title={t("common.title")}
+        message={t("common.text1")}
+        confirmText={t("common.confirm")}
+        cancelText={t("common.cancel")}
         confirmVariant="danger"
       />
     </div>

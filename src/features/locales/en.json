@@ -17,6 +17,7 @@
     "startDate": "Start Date",
     "endDate": "End Date",
     "all": "All",
+    "moder": "Under Moderation",
     "pending": "Pending",
     "done": "Done",
     "rejected": "Rejected",
@@ -26,7 +27,9 @@
     "category": "Category",
     "categoryLabel": "Problem category",
     "details": "Description",
-    "titleLabel": "Brief description of the problem"
+    "titleLabel": "Brief description of the problem",
+    "error": "Access denied. Your account requires confirmation.",
+    "date": "Date"
   },
 
   "main": {
@@ -38,7 +41,54 @@
     "contacts": {
       "haveQuest": "Have Questions?",
       "contactUs": "Contact Us",
-      "writeUs": "Write to Us!"
+      "writeUs": "Write to Us!",
+      "infoTitle": "Contact Information",
+      "emailLabel": "Email for feedback",
+      "messageLabel": "Message",
+      "sending": "Sending...",
+      "successMessage": "Your inquiry has been received",
+      "submitError": "Failed to send. Please try again later.",
+      "errorMessageRequired": "Message is required",
+      "errorMessageTooShort": "Message must be at least 3 characters",
+      "errorMessageTooLong": "Message must not exceed 2000 characters"
+    },
+    "search": {
+      "title": "Search house information",
+      "addressLabel": "Address",
+      "errorSelectAddress": "Please select an address from the list"
+    },
+    "faqSlider": {
+      "title": "Frequently Asked Questions",
+      "prevSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "goToSlide": "Go to slide {{number}}",
+      "cards": {
+        "register": {
+          "title": "Registration",
+          "question": "How do I register on the portal?",
+          "answer": "Click the \"Login\" button in the top right corner and follow the registration steps."
+        },
+        "help": {
+          "title": "Support",
+          "question": "Where can I get help?",
+          "answer": "You can contact us by email or phone listed in the Contacts section."
+        },
+        "common": {
+          "title": "Common Questions",
+          "question": "What questions are asked most often?",
+          "answer": "Frequently asked questions cover registration, password recovery, and submitting requests."
+        },
+        "documents": {
+          "title": "Documents",
+          "question": "Where can I find documents?",
+          "answer": "Documents are available in the Documents section in the site footer."
+        },
+        "support": {
+          "title": "Technical Support",
+          "question": "How do I contact support?",
+          "answer": "Contact us by email hooomy.help.by@gmail.com or by calling +375 (44) 569-10-58."
+        }
+      }
     }
   },
 
@@ -142,11 +192,59 @@
     "data": "Data",
     "users": "Users",
     "complaints": "Complaints",
-    "comments": "Comments"
+    "comments": "Comments",
+    "messages": "Chats"
+  },
+
+  "chats": {
+    "title": "Chats",
+    "empty": "No chats",
+    "searchPlaceholder": "Search...",
+    "accessDeniedDefault": "Access denied. Your account requires verification.",
+    "addCompany": "Choose company",
+    "chatCard": {
+      "defaultChat": "Chat",
+      "noMessages": "No messages"
+    },
+    "createComplaint": "Complain",
+    "messagePlaceholder": "Type a message..."
+  },
+
+  "adminUsers": {
+    "title": "Users",
+    "search": "Search",
+    "searchPlaceholder": "Name / Email",
+    "role": "Role",
+    "status": "Status",
+    "allStatuses": "All statuses",
+    "allRoles": "All roles",
+    "approved": "Approved",
+    "pending": "Pending",
+    "banned": "Banned",
+    "deleted": "Deleted",
+    "resident": "Resident",
+    "employee": "Employee",
+    "admin": "Administrator",
+    "unknown": "Unknown",
+    "notSpecified": "Not specified",
+    "approve": "Approve",
+    "ban": "Ban",
+    "delete": "Delete",
+    "showMore": "Show 5 more",
+    "notFound": "Users not found",
+    "table": {
+      "id": "ID",
+      "fullName": "Name",
+      "email": "Email",
+      "role": "Role",
+      "phoneNumber": "Phone number",
+      "status": "Status",
+      "actions": "Actions"
+    }
   },
 
   "userdrop": {
-    "login": "Log In",
+    "login": "Login",
     "profile": "Profile",
     "logout": "Log Out"
   },
@@ -188,6 +286,7 @@
   "address": "Minsk, Ponomarenko St., 35A, office 208, Info Business Center",
 
   "errors": {
+    "required": "Required field",
     "requiredEmail": "Enter your email",
     "invalidEmail": "Invalid email",
     "requiredPassword": "Enter your password",
@@ -955,7 +1054,14 @@
     "title": "Surveys",
     "active": "Active surveys",
     "noSurveys": "No active surveys",
-    "voite": "Let's vote"
+    "voite": "Let's vote",
+    "vote": "Vote",
+    "results": "Results",
+    "allVotes": "Total votes",
+    "error": "Error loading surveys. Please try again later.",
+    "allReadyVoted": "You have already voted in this survey",
+    "error2": "An error occurred while loading the survey.",
+    "your": "Your vote"
   },
 
   "statistic": {
@@ -1018,6 +1124,47 @@
       "ads": "Advertising and information structures and notices"
     }
   },
+  "employeeSurveysList": {
+    "controls": {
+      "searchLabel": "Search",
+      "searchPlaceholder": "Search",
+      "typeLabel": "Type",
+      "typeOptions": {
+        "all": "All",
+        "single": "Single choice",
+        "multiple": "Multiple choice"
+      },
+      "statusLabel": "Status",
+      "statusOptions": {
+        "all": "All",
+        "active": "Active",
+        "completed": "Completed",
+        "archived": "Archived"
+      }
+    },
+    "empty": "No surveys",
+    "successMessage": "Survey successfully created",
+    "deleteText": "Are you sure you want to delete this survey? This action cannot be undone.",
+    "allVotes": "Total votes",
+    "results": "Results",
+    "users": "Participants",
+    "variants": "Options"
+  },
+  "employeeSurveysEditModal": {
+    "title": "Edit Survey",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter survey name",
+    "descriptionLabel": "Description",
+    "statusLabel": "Status",
+    "cancel": "Cancel",
+    "save": "Save",
+    "statusOptions": {
+      "all": "All",
+      "active": "Active",
+      "completed": "Completed",
+      "archived": "Archived"
+    }
+  },
   "mapPage": {
     "title": "Map",
     "filters": { "title": "Filters", "month": "Month", "apply": "Apply" },
@@ -1064,17 +1211,12 @@
       "statistics": {
         "label": "Statistics",
         "description": "Viewing and exporting request statistics"
+      },
+      "works": {
+        "label": "Planned works",
+        "description": "Manage scheduled works"
       }
     }
-  },
-  "employeeStatisticCards": {
-    "pending": "Pending",
-    "completed": "Completed",
-    "rejected": "Rejected",
-    "avgTime": "Average time",
-    "avgTimeDescription": "to complete a request",
-    "notAvailable": "N/A",
-    "days": "d."
   },
   "employeeRequests": {
     "header": "Tenant Requests",
@@ -1082,13 +1224,21 @@
     "empty": "No requests found",
     "defaultAuthor": "Housing Department Employee",
     "status": {
+      "all": "All",
       "pending": "Pending",
       "completed": "Completed",
-      "rejected": "Rejected"
+      "rejected": "Rejected",
+      "new": "New",
+      "inProgress": "In progress",
+      "awaitingReview": "Awaiting review",
+      "unknown": "Unknown"
     }
   },
   "employeeRequestsControls": {
+    "searchLabel": "Search",
     "searchPlaceholder": "Search by address, description or date...",
+    "categoryLabel": "Category",
+    "statusLabel": "Status",
     "filters": {
       "all": "All statuses",
       "pending": "Pending",
@@ -1103,11 +1253,13 @@
       "title": "Request",
       "address": "Address",
       "date": "Date",
+      "category": "Category",
       "status": "Status",
       "actions": "Actions"
     },
     "actions": {
       "view": "View details",
+      "startWork": "Start work",
       "complete": "Mark as completed",
       "reject": "Reject request",
       "comment": "Add comment"
@@ -1153,10 +1305,30 @@
   "employeeStatistic": {
     "header": "Request statistics",
     "export": "Export",
+    "filenamePrefix": "statistics",
     "exportItems": {
       "pdf": "Export to PDF",
       "excel": "Export to Excel",
       "csv": "Export to CSV"
+    },
+    "exportSheets": {
+      "summary": "Summary",
+      "daily": "Daily trend",
+      "statuses": "Statuses",
+      "categories": "Categories",
+      "companies": "Companies"
+    },
+    "exportColumns": {
+      "totalRequests": "Total requests",
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "new": "New",
+      "date": "Date",
+      "requestsCount": "Requests count",
+      "status": "Status",
+      "category": "Category",
+      "count": "Count",
+      "percentage": "Percentage"
     },
     "exportError": "Error exporting to PDF"
   },
@@ -1186,7 +1358,39 @@
   },
   "employeesStatisticStatus": {
     "header": "Status statistics",
-    "label": "{{status}}: {{percent}}%"
+    "status": {
+      "created": "Created",
+      "rejected": "Rejected",
+      "pending": "In progress",
+      "completed": "Completed"
+    },
+    "label": "{{status}}: {{percent}}%",
+    "empty": "No data to display"
+  },
+
+  "employeeStatisticCards": {
+    "created": "Created",
+    "pending": "In progress",
+    "completed": "Completed",
+    "rejected": "Rejected",
+    "avgTime": "Average time",
+    "avgTimeDescription": "to complete a request",
+    "notAvailable": "N/A",
+    "days": "d"
+  },
+
+  "companyStatistics": {
+    "header": "Companies statistics",
+    "totalCompanies": "Total companies",
+    "totalRequests": "Total requests",
+    "withRatings": "With ratings",
+    "table": {
+      "company": "Company",
+      "requests": "Requests",
+      "completed": "Completed",
+      "pending": "In progress",
+      "rating": "Rating"
+    }
   },
   "employeesStatisticTypes": {
     "header": "Types statistics"
@@ -1200,6 +1404,417 @@
     "complaints": "Complaints",
     "comments": "Comments",
     "statistics": "Statistics",
-    "statsHint": "Key performance indicators of the housing office"
+    "statsHint": "Key performance indicators of the housing office",
+    "hmo": "Companies",
+    "inquiries": "Inquiries",
+    "createNotification": "Create notification",
+    "createSystemNotification": {
+      "title": "Create system notification",
+      "textLabel": "Notification text",
+      "textPlaceholder": "Enter notification text",
+      "createError": "Error creating notification. Try again."
+    }
+  },
+
+  "inquiriesPage": {
+    "title": "Inquiries",
+    "dateLabel": "Date",
+    "emptyMessage": "No inquiries"
+  },
+
+  "createComplaintModal": {
+    "title": "Create complaint",
+    "shortDescriptionLabel": "Short description",
+    "shortDescriptionPlaceholder": "Briefly describe the issue",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Describe your issue in detail",
+    "requiredField": "Required field",
+    "errorBanner": "Error sending complaint. Please try again.",
+    "cancel": "Cancel",
+    "submit": "Send",
+    "sending": "Sending...",
+    "sendButtonTitle": "Send complaint",
+    "notSpecified": "not specified",
+    "ids": {
+      "resident": "Resident ID",
+      "company": "Company ID",
+      "comment": "Comment ID",
+      "request": "ID Заявки"
+    }
+  },
+
+  "adminComplaints": {
+    "title": "Complaints",
+    "search": "Search",
+    "searchPlaceholder": "Search by description...",
+    "statusLabel": "Status",
+    "typeLabel": "Type",
+    "table": {
+      "id": "ID",
+      "fullName": "Short description",
+      "status": "Status",
+      "description": "Description"
+    },
+    "allStatuses": "All statuses",
+    "allTypes": "All types",
+    "listTitle": "Complaints list",
+    "notFound": "No complaints found",
+    "currentStatus": "Current status",
+    "unknownType": "Unknown type",
+    "statuses": {
+      "0": "Unknown",
+      "1": "Accepted",
+      "2": "Under review",
+      "3": "Closed",
+      "unknown": "Unknown",
+      "accepted": "Accepted",
+      "onReview": "Under review",
+      "closed": "Closed"
+    },
+    "actions": {
+      "accept": "Accept",
+      "review": "Review",
+      "close": "Close"
+    },
+    "types": {
+      "1": "Complaint against a resident",
+      "2": "Complaint against a company",
+      "3": "Complaint against a comment",
+      "4": "Complaint about request handling",
+      "5": "Complaint about the service"
+    },
+    "detail": {
+      "title": "Complaint details",
+      "type": "Type",
+      "status": "Status",
+      "short": "Short description",
+      "description": "Description",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at"
+    }
+  },
+
+  "adminComments": {
+    "title": "Comment moderation",
+    "search": "Search",
+    "searchPlaceholder": "Comment text",
+    "statusLabel": "Status",
+    "empty": "No comments",
+    "table": {
+      "id": "ID",
+      "author": "Author",
+      "comment": "Comment",
+      "status": "Status",
+      "createdAt": "Created at",
+      "actions": "Actions"
+    },
+    "actions": {
+      "view": "View details",
+      "approve": "Approve",
+      "delete": "Delete"
+    },
+    "statuses": {
+      "all": "All statuses",
+      "pending": "Pending review",
+      "approved": "Approved",
+      "deleted": "Deleted",
+      "unknown": "Unknown"
+    },
+    "detail": {
+      "title": "Comment details",
+      "id": "ID",
+      "company": "Company",
+      "text": "Text",
+      "status": "Status",
+      "photos": "Photos",
+      "createdAt": "Created at",
+      "updatedAt": "Updated at",
+      "deletedAt": "Deleted at",
+      "close": "Close"
+    }
+  },
+
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "title": "Please, confirm",
+    "confirm": "Confirm",
+    "saving": "Saving...",
+    "search": "Search",
+    "logo": "Logo",
+    "text1": "Are you sure you want to delete this application? This action can be undone.",
+    "createCompany": "New company",
+    "more": "More",
+    "searchPlaceholder": "Enter title",
+    "address": "Address",
+    "category": "Category"
+  },
+  "company": {
+    "name": "Company name",
+    "namePlaceholder": "Enter company name",
+    "nameRequired": "Company name is required",
+    "workingHours": "Working hours",
+    "workingHoursPlaceholder": "09:00-18:00",
+    "addressInfo": {
+      "title": "What to do if the address isn't in the list?",
+      "spellCheck": "Check the street spelling",
+      "addManually": "If the address is still missing, you can add it manually",
+      "instructions": "To add an address, press the button below.",
+      "add": "Add"
+    },
+    "selectedAddress": "Selected address:",
+    "emailPlaceholder": "company@example.com",
+    "addCompany": "Add company",
+    "adding": "Adding..."
+  },
+  "pageTitle": "Scheduled Works",
+  "filters": {
+    "titleLabel": "Title",
+    "titlePlaceholder": "Enter something...",
+    "categoryLabel": "Category",
+    "seriousnessLabel": "Priority",
+    "addressLabel": "Address"
+  },
+  "seriousnessOptions": {
+    "all": "All",
+    "informational": "Informational",
+    "warning": "Warning"
+  },
+  "emptyState": "No works found",
+  "seriousnessLabels": {
+    "info": "Information",
+    "warn": "Important"
+  },
+  "categoryFallback": "Other",
+  "factDates": {
+    "startLabel": "Actual start:",
+    "endLabel": "Actual end:"
+  },
+  "actions": {
+    "deleteTitle": "Delete",
+    "deleteMessage": "Are you sure you want to delete this? This action cannot be undone.",
+    "deleteConfirm": "Delete",
+    "create": "Create",
+    "edit": "Edit",
+    "search": "Search",
+    "reset": "Reset"
+  },
+  "employeeWorkEditModal": {
+    "title": {
+      "edit": "Edit Work",
+      "create": "Create New Work"
+    },
+    "fields": {
+      "titleLabel": "Work Title",
+      "descriptionLabel": "Description",
+      "categoryLabel": "Category",
+      "seriousnessLabel": "Priority",
+      "addressLabel": "Address",
+      "plannedStartLabel": "Planned Start Date & Time",
+      "plannedEndLabel": "Planned End Date & Time",
+      "factStartLabel": "Actual Start Date (optional)",
+      "factEndLabel": "Actual End Date (optional)"
+    },
+    "seriousnessOptions": {
+      "informational": "Informational",
+      "important": "Important"
+    },
+    "validation": {
+      "titleRequired": "Title is required",
+      "descriptionRequired": "Description is required",
+      "categoryRequired": "Category is required",
+      "seriousnessRequired": "Priority is required",
+      "addressRequired": "Address is required",
+      "plannedStartRequired": "Start date and time are required",
+      "plannedEndRequired": "End date and time are required",
+      "startBeforeEnd": "Start time must be before end time",
+      "endAfterStart": "End time must be after start time"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "saveEdit": "Save Changes",
+      "saveCreate": "Create Work"
+    }
+  },
+  "months": {
+    "1": "January",
+    "2": "February",
+    "3": "March",
+    "4": "April",
+    "5": "May",
+    "6": "June",
+    "7": "July",
+    "8": "August",
+    "9": "September",
+    "10": "October",
+    "11": "November",
+    "12": "December"
+  },
+  "requestDetailsModal": {
+    "title": "Request Details",
+    "status": {
+      "pending": "Pending moderation",
+      "created": "Created",
+      "rejected": "Rejected",
+      "processing": "In progress",
+      "completed": "Completed",
+      "unknown": "Unknown status"
+    },
+    "labels": {
+      "problemTitle": "Brief problem description",
+      "createdAt": "Created:",
+      "address": "Address:",
+      "description": "Description",
+      "noDescription": "No description provided",
+      "reviewScore": "Rating",
+      "reviewText": "Review comment"
+    },
+    "actions": {
+      "rateWork": "Rate the work",
+      "complain": "Report an issue with this request",
+      "delete": "Delete",
+      "deleting": "Deleting...",
+      "cancel": "Cancel"
+    },
+    "confirmDelete": {
+      "title": "Confirm deletion",
+      "message": "Are you sure you want to delete this request? This action can be undone.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "expand": {
+      "showMore": "Show more",
+      "showLess": "Show less"
+    }
+  },
+  "ratingModal": {
+    "title": "Rate the work",
+    "fields": {
+      "commentLabel": "Comment",
+      "commentPlaceholder": "Leave a comment about this rating (optional)"
+    },
+    "actions": {
+      "cancel": "Cancel",
+      "submit": "Submit",
+      "submitting": "Submitting..."
+    },
+    "validation": {
+      "ratingRequired": "Please select a rating"
+    },
+    "aria": {
+      "closeModal": "Close modal",
+      "starRating": "Rating: {{rating}} out of 5"
+    }
+  },
+  "companyComments": {
+    "title": "Comments",
+    "emptyState": "No comments yet",
+    "fields": {
+      "placeholder": "Write a comment...",
+      "required": "Please enter a comment",
+      "minLength": "Minimum {{count}} characters"
+    },
+    "senderFallback": "Utility Company",
+    "labels": {
+      "updated": "updated",
+      "loadMore": "Load more",
+      "filesAttached": "Files attached"
+    },
+    "status": {
+      "pending": "Pending review",
+      "approved": "Approved",
+      "deleted": "Deleted",
+      "unknown": "Unknown"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete",
+      "complain": "Report",
+      "attachFile": "Attach file",
+      "send": "Send",
+      "cancel": "Cancel"
+    },
+    "file": {
+      "remove": "Remove file",
+      "maxFiles": "You can attach up to {{max}} files",
+      "size": {
+        "bytes": "Bytes",
+        "kb": "KB",
+        "mb": "MB",
+        "gb": "GB"
+      }
+    },
+    "aria": {
+      "expandImage": "Open image",
+      "closeImage": "Close preview",
+      "authorLink": "Go to company profile"
+    }
+  },
+  "companyDetails": {
+    "pageTitle": "Company Details",
+    "info": {
+      "phone": "Phone",
+      "email": "Email",
+      "address": "Address",
+      "workingHours": "Working Hours",
+      "registeredAt": "Registration Date",
+      "rating": "Rating",
+      "noValue": "—"
+    },
+    "actions": {
+      "uploadLogo": "Upload logo",
+      "edit": "Edit",
+      "delete": "Delete",
+      "back": "Back",
+      "write": "Write",
+      "addAddress": "Add address",
+      "addEmployee": "Add employee",
+      "deleteAddress": "Delete address",
+      "deleteEmployee": "Remove from company",
+      "complain": "Report"
+    },
+    "sections": {
+      "reviews": "Reviews",
+      "addresses": "Service Addresses",
+      "employees": "Employees"
+    },
+    "emptyStates": {
+      "noReviews": "No reviews yet",
+      "noAddresses": "No addresses specified",
+      "noEmployees": "No employees yet"
+    },
+    "reviews": {
+      "noComment": "No comment"
+    },
+    "notifications": {
+      "deleteCompanyError": "Error deleting company",
+      "deleteEmployeeError": "Error removing employee",
+      "deleteAddressError": "Error removing address",
+      "logoUploaded": "Company logo uploaded",
+      "logoUploadError": "Error uploading logo",
+      "authRequired": "Authentication required",
+      "emailNotConfirmed": "Please confirm your email to create a chat"
+    },
+    "confirmDelete": {
+      "employee": {
+        "title": "Remove employee",
+        "message": "Remove {{surname}} {{firstName}} from the company?"
+      },
+      "address": {
+        "title": "Delete address",
+        "message": "Delete address \"{{address}}\" from the company?"
+      },
+      "company": {
+        "title": "Delete company",
+        "message": "Are you sure you want to delete the company \"{{name}}\"? This action cannot be undone."
+      },
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "chat": {
+      "create": "Create chat",
+      "error": "Failed to create chat"
+    }
   }
 }

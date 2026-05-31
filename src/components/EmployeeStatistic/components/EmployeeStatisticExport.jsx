@@ -7,42 +7,20 @@ import { StatisticPDF } from "../../../features/pdf/StatisticPdf";
 import { pdf } from "@react-pdf/renderer";
 import * as XLSX from "xlsx";
 import { useAuthStore } from "../../../stores/authStore";
-
-const categoryMap = {
-  0: "Все",
-  1: "Водоснабжение. Горячая вода",
-  2: "Электроснабжение",
-  3: "Бытовые услуги",
-  4: "Санитарное состояние многоквартирного дома",
-  5: "Отопление",
-  6: "Благоустройство территории",
-  7: "Водоснабжение",
-  8: "Общестроительные работы",
-  9: "Санитарное состояние территории",
-  11: "Техническое обслуживание ЗПУ",
-  12: "Техническое обслуживание лифта",
-  13: "Обращение с ТКО",
-  14: "Водоснабжение. Холодная вода",
-  15: "Канализация",
-  16: "Автомобильные дороги, тротуары",
-  17: "Кровельные работы",
-  18: "Уличное освещение",
-  19: "Общественные места (Парки, скверы)",
-  20: "Работы по ремонту стыков",
-  21: "Техническое обслуживание зданий и сооружений",
-  22: "Рекламные и информационные конструкции и объявления",
-};
-
-const statusMap = {
-  1: "Ожидает проверки",
-  2: "Новая",
-  3: "Отклонена",
-  4: "В работе",
-  5: "Завершена",
-};
+import { useT } from "../../../utils/useT";
+import { categoryMap } from "../../../stores/categories";
 
 export default function EmployeeStatisticExport({ data, companiesData }) {
   const { user } = useAuthStore();
+  const t = useT();
+
+  const statusMap = {
+    1: t("requests.status.awaitingReview"),
+    2: t("requests.status.new"),
+    3: t("requests.status.rejected"),
+    4: t("requests.status.pending"),
+    5: t("requests.status.completed"),
+  };
 
   const handleExportPDF = async () => {
     try {
@@ -55,12 +33,12 @@ export default function EmployeeStatisticExport({ data, companiesData }) {
         <StatisticPDF
           data={data}
           companiesData={user?.role === "Admin" ? companiesData : null}
-        />
+        />,
       ).toBlob();
 
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = `статистика_${
+      link.download = `${t("employeeStatistic.filenamePrefix")}_${
         new Date().toISOString().split("T")[0]
       }.pdf`;
       link.click();
@@ -79,63 +57,69 @@ export default function EmployeeStatisticExport({ data, companiesData }) {
     // Сводка
     const summaryData = [
       {
-        "Всего заявок": data.totalCount,
-        Выполнено:
+        [t("employeeStatistic.exportColumns.totalRequests")]: data.totalCount,
+        [t("employeeStatistic.exportColumns.completed")]:
           data.requestsByStatuses?.find((s) => s.status === 5)?.count || 0,
-        "В работе":
+        [t("employeeStatistic.exportColumns.inProgress")]:
           data.requestsByStatuses?.find((s) => s.status === 4)?.count || 0,
-        Новых: data.requestsByStatuses?.find((s) => s.status === 2)?.count || 0,
+        [t("employeeStatistic.exportColumns.new")]:
+          data.requestsByStatuses?.find((s) => s.status === 2)?.count || 0,
       },
     ];
     XLSX.utils.book_append_sheet(
       workbook,
       XLSX.utils.json_to_sheet(summaryData),
-      "Сводка"
+      t("employeeStatistic.exportSheets.summary"),
     );
 
     // Динамика по дням
     const dailyData = data.requestsByDates.map((item) => ({
-      Дата: item.displayDate,
-      "Количество заявок": item.count,
+      [t("employeeStatistic.exportColumns.date")]: item.displayDate,
+      [t("employeeStatistic.exportColumns.requestsCount")]: item.count,
     }));
     XLSX.utils.book_append_sheet(
       workbook,
       XLSX.utils.json_to_sheet(dailyData),
-      "Динамика по дням"
+      t("employeeStatistic.exportSheets.daily"),
     );
 
     // Статусы
     const statusData = data.requestsByStatuses.map((item) => ({
-      Статус: statusMap[item.status] || `Статус ${item.status}`,
-      Количество: item.count,
-      Доля: `${item.percentage}%`,
+      [t("employeeStatistic.exportColumns.status")]:
+        statusMap[item.status] || `Status ${item.status}`,
+      [t("employeeStatistic.exportColumns.count")]: item.count,
+      [t("employeeStatistic.exportColumns.percentage")]: `${item.percentage}%`,
     }));
     XLSX.utils.book_append_sheet(
       workbook,
       XLSX.utils.json_to_sheet(statusData),
-      "Статусы"
+      t("employeeStatistic.exportSheets.statuses"),
     );
 
     // Категории
     const categoryData = data.requestsByCategories.map((item) => ({
-      Категория: categoryMap[item.category] || `Категория ${item.category}`,
-      Количество: item.count,
-      Доля: `${item.percentage}%`,
+      [t("employeeStatistic.exportColumns.category")]:
+        categoryMap[item.category] || `Category ${item.category}`,
+      [t("employeeStatistic.exportColumns.count")]: item.count,
+      [t("employeeStatistic.exportColumns.percentage")]: `${item.percentage}%`,
     }));
     XLSX.utils.book_append_sheet(
       workbook,
       XLSX.utils.json_to_sheet(categoryData),
-      "Категории"
+      t("employeeStatistic.exportSheets.categories"),
     );
 
     // Компании (только для админа)
     if (user?.role === "Admin" && companiesData?.companies?.length) {
       const companiesDataForExport = companiesData.companies.map((company) => ({
-        Компания: company.companyName,
-        "Всего заявок": company.totalRequestCount,
-        Выполнено: company.completedRequestCount,
-        "В работе": company.pendingRequestCount,
-        Рейтинг:
+        [t("companyStatistics.table.company")]: company.companyName,
+        [t("employeeStatistic.exportColumns.totalRequests")]:
+          company.totalRequestCount,
+        [t("employeeStatistic.exportColumns.completed")]:
+          company.completedRequestCount,
+        [t("employeeStatistic.exportColumns.inProgress")]:
+          company.pendingRequestCount,
+        [t("companyStatistics.table.rating")]:
           company.rating > 0
             ? `${company.rating} (${company.ratingCount})`
             : "—",
@@ -143,13 +127,13 @@ export default function EmployeeStatisticExport({ data, companiesData }) {
       XLSX.utils.book_append_sheet(
         workbook,
         XLSX.utils.json_to_sheet(companiesDataForExport),
-        "Компании"
+        t("employeeStatistic.exportSheets.companies"),
       );
     }
 
     XLSX.writeFile(
       workbook,
-      `статистика_${new Date().toISOString().split("T")[0]}.xlsx`
+      `${t("employeeStatistic.filenamePrefix")}_${new Date().toISOString().split("T")[0]}.xlsx`,
     );
   };
 
@@ -160,14 +144,16 @@ export default function EmployeeStatisticExport({ data, companiesData }) {
         variant="secondary"
         onClick={handleExportPDF}
       >
-        <PDFIcon className={styles.icon} /> Экспортировать в PDF
+        <PDFIcon className={styles.icon} />{" "}
+        {t("employeeStatistic.exportItems.pdf")}
       </Button>
       <Button
         className={styles.exportButton}
         variant="secondary"
         onClick={handleExportExcel}
       >
-        <ExcelIcon className={styles.icon} /> Экспортировать в Excel
+        <ExcelIcon className={styles.icon} />{" "}
+        {t("employeeStatistic.exportItems.excel")}
       </Button>
     </div>
   );

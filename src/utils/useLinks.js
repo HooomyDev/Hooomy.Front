@@ -45,19 +45,19 @@ export function useLinks() {
           {
             id: 2.1,
             to: routes["requests-data"],
-            label: "Заявки",
+            label: t("adminDashboard.requests"),
             icon: ClipboardDocumentListIcon,
           },
           {
             id: 2.2,
             to: routes["companies-data"],
-            label: "Компании",
+            label: t("adminDashboard.hmo"),
             icon: WrenchScrewdriverIcon,
           },
           {
             id: 2.3,
             to: routes["users-data"],
-            label: "Пользователи",
+            label: t("adminDashboard.users"),
             icon: UserGroupIcon,
           },
           {
@@ -69,7 +69,7 @@ export function useLinks() {
           {
             id: 2.5,
             to: routes.inquires,
-            label: "Обращения",
+            label: t("adminDashboard.inquiries"),
             icon: InformationCircleIcon,
           },
           {
@@ -123,7 +123,7 @@ export function useLinks() {
       {
         id: 6,
         to: routes.chat,
-        label: "Сообщения",
+        label: t("nav.messages"),
         icon: ChatBubbleBottomCenterTextIcon,
         type: "link",
       },
@@ -161,13 +161,13 @@ export function useLinks() {
     { id: 6, to: routes.map, label: t("nav.map"), icon: MapIcon, type: "link" },
     {
       id: 5,
-      label: "Ещё",
+      label: t("common.more"),
       items: [
         { id: 5.4, to: routes.faq, label: "FAQ", icon: InformationCircleIcon },
         {
           id: 5.5,
           to: routes.companies,
-          label: "Компании",
+          label: t("adminDashboard.hmo"),
           icon: ChatBubbleLeftRightIcon,
         },
       ],

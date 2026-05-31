@@ -263,6 +263,20 @@
   margin-top: 12px;
 }
 
+.removeFileBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-color);
+  padding: 0;
+  border: 1px solid var(--error-color);
+}
+
+.removeIcon {
+  width: 24px;
+  color: var(--error-color);
+}
+
 .commentImage {
   width: 160px;
   height: 120px;

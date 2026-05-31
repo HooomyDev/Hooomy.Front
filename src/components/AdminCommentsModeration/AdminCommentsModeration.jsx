@@ -27,9 +27,11 @@ import Pagination from "../../common/Pagination/Pagination";
 import Button from "../../common/Button/Button";
 import CommentDetailModal from "./CommentDetailModal";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import { useT } from "../../utils/useT";
 
 export default function AdminCommentsModeration() {
   const queryClient = useQueryClient();
+  const t = useT();
 
   const [pagination, setPagination] = useState({
     page: 1,
@@ -52,7 +54,7 @@ export default function AdminCommentsModeration() {
         pagination.page,
         pagination.pageSize,
         pagination.status,
-        pagination.searchText
+        pagination.searchText,
       ),
   });
 
@@ -100,22 +102,22 @@ export default function AdminCommentsModeration() {
   });
 
   const statusOptions = [
-    { value: 0, label: "Все статусы" },
-    { value: 1, label: "Ожидает проверки" },
-    { value: 2, label: "Одобрен" },
-    { value: 3, label: "Удален" },
+    { value: 0, label: t("adminComments.statuses.all") },
+    { value: 1, label: t("adminComments.statuses.pending") },
+    { value: 2, label: t("adminComments.statuses.approved") },
+    { value: 3, label: t("adminComments.statuses.deleted") },
   ];
 
   const renderStatus = (status) => {
     switch (status) {
       case 1:
-        return "Ожидает проверки";
+        return t("adminComments.statuses.pending");
       case 2:
-        return "Одобрен";
+        return t("adminComments.statuses.approved");
       case 3:
-        return "Удален";
+        return t("adminComments.statuses.deleted");
       default:
-        return "Неизвестно";
+        return t("adminComments.statuses.unknown");
     }
   };
 
@@ -170,7 +172,7 @@ export default function AdminCommentsModeration() {
   return (
     <div className={styles.wrapper}>
       <PageHeader
-        title="Модерация комментариев"
+        title={t("adminComments.title")}
         icon={ChatBubbleLeftRightIcon}
       />
 
@@ -183,14 +185,14 @@ export default function AdminCommentsModeration() {
             >
               <InputField
                 name="searchText"
-                label="Поиск"
-                placeholder="Текст комментария"
+                label={t("adminComments.search")}
+                placeholder={t("adminComments.searchPlaceholder")}
                 required={false}
               />
 
               <SelectField
                 name="status"
-                label="Статус"
+                label={t("adminComments.statusLabel")}
                 options={statusOptions}
                 required={false}
               />
@@ -206,14 +208,14 @@ export default function AdminCommentsModeration() {
 
             {data.requestComments.length === 0 ? (
               <EmptyBlock Icon={ChatBubbleLeftRightIcon}>
-                Нет комментариев
+                {t("adminComments.empty")}
               </EmptyBlock>
             ) : (
               <table className={styles.table}>
                 <thead>
                   <tr>
                     <th>
-                      ID{" "}
+                      {t("adminComments.table.id")}
                       {sortConfig.key === "id" &&
                         (sortConfig.direction === "asc" ? (
                           <ChevronUpIcon className={styles.sortIcon} />
@@ -222,7 +224,7 @@ export default function AdminCommentsModeration() {
                         ))}
                     </th>
                     <th onClick={() => handleSort("author")}>
-                      Автор{" "}
+                      {t("adminComments.table.author")}
                       {sortConfig.key === "author" &&
                         (sortConfig.direction === "asc" ? (
                           <ChevronUpIcon className={styles.sortIcon} />
@@ -230,9 +232,9 @@ export default function AdminCommentsModeration() {
                           <ChevronDownIcon className={styles.sortIcon} />
                         ))}
                     </th>
-                    <th>Комментарий</th>
+                    <th>{t("adminComments.table.comment")}</th>
                     <th onClick={() => handleSort("status")}>
-                      Статус{" "}
+                      {t("adminComments.table.status")}
                       {sortConfig.key === "status" &&
                         (sortConfig.direction === "asc" ? (
                           <ChevronUpIcon className={styles.sortIcon} />
@@ -240,8 +242,8 @@ export default function AdminCommentsModeration() {
                           <ChevronDownIcon className={styles.sortIcon} />
                         ))}
                     </th>
-                    <th>Время создания</th>
-                    <th>Действия</th>
+                    <th>{t("adminComments.table.createdAt")}</th>
+                    <th>{t("adminComments.table.actions")}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -261,14 +263,14 @@ export default function AdminCommentsModeration() {
                       <td className={styles.actions}>
                         <button
                           className={styles.viewButton}
-                          title="Подробнее"
+                          title={t("adminComments.actions.view")}
                           onClick={() => handleViewClick(c)}
                         >
                           <EyeIcon className={styles.buttonIcon} />
                         </button>
                         <button
                           className={styles.approveButton}
-                          title="Одобрить"
+                          title={t("adminComments.actions.approve")}
                           onClick={() =>
                             statusMutation.mutate({ ...c, status: 2 })
                           }
@@ -277,7 +279,7 @@ export default function AdminCommentsModeration() {
                         </button>
                         <button
                           className={styles.blockButton}
-                          title="Удалить"
+                          title={t("adminComments.actions.delete")}
                           onClick={() => deleteMutation.mutate(c.id)}
                         >
                           <TrashIcon className={styles.buttonIcon} />
@@ -290,7 +292,7 @@ export default function AdminCommentsModeration() {
             )}
           </FormProvider>
           <Pagination
-            totalPages={data.totalCount / pagination.pageSize + 1}
+            totalPages={data.totalCount}
             currentPage={pagination.page}
             onPageChange={handlePageChange}
           />

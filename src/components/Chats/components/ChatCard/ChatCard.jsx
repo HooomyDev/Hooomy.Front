@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./ChatCard.module.css";
 import { useAuthStore } from "../../../../stores/authStore";
+import { useT } from "../../../../utils/useT";
 
 export default function ChatCard({ chat, handleChatClick }) {
+  const t = useT();
   const { user } = useAuthStore();
   return (
     <div className={styles.chat} onClick={() => handleChatClick(chat.id)}>
@@ -12,7 +14,7 @@ export default function ChatCard({ chat, handleChatClick }) {
           <span className={styles.name}>
             {user?.role === "Resident"
               ? chat.companyName
-              : chat.residentName || "Чат"}
+              : chat.residentName || t("chats.chatCard.defaultChat")}
           </span>
           <span className={styles.date}>
             {new Date(chat.lastMessageSentAt).toLocaleDateString()}
@@ -20,7 +22,7 @@ export default function ChatCard({ chat, handleChatClick }) {
         </div>
         <div className={styles.message}>
           <span className={chat.unreadCount > 0 ? styles.unread : styles.read}>
-            {chat.lastMessageContent || "Нет сообщений"}
+            {chat.lastMessageContent || t("chats.chatCard.noMessages")}
           </span>
         </div>
       </div>

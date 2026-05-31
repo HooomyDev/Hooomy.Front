@@ -34,8 +34,8 @@ export default function EmployeeHome() {
     },
     {
       id: 2,
-      label: "Плановые работы",
-      description: "Управление плановыми работами",
+      label: t("employeeHome.links.works.label"),
+      description: t("employeeHome.links.works.description"),
       to: routes["employee-works"],
     },
     {

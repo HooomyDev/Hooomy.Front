@@ -20,8 +20,11 @@
   padding: var(--spacing-md);
   cursor: pointer;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
 .authButton:hover {
@@ -37,7 +40,9 @@
 .userLogo {
   width: 25px;
   fill: var(--font-color);
-  transition: transform 0.2s ease, fill 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    fill 0.2s ease;
 }
 
 .authButton:hover .userLogo {
@@ -46,6 +51,7 @@
 }
 
 .authText {
+  word-wrap: nowrap;
   transition: opacity 0.2s ease;
 }
 

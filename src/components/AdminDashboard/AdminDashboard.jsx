@@ -26,7 +26,8 @@ import EmployeeStatisticChartPeriodSelector from "../EmployeeStatisticChart/comp
 export default function AdminDashboard() {
   const t = useT();
   const [period, setPeriod] = useState(1);
-  const [isCreateNotificationOpen, setIsCreateNotificationOpen] = useState(false);
+  const [isCreateNotificationOpen, setIsCreateNotificationOpen] =
+    useState(false);
 
   const { data, isLoading } = useQuery({
     queryKey: ["requestStatistic", period],
@@ -91,7 +92,7 @@ export default function AdminDashboard() {
 
       <div className={styles.actionsRow}>
         <Button onClick={() => setIsCreateNotificationOpen(true)}>
-          Создать уведомление
+          {t("adminDashboard.createNotification")}
         </Button>
       </div>
 

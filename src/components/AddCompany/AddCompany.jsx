@@ -135,18 +135,18 @@ export default function AddCompany() {
     return (
       <div className={styles.infoText}>
         <p>
-          <strong>Что делать, если адреса нет в списке?</strong>
+          <strong>{t("company.addressInfo.title")}</strong>
         </p>
         <ul>
-          <li>Проверьте правильность написания улицы</li>
-          <li>Если адреса всё ещё нет, вы можете добавить его вручную</li>
+          <li>{t("company.addressInfo.spellCheck")}</li>
+          <li>{t("company.addressInfo.addManually")}</li>
         </ul>
-        <p>Для добавления адреса нажмите на кнопку ниже.</p>
+        <p>{t("company.addressInfo.instructions")}</p>
         <Button
           className={styles.infoButton}
           onClick={() => setIsAddingAddress(true)}
         >
-          Добавить
+          {t("company.addressInfo.add")}
         </Button>
       </div>
     );
@@ -154,14 +154,18 @@ export default function AddCompany() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Добавить" icon={WrenchScrewdriverIcon} info={Info} />
+      <PageHeader
+        title={t("common.createCompany")}
+        icon={WrenchScrewdriverIcon}
+        info={Info}
+      />
 
       {isAddingAddress && (
         <div className={styles.createAddressContent}>
           <Map onSelect={handleSelect} />
           {selectedLocation && (
             <div className={styles.selectedAddress}>
-              <strong>Выбранный адрес: </strong>
+              <strong>{t("company.selectedAddress")}</strong>
               <span>{selectedLocation.address}</span>
             </div>
           )}
@@ -170,7 +174,9 @@ export default function AddCompany() {
               onClick={handleSaveAddress}
               disabled={!selectedLocation || isSaving}
             >
-              {isSaving ? "Сохранение..." : "Добавить адрес"}
+              {isSaving
+                ? t("common.saving")
+                : t("employeeSurveysCreateForm.create")}
             </Button>
           </div>
         </div>
@@ -180,20 +186,24 @@ export default function AddCompany() {
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <div className={styles.formGroup}>
-              <FileUploadField label="Логотип" name="logo" maxFiles={1} />
+              <FileUploadField
+                label={t("common.logo")}
+                name="logo"
+                maxFiles={1}
+              />
             </div>
             <div className={styles.formGroup}>
               <InputField
-                label="Название компании"
+                label={t("company.name")}
                 name="name"
                 type="text"
                 required
-                placeholder="Введите название компании"
-                rules={{ required: "Название компании обязательно" }}
+                placeholder={t("company.namePlaceholder")}
+                rules={{ required: t("company.nameRequired") }}
               />
 
               <AutocompleteField
-                label="Адрес"
+                label={t("user.address")}
                 name="addressId"
                 options={streetOptions}
                 onSearch={handleStreetSearch}
@@ -208,28 +218,30 @@ export default function AddCompany() {
               />
 
               <InputField
-                label="Email"
+                label={t("user.email")}
                 name="email"
                 type="email"
-                placeholder="company@example.com"
+                placeholder={t("company.emailPlaceholder")}
                 rules={{
                   pattern: {
                     value: /^\S+@\S+\.\S+$/,
-                    message: "Некорректный email",
+                    message: t("errors.invalidEmail"),
                   },
                 }}
               />
 
               <InputField
-                label="Рабочие часы"
+                label={t("company.workingHours")}
                 name="workingHours"
                 type="text"
-                placeholder="09:00-18:00"
+                placeholder={t("company.workingHoursPlaceholder")}
               />
 
               <div className={styles.buttons}>
                 <Button type="submit" disabled={mutation.isPending}>
-                  {mutation.isPending ? "Добавление..." : "Добавить компанию"}
+                  {mutation.isPending
+                    ? t("company.adding")
+                    : t("company.addCompany")}
                 </Button>
               </div>
             </div>

@@ -3,13 +3,13 @@
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-lg);
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-lg);
 }
 
 .nav {

@@ -7,6 +7,7 @@ import Button from "../../../common/Button/Button";
 import { createComplaint } from "../../../api/services/complaintService";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import styles from "./CreateComplaintModal.module.css";
+import { useT } from "../../../utils/useT";
 
 export const COMPLAINT_TYPES = [
   { value: 1, label: "Жалоба на жильца" },
@@ -17,7 +18,8 @@ export const COMPLAINT_TYPES = [
 ];
 
 export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
-  const typeLabel = COMPLAINT_TYPES.find((t) => t.value === type)?.label ?? "";
+  const t = useT();
+  const typeLabel = t(`adminComplaints.types.${type}`);
 
   const methods = useForm({
     defaultValues: { shortDescription: "", description: "" },
@@ -28,18 +30,24 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
       let finalDescription = description;
 
       if (type === 1) {
-        const residentId = data?.residentId || "не указан";
-        finalDescription = `ID Жильца: ${residentId}\n. ${description}`;
+        const residentId =
+          data?.residentId || t("createComplaintModal.notSpecified");
+        finalDescription = `${t("createComplaintModal.ids.resident")}: ${residentId}.\n ${description}`;
       }
 
       if (type === 2) {
-        const companyId = data?.id || "не указан";
-        finalDescription = `ID Компании: ${companyId}\n. ${description}`;
+        const companyId = data?.id || t("createComplaintModal.notSpecified");
+        finalDescription = `${t("createComplaintModal.ids.company")}: ${companyId}.\n ${description}`;
       }
 
       if (type === 3) {
-        const commentId = data?.id || "не указан";
-        finalDescription = `ID Комментария: ${commentId}\n. ${description}`;
+        const commentId = data?.id || t("createComplaintModal.notSpecified");
+        finalDescription = `${t("createComplaintModal.ids.comment")}: ${commentId}.\n ${description}`;
+      }
+
+      if (type === 4) {
+        const commentId = data?.id || t("createComplaintModal.notSpecified");
+        finalDescription = `${t("createComplaintModal.ids.request")}: ${commentId}.\n ${description}`;
       }
 
       return createComplaint(shortDescription, finalDescription, type);
@@ -58,7 +66,7 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
         <div className={styles.iconWrap}>
           <ExclamationTriangleIcon className={styles.headerIcon} />
         </div>
-        <h2 className={styles.title}>Создать жалобу</h2>
+        <h2 className={styles.title}>{t("createComplaintModal.title")}</h2>
         {typeLabel && <span className={styles.typeBadge}>{typeLabel}</span>}
       </div>
 
@@ -69,22 +77,22 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
         >
           <InputField
             name="shortDescription"
-            label="Краткое описание"
-            placeholder="Кратко опишите суть проблемы"
-            rules={{ required: "Обязательное поле" }}
+            label={t("createComplaintModal.shortDescriptionLabel")}
+            placeholder={t("createComplaintModal.shortDescriptionPlaceholder")}
+            rules={{ required: t("createComplaintModal.requiredField") }}
           />
           <InputField
             name="description"
-            label="Описание"
-            placeholder="Подробное опишите вашу проблему"
-            rules={{ required: "Обязательное поле" }}
+            label={t("createComplaintModal.descriptionLabel")}
+            placeholder={t("createComplaintModal.descriptionPlaceholder")}
+            rules={{ required: t("createComplaintModal.requiredField") }}
             multiline
           />
 
           {mutation.isError && (
             <div className={styles.errorBanner}>
               <ExclamationTriangleIcon className={styles.errorIcon} />
-              Ошибка при отправке жалобы. Попробуйте снова.
+              {t("createComplaintModal.errorBanner")}
             </div>
           )}
 
@@ -94,14 +102,20 @@ export default function CreateComplaintModal({ isOpen, onClose, type, data }) {
               className={styles.cancelBtn}
               onClick={onClose}
             >
-              Отмена
+              {t("createComplaintModal.cancel")}
             </Button>
             <Button
               type="submit"
               disabled={mutation.isPending}
-              title={mutation.isPending ? "Отправка..." : "Отправить жалобу"}
+              title={
+                mutation.isPending
+                  ? t("createComplaintModal.sending")
+                  : t("createComplaintModal.sendButtonTitle")
+              }
             >
-              Отправить
+              {mutation.isPending
+                ? t("createComplaintModal.sending")
+                : t("createComplaintModal.submit")}
             </Button>
           </div>
         </form>

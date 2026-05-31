@@ -52,7 +52,7 @@ export default function AuthButton() {
             },
           },
           {
-            label: "Сообщения",
+            label: t("nav.messages"),
             icon: ChatBubbleBottomCenterTextIcon,
             onClick: () => {
               setOpen(false);

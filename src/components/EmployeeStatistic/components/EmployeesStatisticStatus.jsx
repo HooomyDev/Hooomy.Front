@@ -10,14 +10,17 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
   const t = useT();
 
   const statusMap = {
-    1: { name: "Создано", color: "#3b82f6" }, // Синий
-    2: { name: "Отклонено", color: "#ef4444" }, // Красный
-    3: { name: "В обработке", color: "#f97316" }, // Оранжевый
-    4: { name: "Выполнено", color: "#22c55e" }, // Зелёный
+    1: { name: t("employeeRequests.status.new"), color: "#3b82f6" },
+    3: { name: t("employeeRequests.status.rejected"), color: "#ef4444" },
+    4: { name: t("employeeRequests.status.pending"), color: "#f97316" },
+    5: {
+      name: t("completed"),
+      color: "#22c55e",
+    },
   };
 
   const chartData = requests
-    .filter((item) => statusMap[item.status]) // Только известные статусы
+    .filter((item) => statusMap[item.status])
     .map((item) => ({
       name: statusMap[item.status].name,
       value: item.count,
@@ -34,9 +37,9 @@ export default function EmployeesStatisticStatus({ requests = [] }) {
       title={t("employeesStatisticStatus.header")}
       Icon={ClipboardDocumentListIcon}
     >
-      {chartData?.length === 0 ? (
+      {requests?.length === 0 ? (
         <EmptyBlock Icon={ClipboardDocumentListIcon}>
-          Нет данных для отображения
+          {t("employeesStatisticStatus.empty")}
         </EmptyBlock>
       ) : (
         <div className={styles.statusWrapper}>

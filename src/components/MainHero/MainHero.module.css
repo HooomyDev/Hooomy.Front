@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   background: var(--main-color);
-  padding: var(--spacing-xxl) var(--spacing-xl);
+  padding: var(--spacing-xxl) 0;
   gap: var(--spacing-xxl);
   width: 100%;
   border-radius: var(--border-radius);

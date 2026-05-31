@@ -239,14 +239,23 @@
 }
 
 .reviewWrapper {
+  display: flex;
+  flex-direction: column;
   padding-top: var(--spacing-lg);
+  gap: var(--spacing-sm);
 }
 
 .reviewButton {
+  position: absolute;
   display: flex;
-  gap: var(--spacing-sm);
   align-items: center;
-  border: 1px solid var(--element-color);
+  gap: 8px;
+  margin: 0;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  right: 0;
+  top: 10px;
 }
 
 .reviewIcon {

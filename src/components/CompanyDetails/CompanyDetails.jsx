@@ -45,8 +45,11 @@ import AddUserToCompanyModal from "../../features/modals/AddUserToCompanyModal/A
 import CreateComplaintModal, {
   COMPLAINT_TYPES,
 } from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
+import { useT } from "../../utils/useT";
+import { format } from "date-fns";
 
 export default function CompanyDetails() {
+  const t = useT();
   const { companyId } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -80,7 +83,7 @@ export default function CompanyDetails() {
     onError: () =>
       setNotification({
         type: "error",
-        message: "Ошибка при удалении компании",
+        message: t("companyDetails.notifications.deleteCompanyError"),
       }),
   });
 
@@ -95,7 +98,7 @@ export default function CompanyDetails() {
     onError: () =>
       setNotification({
         type: "error",
-        message: "Ошибка при удалении работника",
+        message: t("companyDetails.notifications.deleteEmployeeError"),
       }),
   });
 
@@ -106,7 +109,10 @@ export default function CompanyDetails() {
       queryClient.invalidateQueries({ queryKey: ["company", companyId] });
     },
     onError: () =>
-      setNotification({ type: "error", message: "Ошибка при удалении адреса" }),
+      setNotification({
+        type: "error",
+        message: t("companyDetails.notifications.deleteAddressError"),
+      }),
   });
 
   const createChatMutation = useMutation({
@@ -134,24 +140,21 @@ export default function CompanyDetails() {
       queryClient.invalidateQueries({ queryKey: ["company", companyId] });
       setNotification({
         type: "success",
-        message: "Логотип компании загружен",
+        message: t("companyDetails.notifications.logoUploaded"),
       });
     },
     onError: () => {
       setIsUploadingLogo(false);
       setNotification({
         type: "error",
-        message: "Ошибка при загрузке логотипа",
+        message: t("companyDetails.notifications.logoUploadError"),
       });
     },
   });
 
   const handleLogoSelect = (event) => {
     const file = event.target.files?.[0];
-    if (!file) {
-      return;
-    }
-
+    if (!file) return;
     uploadLogoMutation.mutate(file);
     event.target.value = "";
   };
@@ -160,7 +163,7 @@ export default function CompanyDetails() {
     if (!user) {
       setNotification({
         type: "error",
-        message: "Необходимо авторизоваться",
+        message: t("companyDetails.notifications.authRequired"),
       });
       return;
     }
@@ -168,49 +171,53 @@ export default function CompanyDetails() {
     if (user.status === "Pending") {
       setNotification({
         type: "error",
-        message: "Подтвердите email для создания чата",
+        message: t("companyDetails.notifications.emailNotConfirmed"),
       });
       return;
     }
 
     createChatMutation.mutate(companyId);
-
     navigate(routes.chats);
   };
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // 🔹 Локализация дат
+  const dateLocale = t.dateLocale;
+  const formatDate = (dateString) => {
+    if (!dateString) return t("info.noValue");
+    return format(new Date(dateString), "dd.MM.yyyy", { locale: dateLocale });
+  };
+
+  if (isLoading) return <Loader />;
 
   const infoItems = [
     {
-      label: "Телефон",
+      label: t("companyDetails.info.phone"),
       value: company?.phone,
       icon: <PhoneArrowDownLeftIcon className={styles.icon} />,
     },
     {
-      label: "Email",
+      label: t("companyDetails.info.email"),
       value: company?.email,
       icon: <EnvelopeIcon className={styles.icon} />,
     },
     {
-      label: "Адрес",
+      label: t("companyDetails.info.address"),
       value: company?.address,
       icon: <GlobeEuropeAfricaIcon className={styles.icon} />,
     },
     {
-      label: "Режим работы",
+      label: t("companyDetails.info.workingHours"),
       value: company?.workingHours,
       icon: <ClockIcon className={styles.icon} />,
     },
     {
-      label: "Дата регистрации",
-      value: new Date(company?.createdAt).toLocaleDateString("ru-RU"),
+      label: t("companyDetails.info.registeredAt"),
+      value: formatDate(company?.createdAt),
       icon: <CalendarIcon className={styles.icon} />,
     },
     {
-      label: "Рейтинг",
-      value: company?.averageRating || 0,
+      label: t("companyDetails.info.rating"),
+      value: company?.averageRating ?? 0,
       icon: <StarIcon className={styles.icon} />,
     },
   ];
@@ -253,6 +260,8 @@ export default function CompanyDetails() {
                       setSelectedCompany(company);
                       setIsComplaintModalOpen(true);
                     }}
+                    aria-label={t("companyDetails.actions.complain")}
+                    title={t("companyDetails.actions.complain")}
                   >
                     <ExclamationTriangleIcon className={styles.submitIcon} />
                   </Button>
@@ -267,26 +276,30 @@ export default function CompanyDetails() {
                     className={styles.fileInput}
                     onChange={handleLogoSelect}
                     hidden
+                    aria-label={t("companyDetails.actions.uploadLogo")}
                   />
                   <Button
                     className={styles.uploadBtn}
-                    title="Загрузить логотип"
+                    title={t("companyDetails.actions.uploadLogo")}
                     onClick={() => fileInputRef.current?.click()}
                     disabled={isUploadingLogo}
+                    aria-label={t("companyDetails.actions.uploadLogo")}
                   >
                     <ArrowUpTrayIcon className={styles.btnIcon} />
                   </Button>
                   <Button
                     className={styles.editBtn}
-                    title="Изменить"
+                    title={t("companyDetails.actions.edit")}
                     onClick={() => setIsEditOpen(true)}
+                    aria-label={t("companyDetails.actions.edit")}
                   >
                     <PencilIcon className={styles.btnIcon} />
                   </Button>
                   <Button
                     className={styles.deleteBtn}
-                    title="Удалить"
+                    title={t("companyDetails.actions.delete")}
                     onClick={() => setIsDeleteOpen(true)}
+                    aria-label={t("companyDetails.actions.delete")}
                   >
                     <TrashIcon className={styles.btnIcon} />
                   </Button>
@@ -301,7 +314,9 @@ export default function CompanyDetails() {
                     {item.icon}
                     <div className={styles.infoLabel}>{item.label}</div>
                   </div>
-                  <div className={styles.infoValue}>{item.value || "—"}</div>
+                  <div className={styles.infoValue}>
+                    {item.value || t("companyDetails.info.noValue")}
+                  </div>
                 </div>
               ))}
             </div>
@@ -314,14 +329,14 @@ export default function CompanyDetails() {
                     className={styles.actionButton}
                     onClick={() => navigate(-1)}
                   >
-                    Назад
+                    {t("companyDetails.actions.back")}
                   </Button>
                   <Button
                     className={styles.actionButton}
                     onClick={() => handleClick()}
                     disabled={user?.status === "Pending" || !user}
                   >
-                    Написать
+                    {t("companyDetails.actions.write")}
                   </Button>
                 </>
               )}
@@ -330,13 +345,16 @@ export default function CompanyDetails() {
         </div>
       </Block>
 
+      {/* Отзывы */}
       <div className={styles.addressHeader}>
         <StarIcon className={styles.icon} />
-        <h2>Отзывы</h2>
+        <h2>{t("companyDetails.sections.reviews")}</h2>
       </div>
       <Block>
         {!company.reviews || company.reviews.length === 0 ? (
-          <EmptyBlock Icon={StarIcon}>Отзывов пока нет</EmptyBlock>
+          <EmptyBlock Icon={StarIcon}>
+            {t("companyDetails.emptyStates.noReviews")}
+          </EmptyBlock>
         ) : (
           <div className={styles.reviewsList}>
             {company.reviews.map((review) => (
@@ -350,18 +368,20 @@ export default function CompanyDetails() {
                         className={`${styles.star} ${
                           i < review.score ? styles.starFilled : ""
                         }`}
+                        aria-hidden="true"
                       />
                     ))}
                   </div>
                   <div className={styles.date}>
-                    {new Date(review.createdAt).toLocaleDateString("ru-RU")}
+                    {formatDate(review.createdAt)}
                   </div>
                 </div>
-
                 {review.text && review.text.trim() !== "" ? (
                   <div className={styles.reviewText}>{review.text}</div>
                 ) : (
-                  <div className={styles.reviewText}>Без комментария</div>
+                  <div className={styles.reviewText}>
+                    {t("companyDetails.reviews.noComment")}
+                  </div>
                 )}
               </div>
             ))}
@@ -372,13 +392,15 @@ export default function CompanyDetails() {
       {/* Обслуживаемые адреса */}
       <div className={styles.addressHeader}>
         <MapPinIcon className={styles.icon} />
-        <h2>Обслуживаемые адреса</h2>
+        <h2>{t("companyDetails.sections.addresses")}</h2>
         {user?.role === "Admin" && (
           <div className={styles.blockActions}>
             <Button
               className={styles.addBtn}
               variant="secondary"
               onClick={() => setIsAddAddressOpen(true)}
+              aria-label={t("companyDetails.actions.addAddress")}
+              title={t("companyDetails.actions.addAddress")}
             >
               <PlusIcon className={styles.addIcon} />
             </Button>
@@ -387,26 +409,30 @@ export default function CompanyDetails() {
       </div>
       <Block>
         {!company.addresses || company.addresses.length === 0 ? (
-          <EmptyBlock Icon={MapPinIcon}>Адреса не указаны</EmptyBlock>
+          <EmptyBlock Icon={MapPinIcon}>
+            {t("companyDetails.emptyStates.noAddresses")}
+          </EmptyBlock>
         ) : (
           <div className={styles.addressList}>
-            {company.addresses.map((addr, i) => (
-              <div key={addr.id ?? i} className={styles.addressItem}>
-                <MapPinIcon className={styles.addressIcon} />
-                <span className={styles.addressText}>
-                  {addr.fullAddress ?? addr.street ?? addr}
-                </span>
-                {user?.role === "Admin" && (
-                  <Button
-                    className={styles.deleteBtn}
-                    title="Удалить адрес"
-                    onClick={() => setAddressToDelete(addr)}
-                  >
-                    <TrashIcon className={styles.btnIcon} />
-                  </Button>
-                )}
-              </div>
-            ))}
+            {company.addresses.map((addr, i) => {
+              const addressText = addr.fullAddress ?? addr.street ?? addr;
+              return (
+                <div key={addr.id ?? i} className={styles.addressItem}>
+                  <MapPinIcon className={styles.addressIcon} />
+                  <span className={styles.addressText}>{addressText}</span>
+                  {user?.role === "Admin" && (
+                    <Button
+                      className={styles.deleteBtn}
+                      title={t("companyDetails.actions.deleteAddress")}
+                      onClick={() => setAddressToDelete(addr)}
+                      aria-label={t("companyDetails.actions.deleteAddress")}
+                    >
+                      <TrashIcon className={styles.btnIcon} />
+                    </Button>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )}
       </Block>
@@ -416,24 +442,26 @@ export default function CompanyDetails() {
         <>
           <div className={styles.addressHeader}>
             <UsersIcon className={styles.icon} />
-            <h2>Работники</h2>
-            {user?.role === "Admin" && (
-              <div className={styles.blockActions}>
-                <Button
-                  className={styles.addBtn}
-                  onClick={() => setIsAddUserOpen(true)}
-                  variant="secondary"
-                >
-                  <PlusIcon className={styles.addIcon} />
-                </Button>
-              </div>
-            )}
+            <h2>{t("companyDetails.sections.employees")}</h2>
+            <div className={styles.blockActions}>
+              <Button
+                className={styles.addBtn}
+                onClick={() => setIsAddUserOpen(true)}
+                variant="secondary"
+                aria-label={t("companyDetails.actions.addEmployee")}
+                title={t("companyDetails.actions.addEmployee")}
+              >
+                <PlusIcon className={styles.addIcon} />
+              </Button>
+            </div>
           </div>
           <Block>
             {isEmployeesLoading ? (
               <Loader />
             ) : employees.length === 0 ? (
-              <EmptyBlock Icon={UsersIcon}>Работников пока что нет</EmptyBlock>
+              <EmptyBlock Icon={UsersIcon}>
+                {t("companyDetails.emptyStates.noEmployees")}
+              </EmptyBlock>
             ) : (
               <div className={styles.employeeList}>
                 {employees.map((emp) => (
@@ -447,15 +475,14 @@ export default function CompanyDetails() {
                       </span>
                       <span className={styles.employeeRole}>{emp.role}</span>
                     </div>
-                    {user?.role === "Admin" && (
-                      <Button
-                        className={styles.deleteBtn}
-                        title="Удалить из компании"
-                        onClick={() => setUserToDelete(emp)}
-                      >
-                        <TrashIcon className={styles.btnIcon} />
-                      </Button>
-                    )}
+                    <Button
+                      className={styles.deleteBtn}
+                      title={t("companyDetails.actions.deleteEmployee")}
+                      onClick={() => setUserToDelete(emp)}
+                      aria-label={t("companyDetails.actions.deleteEmployee")}
+                    >
+                      <TrashIcon className={styles.btnIcon} />
+                    </Button>
                   </div>
                 ))}
               </div>
@@ -463,6 +490,8 @@ export default function CompanyDetails() {
           </Block>
         </>
       )}
+
+      {/* Модальные окна */}
       <AddUserToCompanyModal
         isOpen={isAddUserOpen}
         onClose={() => setIsAddUserOpen(false)}
@@ -473,9 +502,13 @@ export default function CompanyDetails() {
         isOpen={!!userToDelete}
         onClose={() => setUserToDelete(null)}
         onConfirm={() => removeUserMutation.mutate(userToDelete.id)}
-        title="Удалить работника"
-        message={`Удалить ${userToDelete?.surname} ${userToDelete?.firstName} из компании?`}
-        confirmText="Удалить"
+        title={t("companyDetails.confirmDelete.employee.title")}
+        message={t("companyDetails.confirmDelete.employee.message", {
+          surname: userToDelete?.surname,
+          firstName: userToDelete?.firstName,
+        })}
+        confirmText={t("companyDetails.confirmDelete.confirm")}
+        cancelText={t("companyDetails.confirmDelete.cancel")}
         confirmVariant="danger"
       />
 
@@ -485,13 +518,15 @@ export default function CompanyDetails() {
         onConfirm={() =>
           removeAddressMutation.mutate(addressToDelete.id ?? addressToDelete)
         }
-        title="Удалить адрес"
-        message={`Удалить адрес "${
-          addressToDelete?.fullAddress ??
-          addressToDelete?.street ??
-          addressToDelete
-        }" из компании?`}
-        confirmText="Удалить"
+        title={t("companyDetails.confirmDelete.address.title")}
+        message={t("companyDetails.confirmDelete.address.message", {
+          address:
+            addressToDelete?.fullAddress ??
+            addressToDelete?.street ??
+            addressToDelete,
+        })}
+        confirmText={t("companyDetails.confirmDelete.confirm")}
+        cancelText={t("companyDetails.confirmDelete.cancel")}
         confirmVariant="danger"
       />
 
@@ -511,9 +546,12 @@ export default function CompanyDetails() {
         isOpen={isDeleteOpen}
         onClose={() => setIsDeleteOpen(false)}
         onConfirm={() => deleteMutation.mutate()}
-        title="Удалить компанию"
-        message={`Вы уверены, что хотите удалить компанию "${company.name}"? Это действие необратимо.`}
-        confirmText="Удалить"
+        title={t("companyDetails.confirmDelete.company.title")}
+        message={t("companyDetails.confirmDelete.company.message", {
+          name: company.name,
+        })}
+        confirmText={t("companyDetails.confirmDelete.confirm")}
+        cancelText={t("companyDetails.confirmDelete.cancel")}
         confirmVariant="danger"
       />
 
@@ -523,7 +561,7 @@ export default function CompanyDetails() {
           setIsComplaintModalOpen(false);
           setSelectedCompany(null);
         }}
-        type={COMPLAINT_TYPES[1].value}
+        type={COMPLAINT_TYPES[1]?.value}
         data={selectedCompany}
       />
     </div>

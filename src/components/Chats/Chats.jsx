@@ -12,9 +12,11 @@ import ChatSearchForm from "./components/ChatSearchForm/ChatSearchForm";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import Chat from "../Chat/Chat";
 import Notification from "../../common/Notification/Notification";
+import { useT } from "../../utils/useT";
 
 export default function Chats() {
   const [filteredChats, setFilteredChats] = useState([]);
+  const t = useT();
   const user = useAuthStore((store) => store.user);
   const [messages, setMessages] = useState([]);
   const [connection, setConnection] = useState(null);
@@ -90,17 +92,17 @@ export default function Chats() {
           message:
             error.response?.data?.message ||
             error.response?.data?.error ||
-            "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+            t("chats.accessDeniedDefault"),
         });
         setDisabled(true);
       }
     }
-  }, [error]);
+  }, [error, t]);
 
   const onSubmit = (data) => {
     const filtered =
       chats?.filter((chat) =>
-        chat.companyName.toLowerCase().includes(data.search.toLowerCase())
+        chat.companyName.toLowerCase().includes(data.search.toLowerCase()),
       ) || [];
 
     setFilteredChats(filtered);
@@ -131,7 +133,10 @@ export default function Chats() {
               <div>{notification.message}</div>
             </Notification>
           )}
-          <PageHeader title="Чаты" icon={ChatBubbleBottomCenterTextIcon} />
+          <PageHeader
+            title={t("chats.title")}
+            icon={ChatBubbleBottomCenterTextIcon}
+          />
           <div className={styles.container}>
             <ChatSearchForm
               onSubmit={onSubmit}
@@ -143,7 +148,7 @@ export default function Chats() {
                 {filteredChats.length === 0 ? (
                   <div className={styles.empty}>
                     <ChatBubbleBottomCenterTextIcon className={styles.icon} />
-                    Нет чатов
+                    {t("chats.empty")}
                   </div>
                 ) : (
                   filteredChats.map((chat) => (

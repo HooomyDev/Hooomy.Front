@@ -5,6 +5,7 @@ import InputField from "../../../../common/InputField/InputField";
 import SelectField from "../../../../common/SelectField/SelectField";
 import Loader from "../../../../common/Loader/Loader";
 import styles from "./EditSurveyModal.module.css";
+import { useT } from "../../../../utils/useT";
 
 export default function EditSurveyModal({
   isOpen,
@@ -13,10 +14,11 @@ export default function EditSurveyModal({
   survey,
   isLoading,
 }) {
+  const t = useT();
   const methods = useForm({
     defaultValues: {
-      title: "",
-      description: "",
+      title: survey?.title,
+      description: survey?.description,
       status: 1,
     },
   });
@@ -48,7 +50,9 @@ export default function EditSurveyModal({
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Редактирование опроса</h2>
+          <h2 className={styles.title}>
+            {t("employeeSurveysEditModal.title")}
+          </h2>
           <button className={styles.closeBtn} onClick={onClose}>
             ×
           </button>
@@ -62,36 +66,56 @@ export default function EditSurveyModal({
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <InputField
-                label="Название"
-                placeholder="Введите название опроса"
+                label={t("employeeSurveysEditModal.nameLabel")}
+                placeholder={t("employeeSurveysEditModal.namePlaceholder")}
                 error={errors.title?.message}
                 {...register("title", {
-                  required: "Название обязательно",
+                  required: t("employeeSurveysEditModal.nameRequired"),
                   minLength: {
                     value: 3,
-                    message: "Название должно содержать минимум 3 символа",
+                    message: t("employeeSurveysEditModal.nameMinLength", {
+                      count: 3,
+                    }),
                   },
                 })}
               />
 
-              <InputField name="description" label="Описание" multiline />
+              <InputField
+                name="description"
+                label={t("employeeSurveysEditModal.descriptionLabel")}
+                placeholder={t(
+                  "employeeSurveysEditModal.descriptionPlaceholder",
+                )}
+                multiline
+              />
 
               <SelectField
-                label="Статус"
+                label={t("employeeSurveysEditModal.statusLabel")}
                 options={[
-                  { value: 1, label: "Активный" },
-                  { value: 2, label: "Завершён" },
-                  { value: 3, label: "Архивирован" },
+                  {
+                    value: 1,
+                    label: t("employeeSurveysEditModal.statusOptions.active"),
+                  },
+                  {
+                    value: 2,
+                    label: t(
+                      "employeeSurveysEditModal.statusOptions.completed",
+                    ),
+                  },
+                  {
+                    value: 3,
+                    label: t("employeeSurveysEditModal.statusOptions.archived"),
+                  },
                 ]}
                 {...register("status")}
               />
 
               <div className={styles.actions}>
                 <Button variant="secondary" type="button" onClick={onClose}>
-                  Отмена
+                  {t("employeeSurveysEditModal.cancel")}
                 </Button>
                 <Button type="submit" disabled={isLoading}>
-                  Сохранить
+                  {t("employeeSurveysEditModal.save")}
                 </Button>
               </div>
             </form>

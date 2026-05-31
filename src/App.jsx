@@ -333,14 +333,7 @@ export default function App() {
           />
         </Route>
         <Route path={routes.settings} element={<Layout />}>
-          <Route
-            index
-            element={
-              <ProtectedRoute roles={["Resident", "Employee", "Admin"]}>
-                <SettingsPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route index element={<SettingsPage />} />
         </Route>
         <Route path={routes.login} element={<LoginPage />} />
         <Route path={routes.register} element={<RegisterPage />} />

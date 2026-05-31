@@ -4,7 +4,7 @@ import {
   CheckCircleIcon,
   ArrowPathIcon,
   XCircleIcon,
-  MagnifyingGlassIcon,
+  EyeIcon,
 } from "@heroicons/react/24/solid";
 import { useForm, FormProvider } from "react-hook-form";
 import styles from "./AdminComplaints.module.css";
@@ -15,27 +15,13 @@ import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import InputField from "../../common/InputField/InputField";
 import SelectField from "../../common/SelectField/SelectField";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useT } from "../../utils/useT";
 import {
   getComplaints,
   updateComplaintStatus,
 } from "../../api/services/complaintService";
 import { COMPLAINT_TYPES } from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
-
-const STATUS_MAP = {
-  0: { label: "Неизвестно", style: styles.statusUnknown },
-  1: { label: "Принята", style: styles.statusAccepted },
-  2: { label: "На рассмотрении", style: styles.statusOnReview },
-  3: { label: "Закрыта", style: styles.statusClosed },
-};
-
-const STATUS_OPTIONS = [
-  { value: 0, label: "Все статусы" },
-  { value: 1, label: "Принята" },
-  { value: 2, label: "На рассмотрении" },
-  { value: 3, label: "Закрыта" },
-];
-
-const TYPE_OPTIONS = [{ value: 0, label: "Все типы" }, ...COMPLAINT_TYPES];
+import ComplaintDetailsModal from "../../features/modals/ComplaintDetailsModal/ComplaintDetailsModal";
 
 const STATUS_TRANSITIONS = {
   0: [1],
@@ -45,10 +31,50 @@ const STATUS_TRANSITIONS = {
 };
 
 const STATUS_ICONS = { 1: CheckCircleIcon, 2: ArrowPathIcon, 3: XCircleIcon };
-const STATUS_TITLES = { 1: "Принять", 2: "На рассмотрение", 3: "Закрыть" };
 
 export default function AdminComplaints() {
   const queryClient = useQueryClient();
+  const t = useT();
+
+  const STATUS_MAP = {
+    0: {
+      label: t("adminComplaints.statuses.unknown"),
+      style: styles.statusUnknown,
+    },
+    1: {
+      label: t("adminComplaints.statuses.accepted"),
+      style: styles.statusAccepted,
+    },
+    2: {
+      label: t("adminComplaints.statuses.onReview"),
+      style: styles.statusOnReview,
+    },
+    3: {
+      label: t("adminComplaints.statuses.closed"),
+      style: styles.statusClosed,
+    },
+  };
+
+  const STATUS_OPTIONS = [
+    { value: 0, label: t("adminComplaints.allStatuses") },
+    { value: 1, label: t("adminComplaints.statuses.accepted") },
+    { value: 2, label: t("adminComplaints.statuses.onReview") },
+    { value: 3, label: t("adminComplaints.statuses.closed") },
+  ];
+
+  const TYPE_OPTIONS = [
+    { value: 0, label: t("adminComplaints.allTypes") },
+    ...COMPLAINT_TYPES.map((item) => ({
+      value: item.value,
+      label: t(`adminComplaints.types.${item.value}`),
+    })),
+  ];
+
+  const STATUS_TITLES = {
+    1: t("adminComplaints.actions.accept"),
+    2: t("adminComplaints.actions.review"),
+    3: t("adminComplaints.actions.close"),
+  };
 
   const methods = useForm({
     defaultValues: { shortDescription: "", status: 0, type: 0 },
@@ -60,11 +86,13 @@ export default function AdminComplaints() {
 
   const [filters, setFilters] = useState({});
   const prevSearch = React.useRef("");
+  const [selectedComplaint, setSelectedComplaint] = useState(null);
+  const [showComplaintModal, setShowComplaintModal] = useState(false);
 
   useEffect(() => {
     const isSearchChanged = watchSearch !== prevSearch.current;
     prevSearch.current = watchSearch;
-    const t = setTimeout(
+    const timeoutId = setTimeout(
       () => {
         setFilters({
           ...(watchStatus !== 0 && { status: watchStatus }),
@@ -72,9 +100,9 @@ export default function AdminComplaints() {
           ...(watchSearch && { shortDescription: watchSearch }),
         });
       },
-      isSearchChanged ? 400 : 0
+      isSearchChanged ? 400 : 0,
     );
-    return () => clearTimeout(t);
+    return () => clearTimeout(timeoutId);
   }, [watchSearch, watchStatus, watchType]);
 
   const { data: complaints = [], isLoading } = useQuery({
@@ -89,40 +117,52 @@ export default function AdminComplaints() {
   });
 
   const getType = (type) =>
-    COMPLAINT_TYPES.find((t) => t.value === type)?.label ?? "Неизвестный тип";
+    t(`adminComplaints.types.${type}`, {
+      defaultValue: t("adminComplaints.unknownType"),
+    });
   const getStatus = (status) => STATUS_MAP[status] ?? STATUS_MAP[0];
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader title="Жалобы" icon={ExclamationTriangleIcon} />
+      <PageHeader
+        title={t("adminComplaints.title")}
+        icon={ExclamationTriangleIcon}
+      />
 
       <div className={styles.content}>
         <Block>
           <FormProvider {...methods}>
             <form className={styles.filterForm}>
               <div className={styles.searchWrap}>
-                <MagnifyingGlassIcon className={styles.searchIcon} />
                 <InputField
                   name="shortDescription"
-                  placeholder="Поиск по описанию..."
+                  label={t("adminComplaints.search")}
+                  placeholder={t("adminComplaints.searchPlaceholder")}
                 />
               </div>
               <SelectField
                 name="status"
-                label="Статус"
+                label={t("adminComplaints.statusLabel")}
                 options={STATUS_OPTIONS}
               />
-              <SelectField name="type" label="Тип" options={TYPE_OPTIONS} />
+              <SelectField
+                name="type"
+                label={t("adminComplaints.typeLabel")}
+                options={TYPE_OPTIONS}
+              />
             </form>
           </FormProvider>
         </Block>
 
-        <Block title="Список жалоб" Icon={ExclamationTriangleIcon}>
+        <Block
+          title={t("adminComplaints.listTitle")}
+          Icon={ExclamationTriangleIcon}
+        >
           {isLoading ? (
             <Loader />
           ) : complaints.length === 0 ? (
             <EmptyBlock Icon={ExclamationTriangleIcon}>
-              Жалоб не найдено
+              {t("adminComplaints.notFound")}
             </EmptyBlock>
           ) : (
             <div className={styles.list}>
@@ -148,7 +188,7 @@ export default function AdminComplaints() {
                     <div className={styles.itemRight}>
                       <div className={styles.statusBlock}>
                         <span className={styles.statusLabel}>
-                          Текущий статус
+                          {t("adminComplaints.currentStatus")}
                         </span>
                         <span className={`${styles.status} ${status.style}`}>
                           {status.label}
@@ -156,6 +196,15 @@ export default function AdminComplaints() {
                       </div>
                       {transitions.length > 0 && (
                         <div className={styles.actions}>
+                          <button
+                            className={`${styles.detailsButton}`}
+                            onClick={() => {
+                              setSelectedComplaint(item);
+                              setShowComplaintModal(true);
+                            }}
+                          >
+                            <EyeIcon className={styles.icon} />
+                          </button>
                           {transitions.map((nextStatus) => {
                             const Icon = STATUS_ICONS[nextStatus];
                             return (
@@ -186,6 +235,11 @@ export default function AdminComplaints() {
             </div>
           )}
         </Block>
+        <ComplaintDetailsModal
+          isOpen={showComplaintModal}
+          onClose={() => setShowComplaintModal(false)}
+          complaint={selectedComplaint}
+        />
       </div>
     </div>
   );

@@ -2,28 +2,36 @@ import React from "react";
 import styles from "./CompanyStatistics.module.css";
 import Block from "../../../common/Block/Block";
 import { BuildingOffice2Icon, StarIcon } from "@heroicons/react/24/solid";
+import { useT } from "../../../utils/useT";
 
 export default function CompanyStatistics({ companies = [] }) {
+  const t = useT();
   return (
-    <Block Icon={BuildingOffice2Icon} title={"Статистика по ЖЭУ"}>
+    <Block Icon={BuildingOffice2Icon} title={t("companyStatistics.header")}>
       <div className={styles.statsContainer}>
         {/* Сводная статистика */}
         <div className={styles.summaryCards}>
           <div className={styles.summaryCard}>
             <div className={styles.summaryValue}>{companies.length}</div>
-            <div className={styles.summaryLabel}>Всего компаний</div>
+            <div className={styles.summaryLabel}>
+              {t("companyStatistics.totalCompanies")}
+            </div>
           </div>
           <div className={styles.summaryCard}>
             <div className={styles.summaryValue}>
               {companies.reduce((sum, c) => sum + c.totalRequestCount, 0)}
             </div>
-            <div className={styles.summaryLabel}>Всего заявок</div>
+            <div className={styles.summaryLabel}>
+              {t("companyStatistics.totalRequests")}
+            </div>
           </div>
           <div className={styles.summaryCard}>
             <div className={styles.summaryValue}>
               {companies.filter((c) => c.rating > 0).length}
             </div>
-            <div className={styles.summaryLabel}>С оценками</div>
+            <div className={styles.summaryLabel}>
+              {t("companyStatistics.withRatings")}
+            </div>
           </div>
         </div>
 
@@ -32,11 +40,11 @@ export default function CompanyStatistics({ companies = [] }) {
           <table className={styles.statsTable}>
             <thead>
               <tr>
-                <th>Компания</th>
-                <th>Заявки</th>
-                <th>Выполнено</th>
-                <th>В работе</th>
-                <th>Рейтинг</th>
+                <th>{t("companyStatistics.table.company")}</th>
+                <th>{t("companyStatistics.table.requests")}</th>
+                <th>{t("companyStatistics.table.completed")}</th>
+                <th>{t("companyStatistics.table.pending")}</th>
+                <th>{t("companyStatistics.table.rating")}</th>
               </tr>
             </thead>
             <tbody>

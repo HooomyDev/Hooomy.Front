@@ -19,8 +19,10 @@ import Loader from "../../common/Loader/Loader";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import Button from "../../common/Button/Button";
+import { useT } from "../../utils/useT";
 
 export default function AdminDatabaseHmo() {
+  const t = useT();
   const navigate = useNavigate();
 
   const { data: companies = [], isLoading } = useQuery({
@@ -51,15 +53,18 @@ export default function AdminDatabaseHmo() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={WrenchScrewdriverIcon} title="ЖЭУ" />
+      <PageHeader
+        icon={WrenchScrewdriverIcon}
+        title={t("adminDashboard.hmo")}
+      />
       <Block>
         <FormProvider {...methods}>
           <div className={styles.searchBlock}>
             <div className={styles.searchField}>
               <InputField
                 name="searchName"
-                label="Поиск по названию"
-                placeholder="Название ЖЭУ"
+                label={t("common.search")}
+                placeholder={t("common.search")}
                 required={false}
                 rules={{}}
               />
@@ -74,7 +79,8 @@ export default function AdminDatabaseHmo() {
             </Button>
           </div>
         </FormProvider>
-
+      </Block>
+      <Block>
         <div className={styles.companiesList}>
           {filteredCompanies.length === 0 ? (
             <EmptyBlock Icon={WrenchScrewdriverIcon}>

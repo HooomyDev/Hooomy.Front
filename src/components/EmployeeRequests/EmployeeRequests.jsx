@@ -4,6 +4,7 @@ import PageHeader from "../../common/PageHeader/PageHeader";
 import {
   ClipboardDocumentListIcon,
   MagnifyingGlassIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import EmployeeRequestsTable from "../EmployeeRequestsTable/EmployeeRequestsTable";
 import RequestDetailsModal from "../../features/modals/RequestDetailsModal/RequestDetailsModal";
@@ -11,7 +12,6 @@ import Modal from "../../features/modals/Modal/Modal";
 import { useT } from "../../utils/useT";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getRequestCategories,
   getRequestsForAdmin,
   updateRequest,
 } from "../../api/services/requestService";
@@ -24,12 +24,12 @@ import { useAuthStore } from "../../stores/authStore";
 import Pagination from "../../common/Pagination/Pagination";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
 import { createRequestNotification } from "../../api/services/notificationService";
+import { categoryMap } from "../../stores/categories";
 
 export default function EmployeeRequests() {
   const t = useT();
   const queryClient = useQueryClient();
   const [selectedRequest, setSelectedRequest] = useState(null);
-  const [categories, setCategories] = useState([]);
 
   // Загрузка заявок с сервера
   const { user } = useAuthStore();
@@ -54,9 +54,6 @@ export default function EmployeeRequests() {
       user?.companyId,
     ],
     queryFn: async () => {
-      const categoriesData = await getRequestCategories();
-      setCategories(categoriesData);
-
       return await getRequestsForAdmin(
         pagination.page,
         pagination.pageSize,
@@ -79,11 +76,11 @@ export default function EmployeeRequests() {
   });
 
   const statusOptions = [
-    { value: 0, label: "Все статусы" },
-    { value: 2, label: "Новая" },
-    { value: 3, label: "В работе" },
-    { value: 4, label: "Завершена" },
-    { value: 5, label: "Отклонена" },
+    { value: "", label: t("employeeRequests.status.all") },
+    { value: 2, label: t("employeeRequests.status.new") },
+    { value: 3, label: t("employeeRequests.status.inProgress") },
+    { value: 4, label: t("employeeRequests.status.completed") },
+    { value: 5, label: t("employeeRequests.status.rejected") },
   ];
 
   const getStatusColor = (status) => {
@@ -91,21 +88,21 @@ export default function EmployeeRequests() {
       case 2:
         return "#1976d2";
       case 3:
-        return "#f57c00";
-      case 4:
-        return "#388e3c";
-      case 5:
         return "#d32f2f";
+      case 4:
+        return "#f57c00";
+      case 5:
+        return "#388e3c";
       default:
         return "#999";
     }
   };
 
   const statusMap = {
-    2: "Новая",
-    3: "В работе",
-    4: "Завершена",
-    5: "Отклонена",
+    2: t("employeeRequests.status.new"),
+    3: t("employeeRequests.status.rejected"),
+    4: t("employeeRequests.status.inProgress"),
+    5: t("employeeRequests.status.completed"),
   };
   // Мутация для изменения статуса
   const statusMutation = useMutation({
@@ -171,7 +168,7 @@ export default function EmployeeRequests() {
         <FormProvider {...methods}>
           <form className={styles.controls}>
             <InputField
-              label="Поиск"
+              label={t("employeeRequestsControls.searchLabel")}
               name="searchTitle"
               type="text"
               placeholder={t("employeeRequestsControls.searchPlaceholder")}
@@ -179,20 +176,39 @@ export default function EmployeeRequests() {
 
             <SelectField
               name="searchCategory"
-              label="Категория"
-              options={categories?.map((category) => {
-                return { value: category.code, label: category.name };
+              label={t("employeeRequestsControls.categoryLabel")}
+              options={Object.entries(categoryMap).map(([code, key]) => {
+                const categoryCode = Number(code);
+                return {
+                  value: categoryCode,
+                  label: t(`statistic.categories.${key}`),
+                };
               })}
               required={false}
               onValueChange={() => {}}
             />
 
             <SelectField
-              label="Статус"
+              label={t("employeeRequestsControls.statusLabel")}
               name="searchStatus"
               options={statusOptions}
             />
-
+            <Button
+              className={styles.searchButton}
+              onClick={() => {
+                setPagination({ page: 1, pageSize: 5 });
+                setFilters({
+                  searchTitle: "",
+                  searchStatus: "",
+                  searchCategory: "",
+                });
+                methods.reset();
+              }}
+              variant="secondary"
+              type="submit"
+            >
+              <XMarkIcon className={styles.icon} />
+            </Button>
             <Button
               className={styles.searchButton}
               onClick={() => handleSearch()}
@@ -204,7 +220,7 @@ export default function EmployeeRequests() {
           </form>
         </FormProvider>
 
-        {response.requests?.length > 0 ? (
+        {response?.requests?.length > 0 ? (
           <>
             <EmployeeRequestsTable
               requests={response.requests}

@@ -1,7 +1,6 @@
 import React, { useRef, useState } from "react";
 import styles from "./CompanyComments.module.css";
 import { format } from "date-fns";
-import { ru } from "date-fns/locale";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   addComment,
@@ -35,8 +34,10 @@ import routes from "../../../../stores/routes.json";
 import CreateComplaintModal, {
   COMPLAINT_TYPES,
 } from "../../CreateComplaintModal/CreateComplaintModal";
+import { useT } from "../../../../utils/useT";
 
 export default function CompanyComments({ request }) {
+  const t = useT();
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 5,
@@ -157,21 +158,30 @@ export default function CompanyComments({ request }) {
     },
   });
 
+  // 🔹 Локализованная валидация
+  const validationRules = {
+    required: t("companyComments.fields.required"),
+    minLength: {
+      value: 3,
+      message: t("companyComments.fields.minLength", { count: 3 }),
+    },
+  };
+
   // Обработка выбора файлов
   const handleFileSelect = (event) => {
     const files = Array.from(event.target.files);
     const currentCount = selectedFiles.length;
-    const maxFiles = 10; // Максимальное количество файлов
+    const maxFiles = 10;
 
-    // Проверяем, сколько файлов можно ещё добавить
     const availableSlots = maxFiles - currentCount;
 
     if (availableSlots <= 0) {
-      event.target.value = ""; // Очищаем input
+      // 🔹 Можно показать toast-уведомление
+      console.warn(t("file.maxFiles", { max: maxFiles }));
+      event.target.value = "";
       return;
     }
 
-    // Берём только то количество файлов, которое можно добавить
     const filesToAdd = files.slice(0, availableSlots);
 
     const newFiles = filesToAdd.map((file) => ({
@@ -186,10 +196,9 @@ export default function CompanyComments({ request }) {
     }));
 
     setSelectedFiles((prev) => [...prev, ...newFiles]);
-    event.target.value = ""; // Очищаем input для возможности повторного выбора
+    event.target.value = "";
   };
 
-  // Удаление файла
   const handleRemoveFile = (fileId) => {
     setSelectedFiles((prev) => {
       const fileToRemove = prev.find((f) => f.id === fileId);
@@ -200,26 +209,43 @@ export default function CompanyComments({ request }) {
     });
   };
 
-  // Форматирование размера файла
+  // 🔹 Локализованное форматирование размера файла
   const formatFileSize = (bytes) => {
-    if (bytes === 0) return "0 Bytes";
+    if (bytes === 0) return `0 ${t("companyComments.file.size.bytes")}`;
     const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const sizes = [
+      t("companyComments.file.size.bytes"),
+      t("companyComments.file.size.kb"),
+      t("companyComments.file.size.mb"),
+      t("companyComments.file.size.gb"),
+    ];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
+  // 🔹 Локализованный рендер статуса
   const renderStatus = (status) => {
     switch (status) {
       case 1:
-        return "Ожидает проверки";
+        return t("companyComments.status.pending");
       case 2:
-        return "Одобрен";
+        return t("companyComments.status.approved");
       case 3:
-        return "Удален";
+        return t("companyComments.status.deleted");
       default:
-        return "Неизвестно";
+        return t("companyComments.status.unknown");
     }
+  };
+
+  // 🔹 Получение локали для дат из useT
+  const dateLocale = t.dateLocale;
+
+  // 🔹 Хелпер для форматирования даты
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    return format(new Date(dateString), "dd MMM yyyy, HH:mm", {
+      locale: dateLocale,
+    });
   };
 
   return (
@@ -227,7 +253,7 @@ export default function CompanyComments({ request }) {
       <div className={styles.header}>
         <div className={styles.info}>
           <ChatBubbleLeftRightIcon className={styles.headerIcon} />
-          <h3>Комментарии</h3>
+          <h3>{t("companyComments.title")}</h3>
         </div>
         <div className={styles.count}>{response?.totalCount}</div>
       </div>
@@ -240,13 +266,10 @@ export default function CompanyComments({ request }) {
           >
             <InputField
               name="comment"
-              placeholder="Напишите комментарий..."
+              placeholder={t("companyComments.fields.placeholder")}
               rows={3}
               multiline
-              rules={{
-                required: "Введите комментарий",
-                minLength: { value: 3, message: "Минимум 3 символа" },
-              }}
+              rules={validationRules}
             />
             <div className={styles.formActions}>
               <input
@@ -256,6 +279,7 @@ export default function CompanyComments({ request }) {
                 multiple
                 accept="image/*,application/pdf"
                 style={{ display: "none" }}
+                aria-label={t("companyComments.actions.attachFile")}
               />
               {!editingComment && (
                 <Button
@@ -263,6 +287,8 @@ export default function CompanyComments({ request }) {
                   variant="secondary"
                   className={styles.submitButton}
                   onClick={() => fileInputRef.current?.click()}
+                  aria-label={t("companyComments.actions.attachFile")}
+                  title={t("companyComments.actions.attachFile")}
                 >
                   <PaperClipIcon className={styles.submitIcon} />
                 </Button>
@@ -272,6 +298,8 @@ export default function CompanyComments({ request }) {
                 type="submit"
                 className={styles.submitButton}
                 variant="secondary"
+                aria-label={t("companyComments.actions.send")}
+                title={t("companyComments.actions.send")}
               >
                 <PaperAirplaneIcon className={styles.submitIcon} />
               </Button>
@@ -282,6 +310,8 @@ export default function CompanyComments({ request }) {
                   variant="secondary"
                   onClick={cancelEdit}
                   className={styles.submitButton}
+                  aria-label={t("companyComments.actions.cancel")}
+                  title={t("companyComments.actions.cancel")}
                 >
                   <XMarkIcon className={styles.submitIcon} />
                 </Button>
@@ -316,6 +346,8 @@ export default function CompanyComments({ request }) {
                     type="button"
                     className={styles.removeFileBtn}
                     onClick={() => handleRemoveFile(file.id)}
+                    aria-label={t("companyComments.file.remove")}
+                    title={t("companyComments.file.remove")}
                   >
                     <XMarkIcon className={styles.removeIcon} />
                   </button>
@@ -333,7 +365,7 @@ export default function CompanyComments({ request }) {
           {response?.requestComments?.length === 0 ? (
             <div className={styles.emptyState}>
               <EmptyBlock Icon={ChatBubbleLeftRightIcon}>
-                Комментариев пока что нет
+                {t("emptyState")}
               </EmptyBlock>
             </div>
           ) : (
@@ -349,30 +381,24 @@ export default function CompanyComments({ request }) {
                       onClick={() =>
                         navigate(`${routes.companies}/${comment?.companyId}`)
                       }
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`${t("aria.authorLink")}: ${comment.senderName || t("senderFallback")}`}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          navigate(`${routes.companies}/${comment?.companyId}`);
+                        }
+                      }}
                     >
-                      {comment.senderName || "ЖЭУ"}
+                      {comment.senderName || t("senderFallback")}
                     </span>
                     <span className={styles.commentDate}>
-                      {format(
-                        new Date(comment.createdAt),
-                        "dd MMM yyyy, HH:mm",
-                        {
-                          locale: ru,
-                        }
-                      )}
-
+                      {formatDate(comment.createdAt)}
                       {comment.updatedAt && (
                         <>
                           {" "}
-                          (обновлено:{" "}
-                          {format(
-                            new Date(comment.updatedAt),
-                            "dd MMM yyyy, HH:mm",
-                            {
-                              locale: ru,
-                            }
-                          )}
-                          )
+                          ({t("labels.updated")}:{" "}
+                          {formatDate(comment.updatedAt)})
                         </>
                       )}
                     </span>
@@ -387,37 +413,51 @@ export default function CompanyComments({ request }) {
                     </span>
                   </div>
                   <p className={styles.commentText}>{comment.text}</p>
+
                   {selectedImage && (
                     <div
                       className={styles.lightbox}
                       onClick={() => setSelectedImage(null)}
+                      role="dialog"
+                      aria-modal="true"
+                      aria-label={t("aria.closeImage")}
                     >
                       <img
                         src={selectedImage}
-                        alt="Full size"
+                        alt=""
                         className={styles.fullImage}
                       />
                     </div>
                   )}
+
                   <div className={styles.commentImages}>
-                    {comment?.photoUrls?.map((photo) => {
-                      return (
-                        <img
-                          className={styles.commentImage}
-                          src={photo}
-                          alt={photo}
-                          onClick={() => setSelectedImage(photo)}
-                        />
-                      );
-                    })}
+                    {comment?.photoUrls?.map((photo, idx) => (
+                      <img
+                        key={idx}
+                        className={styles.commentImage}
+                        src={photo}
+                        alt={`${t("aria.expandImage")} ${idx + 1}`}
+                        onClick={() => setSelectedImage(photo)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            setSelectedImage(photo);
+                          }
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
+
                 {user?.role === "Employee" ? (
                   <div className={styles.commentActions}>
                     <Button
                       variant="secondary"
                       className={styles.trashButton}
                       onClick={() => handleDelete(comment.id)}
+                      aria-label={t("actions.delete")}
+                      title={t("actions.delete")}
                     >
                       <TrashIcon className={styles.trashIcon} />
                     </Button>
@@ -425,6 +465,8 @@ export default function CompanyComments({ request }) {
                       variant="secondary"
                       className={styles.submitButton}
                       onClick={() => startEdit(comment)}
+                      aria-label={t("actions.edit")}
+                      title={t("actions.edit")}
                     >
                       <PencilIcon className={styles.icon} />
                     </Button>
@@ -439,6 +481,8 @@ export default function CompanyComments({ request }) {
                           setSelectedComment(comment);
                           setIsComplaintModalOpen(true);
                         }}
+                        aria-label={t("actions.complain")}
+                        title={t("actions.complain")}
                       >
                         <ExclamationTriangleIcon
                           className={styles.submitIcon}
@@ -463,18 +507,19 @@ export default function CompanyComments({ request }) {
               }
             >
               <ChevronDownIcon className={styles.submitIcon} />
-              Загрузить ещё
+              {t("labels.loadMore")}
             </Button>
           )}
         </div>
       )}
+
       <CreateComplaintModal
         isOpen={isComplaintModalOpen}
         onClose={() => {
           setIsComplaintModalOpen(false);
           setSelectedComment(null);
         }}
-        type={COMPLAINT_TYPES[2].value}
+        type={COMPLAINT_TYPES[2]?.value}
         data={selectedComment}
       />
     </div>

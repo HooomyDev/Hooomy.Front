@@ -6,13 +6,11 @@ import {
   ClipboardDocumentListIcon,
   MagnifyingGlassIcon,
   PlusIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import MyRequestsList from "./components/MyRequestsList/MyRequestsList";
 import PageHeader from "../../common/PageHeader/PageHeader";
-import {
-  getMyRequests,
-  getRequestCategories,
-} from "../../api/services/requestService";
+import { getMyRequests } from "../../api/services/requestService";
 import Notification from "../../common/Notification/Notification";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +22,7 @@ import Button from "../../common/Button/Button";
 import { FormProvider, useForm } from "react-hook-form";
 import AutocompleteField from "../../common/AutocompleteField/AutocompleteField";
 import { apiClient as client } from "../../api/client";
+import { categoryMap } from "../../stores/categories";
 
 export default function MyRequests() {
   const t = useT();
@@ -49,7 +48,7 @@ export default function MyRequests() {
 
     try {
       const res = await client.get(
-        `/addresses?searchQuery=${encodeURIComponent(query)}`
+        `/addresses?searchQuery=${encodeURIComponent(query)}`,
       );
       const options = res.data.addresses.map((s) => ({
         value: s.id,
@@ -83,22 +82,17 @@ export default function MyRequests() {
         filters.searchStatus,
         filters.searchTitle,
         filters.searchCategory,
-        filters.searchAddress
+        filters.searchAddress,
       ),
-  });
-
-  const { data: requestCategories, isLoading: isCategoriesLoading } = useQuery({
-    queryKey: ["requestCategories"],
-    queryFn: () => getRequestCategories(),
   });
 
   const statusOptions = [
     { value: 0, label: t("requests.all") },
-    { value: 1, label: "На модерации" },
-    { value: 2, label: "Создана" },
-    { value: 3, label: "Отклонена" },
-    { value: 4, label: "В работе" },
-    { value: 5, label: "Завершена" },
+    { value: 1, label: t("requests.moder") },
+    { value: 2, label: t("employeeRequests.status.new") },
+    { value: 3, label: t("requests.rejected") },
+    { value: 4, label: t("requests.pending") },
+    { value: 5, label: t("employeeRequests.status.completed") },
   ];
 
   useEffect(() => {
@@ -109,17 +103,14 @@ export default function MyRequests() {
       if (statusCode === 403) {
         setNotification({
           type: "error",
-          message:
-            error.response?.data?.message ||
-            error.response?.data?.error ||
-            "Доступ запрещен. Ваш аккаунт требует подтверждения.",
+          message: t("requests.error"),
         });
         setDisabled(true);
       }
     }
-  }, [error]);
+  }, [error, t]);
 
-  if (isLoading && isCategoriesLoading) return <Loader />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.wrapper}>
@@ -144,14 +135,14 @@ export default function MyRequests() {
           <FormProvider {...methods}>
             <InputField
               name="searchTitle"
-              label="Поиск"
-              placeholder="Название заявки"
+              label={t("common.search")}
+              placeholder={t("common.searchPlaceholder")}
               required={false}
               rules={{}}
             />
 
             <AutocompleteField
-              label="Адрес"
+              label={t("common.address")}
               name="searchAddress"
               options={streetOptions}
               onSearch={handleStreetSearch}
@@ -159,21 +150,39 @@ export default function MyRequests() {
 
             <SelectField
               name="searchCategory"
-              label="Категория"
-              options={
-                requestCategories?.map((c) => ({
-                  value: c.code,
-                  label: c.name,
-                })) || []
-              }
+              label={t("common.category")}
+              options={Object.entries(categoryMap).map(([code, key]) => {
+                const categoryCode = Number(code);
+                return {
+                  value: categoryCode,
+                  label: t(`statistic.categories.${key}`),
+                };
+              })}
               required={false}
             />
 
             <SelectField
               name="searchStatus"
-              label="Статус"
+              label={t("requests.status")}
               options={statusOptions}
             />
+
+            <Button
+              className={styles.searchButton}
+              onClick={() => {
+                setFilters({
+                  requestStatus: undefined,
+                  requestCategory: undefined,
+                  searchTitle: undefined,
+                  searchAddress: undefined,
+                });
+                methods.reset();
+              }}
+              variant="secondary"
+              type="submit"
+            >
+              <XMarkIcon className={styles.icon} />
+            </Button>
 
             <Button
               className={styles.searchButton}
@@ -182,7 +191,7 @@ export default function MyRequests() {
               type="submit"
             >
               <MagnifyingGlassIcon className={styles.icon} />{" "}
-              <span className={styles.text}>Найти</span>
+              <span className={styles.text}>{t("common.search")}</span>
             </Button>
             <Button
               className={styles.searchButton}
@@ -192,7 +201,9 @@ export default function MyRequests() {
               disabled={disabled}
             >
               <PlusIcon className={styles.icon} />
-              <span className={styles.text}>Создать заявку</span>
+              <span className={styles.text}>
+                {t("requests.createNewRequest")}
+              </span>
             </Button>
           </FormProvider>
         </form>

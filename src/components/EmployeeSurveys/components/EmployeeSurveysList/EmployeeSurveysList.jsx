@@ -11,12 +11,14 @@ import {
   EyeSlashIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import EmployeeSurveysStat from "../EmployeeSurveysStat/EmployeeSurveysStat";
 import Loader from "../../../../common/Loader/Loader";
 import Button from "../../../../common/Button/Button";
 import Pagination from "../../../../common/Pagination/Pagination";
+import { useT } from "../../../../utils/useT";
 import {
   deleteSurvay,
   getSurvayDetails,
@@ -34,8 +36,10 @@ import EmptyBlock from "../../../../common/EmptyBlock/EmptyBlock";
 
 export default function EmployeeSurveysList() {
   const { user } = useAuthStore();
+  const t = useT();
   const [sort, setSort] = useState("asc");
   const [selectedSurvayId, setSelectedSurvayId] = useState(null);
+  const [selectedSurvay, setSelectedSurvay] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 5,
@@ -53,7 +57,6 @@ export default function EmployeeSurveysList() {
 
   const [editModal, setEditModal] = useState({
     isOpen: false,
-    surveyId: null,
   });
 
   const toggleExpand = (id) => {
@@ -84,7 +87,7 @@ export default function EmployeeSurveysList() {
         pagination.status,
         pagination.type,
         pagination.title,
-        user?.companyId
+        user?.companyId,
       );
       return result;
     },
@@ -104,7 +107,7 @@ export default function EmployeeSurveysList() {
     onSuccess: () => {
       setNotification({
         type: "success",
-        message: "Опрос успешно удалён",
+        message: t("employeeSurveysList.notifications.deleteSuccess"),
       });
       queryClient.invalidateQueries({
         queryKey: [
@@ -127,7 +130,7 @@ export default function EmployeeSurveysList() {
     onSuccess: () => {
       setNotification({
         type: "success",
-        message: "Опрос успешно обновлён",
+        message: t("employeeSurveysList.notifications.updateSuccess"),
       });
       setEditModal({ isOpen: false, surveyId: null });
       queryClient.invalidateQueries({
@@ -137,7 +140,7 @@ export default function EmployeeSurveysList() {
     onError: () => {
       setNotification({
         type: "error",
-        message: "Ошибка при обновлении опроса",
+        message: t("employeeSurveysList.notifications.updateError"),
       });
     },
   });
@@ -146,10 +149,10 @@ export default function EmployeeSurveysList() {
     if (isError) {
       setNotification({
         type: "error",
-        message: "Произошла ошибка во время загрузки опросов",
+        message: t("employeeSurveysList.notifications.loadError"),
       });
     }
-  }, [isError]);
+  }, [isError, setNotification, t]);
 
   const handlePageChange = (newPage) => {
     setPagination((prev) => ({ ...prev, page: newPage }));
@@ -160,12 +163,12 @@ export default function EmployeeSurveysList() {
     switch (type) {
       case 1:
         return {
-          label: "Одиночный выбор",
+          label: t("employeeSurveysList.controls.typeOptions.single"),
           icon: <ChartBarIcon className={styles.voteIcon} />,
         };
       case 2:
         return {
-          label: "Множественный выбор",
+          label: t("employeeSurveysList.controls.typeOptions.multiple"),
           icon: <DocumentTextIcon className={styles.voteIcon} />,
         };
       default:
@@ -177,9 +180,21 @@ export default function EmployeeSurveysList() {
   };
 
   const getPollStatus = (status, isActive) => {
-    if (status === 1) return { label: "Активный", className: styles.active };
-    if (status === 2) return { label: "Завершён", className: styles.completed };
-    if (status === 3) return { label: "Архивирован", className: styles.draft };
+    if (status === 1)
+      return {
+        label: t("employeeSurveysList.controls.statusOptions.active"),
+        className: styles.active,
+      };
+    if (status === 2)
+      return {
+        label: t("employeeSurveysList.controls.statusOptions.completed"),
+        className: styles.completed,
+      };
+    if (status === 3)
+      return {
+        label: t("employeeSurveysList.controls.statusOptions.archived"),
+        className: styles.draft,
+      };
     return { label: "Неизвестно", className: styles.draft };
   };
 
@@ -218,12 +233,14 @@ export default function EmployeeSurveysList() {
     setConfirmDialog({ isOpen: false, surveyId: null });
   };
 
-  const handleEditClick = (id) => {
-    setEditModal({ isOpen: true, surveyId: id });
+  const handleEditClick = (survey) => {
+    setEditModal({ isOpen: true, survey: survey });
+    setSelectedSurvay(survey);
   };
 
   const handleCloseEditModal = () => {
     setEditModal({ isOpen: false, surveyId: null });
+    setSelectedSurvay(null);
   };
 
   const handleConfirmEdit = (data) => {
@@ -265,28 +282,69 @@ export default function EmployeeSurveysList() {
         >
           <InputField
             name="searchTitle"
-            label={"Поиск"}
-            placeholder="Введите название"
+            label={t("employeeSurveysList.controls.searchLabel")}
+            placeholder={t("employeeSurveysList.controls.searchPlaceholder")}
           />
           <SelectField
             name="searchType"
-            label={"Тип"}
+            label={t("employeeSurveysList.controls.typeLabel")}
             options={[
-              { value: 0, label: "Все" },
-              { value: 1, label: "Одиночный выбор" },
-              { value: 2, label: "Множественный выбор" },
+              {
+                value: 0,
+                label: t("employeeSurveysList.controls.typeOptions.all"),
+              },
+              {
+                value: 1,
+                label: t("employeeSurveysList.controls.typeOptions.single"),
+              },
+              {
+                value: 2,
+                label: t("employeeSurveysList.controls.typeOptions.multiple"),
+              },
             ]}
           />
           <SelectField
             name="searchStatus"
-            label={"Статус"}
+            label={t("employeeSurveysList.controls.statusLabel")}
             options={[
-              { value: 0, label: "Все" },
-              { value: 1, label: "Активные опросы" },
-              { value: 2, label: "Оконченные опросы" },
-              { value: 3, label: "Архивированные опросы" },
+              {
+                value: 0,
+                label: t("employeeSurveysList.controls.statusOptions.all"),
+              },
+              {
+                value: 1,
+                label: t("employeeSurveysList.controls.statusOptions.active"),
+              },
+              {
+                value: 2,
+                label: t(
+                  "employeeSurveysList.controls.statusOptions.completed",
+                ),
+              },
+              {
+                value: 3,
+                label: t("employeeSurveysList.controls.statusOptions.archived"),
+              },
             ]}
           />
+          <Button
+            className={styles.searchButton}
+            onClick={() => {
+              setPagination({
+                page: 1,
+                pageSize: 5,
+                status: 0,
+                title: "",
+                type: 0,
+              });
+
+              methods.reset();
+            }}
+            variant="secondary"
+            type="submit"
+          >
+            <XMarkIcon className={styles.icon} />
+          </Button>
           <Button
             className={styles.searchButton}
             onClick={() => handleToggleSort()}
@@ -312,7 +370,7 @@ export default function EmployeeSurveysList() {
 
       {response.polls.length === 0 ? (
         <EmptyBlock Icon={DocumentTextIcon}>
-          <p>Нет доступных опросов</p>
+          <p>{t("employeeSurveysList.empty")}</p>
         </EmptyBlock>
       ) : (
         sortedSurveys.map((survey) => {
@@ -347,13 +405,12 @@ export default function EmployeeSurveysList() {
                     <Button
                       className={styles.editBtn}
                       title="Изменить"
-                      onClick={() => handleEditClick(survey.id)}
+                      onClick={() => handleEditClick(survey)}
                     >
                       <PencilIcon className={styles.btnIcon} />
                     </Button>
                     <Button
                       className={styles.deleteBtn}
-                      title="Удалить"
                       onClick={() => handleDeleteClick(survey.id)}
                     >
                       <TrashIcon className={styles.btnIcon} />
@@ -367,21 +424,27 @@ export default function EmployeeSurveysList() {
                 <div className={styles.infoCard}>
                   <UsersIcon className={styles.infoIcon} />
                   <div>
-                    <div className={styles.infoLabel}>Компания</div>
+                    <div className={styles.infoLabel}>
+                      {t("employeeHome.companyDefault")}
+                    </div>
                     <div className={styles.infoValue}>{survey.companyName}</div>
                   </div>
                 </div>
                 <div className={styles.infoCard}>
                   <DocumentTextIcon className={styles.infoIcon} />
                   <div>
-                    <div className={styles.infoLabel}>Тип опроса</div>
+                    <div className={styles.infoLabel}>
+                      {t("employeeSurveysList.controls.typeLabel")}
+                    </div>
                     <div className={styles.infoValue}>{pollType.label}</div>
                   </div>
                 </div>
                 <div className={styles.infoCard}>
                   <ChartBarIcon className={styles.infoIcon} />
                   <div>
-                    <div className={styles.infoLabel}>Всего голосов</div>
+                    <div className={styles.infoLabel}>
+                      {t("employeeSurveysList.allVotes")}
+                    </div>
                     <div className={styles.infoValue}>{survey.voteCount}</div>
                   </div>
                 </div>
@@ -413,17 +476,17 @@ export default function EmployeeSurveysList() {
         isOpen={confirmDialog.isOpen}
         onClose={handleCancelDelete}
         onConfirm={handleConfirmDelete}
-        title="Удаление опроса"
-        message="Вы уверены, что хотите удалить этот опрос? Это действие нельзя отменить."
-        confirmText="Удалить"
-        cancelText="Отмена"
+        title={t("common.title")}
+        message={t("employeeSurveysList.deleteText")}
+        confirmText={t("adminComments.actions.delete")}
+        cancelText={t("common.cancel")}
         confirmVariant="danger"
       />
       <EditSurveyModal
         isOpen={editModal.isOpen}
         onClose={handleCloseEditModal}
         onConfirm={handleConfirmEdit}
-        survey={survay}
+        survey={selectedSurvay}
         isLoading={updateSurvayMutation.isPending}
       />
     </div>

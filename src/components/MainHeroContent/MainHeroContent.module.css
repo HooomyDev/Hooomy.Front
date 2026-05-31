@@ -4,7 +4,8 @@
   gap: var(--spacing-xl);
   color: var(--font-color);
   height: 100%;
-  width: 85%;
+  width: 90%;
+  padding: 0 var(--spacing-xxl);
 }
 
 @media (max-width: 1280px) {

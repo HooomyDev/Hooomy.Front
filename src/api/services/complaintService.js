@@ -28,6 +28,12 @@ export const getComplaints = async (params = {}) => {
   return data;
 };
 
+export const getComplaintDetails = async (id) => {
+  const res = await client.get(`/complaints/${id}`);
+
+  return res.data;
+};
+
 export const updateComplaintStatus = async (id, status) => {
   const res = await client.put(`/complaints/update`, {
     id: id,

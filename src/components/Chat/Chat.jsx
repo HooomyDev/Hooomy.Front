@@ -14,6 +14,7 @@ import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 import CreateComplaintModal, {
   COMPLAINT_TYPES,
 } from "../../features/modals/CreateComplaintModal/CreateComplaintModal";
+import { useT } from "../../utils/useT";
 
 export default function Chat({
   chatId,
@@ -24,6 +25,7 @@ export default function Chat({
 }) {
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const t = useT();
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const MESSAGE_TYPE_MAP = {
@@ -116,7 +118,7 @@ export default function Chat({
         {user.role === "Employee" && (
           <Button
             className={styles.createComplaintButton}
-            title="Пожаловаться"
+            title={t("chats.createComplaint")}
             onClick={() => setIsComplaintModalOpen(true)}
           >
             <ExclamationTriangleIcon />
@@ -158,7 +160,7 @@ export default function Chat({
           <InputField
             name="message"
             type="text"
-            placeholder="Напишите сообщение..."
+            placeholder={t("chats.messagePlaceholder")}
             rules={{}}
           />
           <Button

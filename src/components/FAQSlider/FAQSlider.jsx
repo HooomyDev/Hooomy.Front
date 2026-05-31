@@ -7,49 +7,47 @@ import {
   AcademicCapIcon,
   DocumentTextIcon,
 } from "@heroicons/react/24/solid";
+import { useT } from "../../utils/useT";
 
 export default function FAQSlider() {
+  const t = useT();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const cards = [
     {
       id: 1,
-      title: "Регистрация",
+      title: t("main.faqSlider.cards.register.title"),
       icon: UserGroupIcon,
-      question: "Как зарегистрироваться на портале?",
-      answer:
-        "Нажмите кнопку «Войти» в правом верхнем углу и следуйте шагам регистрации.",
+      question: t("main.faqSlider.cards.register.question"),
+      answer: t("main.faqSlider.cards.register.answer"),
     },
     {
       id: 2,
-      title: "Поддержка",
+      title: t("main.faqSlider.cards.help.title"),
       icon: ChatBubbleBottomCenterTextIcon,
-      question: "Где можно получить помощь?",
-      answer:
-        "Вы можете связаться с нами по email или телефону из раздела Контакты.",
+      question: t("main.faqSlider.cards.help.question"),
+      answer: t("main.faqSlider.cards.help.answer"),
     },
     {
       id: 3,
-      title: "Частые вопросы",
+      title: t("main.faqSlider.cards.common.title"),
       icon: QuestionMarkCircleIcon,
-      question: "Какие вопросы наиболее часто задают?",
-      answer:
-        "Частые вопросы касаются регистрации, восстановления пароля и подачи заявок.",
+      question: t("main.faqSlider.cards.common.question"),
+      answer: t("main.faqSlider.cards.common.answer"),
     },
     {
       id: 4,
-      title: "Документы",
+      title: t("main.faqSlider.cards.documents.title"),
       icon: DocumentTextIcon,
-      question: "Где найти документы?",
-      answer: "Документы доступны в разделе Документы в футере сайта.",
+      question: t("main.faqSlider.cards.documents.question"),
+      answer: t("main.faqSlider.cards.documents.answer"),
     },
     {
       id: 5,
-      title: "Техническая поддержка",
+      title: t("main.faqSlider.cards.support.title"),
       icon: AcademicCapIcon,
-      question: "Как связаться с поддержкой?",
-      answer:
-        "Свяжитесь с нами по email hooomy.help.by@gmail.com или звонку +375 (44) 569-10-58.",
+      question: t("main.faqSlider.cards.support.question"),
+      answer: t("main.faqSlider.cards.support.answer"),
     },
   ];
 
@@ -69,12 +67,12 @@ export default function FAQSlider() {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>Часто задаваемые вопросы</h2>
+      <h2 className={styles.title}>{t("main.faqSlider.title")}</h2>
       <div className={styles.sliderContainer}>
         <button
           onClick={handlePrev}
           className={styles.navButton}
-          aria-label="Предыдущий слайд"
+          aria-label={t("main.faqSlider.prevSlide")}
         >
           <svg
             className={styles.navIcon}
@@ -110,7 +108,7 @@ export default function FAQSlider() {
         <button
           onClick={handleNext}
           className={styles.navButton}
-          aria-label="Следующий слайд"
+          aria-label={t("main.faqSlider.nextSlide")}
         >
           <svg
             className={styles.navIcon}
@@ -135,7 +133,7 @@ export default function FAQSlider() {
             className={`${styles.dot} ${
               index === currentIndex ? styles.activeDot : ""
             }`}
-            aria-label={`Перейти к слайду ${index + 1}`}
+            aria-label={t("main.faqSlider.goToSlide", { number: index + 1 })}
           />
         ))}
       </div>

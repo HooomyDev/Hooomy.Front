@@ -3,6 +3,7 @@ import { ChartBarIcon } from "@heroicons/react/24/solid";
 import PageHeader from "../../common/PageHeader/PageHeader";
 import styles from "./EmployeeStatistic.module.css";
 import { useAuthStore } from "../../stores/authStore";
+import { useT } from "../../utils/useT";
 import { useQuery } from "@tanstack/react-query";
 import { getRequestStatistic } from "../../api/services/requestService";
 import { getStatistics } from "../../api/services/companyService";
@@ -12,6 +13,7 @@ import EmployeeStatisticExport from "./components/EmployeeStatisticExport";
 export default function EmployeeStatistic() {
   const { user } = useAuthStore();
   const [period, setPeriod] = useState(1);
+  const t = useT();
 
   // Запрос данных
   const { data, isLoading: isRequestsLoading } = useQuery({
@@ -30,7 +32,7 @@ export default function EmployeeStatistic() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.headerWrapper}>
-        <PageHeader title={"Статистика"} icon={ChartBarIcon} />
+        <PageHeader title={t("employeeStatistic.header")} icon={ChartBarIcon} />
       </div>
       <EmployeeStatisticExport data={data} companiesData={companiesData} />
       <EmployeeStatisticContent

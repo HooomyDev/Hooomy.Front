@@ -36,7 +36,7 @@ export default function ContactForm() {
     onSuccess: () => {
       setNotification({
         type: "success",
-        message: "Обращение успешно принято",
+        message: t("main.contacts.successMessage"),
       });
       reset();
     },
@@ -44,8 +44,7 @@ export default function ContactForm() {
       setNotification({
         type: "error",
         message:
-          error.response?.data?.message ||
-          "Ошибка при отправке. Попробуйте позже.",
+          error.response?.data?.message || t("main.contacts.submitError"),
       });
     },
   });
@@ -65,7 +64,7 @@ export default function ContactForm() {
     if (!data.message || data.message.trim().length < 3) {
       setError("message", {
         type: "manual",
-        message: "Сообщение должно содержать минимум 3 символа",
+        message: t("main.contacts.errorMessageTooShort"),
       });
       return;
     }
@@ -77,16 +76,17 @@ export default function ContactForm() {
     <>
       <FormProvider {...methods}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-          <h3 className={styles.title}>Напишите нам!</h3>
+          <h3 className={styles.title}>{t("main.contacts.writeUs")}</h3>
 
           <InputField
-            label="Email для обратной связи"
+            label={t("main.contacts.emailLabel")}
             name="email"
             type="email"
             required
+            placeholder={t("placeholder.email")}
             rules={{
               maxLength: 255,
-              required: "Email обязателен",
+              required: t("errors.email.empty"),
               validate: (value) => {
                 const validation = validateEmail(value);
                 return validation === true ? undefined : validation;
@@ -96,27 +96,28 @@ export default function ContactForm() {
           />
 
           <InputField
-            label="Сообщение"
+            label={t("main.contacts.messageLabel")}
             name="message"
             multiline
             rows={5}
             required
+            placeholder={t("placeholder.message")}
             rules={{
-              required: "Сообщение обязательно",
+              required: t("main.contacts.errorMessageRequired"),
               minLength: {
                 value: 3,
-                message: "Сообщение должно содержать минимум 3 символа",
+                message: t("main.contacts.errorMessageTooShort"),
               },
               maxLength: {
                 value: 2000,
-                message: "Сообщение не должно превышать 2000 символов",
+                message: t("main.contacts.errorMessageTooLong"),
               },
             }}
             maxLength={2000}
           />
 
           <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Отправка..." : t("user.send")}
+            {isSubmitting ? t("main.contacts.sending") : t("user.send")}
           </Button>
         </form>
       </FormProvider>

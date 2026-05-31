@@ -19,6 +19,7 @@
     "all": "Усе",
     "pending": "У апрацоўцы",
     "done": "Выконана",
+    "moder": "На проверке",
     "rejected": "Адхілена",
     "applyFilters": "Прымяніць фільтры",
     "clearFilters": "Ачысціць  фільтры",
@@ -26,7 +27,9 @@
     "category": "Катэгорыя",
     "categoryLabel": "Катэгорыя праблемы",
     "details": "Апісанне",
-    "titleLabel": "Кароткае апісанне праблемы"
+    "titleLabel": "Кароткае апісанне праблемы",
+    "error": "Доступ забаронены. Ваш акаунт патрабуе падцвярджэння.",
+    "date": "Дата"
   },
 
   "main": {
@@ -38,7 +41,54 @@
     "contacts": {
       "haveQuest": "Ёсць пытанні?",
       "contactUs": "Звяжыцеся з намі",
-      "writeUs": "Напішыце нам!"
+      "writeUs": "Напішыце нам!",
+      "infoTitle": "Кантактная інфармацыя",
+      "emailLabel": "Email для зваротнай сувязі",
+      "messageLabel": "Паведамленне",
+      "sending": "Адпраўка...",
+      "successMessage": "Зварот паспяхова прыняты",
+      "submitError": "Памылка пры адпраўцы. Паспрабуйце пазней.",
+      "errorMessageRequired": "Паведамленне абавязковае",
+      "errorMessageTooShort": "Паведамленне павінна быць не менш за 3 сімвалы",
+      "errorMessageTooLong": "Паведамленне не павінна перавышаць 2000 сімвалаў"
+    },
+    "search": {
+      "title": "Пошук інфармацыі пра дом",
+      "addressLabel": "Адрас",
+      "errorSelectAddress": "Калі ласка, абярыце адрас са спісу"
+    },
+    "faqSlider": {
+      "title": "Часта задаваныя пытанні",
+      "prevSlide": "Папярэдні слайд",
+      "nextSlide": "Наступны слайд",
+      "goToSlide": "Перайсці да слайда {{number}}",
+      "cards": {
+        "register": {
+          "title": "Рэгістрацыя",
+          "question": "Як зарэгістравацца на партале?",
+          "answer": "Націсніце кнопку «Увайсці» у правым верхнім куце і выконвайце крокі рэгістрацыі."
+        },
+        "help": {
+          "title": "Падтрымка",
+          "question": "Дзе можна атрымаць дапамогу?",
+          "answer": "Вы можаце звязацца з намі па email або тэлефоне, указаным у раздзеле Кантакты."
+        },
+        "common": {
+          "title": "Часовыя пытанні",
+          "question": "Якія пытанні задаюць найчасцей?",
+          "answer": "Часта задаюць пытанні пра рэгістрацыю, аднаўленне пароля і падачу заяваў."
+        },
+        "documents": {
+          "title": "Дакументы",
+          "question": "Дзе знайсці дакументы?",
+          "answer": "Дакументы даступныя ў раздзеле Дакументы ў футары сайта."
+        },
+        "support": {
+          "title": "Тэхнічная падтрымка",
+          "question": "Як звязацца з падтрымкай?",
+          "answer": "Звяжыцеся з намі па email hooomy.help.by@gmail.com або па тэлефоне +375 (44) 569-10-58."
+        }
+      }
     }
   },
 
@@ -138,7 +188,94 @@
     "data": "Дадзеныя",
     "users": "Карыстальнікі",
     "complaints": "Скаргі",
-    "comments": "Каментарыі"
+    "comments": "Каментарыі",
+    "messages": "Чаты"
+  },
+  "chats": {
+    "title": "Чаты",
+    "empty": "Няма чатаў",
+    "searchPlaceholder": "Пошук...",
+    "accessDeniedDefault": "Доступ забаронены. Ваш акаунт патрабуе пацверджання.",
+    "addCompany": "Выбраць кампанію",
+    "chatCard": {
+      "defaultChat": "Чат",
+      "noMessages": "Няма паведамленняў"
+    },
+    "createComplaint": "Пажаляцца",
+    "messagePlaceholder": "Напішыце паведамленне..."
+  },
+  "employeeSurveysList": {
+    "controls": {
+      "searchLabel": "Пошук",
+      "searchPlaceholder": "Пошук",
+      "typeLabel": "Тып",
+      "typeOptions": {
+        "all": "Усе",
+        "single": "Адзін варыянт адказу",
+        "multiple": "Множны выбар"
+      },
+      "statusLabel": "Статус",
+      "statusOptions": {
+        "all": "Усе",
+        "active": "Актыўныя",
+        "completed": "Завершаныя",
+        "archived": "Архіваваныя"
+      }
+    },
+    "empty": "Няма апытанняў",
+    "successMessage": "Апытанне паспяхова створана",
+    "deleteText": "Вы ўпэўнены, што хочаце выдаліць гэтае апытанне? Гэтае дзеянне нельга адмяніць.",
+    "allVotes": "Усяго галасоў",
+    "results": "Вынікі",
+    "users": "Удзельнічала",
+    "variants": "Варыянтаў"
+  },
+  "employeeSurveysEditModal": {
+    "title": "Рэдагаваць апытанне",
+    "nameLabel": "Назва",
+    "namePlaceholder": "Увядзіце назву апытання",
+    "descriptionLabel": "Апісанне",
+    "statusLabel": "Статус",
+    "cancel": "Адмена",
+    "save": "Захаваць",
+    "statusOptions": {
+      "all": "Усе",
+      "active": "Актыўныя",
+      "completed": "Завершаныя",
+      "archived": "Архіваваныя"
+    }
+  },
+  "adminUsers": {
+    "title": "Карыстальнікі",
+    "search": "Пошук",
+    "searchPlaceholder": "Імя / Email",
+    "role": "Роля",
+    "status": "Статус",
+    "allStatuses": "Усе статусы",
+    "allRoles": "Усе ролі",
+    "approved": "Адзобрана",
+    "pending": "Чакае пацверджання",
+    "banned": "Заблакіраваны",
+    "deleted": "Выдалены",
+    "resident": "Жыхар",
+    "employee": "Супрацоўнік ЖКГ",
+    "admin": "Адмінстратар",
+    "unknown": "Невядома",
+    "notSpecified": "Не ўказана",
+    "approve": "Адзобрыць",
+    "ban": "Заблакаваць",
+    "delete": "Выдаліць",
+    "showMore": "Паказаць яшчэ 5",
+    "notFound": "Карыстальнікі не знойдзены",
+    "table": {
+      "id": "ID",
+      "fullName": "Імя",
+      "email": "Email",
+      "role": "Роля",
+      "phoneNumber": "Нумар тэлефона",
+      "status": "Статус",
+      "actions": "Дзеянні"
+    }
   },
 
   "userdrop": { "login": "Увайсці", "profile": "Профіль", "logout": "Выйсці" },
@@ -180,6 +317,7 @@
   "address": "г. Мінск, вул. Панамарэнкі, 35А, оф. 208, БЦ «Інфа»",
 
   "errors": {
+    "required": "Абавязковае поле",
     "requiredEmail": "Увядзіце email",
     "invalidEmail": "Некарэктны email",
     "requiredPassword": "Увядзіце пароль",
@@ -945,7 +1083,14 @@
     "title": "Апытанні",
     "active": "Актыўныя апытанні",
     "noSurveys": "Няма актыўных апытанняў",
-    "voite": "Галасаваць"
+    "voite": "Галасаваць",
+    "results": "Вынікі",
+    "vote": "Галасаваць",
+    "allReadyVoted": "Вы ўжо галасавалі",
+    "allVotes": "Усе галасы",
+    "error": "Памылка пры загрузцы апросаў. Паспрабуйце яшчэ раз.",
+    "error2": "Памылка пры загрузцы апроса. Паспрабуйце яшчэ раз.",
+    "your": "Ваш голас"
   },
 
   "statistic": {
@@ -1054,17 +1199,12 @@
       "statistics": {
         "label": "Статыстыка",
         "description": "Прагляд і экспарт статыстыкі па заяўках"
+      },
+      "works": {
+        "label": "Планаваныя працы",
+        "description": "Кіраванне планавымі працамі"
       }
     }
-  },
-  "employeeStatisticCards": {
-    "pending": "У апрацоўцы",
-    "completed": "Выконана",
-    "rejected": "Адхілена",
-    "avgTime": "Сярэдні час",
-    "avgTimeDescription": "выканання заяўкі",
-    "notAvailable": "Н/Д",
-    "days": "дн."
   },
   "employeeRequests": {
     "header": "Заяўкі жыхароў",
@@ -1074,11 +1214,18 @@
     "status": {
       "pending": "У апрацоўцы",
       "completed": "Выконана",
-      "rejected": "Адхілена"
+      "rejected": "Адхілена",
+      "new": "Новая",
+      "inProgress": "У апрацоўцы",
+      "awaitingReview": "Чакае праверкі",
+      "unknown": "Невядома"
     }
   },
   "employeeRequestsControls": {
+    "searchLabel": "Пошук",
     "searchPlaceholder": "Пошук па адрасе, апісанні або даце...",
+    "categoryLabel": "Катэгорыя",
+    "statusLabel": "Статус",
     "filters": {
       "all": "Усе статусы",
       "pending": "У апрацоўцы",
@@ -1093,11 +1240,13 @@
       "title": "Заяўка",
       "address": "Адрас",
       "date": "Дата",
+      "category": "Катэгорыя",
       "status": "Статус",
       "actions": "Дзеянні"
     },
     "actions": {
       "view": "Прагляд дэталяў",
+      "startWork": "Узяць у працу",
       "complete": "Адзначыць як выкананую",
       "reject": "Адхіліць заяўку",
       "comment": "Дадаць каментар"
@@ -1143,10 +1292,30 @@
   "employeeStatistic": {
     "header": "Статыстыка заяўак",
     "export": "Экспарт",
+    "filenamePrefix": "statystyka",
     "exportItems": {
       "pdf": "Экспарт у PDF",
       "excel": "Экспарт у Excel",
       "csv": "Экспарт у CSV"
+    },
+    "exportSheets": {
+      "summary": "Зводка",
+      "daily": "Дынаміка па днях",
+      "statuses": "Статусы",
+      "categories": "Катэгорыі",
+      "companies": "Кампаніі"
+    },
+    "exportColumns": {
+      "totalRequests": "Усяго заяў",
+      "completed": "Выконана",
+      "inProgress": "У апрацоўцы",
+      "new": "Новыя",
+      "date": "Дата",
+      "requestsCount": "Колькасць заяў",
+      "status": "Статус",
+      "category": "Катэгорыя",
+      "count": "Колькасць",
+      "percentage": "Доля"
     },
     "exportError": "Памылка пры экспарце ў PDF"
   },
@@ -1176,7 +1345,39 @@
   },
   "employeesStatisticStatus": {
     "header": "Статыстыка па статусах",
-    "label": "{{status}}: {{percent}}%"
+    "status": {
+      "created": "Створана",
+      "rejected": "Адхілена",
+      "pending": "У апрацоўцы",
+      "completed": "Выконана"
+    },
+    "label": "{{status}}: {{percent}}%",
+    "empty": "Няма даных для адлюстравання"
+  },
+
+  "employeeStatisticCards": {
+    "created": "Створана",
+    "pending": "У апрацоўцы",
+    "completed": "Выконана",
+    "rejected": "Адхілена",
+    "avgTime": "Сярэдні час",
+    "avgTimeDescription": "выканання заяўкі",
+    "notAvailable": "Н/Д",
+    "days": "дз."
+  },
+
+  "companyStatistics": {
+    "header": "Статыстыка па ЖЭУ",
+    "totalCompanies": "Усяго кампаній",
+    "totalRequests": "Усяго заяў",
+    "withRatings": "З ацэнкамі",
+    "table": {
+      "company": "Кампанія",
+      "requests": "Заяўкі",
+      "completed": "Выконана",
+      "pending": "У апрацоўцы",
+      "rating": "Рэйтынг"
+    }
   },
   "employeesStatisticTypes": {
     "header": "Статыстыка па тыпах"
@@ -1190,6 +1391,417 @@
     "complaints": "Скаргі",
     "comments": "Каментарыі",
     "statistics": "Статыстыка",
-    "statsHint": "Тут адлюстроўваюцца ключавыя паказчыкі працы ЖЭУ"
+    "statsHint": "Тут адлюстроўваюцца ключавыя паказчыкі працы ЖЭУ",
+    "hmo": "ЖЭК",
+    "inquiries": "Пытаннi",
+    "createNotification": "Стварыць апавяшчэнне",
+    "createSystemNotification": {
+      "title": "Стварыць сістэмнае апавяшчэнне",
+      "textLabel": "Тэкст апавяшчэння",
+      "textPlaceholder": "Увядзіце тэкст апавяшчэння",
+      "createError": "Памылка пры стварэнні апавяшчэння. Паспрабуйце яшчэ раз."
+    }
+  },
+
+  "inquiriesPage": {
+    "title": "Пытаннi",
+    "dateLabel": "Дата",
+    "emptyMessage": "Няма запытаў"
+  },
+
+  "createComplaintModal": {
+    "title": "Стварыць скаргу",
+    "shortDescriptionLabel": "Кароткае апісанне",
+    "shortDescriptionPlaceholder": "Каротка апішыце сутнасць праблемы",
+    "descriptionLabel": "Апісанне",
+    "descriptionPlaceholder": "Падрабязна апішыце вашу праблему",
+    "requiredField": "Абавязковае поле",
+    "errorBanner": "Памылка пры адпраўцы скаргі. Паспрабуйце яшчэ раз.",
+    "cancel": "Адмена",
+    "submit": "Адправіць",
+    "sending": "Адпраўка...",
+    "sendButtonTitle": "Адправіць скаргу",
+    "notSpecified": "не пазначана",
+    "ids": {
+      "resident": "ID жыхара",
+      "company": "ID кампаніі",
+      "comment": "ID каментара",
+      "request": "ID Заявки"
+    }
+  },
+
+  "adminComplaints": {
+    "title": "Скаргі",
+    "search": "Пошук",
+    "searchPlaceholder": "Пошук па апісанні...",
+    "statusLabel": "Статус",
+    "typeLabel": "Тып",
+    "table": {
+      "id": "ID",
+      "fullName": "Кароткае апісанне",
+      "status": "Статус",
+      "description": "Апісанне"
+    },
+    "allStatuses": "Усе статусы",
+    "allTypes": "Усе тыпы",
+    "listTitle": "Спіс скаргаў",
+    "notFound": "Скарг не знойдзена",
+    "currentStatus": "Бягучы статус",
+    "unknownType": "Невядомы тып",
+    "statuses": {
+      "0": "Невядома",
+      "1": "Прынята",
+      "2": "На разглядзе",
+      "3": "Зачынена",
+      "unknown": "Невядома",
+      "accepted": "Прынята",
+      "onReview": "На разглядзе",
+      "closed": "Зачынена"
+    },
+    "actions": {
+      "accept": "Прымаць",
+      "review": "На разгляд",
+      "close": "Зачыніць"
+    },
+    "types": {
+      "1": "Скарга на жыхара",
+      "2": "Скарга на ЖКГ",
+      "3": "Скарга на каментар",
+      "4": "Скарга на выкананне заяўкі",
+      "5": "Скарга на працу сэрвісу"
+    },
+    "detail": {
+      "title": "Дэталі скаргі",
+      "type": "Тып",
+      "status": "Статус",
+      "short": "Кароткае апісанне",
+      "description": "Апісанне",
+      "createdAt": "Створана",
+      "updatedAt": "Абноўлена"
+    }
+  },
+
+  "adminComments": {
+    "title": "Мадэрацыя каментароў",
+    "search": "Пошук",
+    "searchPlaceholder": "Тэкст каментара",
+    "statusLabel": "Статус",
+    "empty": "Няма каментароў",
+    "table": {
+      "id": "ID",
+      "author": "Аўтар",
+      "comment": "Каментар",
+      "status": "Статус",
+      "createdAt": "Дата стварэння",
+      "actions": "Дзеянні"
+    },
+    "actions": {
+      "view": "Падрабязней",
+      "approve": "Адобрыць",
+      "delete": "Выдаліць"
+    },
+    "statuses": {
+      "all": "Усе статусы",
+      "pending": "Чакае праверкі",
+      "approved": "Адобрана",
+      "deleted": "Выдалена",
+      "unknown": "Невядома"
+    },
+    "detail": {
+      "title": "Падрабязнасці каментара",
+      "id": "ID",
+      "company": "Кампанія",
+      "text": "Тэкст",
+      "status": "Статус",
+      "photos": "Фатаграфіі",
+      "createdAt": "Створана",
+      "updatedAt": "Абноўлена",
+      "deletedAt": "Выдалена",
+      "close": "Закрыць"
+    }
+  },
+
+  "common": {
+    "cancel": "Адмяніць",
+    "title": "Пацвердзіце дзеянне",
+    "confirm": "Пацвердзіць",
+    "create": "Стварыць",
+    "saving": "Захаванне...",
+    "search": "Шукаць",
+    "text1": "Вы ўпэўнены, што хочаце выдаліць гэтую заяўку? Гэта дзеянне можна будзе адмяніць.",
+    "logo": "Лагатып",
+    "createCompany": "Новы ЖЭК",
+    "more": "Яшчэ",
+    "searchPlaceholder": "Пошук па назве...",
+    "address": "Адрас",
+    "category": "Категорыя"
+  },
+  "company": {
+    "name": "Назва кампаніі",
+    "namePlaceholder": "Увядзіце назву кампаніі",
+    "nameRequired": "Назва кампаніі абавязковая",
+    "workingHours": "Гадзіны работы",
+    "workingHoursPlaceholder": "09:00-18:00",
+    "addressInfo": {
+      "title": "Што рабіць, калі адрасу няма ў спісе?",
+      "spellCheck": "Праверце правільнасць напісання вуліцы",
+      "addManually": "Калі адрас усё яшчэ няма, вы можаце дадаць яго ўручную",
+      "instructions": "Для дадання адраса націсніце кнопку ніжэй.",
+      "add": "Дадаць"
+    },
+    "selectedAddress": "Выбраны адрас:",
+    "emailPlaceholder": "company@example.com",
+    "addCompany": "Дадаць кампанію",
+    "adding": "Даданне..."
+  },
+  "pageTitle": "Планавыя работы",
+  "filters": {
+    "titleLabel": "Назва",
+    "titlePlaceholder": "Увядзіце што-небудзь...",
+    "categoryLabel": "Катэгорыя",
+    "seriousnessLabel": "Сур'ёзнасць",
+    "addressLabel": "Адрас"
+  },
+  "seriousnessOptions": {
+    "all": "Усе",
+    "informational": "Інфармацыйныя",
+    "warning": "Папярэджанні"
+  },
+  "emptyState": "Няма работ",
+  "seriousnessLabels": {
+    "info": "Інфармацыя",
+    "warn": "Важна"
+  },
+  "categoryFallback": "Іншае",
+  "factDates": {
+    "startLabel": "Фактычны пачатак:",
+    "endLabel": "Фактычнае заканчэнне:"
+  },
+  "actions": {
+    "deleteTitle": "Выдаліць",
+    "deleteMessage": "Вы ўпэўнены, што хочаце выдаліць? Гэтае дзеянне нельга адмяніць.",
+    "deleteConfirm": "Выдаліць",
+    "create": "Стварыць",
+    "edit": "Рэдагаваць",
+    "search": "Пошук",
+    "reset": "Скінуць"
+  },
+  "employeeWorkEditModal": {
+    "title": {
+      "edit": "Рэдагаванне работы",
+      "create": "Стварэнне новай работы"
+    },
+    "fields": {
+      "titleLabel": "Назва работы",
+      "descriptionLabel": "Апісанне",
+      "categoryLabel": "Катэгорыя",
+      "seriousnessLabel": "Сур'ёзнасць",
+      "addressLabel": "Адрас",
+      "plannedStartLabel": "Планавая дата і час пачатку",
+      "plannedEndLabel": "Планавая дата і час заканчэння",
+      "factStartLabel": "Фактычная дата пачатку (неабавязкова)",
+      "factEndLabel": "Фактычная дата заканчэння (неабавязкова)"
+    },
+    "seriousnessOptions": {
+      "informational": "Інфармацыйная",
+      "important": "Важная"
+    },
+    "validation": {
+      "titleRequired": "Назва абавязковая",
+      "descriptionRequired": "Апісанне абавязковае",
+      "categoryRequired": "Катэгорыя абавязковая",
+      "seriousnessRequired": "Сур'ёзнасць абавязковая",
+      "addressRequired": "Адрас абавязковы",
+      "plannedStartRequired": "Дата і час пачатку абавязковыя",
+      "plannedEndRequired": "Дата і час заканчэння абавязковыя",
+      "startBeforeEnd": "Час пачатку павінен быць раней за час заканчэння",
+      "endAfterStart": "Час заканчэння павінен быць пазней за час пачатку"
+    },
+    "actions": {
+      "cancel": "Адмена",
+      "saving": "Захаванне...",
+      "saveEdit": "Захаваць змены",
+      "saveCreate": "Стварыць работу"
+    }
+  },
+  "months": {
+    "1": "Студзень",
+    "2": "Люты",
+    "3": "Сакавік",
+    "4": "Красавік",
+    "5": "Май",
+    "6": "Чэрвень",
+    "7": "Ліпень",
+    "8": "Жнівень",
+    "9": "Верасень",
+    "10": "Кастрычнік",
+    "11": "Лістапад",
+    "12": "Снежань"
+  },
+  "requestDetailsModal": {
+    "title": "Дэталі заяўкі",
+    "status": {
+      "pending": "Чакае мадэрацыі",
+      "created": "Створана",
+      "rejected": "Адхілена",
+      "processing": "У апрацоўцы",
+      "completed": "Выканана",
+      "unknown": "Невядомы статус"
+    },
+    "labels": {
+      "problemTitle": "Кароткае апісанне праблемы",
+      "createdAt": "Створана:",
+      "address": "Адрас:",
+      "description": "Апісанне",
+      "noDescription": "Апісанне адсутнічае",
+      "reviewScore": "Ацэнка",
+      "reviewText": "Каментарый да ацэнкі"
+    },
+    "actions": {
+      "rateWork": "Ацаніць работу",
+      "complain": "Паскардзіцца на выкананне заяўкі",
+      "delete": "Выдаліць",
+      "deleting": "Выдаленне...",
+      "cancel": "Адмена"
+    },
+    "confirmDelete": {
+      "title": "Пацверджанне выдалення",
+      "message": "Вы ўпэўнены, што хочаце выдаліць гэтую заяўку? Гэтае дзеянне можна будзе адмяніць.",
+      "confirm": "Выдаліць",
+      "cancel": "Адмена"
+    },
+    "expand": {
+      "showMore": "Паказаць больш",
+      "showLess": "Схаваць"
+    }
+  },
+  "ratingModal": {
+    "title": "Ацаніце работу",
+    "fields": {
+      "commentLabel": "Каментарый",
+      "commentPlaceholder": "Пакіньце каментарый да ацэнкі (неабавязкова)"
+    },
+    "actions": {
+      "cancel": "Адмена",
+      "submit": "Адправіць",
+      "submitting": "Адпраўка..."
+    },
+    "validation": {
+      "ratingRequired": "Калі ласка, выберыце ацэнку"
+    },
+    "aria": {
+      "closeModal": "Закрыць модальнае акно",
+      "starRating": "Ацэнка: {{rating}} з 5"
+    }
+  },
+  "companyComments": {
+    "title": "Каментарыі",
+    "emptyState": "Каментарыяў пакуль няма",
+    "fields": {
+      "placeholder": "Напішыце каментарый...",
+      "required": "Калі ласка, увядзіце каментарый",
+      "minLength": "Мінімум {{count}} сімвалы"
+    },
+    "senderFallback": "ЖЭУ",
+    "labels": {
+      "updated": "абноўлена",
+      "loadMore": "Загрузіць яшчэ",
+      "filesAttached": "Файлы далучаны"
+    },
+    "status": {
+      "pending": "Чакае праверкі",
+      "approved": "Ухвалена",
+      "deleted": "Выдалена",
+      "unknown": "Невядома"
+    },
+    "actions": {
+      "edit": "Рэдагаваць",
+      "delete": "Выдаліць",
+      "complain": "Паскардзіцца",
+      "attachFile": "Далучыць файл",
+      "send": "Адправіць",
+      "cancel": "Адмена"
+    },
+    "file": {
+      "remove": "Выдаліць файл",
+      "maxFiles": "Можна далучыць не больш за {{max}} файлаў",
+      "size": {
+        "bytes": "Байт",
+        "kb": "КБ",
+        "mb": "МБ",
+        "gb": "ГБ"
+      }
+    },
+    "aria": {
+      "expandImage": "Адкрыць выяву",
+      "closeImage": "Закрыць прагляд",
+      "authorLink": "Перайсці да профілю кампаніі"
+    }
+  },
+  "companyDetails": {
+    "pageTitle": "Дэталі кампаніі",
+    "info": {
+      "phone": "Тэлефон",
+      "email": "Email",
+      "address": "Адрас",
+      "workingHours": "Рэжым работы",
+      "registeredAt": "Дата рэгістрацыі",
+      "rating": "Рэйтынг",
+      "noValue": "—"
+    },
+    "actions": {
+      "uploadLogo": "Загрузіць лагатып",
+      "edit": "Рэдагаваць",
+      "delete": "Выдаліць",
+      "back": "Назад",
+      "write": "Напісаць",
+      "addAddress": "Дадаць адрас",
+      "addEmployee": "Дадаць супрацоўніка",
+      "deleteAddress": "Выдаліць адрас",
+      "deleteEmployee": "Выдаліць з кампаніі",
+      "complain": "Паскардзіцца"
+    },
+    "sections": {
+      "reviews": "Водгукі",
+      "addresses": "Абслугоўваемыя адрасы",
+      "employees": "Супрацоўнікі"
+    },
+    "emptyStates": {
+      "noReviews": "Водгукаў пакуль няма",
+      "noAddresses": "Адрасы не ўказаны",
+      "noEmployees": "Супрацоўнікаў пакуль няма"
+    },
+    "reviews": {
+      "noComment": "Без каментарыя"
+    },
+    "notifications": {
+      "deleteCompanyError": "Памылка пры выдаленні кампаніі",
+      "deleteEmployeeError": "Памылка пры выдаленні супрацоўніка",
+      "deleteAddressError": "Памылка пры выдаленні адраса",
+      "logoUploaded": "Лагатып кампаніі загружаны",
+      "logoUploadError": "Памылка пры загрузцы лагатыпа",
+      "authRequired": "Неабходна аўтарызавацца",
+      "emailNotConfirmed": "Пацвердзіце email для стварэння чата"
+    },
+    "confirmDelete": {
+      "employee": {
+        "title": "Выдаліць супрацоўніка",
+        "message": "Выдаліць {{surname}} {{firstName}} з кампаніі?"
+      },
+      "address": {
+        "title": "Выдаліць адрас",
+        "message": "Выдаліць адрас \"{{address}}\" з кампаніі?"
+      },
+      "company": {
+        "title": "Выдаліць кампанію",
+        "message": "Вы ўпэўнены, што хочаце выдаліць кампанію \"{{name}}\"? Гэтае дзеянне нельга адмяніць."
+      },
+      "confirm": "Выдаліць",
+      "cancel": "Адмена"
+    },
+    "chat": {
+      "create": "Стварыць чат",
+      "error": "Не ўдалося стварыць чат"
+    }
   }
 }

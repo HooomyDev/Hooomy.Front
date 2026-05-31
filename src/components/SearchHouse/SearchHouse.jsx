@@ -7,8 +7,10 @@ import AutocompleteField from "../../common/AutocompleteField/AutocompleteField"
 import Button from "../../common/Button/Button";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import routes from "../../stores/routes.json";
+import { useT } from "../../utils/useT";
 
 export default function SearchHouse() {
+  const t = useT();
   const navigate = useNavigate();
   const methods = useForm({
     defaultValues: {
@@ -26,7 +28,7 @@ export default function SearchHouse() {
 
     try {
       const res = await client.get(
-        `/addresses?searchQuery=${encodeURIComponent(query)}`
+        `/addresses?searchQuery=${encodeURIComponent(query)}`,
       );
       const options = res.data.addresses.map((s) => ({
         value: s.id,
@@ -45,7 +47,7 @@ export default function SearchHouse() {
     if (!data.address) {
       setError("address", {
         type: "manual",
-        message: "Пожалуйста, выберите адрес из списка",
+        message: t("main.search.errorSelectAddress"),
       });
       return;
     }
@@ -56,13 +58,14 @@ export default function SearchHouse() {
 
   return (
     <div className={styles.content}>
-      <div className={styles.title}>Поиск информации о доме</div>
+      <div className={styles.title}>{t("main.search.title")}</div>
       <FormProvider {...methods}>
         <form
           className={styles.searchForm}
           onSubmit={methods.handleSubmit(handleSubmit)}
         >
           <AutocompleteField
+            label={t("main.search.addressLabel")}
             name="address"
             options={streetOptions}
             onSearch={handleStreetSearch}

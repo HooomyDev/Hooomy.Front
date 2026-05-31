@@ -36,7 +36,7 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
   const formValues = watch();
 
   const filledAnswersCount = (formValues.answers || []).filter(
-    (a) => a?.text && a.text.trim() !== ""
+    (a) => a?.text && a.text.trim() !== "",
   ).length;
 
   const isValidForm = filledAnswersCount >= 2 && filledAnswersCount <= 5;
@@ -50,12 +50,12 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
         data.type,
         data.answers
           .filter((a) => a.text.trim())
-          .map((a) => ({ content: a.text }))
+          .map((a) => ({ content: a.text })),
       ),
     onSuccess: () => {
       setNotification({
         type: "success",
-        message: "Опрос успешно создан",
+        message: t("employeeSurveysCreateForm.successMessage"),
       });
       reset();
       queryClient.invalidateQueries({ queryKey: ["surveys"] });
@@ -135,10 +135,13 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
             label={t("employeeSurveysCreateForm.titleLabel")}
             {...register("title", {
               required: t("employeeSurveysCreateForm.titleRequired"),
-              minLength: { value: 3, message: "Минимум 3 символа" },
+              minLength: {
+                value: 3,
+                message: t("employeeSurveysCreateForm.titleMinLength", {
+                  count: 3,
+                }),
+              },
             })}
-            placeholder={t("employeeSurveysCreateForm.titlePlaceholder")}
-            required
           />
 
           <InputField
@@ -176,7 +179,7 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
                     required: t("employeeSurveysCreateForm.answerRequired"),
                   })}
                   placeholder={`${t(
-                    "employeeSurveysCreateForm.answerPlaceholder"
+                    "employeeSurveysCreateForm.answerPlaceholder",
                   )} ${i + 1}`}
                 />
                 {fields.length > 2 && (
@@ -213,10 +216,6 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
                   style={{ width: `${(filledAnswersCount / 5) * 100}%` }}
                 />
               </div>
-              <div className={styles.progressText}>
-                {filledAnswersCount} из 5 вариантов
-                {filledAnswersCount < 2 && " (нужно минимум 2)"}
-              </div>
             </div>
           </div>
         </div>
@@ -227,7 +226,7 @@ export default function EmployeeSurveysCreateForm({ onSuccess }) {
           isLoading={createPollMutation.isPending}
           disabled={!isValidForm || createPollMutation.isPending}
         >
-          {createPollMutation.isPending ? "Создание..." : "Создать"}
+          {t("employeeSurveysCreateForm.create")}
         </Button>
       </form>
     </FormProvider>

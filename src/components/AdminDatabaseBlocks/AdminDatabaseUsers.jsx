@@ -16,12 +16,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getUserList, changeUserStatus } from "../../api/services/userService";
 import Loader from "../../common/Loader/Loader";
 import PageHeader from "../../common/PageHeader/PageHeader";
+import { useT } from "../../utils/useT";
 
 export default function AdminDatabaseUsers() {
   const [page] = useState(1);
   const [pageSize] = useState(10);
 
   const queryClient = useQueryClient();
+  const t = useT();
 
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [searchName, setSearchName] = useState("");
@@ -55,30 +57,30 @@ export default function AdminDatabaseUsers() {
   const renderStatus = (status) => {
     switch (status) {
       case "Approved":
-        return "Одобрен";
+        return t("adminUsers.approved");
       case "Pending":
-        return "Ожидает подтверждения";
+        return t("adminUsers.pending");
       case "Banned":
-        return "Заблокирован";
+        return t("adminUsers.banned");
       case "Deleted":
-        return "Удалён";
+        return t("adminUsers.deleted");
       default:
-        return status || "Неизвестно";
+        return status || t("adminUsers.unknown");
     }
   };
 
   const statusOptions = [
-    { value: "", label: "Все статусы" },
-    { value: "Pending", label: "Неподтверждён" },
-    { value: "Approved", label: "Одобрен" },
-    { value: "Banned", label: "Заблокирован" },
-    { value: "Deleted", label: "Удалён" },
+    { value: "", label: t("adminUsers.allStatuses") },
+    { value: "Pending", label: t("adminUsers.pending") },
+    { value: "Approved", label: t("adminUsers.approved") },
+    { value: "Banned", label: t("adminUsers.banned") },
+    { value: "Deleted", label: t("adminUsers.deleted") },
   ];
 
   const roleOptions = [
-    { value: "", label: "Все роли" },
-    { value: "Resident", label: "Жилец" },
-    { value: "Employee", label: "Сотрудник ЖЭУ" },
+    { value: "", label: t("adminUsers.allRoles") },
+    { value: "Resident", label: t("adminUsers.resident") },
+    { value: "Employee", label: t("adminUsers.employee") },
   ];
 
   const filteredAndSortedUsers = useMemo(() => {
@@ -126,13 +128,13 @@ export default function AdminDatabaseUsers() {
   const renderRole = (role) => {
     switch (role) {
       case "Resident":
-        return "Жилец";
+        return t("adminUsers.resident");
       case "Employee":
-        return "Сотрудник ЖЭУ";
+        return t("adminUsers.employee");
       case "Admin":
-        return "Администратор";
+        return t("adminUsers.admin");
       default:
-        return "Неизвестно";
+        return t("adminUsers.unknown");
     }
   };
 
@@ -149,15 +151,15 @@ export default function AdminDatabaseUsers() {
 
   return (
     <div className={styles.wrapper}>
-      <PageHeader icon={UserGroupIcon} title="Пользователи" />
-      <Block title="Пользователи" Icon={UserGroupIcon}>
-        <FormProvider {...methods}>
+      <PageHeader icon={UserGroupIcon} title={t("adminUsers.title")} />
+      <FormProvider {...methods}>
+        <Block>
           <div className={styles.searchBlock}>
             <div className={styles.searchField}>
               <InputField
                 name="searchName"
-                label="Поиск"
-                placeholder="Имя / Email"
+                label={t("adminUsers.search")}
+                placeholder={t("adminUsers.searchPlaceholder")}
                 required={false}
                 rules={{
                   onChange: (e) => setSearchName(e.target.value),
@@ -168,7 +170,7 @@ export default function AdminDatabaseUsers() {
             <div className={styles.roleField}>
               <SelectField
                 name="searchRole"
-                label="Роль"
+                label={t("adminUsers.role")}
                 options={roleOptions}
                 required={false}
                 onValueChange={(val) => setSearchRole(val)}
@@ -178,14 +180,15 @@ export default function AdminDatabaseUsers() {
             <div className={styles.roleField}>
               <SelectField
                 name="searchStatus"
-                label="Статус"
+                label={t("adminUsers.status")}
                 options={statusOptions}
                 required={false}
                 onValueChange={(val) => setSearchStatus(val)}
               />
             </div>
           </div>
-
+        </Block>
+        <Block title={t("adminUsers.title")} Icon={UserGroupIcon}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -193,29 +196,29 @@ export default function AdminDatabaseUsers() {
                   onClick={() => handleSort("id")}
                   className={styles.sortable}
                 >
-                  ID {getSortIcon("id")}
+                  {t("adminUsers.table.id")} {getSortIcon("id")}
                 </th>
                 <th
                   onClick={() => handleSort("userName")}
                   className={styles.sortable}
                 >
-                  ФИО {getSortIcon("userName")}
+                  {t("adminUsers.table.fullName")} {getSortIcon("userName")}
                 </th>
                 <th
                   onClick={() => handleSort("email")}
                   className={styles.sortable}
                 >
-                  Email {getSortIcon("email")}
+                  {t("adminUsers.table.email")} {getSortIcon("email")}
                 </th>
                 <th
                   onClick={() => handleSort("role")}
                   className={styles.sortable}
                 >
-                  Роль {getSortIcon("role")}
+                  {t("adminUsers.table.role")} {getSortIcon("role")}
                 </th>
-                <th>Номер телефона</th>
-                <th>Статус</th>
-                <th>Действия</th>
+                <th>{t("adminUsers.table.phoneNumber")}</th>
+                <th>{t("adminUsers.table.status")}</th>
+                <th>{t("adminUsers.table.actions")}</th>
               </tr>
             </thead>
             <tbody>
@@ -230,7 +233,11 @@ export default function AdminDatabaseUsers() {
                   </td>
                   <td>{u.email}</td>
                   <td>{renderRole(u.roles[0])}</td>
-                  <td>{u.phoneNumber ? u.phoneNumber : "Не указан"}</td>
+                  <td>
+                    {u.phoneNumber
+                      ? u.phoneNumber
+                      : t("adminUsers.notSpecified")}
+                  </td>
                   <td>
                     {u.status && (
                       <span className={styles.confirmed}>
@@ -242,7 +249,7 @@ export default function AdminDatabaseUsers() {
                     <button
                       onClick={() => handleApproveUser(u.id)}
                       className={styles.approveButton}
-                      title="Одобрить"
+                      title={t("adminUsers.approve")}
                       disabled={u.status === "Approved"}
                     >
                       <CheckCircleIcon className={styles.actionIcon} />
@@ -250,7 +257,7 @@ export default function AdminDatabaseUsers() {
                     <button
                       onClick={() => handleBanUser(u.id)}
                       className={styles.banButton}
-                      title="Заблокировать"
+                      title={t("adminUsers.ban")}
                       disabled={u.status === "Banned"}
                     >
                       <NoSymbolIcon className={styles.actionIcon} />
@@ -258,7 +265,7 @@ export default function AdminDatabaseUsers() {
                     <button
                       onClick={() => handleDeleteUser(u.id)}
                       className={styles.deleteButton}
-                      title="Удалить"
+                      title={t("adminUsers.delete")}
                       disabled={u.status === "Deleted"}
                     >
                       <TrashIcon className={styles.actionIcon} />
@@ -275,18 +282,18 @@ export default function AdminDatabaseUsers() {
                 onClick={() => setVisibleCount((prev) => prev + 5)}
                 className={styles.showMoreButton}
               >
-                Показать еще 5
+                {t("adminUsers.showMore")}
               </button>
             </div>
           )}
 
           {filteredAndSortedUsers.length === 0 && (
             <div className={styles.noData}>
-              <p>Пользователи не найдены</p>
+              <p>{t("adminUsers.notFound")}</p>
             </div>
           )}
-        </FormProvider>
-      </Block>
+        </Block>
+      </FormProvider>
     </div>
   );
 }

@@ -16,8 +16,8 @@
   border-radius: 12px;
   padding: 24px;
   width: 100%;
-  max-width: 500px;
-  max-height: 90vh;
+  max-width: 700px;
+  height: 57vh;
   overflow-y: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
@@ -33,7 +33,7 @@
   margin: 0;
   font-size: 20px;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--font-color);
 }
 
 .closeBtn {
@@ -41,7 +41,7 @@
   border: none;
   font-size: 28px;
   line-height: 1;
-  color: #666;
+  color: var(--font-color);
   cursor: pointer;
   padding: 0;
   width: 32px;
@@ -54,7 +54,8 @@
 }
 
 .closeBtn:hover {
-  background-color: #f0f0f0;
+  background-color: var(--gray-color);
+  border: 1px solid var(--gray-color);
 }
 
 .form {
@@ -72,31 +73,7 @@
 .label {
   font-size: 14px;
   font-weight: 500;
-  color: #374151;
-}
-
-.textarea {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  font-size: 14px;
-  font-family: inherit;
-  resize: vertical;
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
-  box-sizing: border-box;
-}
-
-.textarea:focus {
-  outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.textarea::placeholder {
-  color: #9ca3af;
+  color: var(--font-color);
 }
 
 .actions {

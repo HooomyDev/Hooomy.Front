@@ -19,8 +19,10 @@ import Pagination from "../../common/Pagination/Pagination";
 import { format } from "date-fns";
 import { ru } from "date-fns/locale";
 import EmptyBlock from "../../common/EmptyBlock/EmptyBlock";
+import { useT } from "../../utils/useT";
 
 export default function Inquiries() {
+  const t = useT();
   const [pagination, setPagination] = useState({
     page: 1,
     pageSize: 5,
@@ -68,7 +70,7 @@ export default function Inquiries() {
     <div className={styles.wrapper}>
       <PageHeader
         icon={InformationCircleIcon}
-        title="Обращения пользователей"
+        title={t("inquiriesPage.title")}
       />
 
       <Block>
@@ -77,7 +79,7 @@ export default function Inquiries() {
           onSubmit={methods.handleSubmit(handleSearch)}
         >
           <FormProvider {...methods}>
-            <DateField name="date" />
+            <DateField name="date" label={t("inquiriesPage.dateLabel")} />
             <Button
               className={styles.searchButton}
               onClick={() => handleSearch()}
@@ -95,7 +97,7 @@ export default function Inquiries() {
           <div className={styles.list}>
             {data.inquiries?.length === 0 ? (
               <EmptyBlock Icon={InformationCircleIcon}>
-                Нет обращений
+                {t("inquiriesPage.emptyMessage")}
               </EmptyBlock>
             ) : (
               data.inquiries.map((inquiry) => (
@@ -115,7 +117,7 @@ export default function Inquiries() {
                           "dd MMM yyyy, HH:mm",
                           {
                             locale: ru,
-                          }
+                          },
                         )}
                       </span>
                     </div>

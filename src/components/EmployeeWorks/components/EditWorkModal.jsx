@@ -10,11 +10,7 @@ import Button from "../../../common/Button/Button";
 import { useQuery } from "@tanstack/react-query";
 import { useAuthStore } from "../../../stores/authStore";
 import { getCompanyDetails } from "../../../api/services/companyService";
-
-const seriousnessOptions = [
-  { value: 1, label: "Информационная" },
-  { value: 2, label: "Важная" },
-];
+import { useT } from "../../../utils/useT";
 
 export default function EditWorkModal({
   isOpen,
@@ -25,6 +21,7 @@ export default function EditWorkModal({
   streetOptions = [],
   onSearchStreets,
 }) {
+  const t = useT();
   const { user } = useAuthStore();
   const methods = useForm({
     defaultValues: {
@@ -116,10 +113,13 @@ export default function EditWorkModal({
 
   if (!isOpen) return null;
 
-  const categoryOptions =
-    categories
-      ?.filter((c) => c.code !== 0)
-      .map((c) => ({ value: c.code, label: c.name })) || [];
+  const categoryOptions = Object.entries(categories).map(([code, key]) => {
+    const categoryCode = Number(code);
+    return {
+      value: categoryCode,
+      label: t(`statistic.categories.${key}`),
+    };
+  });
 
   const addressOptions =
     company?.addresses?.map((addr) => ({
@@ -127,11 +127,27 @@ export default function EditWorkModal({
       label: addr.fullAddress,
     })) || [];
 
+  // ⚡️ Вынесено внутрь компонента для реактивности при смене языка
+  const seriousnessOptions = [
+    {
+      value: 1,
+      label: t("employeeWorkEditModal.seriousnessOptions.informational"),
+    },
+    {
+      value: 2,
+      label: t("employeeWorkEditModal.seriousnessOptions.important"),
+    },
+  ];
+
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2>{work ? "Редактирование работы" : "Создание новой работы"}</h2>
+          <h2>
+            {work
+              ? t("employeeWorkEditModal.title.edit")
+              : t("employeeWorkEditModal.title.create")}
+          </h2>
           <button className={styles.closeButton} onClick={onClose}>
             <XMarkIcon className={styles.closeIcon} />
           </button>
@@ -141,73 +157,93 @@ export default function EditWorkModal({
           <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <InputField
               name="title"
-              label="Название работы"
+              label={t("employeeWorkEditModal.fields.titleLabel")}
               required
-              rules={{ required: "Название обязательно" }}
+              rules={{
+                required: t("employeeWorkEditModal.validation.titleRequired"),
+              }}
             />
 
             <InputField
               name="description"
-              label="Описание"
+              label={t("employeeWorkEditModal.fields.descriptionLabel")}
               multiline
               rows={3}
               required
-              rules={{ required: "Описание обязательно" }}
+              rules={{
+                required: t(
+                  "employeeWorkEditModal.validation.descriptionRequired",
+                ),
+              }}
             />
 
             <SelectField
               name="category"
-              label="Категория"
+              label={t("employeeWorkEditModal.fields.categoryLabel")}
               options={categoryOptions}
               required
-              rules={{ required: "Категория обязательна" }}
+              rules={{
+                required: t(
+                  "employeeWorkEditModal.validation.categoryRequired",
+                ),
+              }}
             />
 
             <SelectField
               name="seriousness"
-              label="Серьёзность"
+              label={t("employeeWorkEditModal.fields.seriousnessLabel")}
               options={seriousnessOptions}
               required
-              rules={{ required: "Серьёзность обязательна" }}
+              rules={{
+                required: t(
+                  "employeeWorkEditModal.validation.seriousnessRequired",
+                ),
+              }}
             />
 
             <AutocompleteField
-              label="Адрес"
+              label={t("employeeWorkEditModal.fields.addressLabel")}
               name="address"
               options={addressOptions}
               required
-              rules={{ required: "Адрес обязателен" }}
+              rules={{
+                required: t("employeeWorkEditModal.validation.addressRequired"),
+              }}
             />
 
             <div className={styles.dateRow}>
               <DateField
                 name="plannedStartTime"
-                label="Планируемая дата и время начала"
+                label={t("employeeWorkEditModal.fields.plannedStartLabel")}
                 type="datetime-local"
                 required
                 rules={{
-                  required: "Дата и время начала обязательны",
+                  required: t(
+                    "employeeWorkEditModal.validation.plannedStartRequired",
+                  ),
                   validate: (value) => {
                     if (!value || !plannedEndTime) return true;
                     return (
                       new Date(value) < new Date(plannedEndTime) ||
-                      "Время начала должно быть раньше времени окончания"
+                      t("employeeWorkEditModal.validation.startBeforeEnd")
                     );
                   },
                 }}
               />
               <DateField
                 name="plannedEndTime"
-                label="Планируемая дата и время окончания"
+                label={t("employeeWorkEditModal.fields.plannedEndLabel")}
                 type="datetime-local"
                 required
                 rules={{
-                  required: "Дата и время окончания обязательны",
+                  required: t(
+                    "employeeWorkEditModal.validation.plannedEndRequired",
+                  ),
                   validate: (value) => {
                     if (!value || !plannedStartTime) return true;
                     return (
                       new Date(value) > new Date(plannedStartTime) ||
-                      "Время окончания должно быть позже времени начала"
+                      t("employeeWorkEditModal.validation.endAfterStart")
                     );
                   },
                 }}
@@ -218,28 +254,28 @@ export default function EditWorkModal({
               <div className={styles.dateRow}>
                 <DateField
                   name="factStartTime"
-                  label="Фактическая дата начала (опционально)"
+                  label={t("employeeWorkEditModal.fields.factStartLabel")}
                   type="datetime-local"
                   rules={{
                     validate: (value) => {
                       if (!value || !factEndTime) return true;
                       return (
                         new Date(value) < new Date(factEndTime) ||
-                        "Время начала должно быть раньше времени окончания"
+                        t("employeeWorkEditModal.validation.startBeforeEnd")
                       );
                     },
                   }}
                 />
                 <DateField
                   name="factEndTime"
-                  label="Фактическая дата окончания (опционально)"
+                  label={t("employeeWorkEditModal.fields.factEndLabel")}
                   type="datetime-local"
                   rules={{
                     validate: (value) => {
                       if (!value || !factStartTime) return true;
                       return (
                         new Date(value) > new Date(factStartTime) ||
-                        "Время окончания должно быть позже времени начала"
+                        t("employeeWorkEditModal.validation.endAfterStart")
                       );
                     },
                   }}
@@ -249,14 +285,14 @@ export default function EditWorkModal({
 
             <div className={styles.actions}>
               <Button type="button" variant="secondary" onClick={onClose}>
-                Отмена
+                {t("employeeWorkEditModal.actions.cancel")}
               </Button>
               <Button type="submit" disabled={isSubmitting}>
                 {isSubmitting
-                  ? "Сохранение..."
+                  ? t("employeeWorkEditModal.actions.saving")
                   : work
-                    ? "Сохранить изменения"
-                    : "Создать работу"}
+                    ? t("employeeWorkEditModal.actions.saveEdit")
+                    : t("employeeWorkEditModal.actions.saveCreate")}
               </Button>
             </div>
           </form>

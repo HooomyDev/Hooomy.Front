@@ -2,12 +2,14 @@ import React from "react";
 import styles from "./SurveyResults.module.css";
 import Block from "../../../../common/Block/Block";
 import { UserGroupIcon } from "@heroicons/react/24/solid";
+import { useT } from "../../../../utils/useT";
 
 export default function SurveyResults({ survey }) {
+  const t = useT();
   return (
     <Block
       Icon={UserGroupIcon}
-      title={`Результаты (Всего голосов: ${survey?.voteCount})`}
+      title={`${t("surveys.results")} (${t("surveys.allVotes")}: ${survey?.voteCount})`}
     >
       <div className={styles.stats}>
         {survey?.options.map((option) => {
@@ -21,7 +23,8 @@ export default function SurveyResults({ survey }) {
               <div className={styles.statLabel}>
                 <span>
                   {option.content}{" "}
-                  {survey.userVotes.includes(option.id) && "(ваш выбор)"}
+                  {survey.userVotes.includes(option.id) &&
+                    `(${t("surveys.your")})`}
                 </span>
                 <span>
                   {option.voteCount} ({percent.toFixed(1)}%)

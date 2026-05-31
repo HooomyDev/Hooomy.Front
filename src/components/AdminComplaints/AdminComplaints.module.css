@@ -1,14 +1,14 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  gap: var(--spacing-xxl);
+  width: 90%;
+  gap: var(--spacing-lg);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xxl);
+  gap: var(--spacing-lg);
   width: 100%;
 }
 
@@ -232,4 +232,36 @@
   background: #fee2e2;
   color: #991b1b;
   border-color: #fecaca;
+}
+.detailsButton {
+  padding: 8px 8px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-weight: 500;
+  width: 40px;
+  height: 40px;
+}
+
+.detailsButton:hover {
+  border: 1px solid transparent;
+  background: #bae6fd;
+  color: #0480c2;
+}
+
+.detailsButton .icon {
+  width: 24px;
+}
+
+.detailsButton:hover {
+  border: 1px solid transparent;
+  color: var(--element-color);
 }

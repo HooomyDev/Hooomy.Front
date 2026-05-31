@@ -1,9 +1,11 @@
 .content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   background-color: var(--main-color);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-xl);
   border-radius: var(--border-radius);
   gap: var(--spacing-lg);
 }
@@ -17,8 +19,11 @@
 
 .searchForm {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-direction: row;
-  width: 100%;
+  width: 90%;
+  padding: 0 var(--spacing-xl);
   gap: var(--spacing-lg);
 }
 

@@ -6,8 +6,10 @@ import InputField from "../../../../common/InputField/InputField";
 import Button from "../../../../common/Button/Button";
 import routes from "../../../../stores/routes.json";
 import { useNavigate } from "react-router-dom";
+import { useT } from "../../../../utils/useT";
 
 export default function ChatSearchForm({ onSubmit, user, disabled }) {
+  const t = useT();
   const navigate = useNavigate();
 
   const methods = useForm({
@@ -23,7 +25,10 @@ export default function ChatSearchForm({ onSubmit, user, disabled }) {
           onSubmit={methods.handleSubmit(onSubmit)}
           className={`${styles.form} ${disabled ? styles.formDisabled : ""}`}
         >
-          <InputField name="search" placeholder="Поиск..." />
+          <InputField
+            name="search"
+            placeholder={t("chats.searchPlaceholder")}
+          />
           <Button
             type="submit"
             className={styles.searchButton}
@@ -37,6 +42,7 @@ export default function ChatSearchForm({ onSubmit, user, disabled }) {
               className={styles.searchButton}
               variant="secondary"
               onClick={() => navigate(routes.companies)}
+              title={t("chats.addCompany")}
             >
               <PlusIcon className={styles.icon} />
             </Button>

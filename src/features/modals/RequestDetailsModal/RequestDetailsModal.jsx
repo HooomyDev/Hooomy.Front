@@ -17,6 +17,7 @@ import {
   StarIcon,
   ClockIcon,
   ExclamationCircleIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 import ImageGallery from "../../../common/ImageGallery/ImageGallery";
 import Button from "../../../common/Button/Button";
@@ -28,22 +29,49 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import RatingModal from "./components/RatingModal";
+import CreateComplaintModal from "../CreateComplaintModal/CreateComplaintModal";
+import { useAuthStore } from "../../../stores/authStore";
+import { useT } from "../../../utils/useT";
 
 export default function RequestDetailsModal({
   request,
   onClose,
   onDeleteSuccess,
 }) {
+  const t = useT();
   const [isExpandedDesctiption, setIsExpandedDesctiption] = useState(false);
   const [isExpandedTitle, setIsExpandedTitle] = useState(false);
   const [showRatingModal, setShowRatingModal] = useState(false);
+  const [showComplaintModal, setShowComplaintModal] = useState(false);
+  const { user } = useAuthStore();
 
+  // 🔹 STATUS_MAP с локализацией
   const STATUS_MAP = {
-    1: { text: "Ожидает модерации", icon: ClockIcon, color: "#f57c00" },
-    2: { text: "Создан", icon: ClockIcon, color: "#1976d2" },
-    3: { text: "Отклонено", icon: XCircleIcon, color: "#d32f2f" },
-    4: { text: "В обработке", icon: ExclamationCircleIcon, color: "#f57c00" },
-    5: { text: "Выполнено", icon: CheckCircleIcon, color: "#388e3c" },
+    1: {
+      text: t("requestDetailsModal.status.pending"),
+      icon: ClockIcon,
+      color: "#f57c00",
+    },
+    2: {
+      text: t("requestDetailsModal.status.created"),
+      icon: ClockIcon,
+      color: "#1976d2",
+    },
+    3: {
+      text: t("requestDetailsModal.status.rejected"),
+      icon: XCircleIcon,
+      color: "#d32f2f",
+    },
+    4: {
+      text: t("requestDetailsModal.status.processing"),
+      icon: ExclamationCircleIcon,
+      color: "#f57c00",
+    },
+    5: {
+      text: t("requestDetailsModal.status.completed"),
+      icon: CheckCircleIcon,
+      color: "#388e3c",
+    },
   };
 
   const queryClient = useQueryClient();
@@ -84,7 +112,7 @@ export default function RequestDetailsModal({
   if (isLoading) return <Loader />;
 
   const statusInfo = STATUS_MAP[requestDetails.status] || {
-    text: "Неизвестный статус",
+    text: t("requestDetailsModal.status.unknown"),
     icon: ExclamationCircleIcon,
     color: "#999",
   };
@@ -92,13 +120,12 @@ export default function RequestDetailsModal({
 
   const title = requestDetails.title;
   const isLongTitle = title.length > 25;
-
   const displayedTitle =
     isExpandedTitle || !isLongTitle ? title : `${title.slice(0, 25).trim()}...`;
 
-  const description = requestDetails.description || "Описание отсутствует";
+  const description =
+    requestDetails.description || t("requestDetailsModal.labels.noDescription");
   const isLongDescription = description.length > 150;
-
   const displayedDescription =
     isExpandedDesctiption || !isLongDescription
       ? description
@@ -107,7 +134,7 @@ export default function RequestDetailsModal({
   return (
     <>
       <div className={styles.wrapper}>
-        <div className={styles.title}>Детали заявки</div>
+        <div className={styles.title}>{t("requestDetailsModal.title")}</div>
 
         <div className={styles.content}>
           <div className={styles.photoWrapper}>
@@ -120,43 +147,56 @@ export default function RequestDetailsModal({
           </div>
 
           <div className={styles.infoWrapper}>
-            {requestDetails?.status === 5 && requestDetails.review === null && (
-              <div className={styles.reviewWrapper}>
-                <Button
-                  variant="secondary"
-                  className={styles.reviewButton}
-                  onClick={() => setShowRatingModal(true)}
-                >
-                  Оценить работу
-                </Button>
-              </div>
-            )}
+            {requestDetails?.status === 5 &&
+              requestDetails.review === null &&
+              user?.role === "Resident" && (
+                <div className={styles.reviewWrapper}>
+                  <Button
+                    variant="secondary"
+                    className={styles.reviewButton}
+                    onClick={() => setShowRatingModal(true)}
+                  >
+                    {t("requestDetailsModal.actions.rateWork")}
+                  </Button>
+                </div>
+              )}
+
             <div className={styles.reqTitle}>
               <div className={styles.titleHeader}>
                 <div className={styles.info}>
                   <DocumentTextIcon className={styles.icon} />
-                  <span>Краткое описание проблемы</span>
+                  <span>{t("requestDetailsModal.labels.problemTitle")}</span>
                 </div>
 
                 {isLongTitle && (
                   <button
                     className={styles.expandButton}
                     onClick={() => setIsExpandedTitle(!isExpandedTitle)}
+                    aria-label={
+                      isExpandedTitle
+                        ? t("requestDetailsModal.expand.showLess")
+                        : t("requestDetailsModal.expand.showMore")
+                    }
                   >
                     {isExpandedTitle ? (
-                      <>
-                        <ChevronUpIcon className={styles.buttonIcon} />
-                      </>
+                      <ChevronUpIcon className={styles.buttonIcon} />
                     ) : (
-                      <>
-                        <ChevronDownIcon className={styles.buttonIcon} />
-                      </>
+                      <ChevronDownIcon className={styles.buttonIcon} />
                     )}
                   </button>
                 )}
               </div>
-
               <div className={styles.titleContent}>{displayedTitle}</div>
+              <Button
+                variant="secondary"
+                className={styles.reviewButton}
+                onClick={() => {
+                  setShowComplaintModal(true);
+                }}
+                title={t("requestDetailsModal.actions.complain")}
+              >
+                <ExclamationTriangleIcon className={styles.reviewIcon} />
+              </Button>
             </div>
 
             <div
@@ -173,7 +213,7 @@ export default function RequestDetailsModal({
             <div className={styles.reqDate}>
               <CalendarIcon className={styles.icon} />
               <span>
-                Создано:{" "}
+                {t("requestDetailsModal.labels.createdAt")}{" "}
                 {format(new Date(requestDetails.createdAt), "dd.MM.yyyy HH:mm")}
               </span>
             </div>
@@ -181,7 +221,8 @@ export default function RequestDetailsModal({
             <div className={styles.reqAddress}>
               <MapPinIcon className={styles.icon} />
               <span>
-                <strong>Адрес:</strong> {requestDetails.address}
+                <strong>{t("requestDetailsModal.labels.address")}</strong>{" "}
+                {requestDetails.address}
               </span>
             </div>
 
@@ -189,7 +230,7 @@ export default function RequestDetailsModal({
               <div className={styles.descriptionHeader}>
                 <div className={styles.info}>
                   <DocumentTextIcon className={styles.icon} />
-                  <span>Описание</span>
+                  <span>{t("requestDetailsModal.labels.description")}</span>
                 </div>
                 {isLongDescription && (
                   <button
@@ -197,15 +238,16 @@ export default function RequestDetailsModal({
                     onClick={() =>
                       setIsExpandedDesctiption(!isExpandedDesctiption)
                     }
+                    aria-label={
+                      isExpandedDesctiption
+                        ? t("requestDetailsModal.expand.showLess")
+                        : t("requestDetailsModal.expand.showMore")
+                    }
                   >
                     {isExpandedDesctiption ? (
-                      <>
-                        <ChevronUpIcon className={styles.buttonIcon} />
-                      </>
+                      <ChevronUpIcon className={styles.buttonIcon} />
                     ) : (
-                      <>
-                        <ChevronDownIcon className={styles.buttonIcon} />
-                      </>
+                      <ChevronDownIcon className={styles.buttonIcon} />
                     )}
                   </button>
                 )}
@@ -220,7 +262,8 @@ export default function RequestDetailsModal({
                 <div className={styles.info}>
                   <StarIcon className={styles.icon} />
                   <div className={styles.reviewHeader}>
-                    Оценка ({requestDetails.review?.score})
+                    {t("requestDetailsModal.labels.reviewScore")} (
+                    {requestDetails.review?.score})
                   </div>
                   <Button
                     variant="secondary"
@@ -228,6 +271,7 @@ export default function RequestDetailsModal({
                     onClick={() =>
                       deleteReviewMutaion.mutate(requestDetails.review?.id)
                     }
+                    aria-label="Удалить оценку"
                   >
                     <TrashIcon className={styles.trashIcon} />
                   </Button>
@@ -242,7 +286,9 @@ export default function RequestDetailsModal({
                 onClick={() => setShowConfirmDialog(true)}
                 disabled={deleteMutation.isPending}
               >
-                {deleteMutation.isPending ? "Удаление..." : "Удалить"}
+                {deleteMutation.isPending
+                  ? t("requestDetailsModal.actions.deleting")
+                  : t("requestDetailsModal.actions.delete")}
               </Button>
             </div>
           </div>
@@ -254,17 +300,26 @@ export default function RequestDetailsModal({
           isOpen={showConfirmDialog}
           onClose={handleCancelDelete}
           onConfirm={handleConfirmDelete}
-          title="Подтверждение удаления"
-          message="Вы уверены, что хотите удалить эту заявку? Это действие можно будет отменить."
-          confirmText="Удалить"
-          cancelText="Отмена"
+          title={t("requestDetailsModal.confirmDelete.title")}
+          message={t("requestDetailsModal.confirmDelete.message")}
+          confirmText={t("requestDetailsModal.confirmDelete.confirm")}
+          cancelText={t("requestDetailsModal.confirmDelete.cancel")}
           confirmVariant="danger"
         />
       </div>
+
       {showRatingModal && (
         <RatingModal
           setShowRatingModal={setShowRatingModal}
           request={request}
+        />
+      )}
+      {showComplaintModal && (
+        <CreateComplaintModal
+          isOpen={showComplaintModal}
+          onClose={() => setShowComplaintModal(false)}
+          type={4}
+          data={{ id: requestDetails?.id }}
         />
       )}
     </>

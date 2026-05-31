@@ -3,21 +3,23 @@ import { ru } from "date-fns/locale";
 import Button from "../../common/Button/Button";
 import styles from "./CommentDetailModal.module.css";
 import { useState } from "react";
+import { useT } from "../../utils/useT";
 
 export default function CommentDetailModal({ isOpen, onClose, comment }) {
+  const t = useT();
   const [selectedImage, setSelectedImage] = useState(null);
   if (!isOpen || !comment) return null;
 
   const renderStatus = (status) => {
     switch (status) {
       case 1:
-        return "Ожидает проверки";
+        return t("adminComments.statuses.pending");
       case 2:
-        return "Одобрен";
+        return t("adminComments.statuses.approved");
       case 3:
-        return "Удален";
+        return t("adminComments.statuses.deleted");
       default:
-        return "Неизвестно";
+        return t("adminComments.statuses.unknown");
     }
   };
 
@@ -25,7 +27,7 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.dialog} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Детали комментария</h2>
+          <h2 className={styles.title}>{t("adminComments.detail.title")}</h2>
           <button className={styles.closeBtn} onClick={onClose}>
             ×
           </button>
@@ -33,22 +35,30 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
 
         <div className={styles.content}>
           <div className={styles.field}>
-            <span className={styles.label}>ID:</span>
+            <span className={styles.label}>
+              {t("adminComments.detail.id")}:
+            </span>
             <span className={styles.value}>{comment.id}</span>
           </div>
 
           <div className={styles.field}>
-            <span className={styles.label}>Компания:</span>
+            <span className={styles.label}>
+              {t("adminComments.detail.company")}
+            </span>
             <span className={styles.value}>{comment.companyName || "—"}</span>
           </div>
 
           <div className={styles.field}>
-            <span className={styles.label}>Текст:</span>
+            <span className={styles.label}>
+              {t("adminComments.detail.text")}
+            </span>
             <p className={styles.text}>{comment.text}</p>
           </div>
 
           <div className={styles.field}>
-            <span className={styles.label}>Статус:</span>
+            <span className={styles.label}>
+              {t("adminComments.detail.status")}
+            </span>
             <span className={styles.status}>
               {renderStatus(comment.status)}
             </span>
@@ -56,7 +66,9 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
 
           {comment.photoUrls && comment.photoUrls.length > 0 && (
             <div className={styles.field}>
-              <span className={styles.label}>Фотографии:</span>
+              <span className={styles.label}>
+                {t("adminComments.detail.photos")}
+              </span>
               <div className={styles.photos}>
                 {comment.photoUrls.map((url, index) => (
                   <img
@@ -72,7 +84,9 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
           )}
 
           <div className={styles.field}>
-            <span className={styles.label}>Создан:</span>
+            <span className={styles.label}>
+              {t("adminComments.detail.createdAt")}
+            </span>
             <span className={styles.value}>
               {format(new Date(comment.createdAt), "dd MMM yyyy, HH:mm", {
                 locale: ru,
@@ -82,7 +96,9 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
 
           {comment.updatedAt && (
             <div className={styles.field}>
-              <span className={styles.label}>Обновлён:</span>
+              <span className={styles.label}>
+                {t("adminComments.detail.updatedAt")}
+              </span>
               <span className={styles.value}>
                 {format(new Date(comment.updatedAt), "dd MMM yyyy, HH:mm", {
                   locale: ru,
@@ -93,7 +109,9 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
 
           {comment.deletedAt && (
             <div className={styles.field}>
-              <span className={styles.label}>Удалён:</span>
+              <span className={styles.label}>
+                {t("adminComments.detail.deletedAt")}
+              </span>
               <span className={styles.value}>
                 {format(new Date(comment.deletedAt), "dd MMM yyyy, HH:mm", {
                   locale: ru,
@@ -116,7 +134,7 @@ export default function CommentDetailModal({ isOpen, onClose, comment }) {
         )}
         <div className={styles.actions}>
           <Button variant="secondary" onClick={onClose}>
-            Закрыть
+            {t("adminComments.detail.close")}
           </Button>
         </div>
       </div>
