@@ -32,7 +32,7 @@ const refreshToken = async () => {
     const response = await axios.post(
       "http://localhost:5005/connect/token",
       params,
-      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } },
     );
 
     const result = response.data;
@@ -56,15 +56,14 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       const newToken = await refreshToken();
       if (newToken) {
-        apiClient.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${newToken}`;
+        apiClient.defaults.headers.common["Authorization"] =
+          `Bearer ${newToken}`;
         originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
         return axios(originalRequest);
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export { apiClient, authClient };

@@ -42,7 +42,7 @@ export default function LoginForm() {
         params,
         {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        }
+        },
       );
 
       const result = response.data;
