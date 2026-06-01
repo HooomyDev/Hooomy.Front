@@ -1298,6 +1298,11 @@
     "answerRequired": "Enter option",
     "answerPlaceholder": "Option",
     "addAnswer": "+ Add option",
+    "titleMinLength": "Title must be at least {{count}} characters",
+    "successMessage": "Survey successfully created",
+    "errorMessage": "Unable to create survey. Please try again.",
+    "minAnswersError": "Please provide at least 2 answer options.",
+    "maxAnswersError": "You can add no more than 5 answer options.",
     "continue": "Continue",
     "back": "Back",
     "create": "Create"
@@ -1561,6 +1566,14 @@
       "addManually": "If the address is still missing, you can add it manually",
       "instructions": "To add an address, press the button below.",
       "add": "Add"
+    },
+    "addressSelection": {
+      "search": "Search by address",
+      "map": "Select on map",
+      "save": "Save address",
+      "saved": "Address selected",
+      "noLocation": "Select a point on the map",
+      "saveError": "Failed to save address. Please try again."
     },
     "selectedAddress": "Selected address:",
     "emailPlaceholder": "company@example.com",

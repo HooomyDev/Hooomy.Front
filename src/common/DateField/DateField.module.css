@@ -71,20 +71,3 @@
     transform: translateY(0);
   }
 }
-
-@media (max-width: 768px) {
-  .label {
-    font-size: 16px;
-    margin-left: 0;
-  }
-
-  .inputWrapper {
-    width: 100%;
-  }
-
-  .inputField {
-    height: 45px;
-    font-size: 16px;
-    padding: 0 2.5rem 0 0.6rem;
-  }
-}

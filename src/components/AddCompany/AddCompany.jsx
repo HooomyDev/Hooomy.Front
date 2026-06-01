@@ -20,16 +20,26 @@ import { useNavigate } from "react-router-dom";
 const parseAddress = (address) => {
   if (!address) return { street: "", houseNumber: "" };
 
+  const normalizedAddress = address
+    .replace(/\s+/g, " ")
+    .replace(/,+/g, ",")
+    .trim();
   const housePattern = /(\d+[А-Яа-я]?(?:\/\d+)?(?:\s+[кК](?:орпус)?\s*\d+)?)$/;
-  const match = address.match(housePattern);
+  const match = normalizedAddress.match(housePattern);
 
   if (match) {
     const houseNumber = match[1].trim();
-    const street = address.replace(match[0], "").trim();
+    const street = normalizedAddress
+      .replace(match[0], "")
+      .replace(/[ ,]+$/, "")
+      .trim();
     return { street, houseNumber };
   }
 
-  return { street: address, houseNumber: "" };
+  return {
+    street: normalizedAddress.replace(/[ ,]+$/, "").trim(),
+    houseNumber: "",
+  };
 };
 
 export default function AddCompany() {
@@ -38,12 +48,19 @@ export default function AddCompany() {
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isAddingAddress, setIsAddingAddress] = useState(false);
+  const [isSavingAddress, setIsSavingAddress] = useState(false);
+  const [addressMode, setAddressMode] = useState("input");
+  const [addressSaveError, setAddressSaveError] = useState("");
   const navigate = useNavigate();
 
   const handleSelect = (location) => {
     setSelectedLocation(location);
+  };
+
+  const formatSelectedAddress = (address) => {
+    if (!address) return "";
+    const parsed = parseAddress(address);
+    return [parsed.street, parsed.houseNumber].filter(Boolean).join(", ");
   };
 
   const methods = useForm({
@@ -60,21 +77,36 @@ export default function AddCompany() {
   const { handleSubmit, reset } = methods;
 
   const handleSaveAddress = async () => {
-    setIsSaving(true);
+    if (!selectedLocation) {
+      setAddressSaveError(t("company.addressSelection.noLocation"));
+      return false;
+    }
+
+    setAddressSaveError("");
+    setIsSavingAddress(true);
 
     try {
       const { lng, lat, address } = selectedLocation;
       const parsedAddress = parseAddress(address);
+      const formattedAddress = [parsedAddress.street, parsedAddress.houseNumber]
+        .filter(Boolean)
+        .join(", ");
 
-      await findOrCreateAddress(
-        lat,
-        lng,
-        `${parsedAddress.street}, ${parsedAddress.houseNumber}`,
-      );
+      const addressId = await findOrCreateAddress(lat, lng, formattedAddress);
+
+      methods.setValue("addressId", addressId, {
+        shouldValidate: true,
+        shouldDirty: true,
+        shouldTouch: true,
+      });
+
+      return true;
     } catch (error) {
       console.error("Failed to save address:", error);
+      setAddressSaveError(t("company.addressSelection.saveError"));
+      return false;
     } finally {
-      setIsSaving(false);
+      setIsSavingAddress(false);
     }
   };
 
@@ -127,7 +159,15 @@ export default function AddCompany() {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    if (addressMode === "map") {
+      if (!data.addressId) {
+        const saved = await handleSaveAddress();
+        if (!saved) return;
+        data.addressId = methods.getValues("addressId");
+      }
+    }
+
     mutation.mutate(data);
   };
 
@@ -144,7 +184,7 @@ export default function AddCompany() {
         <p>{t("company.addressInfo.instructions")}</p>
         <Button
           className={styles.infoButton}
-          onClick={() => setIsAddingAddress(true)}
+          onClick={() => setAddressMode("map")}
         >
           {t("company.addressInfo.add")}
         </Button>
@@ -159,28 +199,6 @@ export default function AddCompany() {
         icon={WrenchScrewdriverIcon}
         info={Info}
       />
-
-      {isAddingAddress && (
-        <div className={styles.createAddressContent}>
-          <Map onSelect={handleSelect} />
-          {selectedLocation && (
-            <div className={styles.selectedAddress}>
-              <strong>{t("company.selectedAddress")}</strong>
-              <span>{selectedLocation.address}</span>
-            </div>
-          )}
-          <div className={styles.buttons}>
-            <Button
-              onClick={handleSaveAddress}
-              disabled={!selectedLocation || isSaving}
-            >
-              {isSaving
-                ? t("common.saving")
-                : t("employeeSurveysCreateForm.create")}
-            </Button>
-          </div>
-        </div>
-      )}
 
       <div className={styles.content}>
         <FormProvider {...methods}>
@@ -202,13 +220,69 @@ export default function AddCompany() {
                 rules={{ required: t("company.nameRequired") }}
               />
 
-              <AutocompleteField
-                label={t("user.address")}
-                name="addressId"
-                options={streetOptions}
-                onSearch={handleStreetSearch}
-                loading={isFetching}
-              />
+              <div className={styles.addressMode}>
+                <div className={styles.modeToggle}>
+                  <Button
+                    type="button"
+                    variant={addressMode === "input" ? "primary" : "secondary"}
+                    onClick={() => setAddressMode("input")}
+                  >
+                    {t("company.addressSelection.search")}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={addressMode === "map" ? "primary" : "secondary"}
+                    onClick={() => setAddressMode("map")}
+                  >
+                    {t("company.addressSelection.map")}
+                  </Button>
+                </div>
+
+                {addressMode === "input" && (
+                  <AutocompleteField
+                    label={t("user.address")}
+                    name="addressId"
+                    options={streetOptions}
+                    onSearch={handleStreetSearch}
+                    loading={isFetching}
+                  />
+                )}
+
+                {addressMode === "map" && (
+                  <div className={styles.mapSection}>
+                    <div className={styles.mapContainer}>
+                      <Map onSelect={handleSelect} allowMarkers={true} />
+                    </div>
+                    <div className={styles.selectedAddress}>
+                      <strong>{t("company.selectedAddress")}</strong>
+                      <span>
+                        {selectedLocation
+                          ? formatSelectedAddress(selectedLocation.address)
+                          : t("company.addressSelection.noLocation")}
+                      </span>
+                    </div>
+                    <div className={styles.buttons}>
+                      <Button
+                        type="button"
+                        onClick={handleSaveAddress}
+                        disabled={!selectedLocation || isSavingAddress}
+                      >
+                        {isSavingAddress
+                          ? t("common.saving")
+                          : t("company.addressSelection.save")}
+                      </Button>
+                    </div>
+                    {addressSaveError && (
+                      <p className={styles.error}>{addressSaveError}</p>
+                    )}
+                    {methods.watch("addressId") && !addressSaveError && (
+                      <p className={styles.success}>
+                        {t("company.addressSelection.saved")}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
 
               <MaskedInputField
                 label={t("user.phone")}

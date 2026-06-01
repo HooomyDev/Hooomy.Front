@@ -10,6 +10,7 @@
   margin-bottom: var(--spacing-md);
   font-weight: 600;
   font-size: var(--font-size-xl);
+  color: var(--font-color);
 }
 
 .fileCount {
@@ -69,6 +70,10 @@
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.selectedAddress strong {
+  color: var(--font-color);
 }
 
 .previewImage {

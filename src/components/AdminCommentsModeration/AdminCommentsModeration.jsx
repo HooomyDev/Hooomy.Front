@@ -211,84 +211,86 @@ export default function AdminCommentsModeration() {
                 {t("adminComments.empty")}
               </EmptyBlock>
             ) : (
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>
-                      {t("adminComments.table.id")}
-                      {sortConfig.key === "id" &&
-                        (sortConfig.direction === "asc" ? (
-                          <ChevronUpIcon className={styles.sortIcon} />
-                        ) : (
-                          <ChevronDownIcon className={styles.sortIcon} />
-                        ))}
-                    </th>
-                    <th onClick={() => handleSort("author")}>
-                      {t("adminComments.table.author")}
-                      {sortConfig.key === "author" &&
-                        (sortConfig.direction === "asc" ? (
-                          <ChevronUpIcon className={styles.sortIcon} />
-                        ) : (
-                          <ChevronDownIcon className={styles.sortIcon} />
-                        ))}
-                    </th>
-                    <th>{t("adminComments.table.comment")}</th>
-                    <th onClick={() => handleSort("status")}>
-                      {t("adminComments.table.status")}
-                      {sortConfig.key === "status" &&
-                        (sortConfig.direction === "asc" ? (
-                          <ChevronUpIcon className={styles.sortIcon} />
-                        ) : (
-                          <ChevronDownIcon className={styles.sortIcon} />
-                        ))}
-                    </th>
-                    <th>{t("adminComments.table.createdAt")}</th>
-                    <th>{t("adminComments.table.actions")}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.requestComments.map((c) => (
-                    <tr key={c.id}>
-                      <td className={styles.idCell}>{c.id}</td>
-                      <td className={styles.nameCell}>{c.senderName}</td>
-                      <td className={styles.textCell}>{c.text}</td>
-                      <td className={styles.statusCell}>
-                        {renderStatus(c.status)}
-                      </td>
-                      <td className={styles.dateCell}>
-                        {format(new Date(c.createdAt), "dd MMM yyyy, HH:mm", {
-                          locale: ru,
-                        })}
-                      </td>
-                      <td className={styles.actions}>
-                        <button
-                          className={styles.viewButton}
-                          title={t("adminComments.actions.view")}
-                          onClick={() => handleViewClick(c)}
-                        >
-                          <EyeIcon className={styles.buttonIcon} />
-                        </button>
-                        <button
-                          className={styles.approveButton}
-                          title={t("adminComments.actions.approve")}
-                          onClick={() =>
-                            statusMutation.mutate({ ...c, status: 2 })
-                          }
-                        >
-                          <CheckCircleIcon className={styles.buttonIcon} />
-                        </button>
-                        <button
-                          className={styles.blockButton}
-                          title={t("adminComments.actions.delete")}
-                          onClick={() => deleteMutation.mutate(c.id)}
-                        >
-                          <TrashIcon className={styles.buttonIcon} />
-                        </button>
-                      </td>
+              <div className={styles.tableWrapper}>
+                <table className={styles.table}>
+                  <thead>
+                    <tr>
+                      <th>
+                        {t("adminComments.table.id")}
+                        {sortConfig.key === "id" &&
+                          (sortConfig.direction === "asc" ? (
+                            <ChevronUpIcon className={styles.sortIcon} />
+                          ) : (
+                            <ChevronDownIcon className={styles.sortIcon} />
+                          ))}
+                      </th>
+                      <th onClick={() => handleSort("author")}>
+                        {t("adminComments.table.author")}
+                        {sortConfig.key === "author" &&
+                          (sortConfig.direction === "asc" ? (
+                            <ChevronUpIcon className={styles.sortIcon} />
+                          ) : (
+                            <ChevronDownIcon className={styles.sortIcon} />
+                          ))}
+                      </th>
+                      <th>{t("adminComments.table.comment")}</th>
+                      <th onClick={() => handleSort("status")}>
+                        {t("adminComments.table.status")}
+                        {sortConfig.key === "status" &&
+                          (sortConfig.direction === "asc" ? (
+                            <ChevronUpIcon className={styles.sortIcon} />
+                          ) : (
+                            <ChevronDownIcon className={styles.sortIcon} />
+                          ))}
+                      </th>
+                      <th>{t("adminComments.table.createdAt")}</th>
+                      <th>{t("adminComments.table.actions")}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {data.requestComments.map((c) => (
+                      <tr key={c.id}>
+                        <td className={styles.idCell}>{c.id}</td>
+                        <td className={styles.nameCell}>{c.senderName}</td>
+                        <td className={styles.textCell}>{c.text}</td>
+                        <td className={styles.statusCell}>
+                          {renderStatus(c.status)}
+                        </td>
+                        <td className={styles.dateCell}>
+                          {format(new Date(c.createdAt), "dd MMM yyyy, HH:mm", {
+                            locale: ru,
+                          })}
+                        </td>
+                        <td className={styles.actions}>
+                          <button
+                            className={styles.viewButton}
+                            title={t("adminComments.actions.view")}
+                            onClick={() => handleViewClick(c)}
+                          >
+                            <EyeIcon className={styles.buttonIcon} />
+                          </button>
+                          <button
+                            className={styles.approveButton}
+                            title={t("adminComments.actions.approve")}
+                            onClick={() =>
+                              statusMutation.mutate({ ...c, status: 2 })
+                            }
+                          >
+                            <CheckCircleIcon className={styles.buttonIcon} />
+                          </button>
+                          <button
+                            className={styles.blockButton}
+                            title={t("adminComments.actions.delete")}
+                            onClick={() => deleteMutation.mutate(c.id)}
+                          >
+                            <TrashIcon className={styles.buttonIcon} />
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </FormProvider>
           <Pagination

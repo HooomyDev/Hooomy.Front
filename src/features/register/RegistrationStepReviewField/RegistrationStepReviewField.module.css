@@ -8,7 +8,7 @@
 
 .label {
   font-weight: 700;
-  color: var(--color-text-secondary);
+  color: var(--font-color);
 }
 
 .value {

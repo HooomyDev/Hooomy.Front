@@ -5,12 +5,14 @@
 
 .navigation {
   display: flex;
+  color: var(--font-color);
   flex-direction: column;
 }
 
 .tab {
   display: flex;
   align-items: center;
+  color: var(--font-color);
   justify-content: center;
   width: 200px;
   min-height: 5rem;
@@ -44,6 +46,7 @@
   font-weight: 600;
   display: flex;
   align-items: center;
+  color: var(--font-color);
   gap: var(--spacing-sm);
   border-bottom: 1px solid var(--gray-color);
   padding: 0 var(--spacing-xxl) 0 var(--spacing-xxl);

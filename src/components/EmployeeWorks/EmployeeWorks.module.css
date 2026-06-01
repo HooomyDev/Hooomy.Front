@@ -123,7 +123,7 @@
 .title {
   font-size: 18px;
   font-weight: 600;
-  color: #1e293b;
+  color: var(--font-color);
   margin: 0;
 }
 
@@ -210,6 +210,12 @@
   color: #cbd5e1;
 }
 
+.actionButtons {
+  display: flex;
+  flex-direction: row;
+  gap: var(--spacing-sm);
+}
+
 @media (max-width: 720px) {
   .wrapper {
     width: 100%;
@@ -232,10 +238,9 @@
       display: flex;
     }
   }
-}
 
-.actionButtons {
-  display: flex;
-  flex-direction: row;
-  gap: var(--spacing-sm);
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
 }

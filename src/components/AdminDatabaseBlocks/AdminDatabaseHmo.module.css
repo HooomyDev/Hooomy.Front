@@ -53,9 +53,9 @@
   align-items: center;
   gap: var(--spacing-xl);
   padding: var(--spacing-lg) var(--spacing-xl);
-  background: #ffffff;
+  background: var(--main-color);
   border-radius: var(--border-radius);
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--gray-color);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   transition:
     box-shadow 0.2s ease,
@@ -235,4 +235,32 @@
 
 .addButton:hover {
   opacity: 0.9;
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+    padding: 0;
+    gap: var(--spacing-lg);
+  }
+  .content {
+    flex-direction: column;
+  }
+
+  .searchBlock {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  .searchField {
+    width: 100%;
+  }
+
+  .addNewUserButton {
+    min-width: 100%;
+    gap: var(--spacing-sm);
+    .text {
+      display: flex;
+    }
+  }
 }

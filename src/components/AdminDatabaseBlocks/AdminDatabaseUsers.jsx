@@ -188,7 +188,7 @@ export default function AdminDatabaseUsers() {
             </div>
           </div>
         </Block>
-        <Block title={t("adminUsers.title")} Icon={UserGroupIcon}>
+        <div className={styles.tableWrapper}>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -275,24 +275,24 @@ export default function AdminDatabaseUsers() {
               ))}
             </tbody>
           </table>
+        </div>
 
-          {visibleCount < filteredAndSortedUsers.length && (
-            <div className={styles.showMoreWrapper}>
-              <button
-                onClick={() => setVisibleCount((prev) => prev + 5)}
-                className={styles.showMoreButton}
-              >
-                {t("adminUsers.showMore")}
-              </button>
-            </div>
-          )}
+        {visibleCount < filteredAndSortedUsers.length && (
+          <div className={styles.showMoreWrapper}>
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 5)}
+              className={styles.showMoreButton}
+            >
+              {t("adminUsers.showMore")}
+            </button>
+          </div>
+        )}
 
-          {filteredAndSortedUsers.length === 0 && (
-            <div className={styles.noData}>
-              <p>{t("adminUsers.notFound")}</p>
-            </div>
-          )}
-        </Block>
+        {filteredAndSortedUsers.length === 0 && (
+          <div className={styles.noData}>
+            <p>{t("adminUsers.notFound")}</p>
+          </div>
+        )}
       </FormProvider>
     </div>
   );

@@ -62,7 +62,7 @@
 }
 
 .table {
-  width: 95%;
+  width: 100%;
   border-collapse: collapse;
   font-size: 14px;
   background-color: var(--main-color);
@@ -70,29 +70,27 @@
   font-size: var(--font-size-base);
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: var(--border-radius);
+  overflow-x: auto;
 }
 
 .table thead {
-  background-color: #f3f4f6;
+  background-color: var(--main-color);
 }
 
 .table th {
   text-align: left;
   padding: 12px 16px;
   font-weight: 600;
-  color: #374151;
-  border-bottom: 1px solid #e5e7eb;
+  color: var(--font-color);
+  border-bottom: 1px solid var(--gray-color);
 }
 
 .table td {
   padding: 12px 16px;
   border-bottom: none;
-  color: #4b5563;
+  color: var(--font-color);
   box-sizing: border-box;
-}
-
-.table tr:hover td {
-  background-color: #f9fafb;
 }
 
 .statCard {
@@ -204,4 +202,39 @@
 
 .actionIcon {
   width: 1.5rem;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+@media (max-width: 720px) {
+  .wrapper {
+    width: 100%;
+  }
+
+  .searchBlock {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .searchField,
+  .roleField {
+    width: 100%;
+  }
+
+  .table {
+    overflow-x: auto;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 12px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
 }

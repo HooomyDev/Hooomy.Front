@@ -22,6 +22,7 @@
   flex-direction: row;
   gap: var(--spacing-xl);
   border-bottom: 1px solid var(--gray-color);
+  color: var(--font-color);
 
   .icon {
     width: 40px;
@@ -51,6 +52,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: var(--spacing-xl);
+  color: var(--font-color);
 }
 
 .infoCard {
@@ -349,11 +351,12 @@
 .reviewItem {
   display: flex;
   flex-direction: column;
-  background: #f8fafc;
+  background: var(--main-color);
   border-radius: 12px;
   padding: 16px 20px;
   gap: var(--spacing-sm);
-  border: 1px solid #e2e8f0;
+  color: var(--font-color);
+  border: 1px solid var(--gray-color);
   width: 350px;
   height: 200px;
 }
@@ -399,6 +402,8 @@
 }
 
 .reviewText {
+  font-size: var(--font-size-lg);
+  color: var(--font-color);
   word-wrap: break-word;
   overflow-y: auto;
 }
@@ -406,7 +411,7 @@
 .date {
   margin-left: auto;
   font-size: var(--font-size-sm);
-  color: #334155;
+  color: var(--font-color);
 }
 
 .header {

@@ -11,6 +11,7 @@
 }
 
 .title {
+  color: var(--font-color);
   font-size: var(--font-size-subtitle);
   font-weight: 700;
   width: 100%;
@@ -44,5 +45,8 @@
   }
   .title {
     font-size: var(--font-size-xxl);
+  }
+  .searchForm {
+    width: 100%;
   }
 }

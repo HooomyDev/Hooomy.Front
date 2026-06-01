@@ -36,5 +36,9 @@
   min-width: 80px;
   text-align: right;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--font-color);
+}
+
+.typeValue {
+  color: var(--font-color);
 }

@@ -109,10 +109,12 @@
 }
 
 .myMessage {
+  color: var(--font-color);
   align-self: flex-end;
 }
 
 .theirMessage {
+  color: var(--font-color);
   align-self: flex-start;
 }
 

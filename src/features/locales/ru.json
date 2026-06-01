@@ -132,6 +132,39 @@
     "step4Contact": "Контактные данные"
   },
 
+  "adminUsers": {
+    "title": "Пользователи",
+    "search": "Поиск",
+    "searchPlaceholder": "Имя / Email",
+    "role": "Роль",
+    "status": "Статус",
+    "allStatuses": "Все статусы",
+    "allRoles": "Все роли",
+    "approved": "Одобрено",
+    "pending": "Ожидает подтверждения",
+    "banned": "Забанен",
+    "deleted": "Удалено",
+    "resident": "Жилец",
+    "employee": "Сотрудник ЖКХ",
+    "admin": "Администратор",
+    "unknown": "Неизвестно",
+    "notSpecified": "Не указано",
+    "approve": "Одобрить",
+    "ban": "Заблокировать",
+    "delete": "Удалить",
+    "showMore": "Показать ещё 5",
+    "notFound": "Пользователи не найдены",
+    "table": {
+      "id": "ID",
+      "fullName": "Имя",
+      "email": "Email",
+      "role": "Роль",
+      "phoneNumber": "Номер телефона",
+      "status": "Статус",
+      "actions": "Действия"
+    }
+  },
+
   "auth": { "next1": "Продолжить", "next2": "Далее", "prev": "Назад" },
   "footer": {
     "navigation": "Навигация",
@@ -1224,6 +1257,11 @@
     "answerRequired": "Введите вариант",
     "answerPlaceholder": "Вариант",
     "addAnswer": "+ Добавить вариант",
+    "titleMinLength": "Название должно содержать не менее {{count}} символов",
+    "successMessage": "Опрос успешно создан",
+    "errorMessage": "Не удалось создать опрос. Пожалуйста, попробуйте позже.",
+    "minAnswersError": "Укажите как минимум 2 варианта ответа.",
+    "maxAnswersError": "Можно добавить не более 5 вариантов ответа.",
     "continue": "Далее",
     "back": "Назад",
     "create": "Создать"
@@ -1518,6 +1556,14 @@
       "addManually": "Если адреса всё ещё нет, вы можете добавить его вручную",
       "instructions": "Для добавления адреса нажмите на кнопку ниже.",
       "add": "Добавить"
+    },
+    "addressSelection": {
+      "search": "Поиск по адресу",
+      "map": "Выбрать на карте",
+      "save": "Сохранить адрес",
+      "saved": "Адрес выбран",
+      "noLocation": "Выберите точку на карте",
+      "saveError": "Не удалось сохранить адрес. Пожалуйста, попробуйте позже."
     },
     "selectedAddress": "Выбранный адрес:",
     "emailPlaceholder": "company@example.com",

@@ -12,7 +12,7 @@
   margin: 0;
   font-size: 20px;
   font-weight: 700;
-  color: #111827;
+  color: var(--font-color);
   flex: 1;
 }
 
@@ -101,7 +101,8 @@
 .statLabel {
   font-size: var(--font-size-base);
   font-weight: 600;
-  color: #6b7280;
+  color: var(--font-color);
+
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -109,13 +110,15 @@
 .statCardContent {
   display: flex;
   flex-direction: column;
+  color: var(--font-color);
   gap: var(--spacing-lg);
 }
 
 .statNumber {
   font-size: 32px;
   font-weight: 800;
-  color: #111827;
+  color: var(--font-color);
+
   line-height: 1;
 }
 

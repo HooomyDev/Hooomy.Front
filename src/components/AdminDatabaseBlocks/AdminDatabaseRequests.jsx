@@ -259,7 +259,9 @@ export default function AdminDatabaseRequests() {
                           </span>
                           <span className={styles.category}>
                             <CubeIcon className={styles.icon} />{" "}
-                            {categoryMap[request.category]}
+                            {t(
+                              `statistic.categories.${categoryMap[request.category]}`,
+                            )}
                           </span>
                         </div>
                         <div className={styles.actions}>

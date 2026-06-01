@@ -15,6 +15,7 @@
   display: flex;
   flex-direction: row;
   gap: var(--spacing-sm);
+  color: var(--font-color);
 }
 
 .header .count {
@@ -38,7 +39,7 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #122435;
+  color: var(--font-color);
 }
 
 .commentsList {
@@ -52,7 +53,7 @@
 .emptyState {
   text-align: center;
   padding: 40px 20px;
-  background: #f5f5f5;
+  background: var(--main-color);
   border-radius: 12px;
 }
 
@@ -63,25 +64,15 @@
   margin-bottom: 12px;
 }
 
-.emptyState p {
-  color: #122435;
-  opacity: 0.6;
-  margin: 0;
-}
-
 .commentItem {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
+  background: var(--main-color);
+  border: 1px solid var(--gray-color);
   border-radius: 12px;
   margin-bottom: 12px;
-}
-
-.commentItem:hover {
-  background: #f9f9f9;
 }
 
 .commentAvatar {
@@ -91,8 +82,8 @@
 .avatarIcon {
   width: 40px;
   height: 40px;
-  color: #3dbfa3;
-  background: #e3f7f3;
+  color: var(--element-color);
+  background: var(--main-color);
   padding: 8px;
   border-radius: 50%;
   align-self: center;
@@ -117,33 +108,35 @@
 
 .commentAuthor {
   font-weight: 600;
-  color: #122435;
+  color: var(--font-color);
 }
 
 .commentRole {
   font-size: 12px;
   padding: 2px 8px;
-  background: #3dbfa3;
-  color: #fff;
+  background: var(--element-color);
+  color: var(--main-color);
   border-radius: 12px;
 }
 
 .commentDate {
   font-size: 12px;
-  color: #122435;
+  color: var(--font-color);
+
   opacity: 0.5;
 }
 
 .commentText {
   margin: 0;
-  color: #122435;
+  color: var(--font-color);
+
   line-height: 1.5;
 }
 
 .commentForm {
   margin-top: 16px;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid var(--gray-color);
   display: flex;
   flex-direction: row;
   gap: var(--spacing-sm);

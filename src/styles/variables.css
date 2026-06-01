@@ -31,7 +31,8 @@
   --main-color: #122435;
   --font-color: #f4f7f9;
   --element-color: #6bcfa8;
-  --gray-color: #1e2e45;
+  --card-background: #001b15;
+  --gray-color: #2a3648;
 }
 
 [data-theme="blue"] {

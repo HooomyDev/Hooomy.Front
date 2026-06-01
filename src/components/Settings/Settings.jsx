@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Settings.module.css";
 import Block from "../../common/Block/Block";
 import SelectField from "../../common/SelectField/SelectField";
@@ -11,7 +11,6 @@ import { Cog6ToothIcon } from "@heroicons/react/24/solid";
 export default function Settings() {
   const { t, i18n } = useTranslation();
   const currentLanguage = localStorage.getItem("lang") || "ru";
-  const [selected, setSelected] = useState([]);
 
   const langOptions = [
     { value: "ru", label: "Русский" },
@@ -28,14 +27,6 @@ export default function Settings() {
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
     localStorage.setItem("lang", lang);
-  };
-
-  const toggleNotification = (value) => {
-    setSelected((prev) =>
-      prev.includes(value)
-        ? prev.filter((item) => item !== value)
-        : [...prev, value]
-    );
   };
 
   return (

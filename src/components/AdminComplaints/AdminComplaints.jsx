@@ -133,13 +133,11 @@ export default function AdminComplaints() {
         <Block>
           <FormProvider {...methods}>
             <form className={styles.filterForm}>
-              <div className={styles.searchWrap}>
-                <InputField
-                  name="shortDescription"
-                  label={t("adminComplaints.search")}
-                  placeholder={t("adminComplaints.searchPlaceholder")}
-                />
-              </div>
+              <InputField
+                name="shortDescription"
+                label={t("adminComplaints.search")}
+                placeholder={t("adminComplaints.searchPlaceholder")}
+              />
               <SelectField
                 name="status"
                 label={t("adminComplaints.statusLabel")}

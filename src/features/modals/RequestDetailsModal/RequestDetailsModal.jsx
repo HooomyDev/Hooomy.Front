@@ -153,7 +153,7 @@ export default function RequestDetailsModal({
                 <div className={styles.reviewWrapper}>
                   <Button
                     variant="secondary"
-                    className={styles.reviewButton}
+                    className={styles.reviewButton2}
                     onClick={() => setShowRatingModal(true)}
                   >
                     {t("requestDetailsModal.actions.rateWork")}

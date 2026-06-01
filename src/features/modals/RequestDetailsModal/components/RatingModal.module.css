@@ -12,7 +12,7 @@
 }
 
 .ratingModal {
-  background: white;
+  background: var(--main-color);
   border-radius: 16px;
   width: 450px;
   max-width: 500px;

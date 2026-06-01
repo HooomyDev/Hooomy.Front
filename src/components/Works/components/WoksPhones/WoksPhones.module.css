@@ -19,6 +19,7 @@
   width: 90%;
   font-size: var(--font-size-xl);
   font-weight: 600;
+  color: var(--font-color);
 }
 
 .phoneList {

@@ -12,7 +12,7 @@
 .table th {
   text-align: left;
   padding: var(--spacing-md);
-  background: #f9fafb;
+  background: var(--main-color);
   font-weight: 600;
   color: var(--font-color);
   border-bottom: 2px solid var(--gray-color);
@@ -22,7 +22,7 @@
 }
 
 .requestRow:hover {
-  background: #e3e4e5;
+  background: var(--main-color);
 }
 
 .table td {
@@ -70,6 +70,7 @@
   gap: var(--spacing-md);
   align-items: center;
   justify-content: flex-start;
+  color: var(--font-color);
 }
 
 .street {
@@ -183,4 +184,8 @@
 
 .rejectButton:hover {
   background: #fecaca;
+}
+
+.category {
+  color: var(--font-color);
 }
